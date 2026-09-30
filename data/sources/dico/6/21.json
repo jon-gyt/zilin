@@ -1,0 +1,1374 @@
+{
+ "niveau": "6",
+ "lot": "21",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/21.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:dd5cb9a7cd6efc81ffe5359bd66dcc12f84caa0cd02ff73fe1c5eada5aed3d72",
+  "contexte": "wenlu dico contexte 6 21",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L6-0908",
+   "genre": "mot",
+   "hanzi": "信用",
+   "pinyin": "xìnyòng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "crédit, fiabilité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fiabilité, parole tenue, crédibilité"
+     },
+     {
+      "categorie": "N",
+      "fr": "crédit : finance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个讲信用的人。",
+     "pinyin": "Tā shì yī ge jiǎng xìnyòng de rén.",
+     "fr": "C'est quelqu'un qui tient parole.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "旺",
+   "genre": "caractere",
+   "hanzi": "旺",
+   "pinyin": "wàng",
+   "mots": [
+    "L7-4275"
+   ],
+   "sens": {
+    "glose": "vif, ardent ; prospère",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vif, ardent : un feu"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "prospère, florissant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "火烧得很旺。",
+     "pinyin": "Huǒ shāo de hěn wàng.",
+     "fr": "Le feu flambe bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0909",
+   "genre": "mot",
+   "hanzi": "兴旺",
+   "pinyin": "xīngwàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "prospère, florissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "prospère, florissant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他家的生意越来越兴旺。",
+     "pinyin": "Tā jiā de shēngyi yuèláiyuè xīngwàng.",
+     "fr": "Les affaires de sa famille marchent de mieux en mieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0910",
+   "genre": "mot",
+   "hanzi": "行程",
+   "pinyin": "xíngchéng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "itinéraire, trajet, programme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "itinéraire, trajet, programme de voyage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们的行程安排得很满。",
+     "pinyin": "Wǒmen de xíngchéng ānpái de hěn mǎn.",
+     "fr": "Notre voyage est très chargé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "凶",
+   "genre": "caractere",
+   "hanzi": "凶",
+   "pinyin": "xiōng",
+   "mots": [
+    "L6-0912"
+   ],
+   "sens": {
+    "glose": "féroce, méchant ; néfaste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "féroce, méchant, dur"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "néfaste, de mauvais augure"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "violent, terrible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那只狗很凶。",
+     "pinyin": "Nà zhī gǒu hěn xiōng.",
+     "fr": "Ce chien est agressif.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0913",
+   "genre": "mot",
+   "hanzi": "凶手",
+   "pinyin": "xiōngshǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "meurtrier, assassin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "meurtrier, assassin, coupable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察抓住了凶手。",
+     "pinyin": "Jǐngchá zhuāzhù le xiōngshǒu.",
+     "fr": "La police a arrêté le tueur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0914",
+   "genre": "mot",
+   "hanzi": "修车",
+   "pinyin": "xiū chē",
+   "sens": {
+    "glose": "réparer un véhicule",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réparer un véhicule, un vélo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在路边修车。",
+     "pinyin": "Tā zài lù biān xiū chē.",
+     "fr": "Il répare des vélos au bord de la route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0915",
+   "genre": "mot",
+   "hanzi": "袖珍",
+   "pinyin": "xiùzhēn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "de poche, miniature",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de poche, miniature"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一本袖珍词典。",
+     "pinyin": "Zhè shì yī běn xiùzhēn cídiǎn.",
+     "fr": "C'est un petit dictionnaire qui tient dans la poche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "悬",
+   "genre": "caractere",
+   "hanzi": "悬",
+   "pinyin": "xuán",
+   "mots": [
+    "L6-0916"
+   ],
+   "sens": {
+    "glose": "suspendre ; en suspens, risqué",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suspendre, pendre"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "en suspens ; risqué, périlleux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "墙上悬着一幅画。",
+     "pinyin": "Qiáng shang xuán zhe yī fú huà.",
+     "fr": "Un tableau est accroché au mur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "旋",
+   "genre": "caractere",
+   "hanzi": "旋",
+   "pinyin": "xuán",
+   "sens": {
+    "glose": "tourner ; revenir ; tourbillon",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tourner, tournoyer"
+     },
+     {
+      "categorie": "V",
+      "fr": "revenir"
+     },
+     {
+      "categorie": "N",
+      "fr": "tourbillon",
+      "pinyin": "xuàn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0917",
+   "genre": "mot",
+   "hanzi": "旋转",
+   "pinyin": "xuánzhuǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tourner, pivoter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tourner, pivoter, tournoyer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "地球绕着太阳旋转。",
+     "pinyin": "Dìqiú rào zhe tàiyáng xuánzhuǎn.",
+     "fr": "La Terre tourne autour du Soleil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0918",
+   "genre": "mot",
+   "hanzi": "选拔",
+   "pinyin": "xuǎnbá",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sélectionner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sélectionner, choisir les meilleurs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校要选拔三名学生参加比赛。",
+     "pinyin": "Xuéxiào yào xuǎnbá sān míng xuésheng cānjiā bǐsài.",
+     "fr": "L'école va retenir trois élèves pour le concours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0919",
+   "genre": "mot",
+   "hanzi": "选举",
+   "pinyin": "xuǎnjǔ",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "élire ; élection",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "élire"
+     },
+     {
+      "categorie": "N",
+      "fr": "élection"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明年要选举新市长。",
+     "pinyin": "Míngnián yào xuǎnjǔ xīn shìzhǎng.",
+     "fr": "L'an prochain, on vote pour un nouveau maire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0920",
+   "genre": "mot",
+   "hanzi": "学会",
+   "pinyin": "xuéhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "société savante",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "société savante, association académique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是中国语言学会的会员。",
+     "pinyin": "Tā shì Zhōngguó yǔyán xuéhuì de huìyuán.",
+     "fr": "Il est membre de la société chinoise de linguistique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0921",
+   "genre": "mot",
+   "hanzi": "学员",
+   "pinyin": "xuéyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "stagiaire, élève (d'une formation)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "stagiaire, élève d'une formation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个班有二十名学员。",
+     "pinyin": "Zhège bān yǒu èrshí míng xuéyuán.",
+     "fr": "Cette formation compte vingt participants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0922",
+   "genre": "mot",
+   "hanzi": "血管",
+   "pinyin": "xuèguǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vaisseau sanguin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vaisseau sanguin, veine, artère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的手上能看到蓝色的血管。",
+     "pinyin": "Tā de shǒu shang néng kàndào lánsè de xuèguǎn.",
+     "fr": "On voit ses veines bleues sur ses mains.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "液",
+   "genre": "caractere",
+   "hanzi": "液",
+   "pinyin": "yè",
+   "sens": {
+    "glose": "liquide, fluide",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "liquide, fluide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0923",
+   "genre": "mot",
+   "hanzi": "血液",
+   "pinyin": "xuèyè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sang",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sang"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "心脏把血液送到全身。",
+     "pinyin": "Xīnzàng bǎ xuèyè sòng dào quánshēn.",
+     "fr": "Le cœur envoie le sang dans tout le corps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "循",
+   "genre": "caractere",
+   "hanzi": "循",
+   "pinyin": "xún",
+   "sens": {
+    "glose": "suivre, se conformer à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suivre, se conformer à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0924",
+   "genre": "mot",
+   "hanzi": "循环",
+   "pinyin": "xúnhuán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "circuler, tourner en cycle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "circuler, tourner en cycle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水在自然界中不断循环。",
+     "pinyin": "Shuǐ zài zìránjiè zhōng bùduàn xúnhuán.",
+     "fr": "Dans la nature, l'eau suit un cycle sans fin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0925",
+   "genre": "mot",
+   "hanzi": "压迫",
+   "pinyin": "yāpò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "opprimer ; comprimer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "opprimer"
+     },
+     {
+      "categorie": "V",
+      "fr": "comprimer, peser sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们不愿意再受压迫。",
+     "pinyin": "Tāmen bù yuànyì zài shòu yāpò.",
+     "fr": "Ils ne veulent plus être traités en esclaves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0926",
+   "genre": "mot",
+   "hanzi": "烟花",
+   "pinyin": "yānhuā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "feu d'artifice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "feu d'artifice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过年的时候大家放烟花。",
+     "pinyin": "Guònián de shíhou dàjiā fàng yānhuā.",
+     "fr": "Au Nouvel An, tout le monde tire des fusées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "沿",
+   "genre": "caractere",
+   "hanzi": "沿",
+   "pinyin": "yán",
+   "mots": [
+    "L6-0927"
+   ],
+   "sens": {
+    "glose": "le long de ; bord",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "le long de, en suivant"
+     },
+     {
+      "categorie": "N",
+      "fr": "bord, rebord"
+     },
+     {
+      "categorie": "V",
+      "fr": "suivre, perpétuer : une tradition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "沿河走十分钟就到了。",
+     "pinyin": "Yán hé zǒu shí fēnzhōng jiù dào le.",
+     "fr": "Suivez la rivière dix minutes et vous y êtes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0928",
+   "genre": "mot",
+   "hanzi": "沿海",
+   "pinyin": "yánhǎi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "littoral, régions côtières",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "littoral, régions côtières"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "沿海城市经济很发达。",
+     "pinyin": "Yánhǎi chéngshì jīngjì hěn fādá.",
+     "fr": "Les villes de la côte sont très développées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0929",
+   "genre": "mot",
+   "hanzi": "沿着",
+   "pinyin": "yánzhe",
+   "sens": {
+    "glose": "le long de",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "le long de, en suivant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们沿着河边散步。",
+     "pinyin": "Wǒmen yánzhe hé biān sànbù.",
+     "fr": "Nous nous promenons au bord de la rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0930",
+   "genre": "mot",
+   "hanzi": "研发",
+   "pinyin": "yánfā",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "développer (recherche et développement)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "concevoir et développer, faire de la recherche appliquée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司正在研发新产品。",
+     "pinyin": "Gōngsī zhèngzài yánfā xīn chǎnpǐn.",
+     "fr": "L'entreprise met au point de nouveaux produits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0931",
+   "genre": "mot",
+   "hanzi": "眼看",
+   "pinyin": "yǎnkàn",
+   "categories": [
+    "V",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "voir de ses yeux ; sur le point de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "voir de ses yeux, regarder faire"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "sur le point de, bientôt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "眼看就要下雨了。",
+     "pinyin": "Yǎnkàn jiù yào xià yǔ le.",
+     "fr": "Il va pleuvoir d'un instant à l'autre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0932",
+   "genre": "mot",
+   "hanzi": "演奏",
+   "pinyin": "yǎnzòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "jouer (d'un instrument)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jouer d'un instrument, interpréter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她为大家演奏了一首曲子。",
+     "pinyin": "Tā wèi dàjiā yǎnzòu le yī shǒu qǔzi.",
+     "fr": "Elle nous a joué un morceau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "宴",
+   "genre": "caractere",
+   "hanzi": "宴",
+   "pinyin": "yàn",
+   "sens": {
+    "glose": "banquet ; offrir un banquet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "banquet, festin"
+     },
+     {
+      "categorie": "V",
+      "fr": "offrir un banquet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0933",
+   "genre": "mot",
+   "hanzi": "宴会",
+   "pinyin": "yànhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "banquet, réception",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "banquet, réception"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "昨晚的宴会很热闹。",
+     "pinyin": "Zuówǎn de yànhuì hěn rènao.",
+     "fr": "Le dîner d'hier soir était très animé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0936",
+   "genre": "mot",
+   "hanzi": "养老",
+   "pinyin": "yǎnglǎo",
+   "sens": {
+    "glose": "vivre sa retraite",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vivre sa retraite ; s'occuper des personnes âgées"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他打算回老家养老。",
+     "pinyin": "Tā dǎsuan huí lǎojiā yǎnglǎo.",
+     "fr": "Il compte passer ses vieux jours dans son village natal.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "氧",
+   "genre": "caractere",
+   "hanzi": "氧",
+   "pinyin": "yǎng",
+   "mots": [
+    "L7-4822"
+   ],
+   "sens": {
+    "glose": "oxygène",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "oxygène"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水里的氧不够，鱼都死了。",
+     "pinyin": "Shuǐ li de yǎng bù gòu, yú dōu sǐ le.",
+     "fr": "L'eau manquait d'air, tous les poissons sont morts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0937",
+   "genre": "mot",
+   "hanzi": "氧气",
+   "pinyin": "yǎngqì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "oxygène (gaz)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "oxygène, le gaz"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上的氧气比较少。",
+     "pinyin": "Shān shang de yǎngqì bǐjiào shǎo.",
+     "fr": "En altitude, l'air est plus pauvre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0939",
+   "genre": "mot",
+   "hanzi": "药品",
+   "pinyin": "yàopǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "médicaments",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "médicaments, produits pharmaceutiques"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些药品要放在冰箱里。",
+     "pinyin": "Zhèxiē yàopǐn yào fàng zài bīngxiāng li.",
+     "fr": "Ces remèdes se conservent au réfrigérateur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0940",
+   "genre": "mot",
+   "hanzi": "要不然",
+   "pinyin": "yàobùrán",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "sinon, autrement",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "sinon, autrement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "快走吧，要不然就迟到了。",
+     "pinyin": "Kuài zǒu ba, yàobùrán jiù chídào le.",
+     "fr": "Dépêche-toi, ou on va être en retard.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0941",
+   "genre": "mot",
+   "hanzi": "要好",
+   "pinyin": "yàohǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "très proche, intime",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "très proche, intime : des amis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们是很要好的朋友。",
+     "pinyin": "Wǒmen shì hěn yàohǎo de péngyou.",
+     "fr": "Nous sommes de très bons amis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0942",
+   "genre": "mot",
+   "hanzi": "要么",
+   "pinyin": "yàome",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "ou bien… ou bien",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "ou bien… ou bien, soit… soit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "要么你来，要么我去。",
+     "pinyin": "Yàome nǐ lái, yàome wǒ qù.",
+     "fr": "Soit tu viens, soit j'y vais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0943",
+   "genre": "mot",
+   "hanzi": "要素",
+   "pinyin": "yàosù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "élément essentiel, facteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "élément essentiel, facteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "时间是成功的要素之一。",
+     "pinyin": "Shíjiān shì chénggōng de yàosù zhī yī.",
+     "fr": "Le temps est une des clés de la réussite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "野",
+   "genre": "caractere",
+   "hanzi": "野",
+   "pinyin": "yě",
+   "mots": [
+    "L6-0944"
+   ],
+   "sens": {
+    "glose": "sauvage ; grossier ; campagne",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sauvage, non domestiqué"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "grossier, indiscipliné"
+     },
+     {
+      "categorie": "N",
+      "fr": "campagne, champs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这孩子太野了。",
+     "pinyin": "Zhè háizi tài yě le.",
+     "fr": "Cet enfant est vraiment intenable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0945",
+   "genre": "mot",
+   "hanzi": "野生",
+   "pinyin": "yěshēng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sauvage (à l'état sauvage)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sauvage, à l'état sauvage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里有很多野生动物。",
+     "pinyin": "Zhèli yǒu hěn duō yěshēng dòngwù.",
+     "fr": "Il y a beaucoup d'animaux en liberté ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0946",
+   "genre": "mot",
+   "hanzi": "医药",
+   "pinyin": "yīyào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "médecine et pharmacie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "médecine et pharmacie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一家医药公司工作。",
+     "pinyin": "Tā zài yī jiā yīyào gōngsī gōngzuò.",
+     "fr": "Il travaille dans un laboratoire pharmaceutique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0947",
+   "genre": "mot",
+   "hanzi": "依次",
+   "pinyin": "yīcì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "l'un après l'autre, dans l'ordre",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "l'un après l'autre, dans l'ordre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请大家依次上车。",
+     "pinyin": "Qǐng dàjiā yīcì shàng chē.",
+     "fr": "Montez à bord chacun votre tour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0948",
+   "genre": "mot",
+   "hanzi": "依赖",
+   "pinyin": "yīlài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "dépendre de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépendre de, compter sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子不能总是依赖父母。",
+     "pinyin": "Háizi bù néng zǒngshì yīlài fùmǔ.",
+     "fr": "Les enfants ne peuvent pas toujours s'appuyer sur leurs parents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0949",
+   "genre": "mot",
+   "hanzi": "一次性",
+   "pinyin": "yīcìxìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "jetable ; en une seule fois",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "jetable, à usage unique"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "en une seule fois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要少用一次性筷子。",
+     "pinyin": "Wǒmen yào shǎo yòng yīcìxìng kuàizi.",
+     "fr": "Il faut limiter les baguettes à usage unique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0950",
+   "genre": "mot",
+   "hanzi": "一代",
+   "pinyin": "yīdài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "génération ; époque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "génération ; époque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们这一代人很幸运。",
+     "pinyin": "Wǒmen zhè yīdài rén hěn xìngyùn.",
+     "fr": "Les gens de notre âge ont de la chance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0951",
+   "genre": "mot",
+   "hanzi": "一道",
+   "pinyin": "yīdào",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "ensemble",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "ensemble, de concert"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们一道去吧。",
+     "pinyin": "Wǒmen yīdào qù ba.",
+     "fr": "Allons-y tous ensemble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "贯",
+   "genre": "caractere",
+   "hanzi": "贯",
+   "pinyin": "guàn",
+   "sens": {
+    "glose": "traverser, relier ; ancienne monnaie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "traverser, relier"
+     },
+     {
+      "categorie": "N",
+      "fr": "ligature de sapèques, ancienne monnaie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0952",
+   "genre": "mot",
+   "hanzi": "一贯",
+   "pinyin": "yīguàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "constant, de toujours",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "constant, de toujours, habituel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是他一贯的做法。",
+     "pinyin": "Zhè shì tā yīguàn de zuòfǎ.",
+     "fr": "C'est sa manière de faire depuis toujours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0953",
+   "genre": "mot",
+   "hanzi": "一路上",
+   "pinyin": "yīlù shang",
+   "sens": {
+    "glose": "tout le long du chemin",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "tout le long du chemin, pendant le trajet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一路上他都没说话。",
+     "pinyin": "Yīlù shang tā dōu méi shuōhuà.",
+     "fr": "Il n'a pas dit un mot du voyage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "仪",
+   "genre": "caractere",
+   "hanzi": "仪",
+   "pinyin": "yí",
+   "sens": {
+    "glose": "apparence ; cérémonie ; instrument",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "apparence, tenue"
+     },
+     {
+      "categorie": "N",
+      "fr": "cérémonie, rite"
+     },
+     {
+      "categorie": "N",
+      "fr": "instrument"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}

@@ -1,0 +1,985 @@
+{
+ "niveau": "6",
+ "lot": "25",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/25.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:3b8ebf9c24c496ea06a3c7b0a1cf7e5ebf6283e269654c0ed2814a6f5c42f988",
+  "contexte": "wenlu dico contexte 6 25",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L6-1104",
+   "genre": "mot",
+   "hanzi": "转动",
+   "pinyin": "zhuàndòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tourner, faire tourner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tourner, faire tourner, pivoter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他慢慢地转动杯子。",
+     "pinyin": "Tā mànmàn de zhuàndòng bēizi.",
+     "fr": "Il fait lentement tourner sa tasse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "赚",
+   "genre": "caractere",
+   "hanzi": "赚",
+   "pinyin": "zhuàn",
+   "mots": [
+    "L6-1105"
+   ],
+   "sens": {
+    "glose": "gagner (de l'argent) ; profit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gagner de l'argent, faire du profit"
+     },
+     {
+      "categorie": "N",
+      "fr": "profit, bénéfice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他这个月赚了不少。",
+     "pinyin": "Tā zhège yuè zhuàn le bù shǎo.",
+     "fr": "Il s'est fait pas mal d'argent ce mois-ci.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1106",
+   "genre": "mot",
+   "hanzi": "赚钱",
+   "pinyin": "zhuànqián",
+   "sens": {
+    "glose": "gagner de l'argent",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gagner de l'argent, faire des bénéfices"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很会赚钱。",
+     "pinyin": "Tā hěn huì zhuànqián.",
+     "fr": "Il sait faire fortune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1107",
+   "genre": "mot",
+   "hanzi": "装备",
+   "pinyin": "zhuāngbèi",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "équiper ; équipement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "équiper, doter"
+     },
+     {
+      "categorie": "N",
+      "fr": "équipement, matériel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "登山需要很好的装备。",
+     "pinyin": "Dēngshān xūyào hěn hǎo de zhuāngbèi.",
+     "fr": "Pour faire de la montagne, il faut du bon matériel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1108",
+   "genre": "mot",
+   "hanzi": "壮观",
+   "pinyin": "zhuàngguān",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "grandiose, spectaculaire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "grandiose, spectaculaire, impressionnant"
+     },
+     {
+      "categorie": "N",
+      "fr": "spectacle grandiose"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的风景非常壮观。",
+     "pinyin": "Zhèli de fēngjǐng fēicháng zhuàngguān.",
+     "fr": "Le paysage ici est à couper le souffle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1109",
+   "genre": "mot",
+   "hanzi": "追究",
+   "pinyin": "zhuījiū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rechercher (les responsabilités)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rechercher, établir : une responsabilité, une cause"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司要追究他的责任。",
+     "pinyin": "Gōngsī yào zhuījiū tā de zérèn.",
+     "fr": "L'entreprise veut lui demander des comptes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "捉",
+   "genre": "caractere",
+   "hanzi": "捉",
+   "pinyin": "zhuō",
+   "mots": [
+    "L6-1110"
+   ],
+   "sens": {
+    "glose": "attraper, saisir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "attraper, saisir, capturer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "猫在捉老鼠。",
+     "pinyin": "Māo zài zhuō lǎoshǔ.",
+     "fr": "Le chat chasse les souris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "咨",
+   "genre": "caractere",
+   "hanzi": "咨",
+   "pinyin": "zī",
+   "sens": {
+    "glose": "consulter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "consulter, demander conseil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-1111",
+   "genre": "mot",
+   "hanzi": "咨询",
+   "pinyin": "zīxún",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "consulter, se renseigner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "consulter, se renseigner, demander conseil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你可以打电话咨询。",
+     "pinyin": "Nǐ kěyǐ dǎ diànhuà zīxún.",
+     "fr": "Tu peux appeler pour avoir des informations.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1112",
+   "genre": "mot",
+   "hanzi": "自来水",
+   "pinyin": "zìláishuǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "eau courante, eau du robinet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "eau courante, eau du robinet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的自来水不能直接喝。",
+     "pinyin": "Zhèli de zìláishuǐ bù néng zhíjiē hē.",
+     "fr": "Ici, l'eau du robinet n'est pas potable telle quelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1113",
+   "genre": "mot",
+   "hanzi": "自我",
+   "pinyin": "zìwǒ",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "soi, soi-même",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "soi, soi-même ; le moi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请先做一下自我介绍。",
+     "pinyin": "Qǐng xiān zuò yīxià zìwǒ jièshào.",
+     "fr": "Commencez par vous présenter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1114",
+   "genre": "mot",
+   "hanzi": "自学",
+   "pinyin": "zìxué",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "apprendre seul",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "apprendre seul, en autodidacte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他自学了日语。",
+     "pinyin": "Tā zìxué le Rìyǔ.",
+     "fr": "Il a appris le japonais tout seul.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1115",
+   "genre": "mot",
+   "hanzi": "自言自语",
+   "pinyin": "zìyán-zìyǔ",
+   "sens": {
+    "glose": "parler tout seul",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "parler tout seul, se parler à soi-même"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一边走一边自言自语。",
+     "pinyin": "Tā yībiān zǒu yībiān zìyán-zìyǔ.",
+     "fr": "Il marmonne en marchant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1116",
+   "genre": "mot",
+   "hanzi": "自在",
+   "pinyin": "zìzai",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "à l'aise, tranquille",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "à l'aise, tranquille, libre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在朋友家里我觉得很自在。",
+     "pinyin": "Zài péngyou jiā li wǒ juéde hěn zìzai.",
+     "fr": "Chez mes amis, je me sens comme chez moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "宗",
+   "genre": "caractere",
+   "hanzi": "宗",
+   "pinyin": "zōng",
+   "mots": [
+    "L7-5580"
+   ],
+   "sens": {
+    "glose": "lignée, ancêtre ; école ; affaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ancêtre, lignée ; école, secte"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur : affaires, lots de marchandises"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一宗大生意。",
+     "pinyin": "Zhè shì yī zōng dà shēngyi.",
+     "fr": "C'est une grosse affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1117",
+   "genre": "mot",
+   "hanzi": "宗教",
+   "pinyin": "zōngjiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "religion",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "religion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对宗教很有兴趣。",
+     "pinyin": "Tā duì zōngjiào hěn yǒu xìngqù.",
+     "fr": "Il s'intéresse beaucoup aux croyances.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1118",
+   "genre": "mot",
+   "hanzi": "总部",
+   "pinyin": "zǒngbù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "siège, quartier général",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "siège social, quartier général"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司总部在北京。",
+     "pinyin": "Gōngsī zǒngbù zài Běijīng.",
+     "fr": "Le siège de l'entreprise est à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1119",
+   "genre": "mot",
+   "hanzi": "总监",
+   "pinyin": "zǒngjiān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "directeur (d'un domaine)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "directeur d'un domaine, responsable en chef"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是公司的艺术总监。",
+     "pinyin": "Tā shì gōngsī de yìshù zǒngjiān.",
+     "fr": "Il est directeur artistique de l'entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1120",
+   "genre": "mot",
+   "hanzi": "总经理",
+   "pinyin": "zǒngjīnglǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "directeur général",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "directeur général, PDG"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "总经理明天出差。",
+     "pinyin": "Zǒngjīnglǐ míngtiān chūchāi.",
+     "fr": "Le patron part en déplacement demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1121",
+   "genre": "mot",
+   "hanzi": "总量",
+   "pinyin": "zǒngliàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "quantité totale, volume total",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "quantité totale, volume total"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的产品总量增加了。",
+     "pinyin": "Jīnnián de chǎnpǐn zǒngliàng zēngjiā le.",
+     "fr": "La production totale a augmenté cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1122",
+   "genre": "mot",
+   "hanzi": "走私",
+   "pinyin": "zǒusī",
+   "sens": {
+    "glose": "faire de la contrebande",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire de la contrebande"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他因为走私被抓了。",
+     "pinyin": "Tā yīnwèi zǒusī bèi zhuā le.",
+     "fr": "Il a été arrêté pour trafic.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1124",
+   "genre": "mot",
+   "hanzi": "租金",
+   "pinyin": "zūjīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "loyer, prix de location",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "loyer, prix de location"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这套房子的租金很贵。",
+     "pinyin": "Zhè tào fángzi de zūjīn hěn guì.",
+     "fr": "Cet appartement se loue très cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1126",
+   "genre": "mot",
+   "hanzi": "足以",
+   "pinyin": "zúyǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "suffire à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suffire à, être suffisant pour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些钱足以买一辆车。",
+     "pinyin": "Zhèxiē qián zúyǐ mǎi yī liàng chē.",
+     "fr": "Avec cette somme, on peut s'acheter une voiture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "祖",
+   "genre": "caractere",
+   "hanzi": "祖",
+   "pinyin": "zǔ",
+   "sens": {
+    "glose": "ancêtre, aïeul ; fondateur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ancêtre, aïeul"
+     },
+     {
+      "categorie": "N",
+      "fr": "fondateur d'une école"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-1129",
+   "genre": "mot",
+   "hanzi": "祖父",
+   "pinyin": "zǔfù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "grand-père paternel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grand-père paternel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我祖父今年八十岁了。",
+     "pinyin": "Wǒ zǔfù jīnnián bāshí suì le.",
+     "fr": "Le père de mon père a quatre-vingts ans cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1130",
+   "genre": "mot",
+   "hanzi": "祖国",
+   "pinyin": "zǔguó",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "patrie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "patrie, mère patrie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很爱自己的祖国。",
+     "pinyin": "Tā hěn ài zìjǐ de zǔguó.",
+     "fr": "Il aime beaucoup son pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1131",
+   "genre": "mot",
+   "hanzi": "祖母",
+   "pinyin": "zǔmǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "grand-mère paternelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "grand-mère paternelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祖母给我讲了很多故事。",
+     "pinyin": "Zǔmǔ gěi wǒ jiǎng le hěn duō gùshi.",
+     "fr": "Ma grand-mère m'a raconté beaucoup d'histoires.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "钻",
+   "genre": "caractere",
+   "hanzi": "钻",
+   "pinyin": "zuān",
+   "mots": [
+    "L6-1132"
+   ],
+   "sens": {
+    "glose": "percer ; se glisser ; foret, diamant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "percer, forer ; se glisser dans"
+     },
+     {
+      "categorie": "V",
+      "fr": "étudier à fond"
+     },
+     {
+      "categorie": "N",
+      "fr": "foret ; diamant",
+      "pinyin": "zuàn"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小猫钻到床底下去了。",
+     "pinyin": "Xiǎo māo zuān dào chuáng dǐxia qù le.",
+     "fr": "Le chaton s'est faufilé sous le lit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "佳",
+   "genre": "caractere",
+   "hanzi": "佳",
+   "pinyin": "jiā",
+   "sens": {
+    "glose": "bon, excellent, beau",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bon, excellent, beau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-1133",
+   "genre": "mot",
+   "hanzi": "最佳",
+   "pinyin": "zuìjiā",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "le meilleur, optimal",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "le meilleur, optimal"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他获得了最佳男演员奖。",
+     "pinyin": "Tā huòdé le zuìjiā nán yǎnyuán jiǎng.",
+     "fr": "Il a reçu le prix d'interprétation masculine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1134",
+   "genre": "mot",
+   "hanzi": "最终",
+   "pinyin": "zuìzhōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "finalement ; final",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "finalement, en fin de compte ; final"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最终他还是同意了。",
+     "pinyin": "Zuìzhōng tā háishi tóngyì le.",
+     "fr": "Il a fini par accepter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1136",
+   "genre": "mot",
+   "hanzi": "罪恶",
+   "pinyin": "zuì'è",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "crime, mal",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "crime, mal, péché"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "战争带来了很多罪恶。",
+     "pinyin": "Zhànzhēng dàilái le hěn duō zuì'è.",
+     "fr": "La guerre a entraîné bien des atrocités.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "废",
+   "genre": "caractere",
+   "hanzi": "废",
+   "pinyin": "fèi",
+   "mots": [
+    "L7-1105"
+   ],
+   "sens": {
+    "glose": "hors d'usage ; abolir",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "hors d'usage, usé, de rebut"
+     },
+     {
+      "categorie": "V",
+      "fr": "abolir, abandonner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些都是废纸。",
+     "pinyin": "Zhèxiē dōu shì fèi zhǐ.",
+     "fr": "Ce ne sont que des vieux papiers.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1138",
+   "genre": "mot",
+   "hanzi": "作废",
+   "pinyin": "zuòfèi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être annulé, périmé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être annulé, périmé, ne plus être valable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过了期的票就作废了。",
+     "pinyin": "Guò le qī de piào jiù zuòfèi le.",
+     "fr": "Un billet dont la date est passée ne vaut plus rien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1139",
+   "genre": "mot",
+   "hanzi": "作战",
+   "pinyin": "zuòzhàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "combattre, faire la guerre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "combattre, faire la guerre, mener des opérations"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在山里作战了三年。",
+     "pinyin": "Tāmen zài shān li zuòzhàn le sān nián.",
+     "fr": "Ils se sont battus trois ans dans les montagnes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1140",
+   "genre": "mot",
+   "hanzi": "座谈会",
+   "pinyin": "zuòtánhuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "réunion-débat, table ronde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "réunion-débat, table ronde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校举行了一个座谈会。",
+     "pinyin": "Xuéxiào jǔxíng le yī ge zuòtánhuì.",
+     "fr": "L'école a organisé une rencontre-débat.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

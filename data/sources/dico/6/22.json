@@ -1,0 +1,1334 @@
+{
+ "niveau": "6",
+ "lot": "22",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/6/22.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:3d992a9cc2472e4b8eab07ebf2571659516c612db015de1e2b3c6fe07dea957f",
+  "contexte": "wenlu dico contexte 6 22",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L6-0954",
+   "genre": "mot",
+   "hanzi": "仪器",
+   "pinyin": "yíqì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "instrument, appareil",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "instrument, appareil de mesure"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "实验室里有很多仪器。",
+     "pinyin": "Shíyànshì li yǒu hěn duō yíqì.",
+     "fr": "Le laboratoire est plein d'appareils.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0955",
+   "genre": "mot",
+   "hanzi": "仪式",
+   "pinyin": "yíshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cérémonie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cérémonie, rite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "毕业仪式在礼堂举行。",
+     "pinyin": "Bìyè yíshì zài lǐtáng jǔxíng.",
+     "fr": "La remise des diplômes a lieu dans la grande salle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "憾",
+   "genre": "caractere",
+   "hanzi": "憾",
+   "pinyin": "hàn",
+   "sens": {
+    "glose": "regret, déception",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "regret, déception"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0956",
+   "genre": "mot",
+   "hanzi": "遗憾",
+   "pinyin": "yíhàn",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "dommage, regrettable ; regret",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dommage, regrettable"
+     },
+     {
+      "categorie": "N",
+      "fr": "regret"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很遗憾，我不能参加你的婚礼。",
+     "pinyin": "Hěn yíhàn, wǒ bù néng cānjiā nǐ de hūnlǐ.",
+     "fr": "Je suis désolé de ne pas pouvoir venir à ton mariage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0957",
+   "genre": "mot",
+   "hanzi": "一番",
+   "pinyin": "yīfān",
+   "sens": {
+    "glose": "un tour, une fois (avec soin)",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "un tour, une fois : avec effort ou soin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他认真地研究了一番。",
+     "pinyin": "Tā rènzhēn de yánjiū le yīfān.",
+     "fr": "Il a étudié la question avec attention.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0958",
+   "genre": "mot",
+   "hanzi": "一模一样",
+   "pinyin": "yīmú-yīyàng",
+   "sens": {
+    "glose": "exactement pareil, identique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "exactement pareil, identique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你的包和我的一模一样。",
+     "pinyin": "Nǐ de bāo hé wǒ de yīmú-yīyàng.",
+     "fr": "Ton sac est le même que le mien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0959",
+   "genre": "mot",
+   "hanzi": "一齐",
+   "pinyin": "yīqí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "ensemble, en même temps",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "ensemble, en même temps, d'un même mouvement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家一齐鼓掌。",
+     "pinyin": "Dàjiā yīqí gǔzhǎng.",
+     "fr": "Tout le monde a applaudi d'un coup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0960",
+   "genre": "mot",
+   "hanzi": "一时",
+   "pinyin": "yīshí",
+   "categories": [
+    "N",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "un moment ; momentanément",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "un moment, une période"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "momentanément, sur le coup"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我一时想不起他的名字。",
+     "pinyin": "Wǒ yīshí xiǎng bu qǐ tā de míngzi.",
+     "fr": "Sur le moment, son nom ne me revient pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0961",
+   "genre": "mot",
+   "hanzi": "一同",
+   "pinyin": "yītóng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "ensemble",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "ensemble, en compagnie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们一同去看电影吧。",
+     "pinyin": "Wǒmen yītóng qù kàn diànyǐng ba.",
+     "fr": "Allons au cinéma tous ensemble.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0962",
+   "genre": "mot",
+   "hanzi": "一行",
+   "pinyin": "yīxíng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "groupe, délégation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "groupe de voyageurs, délégation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "代表团一行十人到达北京。",
+     "pinyin": "Dàibiǎotuán yīxíng shí rén dàodá Běijīng.",
+     "fr": "La délégation, forte de dix personnes, est arrivée à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0963",
+   "genre": "mot",
+   "hanzi": "艺人",
+   "pinyin": "yìrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "artiste (du spectacle)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "artiste du spectacle, saltimbanque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多艺人参加了这次演出。",
+     "pinyin": "Hěn duō yìrén cānjiā le zhè cì yǎnchū.",
+     "fr": "De nombreuses vedettes ont participé au spectacle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0964",
+   "genre": "mot",
+   "hanzi": "议题",
+   "pinyin": "yìtí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sujet de discussion, ordre du jour",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sujet de discussion, point de l'ordre du jour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天会议有三个议题。",
+     "pinyin": "Jīntiān huìyì yǒu sān ge yìtí.",
+     "fr": "La réunion d'aujourd'hui porte sur trois points.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0965",
+   "genre": "mot",
+   "hanzi": "异常",
+   "pinyin": "yìcháng",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "anormal ; extrêmement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "anormal, inhabituel"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "extrêmement, particulièrement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他今天的表现有点异常。",
+     "pinyin": "Tā jīntiān de biǎoxiàn yǒudiǎn yìcháng.",
+     "fr": "Il se comporte bizarrement aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0966",
+   "genre": "mot",
+   "hanzi": "意想不到",
+   "pinyin": "yìxiǎng bù dào",
+   "sens": {
+    "glose": "inattendu, imprévu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inattendu, imprévu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事有了意想不到的结果。",
+     "pinyin": "Zhè jiàn shì yǒu le yìxiǎng bù dào de jiéguǒ.",
+     "fr": "L'affaire a pris une tournure surprenante.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0967",
+   "genre": "mot",
+   "hanzi": "意愿",
+   "pinyin": "yìyuàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "souhait, volonté",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "souhait, volonté, désir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要尊重孩子的意愿。",
+     "pinyin": "Wǒmen yào zūnzhòng háizi de yìyuàn.",
+     "fr": "Il faut respecter ce que veulent les enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0969",
+   "genre": "mot",
+   "hanzi": "因素",
+   "pinyin": "yīnsù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "facteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "facteur, élément"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "天气是影响比赛的重要因素。",
+     "pinyin": "Tiānqì shì yǐngxiǎng bǐsài de zhòngyào yīnsù.",
+     "fr": "La météo pèse beaucoup sur le match.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "谋",
+   "genre": "caractere",
+   "hanzi": "谋",
+   "pinyin": "móu",
+   "sens": {
+    "glose": "projeter, comploter ; chercher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "projeter, planifier ; comploter"
+     },
+     {
+      "categorie": "V",
+      "fr": "chercher à obtenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0970",
+   "genre": "mot",
+   "hanzi": "阴谋",
+   "pinyin": "yīnmóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "complot, machination",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "complot, machination"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个阴谋。",
+     "pinyin": "Zhè shì yī ge yīnmóu.",
+     "fr": "C'est un coup monté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0971",
+   "genre": "mot",
+   "hanzi": "阴影",
+   "pinyin": "yīnyǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ombre ; traumatisme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ombre, zone d'ombre"
+     },
+     {
+      "categorie": "N",
+      "fr": "traumatisme, souvenir pénible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那件事在他心里留下了阴影。",
+     "pinyin": "Nà jiàn shì zài tā xīn li liú xia le yīnyǐng.",
+     "fr": "Cette histoire l'a marqué durablement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0972",
+   "genre": "mot",
+   "hanzi": "音量",
+   "pinyin": "yīnliàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "volume sonore",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "volume sonore"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把音量调小一点。",
+     "pinyin": "Qǐng bǎ yīnliàng tiáo xiǎo yīdiǎn.",
+     "fr": "Baisse un peu le son, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0973",
+   "genre": "mot",
+   "hanzi": "音像",
+   "pinyin": "yīnxiàng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "audiovisuel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "audiovisuel : disques, vidéos"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他开了一家音像店。",
+     "pinyin": "Tā kāi le yī jiā yīnxiàng diàn.",
+     "fr": "Il a ouvert un magasin de disques et de films.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "隐",
+   "genre": "caractere",
+   "hanzi": "隐",
+   "pinyin": "yǐn",
+   "sens": {
+    "glose": "caché, secret ; cacher",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "caché, secret"
+     },
+     {
+      "categorie": "V",
+      "fr": "cacher, dissimuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0974",
+   "genre": "mot",
+   "hanzi": "隐藏",
+   "pinyin": "yǐncáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "cacher, dissimuler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cacher, dissimuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把真实的想法隐藏了起来。",
+     "pinyin": "Tā bǎ zhēnshí de xiǎngfa yǐncáng le qǐlai.",
+     "fr": "Il a gardé pour lui ce qu'il pensait vraiment.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0975",
+   "genre": "mot",
+   "hanzi": "隐私",
+   "pinyin": "yǐnsī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "vie privée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "vie privée, intimité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我的隐私，请不要问。",
+     "pinyin": "Zhè shì wǒ de yǐnsī, qǐng bùyào wèn.",
+     "fr": "Ça me regarde, ne pose pas de questions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0977",
+   "genre": "mot",
+   "hanzi": "英雄",
+   "pinyin": "yīngxióng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "héros",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "héros"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是我们心中的英雄。",
+     "pinyin": "Tā shì wǒmen xīn zhōng de yīngxióng.",
+     "fr": "Pour nous, c'est un modèle de courage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0978",
+   "genre": "mot",
+   "hanzi": "迎来",
+   "pinyin": "yínglái",
+   "sens": {
+    "glose": "accueillir, voir arriver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "accueillir, voir arriver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校迎来了新的学生。",
+     "pinyin": "Xuéxiào yínglái le xīn de xuésheng.",
+     "fr": "L'école a reçu ses nouveaux élèves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0979",
+   "genre": "mot",
+   "hanzi": "影迷",
+   "pinyin": "yǐngmí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cinéphile, fan de cinéma",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cinéphile, fan de cinéma"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "很多影迷在门口等她。",
+     "pinyin": "Hěn duō yǐngmí zài ménkǒu děng tā.",
+     "fr": "Beaucoup d'admirateurs l'attendent à l'entrée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0980",
+   "genre": "mot",
+   "hanzi": "影星",
+   "pinyin": "yǐngxīng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "star de cinéma",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "star de cinéma, vedette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她是一位著名影星。",
+     "pinyin": "Tā shì yī wèi zhùmíng yǐngxīng.",
+     "fr": "C'est une actrice célèbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0981",
+   "genre": "mot",
+   "hanzi": "应对",
+   "pinyin": "yìngduì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire face à, réagir à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire face à, réagir à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要做好准备，应对各种问题。",
+     "pinyin": "Wǒmen yào zuò hǎo zhǔnbèi, yìngduì gè zhǒng wèntí.",
+     "fr": "Il faut être prêt à affronter toutes sortes de problèmes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0982",
+   "genre": "mot",
+   "hanzi": "应急",
+   "pinyin": "yìngjí",
+   "sens": {
+    "glose": "faire face à une urgence ; de secours",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire face à une urgence ; de secours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "家里要准备一些应急的药。",
+     "pinyin": "Jiā li yào zhǔnbèi yīxiē yìngjí de yào.",
+     "fr": "Il faut garder une petite pharmacie à la maison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0983",
+   "genre": "mot",
+   "hanzi": "用处",
+   "pinyin": "yòngchù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "utilité, usage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "utilité, usage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个东西有什么用处？",
+     "pinyin": "Zhège dōngxi yǒu shénme yòngchù?",
+     "fr": "À quoi sert ce truc ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0984",
+   "genre": "mot",
+   "hanzi": "用得着",
+   "pinyin": "yòngdezháo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avoir besoin de ; servir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avoir besoin de ; servir, être utile"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些书你还用得着吗？",
+     "pinyin": "Zhèxiē shū nǐ hái yòngdezháo ma?",
+     "fr": "Tu as encore besoin de ces livres ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0985",
+   "genre": "mot",
+   "hanzi": "用法",
+   "pinyin": "yòngfǎ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "usage, mode d'emploi",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "usage, emploi, mode d'emploi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个词的用法很复杂。",
+     "pinyin": "Zhège cí de yòngfǎ hěn fùzá.",
+     "fr": "Ce mot s'emploie de façon compliquée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0986",
+   "genre": "mot",
+   "hanzi": "用品",
+   "pinyin": "yòngpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "articles, fournitures",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "articles, fournitures"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "超市里有各种生活用品。",
+     "pinyin": "Chāoshì li yǒu gè zhǒng shēnghuó yòngpǐn.",
+     "fr": "Le supermarché vend toutes sortes de produits du quotidien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0987",
+   "genre": "mot",
+   "hanzi": "用心",
+   "pinyin": "yòngxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "avec application, de tout son cœur",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/用.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他学习很用心。",
+     "pinyin": "Tā xuéxí hěn yòngxīn.",
+     "fr": "Il étudie avec beaucoup de sérieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0988",
+   "genre": "mot",
+   "hanzi": "优质",
+   "pinyin": "yōuzhì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "de haute qualité",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "de haute qualité, de premier choix"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们提供优质的服务。",
+     "pinyin": "Wǒmen tígōng yōuzhì de fúwù.",
+     "fr": "Nous offrons un service irréprochable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0989",
+   "genre": "mot",
+   "hanzi": "游人",
+   "pinyin": "yóurén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "visiteurs, promeneurs",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "visiteurs, promeneurs, touristes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公园里游人很多。",
+     "pinyin": "Gōngyuán li yóurén hěn duō.",
+     "fr": "Il y a foule dans le parc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0990",
+   "genre": "mot",
+   "hanzi": "游玩",
+   "pinyin": "yóuwán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se promener, s'amuser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se promener, s'amuser, faire une excursion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我们去海边游玩。",
+     "pinyin": "Zhōumò wǒmen qù hǎibiān yóuwán.",
+     "fr": "Ce week-end, on va s'amuser au bord de la mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0991",
+   "genre": "mot",
+   "hanzi": "游戏机",
+   "pinyin": "yóuxìjī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "console de jeux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "console de jeux vidéo"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他生日时收到了一台游戏机。",
+     "pinyin": "Tā shēngrì shí shōudào le yī tái yóuxìjī.",
+     "fr": "Pour son anniversaire, il a reçu une console.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0992",
+   "genre": "mot",
+   "hanzi": "游行",
+   "pinyin": "yóuxíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "défiler, manifester",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "défiler, manifester"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工人们上街游行。",
+     "pinyin": "Gōngrénmen shàng jiē yóuxíng.",
+     "fr": "Les ouvriers descendent dans la rue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0993",
+   "genre": "mot",
+   "hanzi": "有关",
+   "pinyin": "yǒuguān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "concerner, avoir rapport à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "concerner, avoir rapport à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事和他有关。",
+     "pinyin": "Zhè jiàn shì hé tā yǒuguān.",
+     "fr": "Il est mêlé à cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0994",
+   "genre": "mot",
+   "hanzi": "有没有",
+   "pinyin": "yǒu méiyǒu",
+   "sens": {
+    "glose": "y a-t-il, avoir ou non",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "y a-t-il ; avoir ou non, est-ce que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你有没有看见我的书？",
+     "pinyin": "Nǐ yǒu méiyǒu kànjiàn wǒ de shū?",
+     "fr": "Tu n'aurais pas vu mon livre ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0995",
+   "genre": "mot",
+   "hanzi": "有事",
+   "pinyin": "yǒushì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être pris, avoir à faire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être pris, avoir à faire ; avoir un souci"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我今天晚上有事，不能来了。",
+     "pinyin": "Wǒ jīntiān wǎnshang yǒushì, bù néng lái le.",
+     "fr": "Je ne suis pas libre ce soir, je ne pourrai pas venir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-0997",
+   "genre": "mot",
+   "hanzi": "娱乐",
+   "pinyin": "yúlè",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "se divertir ; divertissement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se divertir, s'amuser"
+     },
+     {
+      "categorie": "N",
+      "fr": "divertissement, loisirs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末是娱乐的时间。",
+     "pinyin": "Zhōumò shì yúlè de shíjiān.",
+     "fr": "Le week-end, c'est fait pour se détendre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "愉",
+   "genre": "caractere",
+   "hanzi": "愉",
+   "pinyin": "yú",
+   "sens": {
+    "glose": "joyeux, content",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "joyeux, content"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-0998",
+   "genre": "mot",
+   "hanzi": "愉快",
+   "pinyin": "yúkuài",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "agréable, joyeux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "agréable, joyeux, heureux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "祝你周末愉快！",
+     "pinyin": "Zhù nǐ zhōumò yúkuài!",
+     "fr": "Bon week-end !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "宇",
+   "genre": "caractere",
+   "hanzi": "宇",
+   "pinyin": "yǔ",
+   "sens": {
+    "glose": "univers, espace ; édifice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "univers, espace"
+     },
+     {
+      "categorie": "N",
+      "fr": "édifice, toit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L6-1000",
+   "genre": "mot",
+   "hanzi": "宇航员",
+   "pinyin": "yǔhángyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "astronaute",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "astronaute, spationaute"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "宇航员在太空里生活了半年。",
+     "pinyin": "Yǔhángyuán zài tàikōng li shēnghuó le bàn nián.",
+     "fr": "L'équipage a passé six mois dans l'espace.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1001",
+   "genre": "mot",
+   "hanzi": "雨衣",
+   "pinyin": "yǔyī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "imperméable, ciré",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "imperméable, ciré"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "下雨了，穿上雨衣吧。",
+     "pinyin": "Xià yǔ le, chuān shang yǔyī ba.",
+     "fr": "Il pleut, mets ton manteau de pluie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L6-1002",
+   "genre": "mot",
+   "hanzi": "预约",
+   "pinyin": "yùyuē",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "prendre rendez-vous, réserver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre rendez-vous, réserver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看病要先预约。",
+     "pinyin": "Kànbìng yào xiān yùyuē.",
+     "fr": "Pour voir le médecin, il faut d'abord prendre rendez-vous.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
