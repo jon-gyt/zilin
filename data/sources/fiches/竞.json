@@ -23,20 +23,33 @@
   "口": "forme",
   "儿": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "竞争",
+   "pinyin": "jìngzhēng",
+   "fr": "concurrence, rivaliser",
+   "en": "competition, to compete"
+  },
+  {
+   "hanzi": "竞赛",
+   "pinyin": "jìngsài",
+   "fr": "concours",
+   "en": "contest"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这两家公司竞争很激烈。",
+  "pinyin": "Zhè liǎng jiā gōngsī jìngzhēng hěn jīliè.",
+  "fr": "La concurrence entre ces deux entreprises est rude.",
+  "en": "Competition between these two companies is fierce."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6cd704627f3fcfedee407181f6f224987537c2992ece5816264cb11b88e29418",
-  "essais": 1,
+  "empreinte_invite": "sha256:20de893f98907417d83266b512f685eac450c435336f5cab5e13926e58a89a89",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

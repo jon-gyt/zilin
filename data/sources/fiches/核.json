@@ -21,20 +21,33 @@
   "木": "sens",
   "亥": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "核心",
+   "pinyin": "héxīn",
+   "fr": "cœur, noyau",
+   "en": "core"
+  },
+  {
+   "hanzi": "核对",
+   "pinyin": "héduì",
+   "fr": "vérifier, contrôler",
+   "en": "to check, to verify"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这个问题是整个计划的核心。",
+  "pinyin": "Zhège wèntí shì zhěnggè jìhuà de héxīn.",
+  "fr": "Cette question est au cœur de tout le projet.",
+  "en": "This issue is the core of the whole plan."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6de6becabcf670edfdd9885d0dddb8b677eff78c7b7cd8f2d7dc67b8da4c827b",
-  "essais": 1,
+  "empreinte_invite": "sha256:061ab08fab1c971597f970365a6866a77f62b0adcdc25f4def6bf27b9fc23a1b",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
