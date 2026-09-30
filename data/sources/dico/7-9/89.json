@@ -1,0 +1,1350 @@
+{
+ "niveau": "7-9",
+ "lot": "89",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/89.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:599dacaefc826e5a6bea6289a4ed123c0bce0a0c236b027db41463dbee7ca4e7",
+  "contexte": "wenlu dico contexte 7-9 89",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3847",
+   "genre": "mot",
+   "hanzi": "双边",
+   "pinyin": "shuāngbiān",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bilatéral",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bilatéral"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国签订了双边协议。",
+     "pinyin": "Liǎng guó qiāndìng le shuāngbiān xiéyì.",
+     "fr": "Les deux pays ont signé un accord entre eux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3848",
+   "genre": "mot",
+   "hanzi": "双重",
+   "pinyin": "shuāngchóng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "double",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "double, à deux niveaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他有双重国籍。",
+     "pinyin": "Tā yǒu shuāngchóng guójí.",
+     "fr": "Il a deux nationalités.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3849",
+   "genre": "mot",
+   "hanzi": "双向",
+   "pinyin": "shuāngxiàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "dans les deux sens, réciproque",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dans les deux sens, réciproque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一条双向车道。",
+     "pinyin": "Zhè shì yī tiáo shuāngxiàng chēdào.",
+     "fr": "C'est une route à double sens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3850",
+   "genre": "mot",
+   "hanzi": "双赢",
+   "pinyin": "shuāngyíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "gagnant-gagnant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être gagnant-gagnant, profiter aux deux parties"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次合作实现了双赢。",
+     "pinyin": "Zhè cì hézuò shíxiàn le shuāngyíng.",
+     "fr": "Ce partenariat a été bénéfique pour tous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "霜",
+   "genre": "caractere",
+   "hanzi": "霜",
+   "pinyin": "shuāng",
+   "mots": [
+    "L7-3851"
+   ],
+   "sens": {
+    "glose": "givre, gelée blanche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "givre, gelée blanche"
+     },
+     {
+      "categorie": "N",
+      "fr": "poudre blanche ; crème (cosmétique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "早上地上有一层霜。",
+     "pinyin": "Zǎoshang dì shang yǒu yī céng shuāng.",
+     "fr": "Ce matin, le sol était tout blanc de gel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3852",
+   "genre": "mot",
+   "hanzi": "爽快",
+   "pinyin": "shuǎngkuai",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "franc, direct ; frais, agréable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "franc, direct, sans détour"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "frais, agréable, dispos"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很爽快地答应了。",
+     "pinyin": "Tā hěn shuǎngkuai de dāying le.",
+     "fr": "Il a accepté sans se faire prier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3853",
+   "genre": "mot",
+   "hanzi": "水槽",
+   "pinyin": "shuǐcáo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "évier ; abreuvoir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "évier ; abreuvoir, auge"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "把碗放进水槽里。",
+     "pinyin": "Bǎ wǎn fàng jìn shuǐcáo li.",
+     "fr": "Mets les bols dans l'évier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3854",
+   "genre": "mot",
+   "hanzi": "水稻",
+   "pinyin": "shuǐdào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "riz (de rizière)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "riz cultivé en rizière"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "南方农民种水稻。",
+     "pinyin": "Nánfāng nóngmín zhòng shuǐdào.",
+     "fr": "Dans le Sud, les paysans travaillent dans les rizières.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3855",
+   "genre": "mot",
+   "hanzi": "水管",
+   "pinyin": "shuǐguǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "conduite d'eau, tuyau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "conduite d'eau, tuyau, canalisation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水管坏了，厨房里都是水。",
+     "pinyin": "Shuǐguǎn huài le, chúfáng li dōu shì shuǐ.",
+     "fr": "Une canalisation a lâché, la cuisine est inondée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3856",
+   "genre": "mot",
+   "hanzi": "水壶",
+   "pinyin": "shuǐhú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bouilloire ; gourde",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bouilloire ; gourde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水壶里的水开了。",
+     "pinyin": "Shuǐhú li de shuǐ kāi le.",
+     "fr": "L'eau bout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3857",
+   "genre": "mot",
+   "hanzi": "水货",
+   "pinyin": "shuǐhuò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "importation parallèle ; camelote",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marchandise importée en fraude, importation parallèle"
+     },
+     {
+      "categorie": "N",
+      "fr": "camelote, contrefaçon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部手机是水货。",
+     "pinyin": "Zhè bù shǒujī shì shuǐhuò.",
+     "fr": "Ce téléphone n'a pas été importé par le circuit officiel.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3858",
+   "genre": "mot",
+   "hanzi": "水晶",
+   "pinyin": "shuǐjīng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cristal (de roche)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cristal de roche, quartz"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个杯子是水晶做的。",
+     "pinyin": "Zhège bēizi shì shuǐjīng zuò de.",
+     "fr": "Ce verre est taillé dans un minéral transparent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3859",
+   "genre": "mot",
+   "hanzi": "水利",
+   "pinyin": "shuǐlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "hydraulique, irrigation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "hydraulique, travaux d'irrigation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府修建了很多水利工程。",
+     "pinyin": "Zhèngfǔ xiūjiàn le hěn duō shuǐlì gōngchéng.",
+     "fr": "Le gouvernement a construit de nombreux barrages et canaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3860",
+   "genre": "mot",
+   "hanzi": "水灵灵",
+   "pinyin": "shuǐlínglíng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "frais et juteux ; pétillant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "frais et juteux ; vif, pétillant (yeux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她有一双水灵灵的大眼睛。",
+     "pinyin": "Tā yǒu yī shuāng shuǐlínglíng de dà yǎnjing.",
+     "fr": "Elle a de grands yeux brillants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3861",
+   "genre": "mot",
+   "hanzi": "水龙头",
+   "pinyin": "shuǐlóngtóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "robinet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "robinet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "用完水要关好水龙头。",
+     "pinyin": "Yòng wán shuǐ yào guān hǎo shuǐlóngtóu.",
+     "fr": "Ferme bien l'eau après usage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3862",
+   "genre": "mot",
+   "hanzi": "水落石出",
+   "pinyin": "shuǐluò-shíchū",
+   "sens": {
+    "glose": "la vérité éclate",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "finir par apparaître au grand jour (vérité)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事终于水落石出了。",
+     "pinyin": "Zhè jiàn shì zhōngyú shuǐluò-shíchū le.",
+     "fr": "Toute la lumière a enfin été faite sur cette affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3863",
+   "genre": "mot",
+   "hanzi": "水面",
+   "pinyin": "shuǐmiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "surface de l'eau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "surface de l'eau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水面上漂着几片叶子。",
+     "pinyin": "Shuǐmiàn shang piāo zhe jǐ piàn yèzi.",
+     "fr": "Quelques feuilles flottent sur l'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3864",
+   "genre": "mot",
+   "hanzi": "水手",
+   "pinyin": "shuǐshǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "marin, matelot",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marin, matelot"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他年轻时当过水手。",
+     "pinyin": "Tā niánqīng shí dāng guo shuǐshǒu.",
+     "fr": "Dans sa jeunesse, il a navigué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3865",
+   "genre": "mot",
+   "hanzi": "水温",
+   "pinyin": "shuǐwēn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "température de l'eau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "température de l'eau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的水温太低，不能游泳。",
+     "pinyin": "Jīntiān de shuǐwēn tài dī, bù néng yóuyǒng.",
+     "fr": "L'eau est trop froide aujourd'hui pour se baigner.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3866",
+   "genre": "mot",
+   "hanzi": "水域",
+   "pinyin": "shuǐyù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "eaux, étendue d'eau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "eaux, étendue d'eau, zone maritime"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这片水域禁止捕鱼。",
+     "pinyin": "Zhè piàn shuǐyù jìnzhǐ bǔ yú.",
+     "fr": "La pêche est interdite dans cette zone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3867",
+   "genre": "mot",
+   "hanzi": "水源",
+   "pinyin": "shuǐyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "source, ressource en eau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "source d'eau, ressource en eau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要保护好水源。",
+     "pinyin": "Wǒmen yào bǎohù hǎo shuǐyuán.",
+     "fr": "Nous devons préserver l'eau potable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3868",
+   "genre": "mot",
+   "hanzi": "水涨船高",
+   "pinyin": "shuǐzhǎng-chuángāo",
+   "sens": {
+    "glose": "monter avec le reste",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "monter en même temps que le reste, suivre le mouvement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "房价上涨，房租也水涨船高。",
+     "pinyin": "Fángjià shàngzhǎng, fángzū yě shuǐzhǎng-chuángāo.",
+     "fr": "Les prix de l'immobilier grimpent, les loyers suivent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3869",
+   "genre": "mot",
+   "hanzi": "水准",
+   "pinyin": "shuǐzhǔn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "niveau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "niveau, standard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的中文达到了很高的水准。",
+     "pinyin": "Tā de Zhōngwén dádào le hěn gāo de shuǐzhǔn.",
+     "fr": "Son chinois est excellent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3870",
+   "genre": "mot",
+   "hanzi": "税收",
+   "pinyin": "shuìshōu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "recettes fiscales",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "recettes fiscales, impôts perçus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的税收增加了。",
+     "pinyin": "Jīnnián de shuìshōu zēngjiā le.",
+     "fr": "Les impôts ont rapporté davantage cette année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3871",
+   "genre": "mot",
+   "hanzi": "税务",
+   "pinyin": "shuìwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "affaires fiscales, fisc",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "affaires fiscales, fisc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在税务局工作。",
+     "pinyin": "Tā zài shuìwùjú gōngzuò.",
+     "fr": "Il travaille aux impôts.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3872",
+   "genre": "mot",
+   "hanzi": "睡袋",
+   "pinyin": "shuìdài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sac de couchage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sac de couchage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "去露营要带睡袋。",
+     "pinyin": "Qù lùyíng yào dài shuìdài.",
+     "fr": "Pour camper, il faut de quoi dormir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3873",
+   "genre": "mot",
+   "hanzi": "顺便",
+   "pinyin": "shùnbiàn",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "au passage, en passant",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "au passage, en passant, par la même occasion"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你去超市的话，顺便帮我买点儿水果。",
+     "pinyin": "Nǐ qù chāoshì dehuà, shùnbiàn bāng wǒ mǎi diǎnr shuǐguǒ.",
+     "fr": "Si tu vas au supermarché, achète-moi aussi des fruits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3874",
+   "genre": "mot",
+   "hanzi": "顺差",
+   "pinyin": "shùnchā",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "excédent commercial",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "excédent commercial"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的贸易顺差很大。",
+     "pinyin": "Jīnnián de màoyì shùnchā hěn dà.",
+     "fr": "Cette année, la balance commerciale est largement positive.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3875",
+   "genre": "mot",
+   "hanzi": "顺畅",
+   "pinyin": "shùnchàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fluide, sans entraves",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "fluide, sans entraves"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的交通很顺畅。",
+     "pinyin": "Jīntiān de jiāotōng hěn shùnchàng.",
+     "fr": "Aujourd'hui, ça roule bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3876",
+   "genre": "mot",
+   "hanzi": "顺从",
+   "pinyin": "shùncóng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "obéir, se soumettre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "obéir, se soumettre, se plier à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她总是顺从父母的意见。",
+     "pinyin": "Tā zǒngshì shùncóng fùmǔ de yìjiàn.",
+     "fr": "Elle se range toujours à l'avis de ses parents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3877",
+   "genre": "mot",
+   "hanzi": "顺理成章",
+   "pinyin": "shùnlǐ-chéngzhāng",
+   "sens": {
+    "glose": "logique, qui va de soi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "logique, qui va de soi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当经理是顺理成章的事。",
+     "pinyin": "Tā dāng jīnglǐ shì shùnlǐ-chéngzhāng de shì.",
+     "fr": "Qu'il devienne directeur était dans l'ordre des choses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3878",
+   "genre": "mot",
+   "hanzi": "顺路",
+   "pinyin": "shùnlù",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "sur le chemin ; en passant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sur le chemin, qui est sur la route"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "en passant, chemin faisant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我顺路送你回家吧。",
+     "pinyin": "Wǒ shùnlù sòng nǐ huí jiā ba.",
+     "fr": "Je te dépose chez toi, c'est sur ma route.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3879",
+   "genre": "mot",
+   "hanzi": "顺其自然",
+   "pinyin": "shùnqízìrán",
+   "sens": {
+    "glose": "laisser les choses se faire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "laisser les choses suivre leur cours"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别想太多，顺其自然吧。",
+     "pinyin": "Bié xiǎng tài duō, shùnqízìrán ba.",
+     "fr": "Ne réfléchis pas trop, on verra bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3880",
+   "genre": "mot",
+   "hanzi": "顺势",
+   "pinyin": "shùnshì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "dans la foulée",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "dans la foulée, en profitant de l'élan"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他顺势把球踢进了球门。",
+     "pinyin": "Tā shùnshì bǎ qiú tī jìn le qiúmén.",
+     "fr": "Sans s'arrêter, il a envoyé le ballon au fond des filets.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3881",
+   "genre": "mot",
+   "hanzi": "顺手",
+   "pinyin": "shùnshǒu",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "commode ; en passant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "commode, maniable ; sans accroc"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "en passant, au passage, machinalement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "出门时请顺手关灯。",
+     "pinyin": "Chū mén shí qǐng shùnshǒu guān dēng.",
+     "fr": "En sortant, pensez à éteindre la lumière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3882",
+   "genre": "mot",
+   "hanzi": "顺心",
+   "pinyin": "shùnxīn",
+   "sens": {
+    "glose": "satisfaisant, à son goût",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "satisfaisant, à son goût, qui se passe bien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "最近工作不太顺心。",
+     "pinyin": "Zuìjìn gōngzuò bù tài shùnxīn.",
+     "fr": "Ces temps-ci, le travail ne me donne pas satisfaction.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3883",
+   "genre": "mot",
+   "hanzi": "顺应",
+   "pinyin": "shùnyìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'adapter à, suivre (tendance)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'adapter à, suivre (une tendance, une évolution)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要顺应时代的发展。",
+     "pinyin": "Wǒmen yào shùnyìng shídài de fāzhǎn.",
+     "fr": "Nous devons vivre avec notre temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3884",
+   "genre": "mot",
+   "hanzi": "顺着",
+   "pinyin": "shùnzhe",
+   "sens": {
+    "glose": "le long de, en suivant",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "le long de, en suivant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "顺着这条路一直走就到了。",
+     "pinyin": "Shùnzhe zhè tiáo lù yīzhí zǒu jiù dào le.",
+     "fr": "Prenez cette route tout droit et vous y êtes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "瞬",
+   "genre": "caractere",
+   "hanzi": "瞬",
+   "pinyin": "shùn",
+   "sens": {
+    "glose": "clin d'œil, instant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clin d'œil, instant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3885",
+   "genre": "mot",
+   "hanzi": "瞬间",
+   "pinyin": "shùnjiān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "instant, clin d'œil",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "instant, clin d'œil, moment fugace"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那一瞬间，我明白了一切。",
+     "pinyin": "Nà yī shùnjiān, wǒ míngbai le yīqiè.",
+     "fr": "À ce moment précis, j'ai tout compris.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3886",
+   "genre": "mot",
+   "hanzi": "说白了",
+   "pinyin": "shuōbáile",
+   "sens": {
+    "glose": "pour parler clairement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pour parler franchement, en clair"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "说白了，他就是不想帮忙。",
+     "pinyin": "Shuōbáile, tā jiù shì bù xiǎng bāngmáng.",
+     "fr": "Pour dire les choses simplement, il ne veut pas aider.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3887",
+   "genre": "mot",
+   "hanzi": "说不上",
+   "pinyin": "shuōbushàng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne pas savoir dire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas savoir dire, être incapable d'expliquer"
+     },
+     {
+      "categorie": "V",
+      "fr": "ne pas pouvoir être qualifié de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我也说不上为什么喜欢他。",
+     "pinyin": "Wǒ yě shuōbushàng wèishénme xǐhuan tā.",
+     "fr": "Je ne saurais dire pourquoi il me plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3888",
+   "genre": "mot",
+   "hanzi": "说到底",
+   "pinyin": "shuōdàodǐ",
+   "sens": {
+    "glose": "au fond, en fin de compte",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "au fond, en fin de compte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "说到底，这是钱的问题。",
+     "pinyin": "Shuōdàodǐ, zhè shì qián de wèntí.",
+     "fr": "Finalement, c'est une question d'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3889",
+   "genre": "mot",
+   "hanzi": "说道",
+   "pinyin": "shuōdao",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "dire, discuter ; raison cachée",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dire, raconter ; discuter (oral)"
+     },
+     {
+      "categorie": "N",
+      "fr": "raison, explication, dessous (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里面有什么说道吗？",
+     "pinyin": "Zhè lǐmian yǒu shénme shuōdao ma?",
+     "fr": "Il y a une raison particulière là-derrière ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3890",
+   "genre": "mot",
+   "hanzi": "说干就干",
+   "pinyin": "shuō gàn jiù gàn",
+   "sens": {
+    "glose": "passer tout de suite à l'acte",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "passer immédiatement à l'action, aussitôt dit aussitôt fait"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说干就干，马上开始写。",
+     "pinyin": "Tā shuō gàn jiù gàn, mǎshàng kāishǐ xiě.",
+     "fr": "Sitôt décidé, il s'est mis à écrire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3891",
+   "genre": "mot",
+   "hanzi": "说谎",
+   "pinyin": "shuōhuǎng",
+   "sens": {
+    "glose": "mentir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mentir, dire des mensonges"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他从来不说谎。",
+     "pinyin": "Tā cónglái bù shuōhuǎng.",
+     "fr": "Il dit toujours la vérité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3892",
+   "genre": "mot",
+   "hanzi": "说老实话",
+   "pinyin": "shuō lǎoshi huà",
+   "sens": {
+    "glose": "à vrai dire, franchement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à vrai dire, pour être franc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "说老实话，我不太喜欢这个地方。",
+     "pinyin": "Shuō lǎoshi huà, wǒ bù tài xǐhuan zhège dìfang.",
+     "fr": "Pour être honnête, cet endroit ne me plaît pas trop.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3893",
+   "genre": "mot",
+   "hanzi": "说起来",
+   "pinyin": "shuō qilai",
+   "sens": {
+    "glose": "quand on y pense, à propos",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "quand on en parle, à y bien réfléchir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "说起来，我们已经十年没见了。",
+     "pinyin": "Shuō qilai, wǒmen yǐjīng shí nián méi jiàn le.",
+     "fr": "Quand j'y pense, ça fait dix ans qu'on ne s'est pas vus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3894",
+   "genre": "mot",
+   "hanzi": "说情",
+   "pinyin": "shuōqíng",
+   "sens": {
+    "glose": "intercéder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "intercéder, plaider la cause de quelqu'un"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他替朋友向老师说情。",
+     "pinyin": "Tā tì péngyou xiàng lǎoshī shuōqíng.",
+     "fr": "Il a défendu son ami auprès du professeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3895",
+   "genre": "mot",
+   "hanzi": "说闲话",
+   "pinyin": "shuō xiánhuà",
+   "sens": {
+    "glose": "faire des commérages ; bavarder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dire du mal des gens, faire des commérages"
+     },
+     {
+      "categorie": "V",
+      "fr": "bavarder, papoter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别在背后说闲话。",
+     "pinyin": "Bié zài bèihòu shuō xiánhuà.",
+     "fr": "Ne critique pas les gens dans leur dos.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

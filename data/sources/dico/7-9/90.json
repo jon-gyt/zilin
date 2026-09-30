@@ -1,0 +1,1308 @@
+{
+ "niveau": "7-9",
+ "lot": "90",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/90.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:07574d892b49b86a05aeda2acecab9119ef9545b72c6f6f54ea1cdcc338ad047",
+  "contexte": "wenlu dico contexte 7-9 90",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3896",
+   "genre": "mot",
+   "hanzi": "说真的",
+   "pinyin": "shuō zhēnde",
+   "sens": {
+    "glose": "sérieusement, à vrai dire",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "sérieusement, pour être franc"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "说真的，我很想念你。",
+     "pinyin": "Shuō zhēnde, wǒ hěn xiǎngniàn nǐ.",
+     "fr": "Sincèrement, tu me manques beaucoup.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3897",
+   "genre": "mot",
+   "hanzi": "硕果",
+   "pinyin": "shuòguǒ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gros fruit ; beaux résultats",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "résultats remarquables, fruits abondants"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "经过多年的努力，他们取得了硕果。",
+     "pinyin": "Jīngguò duō nián de nǔlì, tāmen qǔdé le shuòguǒ.",
+     "fr": "Après des années d'efforts, leur travail a porté ses fruits.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3898",
+   "genre": "mot",
+   "hanzi": "司法",
+   "pinyin": "sīfǎ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "justice, pouvoir judiciaire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rendre la justice, exercer le pouvoir judiciaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "司法必须公正。",
+     "pinyin": "Sīfǎ bìxū gōngzhèng.",
+     "fr": "Les tribunaux doivent être impartiaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3899",
+   "genre": "mot",
+   "hanzi": "司空见惯",
+   "pinyin": "sīkōng-jiànguàn",
+   "sens": {
+    "glose": "banal, monnaie courante",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "banal, monnaie courante"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种事在大城市里司空见惯。",
+     "pinyin": "Zhè zhǒng shì zài dà chéngshì li sīkōng-jiànguàn.",
+     "fr": "Dans les grandes villes, ce genre de chose n'étonne plus personne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3900",
+   "genre": "mot",
+   "hanzi": "司令",
+   "pinyin": "sīlìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "commandant (militaire)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "commandant (militaire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这支部队的司令。",
+     "pinyin": "Tā shì zhè zhī bùduì de sīlìng.",
+     "fr": "C'est lui qui est à la tête de cette armée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "绸",
+   "genre": "caractere",
+   "hanzi": "绸",
+   "pinyin": "chóu",
+   "sens": {
+    "glose": "soie, soierie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soie, soierie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3902",
+   "genre": "mot",
+   "hanzi": "丝绸",
+   "pinyin": "sīchóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "soie, soierie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "soie, soierie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条围巾是丝绸的。",
+     "pinyin": "Zhè tiáo wéijīn shì sīchóu de.",
+     "fr": "Cette écharpe est en tissu précieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3903",
+   "genre": "mot",
+   "hanzi": "丝毫",
+   "pinyin": "sīháo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "le moindre, pas du tout",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "le moindre, la moindre parcelle ; pas du tout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他丝毫没有感到害怕。",
+     "pinyin": "Tā sīháo méiyou gǎndào hàipà.",
+     "fr": "Il n'a pas eu peur le moins du monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3904",
+   "genre": "mot",
+   "hanzi": "私房钱",
+   "pinyin": "sīfangqián",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "économies secrètes, bas de laine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "économies secrètes, bas de laine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他偷偷存了一些私房钱。",
+     "pinyin": "Tā tōutōu cún le yīxiē sīfangqián.",
+     "fr": "Il a mis de côté un peu d'argent à l'insu de sa femme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3905",
+   "genre": "mot",
+   "hanzi": "私家车",
+   "pinyin": "sījiāchē",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "voiture particulière",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "voiture particulière, véhicule privé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "现在很多家庭都有私家车。",
+     "pinyin": "Xiànzài hěn duō jiātíng dōu yǒu sījiāchē.",
+     "fr": "Aujourd'hui, beaucoup de familles ont leur propre voiture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3906",
+   "genre": "mot",
+   "hanzi": "私立",
+   "pinyin": "sīlì",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "privé (établissement)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "privé (établissement)"
+     },
+     {
+      "categorie": "V",
+      "fr": "fonder à titre privé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一所私立学校上学。",
+     "pinyin": "Tā zài yī suǒ sīlì xuéxiào shàngxué.",
+     "fr": "Il est scolarisé dans le privé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3907",
+   "genre": "mot",
+   "hanzi": "私事",
+   "pinyin": "sīshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "affaire privée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "affaire privée, affaire personnelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我的私事，你别管。",
+     "pinyin": "Zhè shì wǒ de sīshì, nǐ bié guǎn.",
+     "fr": "Ça ne regarde que moi, ne t'en mêle pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3908",
+   "genre": "mot",
+   "hanzi": "私下",
+   "pinyin": "sīxià",
+   "categories": [
+    "N",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "en privé, en cachette",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "en privé, en cachette"
+     },
+     {
+      "categorie": "N",
+      "fr": "dans l'intimité, en coulisses"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们私下谈谈吧。",
+     "pinyin": "Wǒmen sīxià tántan ba.",
+     "fr": "Parlons-en entre nous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3909",
+   "genre": "mot",
+   "hanzi": "私营",
+   "pinyin": "sīyíng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "privé (entreprise)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "privé (entreprise), à gestion privée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他开了一家私营企业。",
+     "pinyin": "Tā kāi le yī jiā sīyíng qǐyè.",
+     "fr": "Il a monté sa propre entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3910",
+   "genre": "mot",
+   "hanzi": "私有",
+   "pinyin": "sīyǒu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "posséder à titre privé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "posséder à titre privé, être propriété privée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这块土地是私有的。",
+     "pinyin": "Zhè kuài tǔdì shì sīyǒu de.",
+     "fr": "Ce terrain n'appartient pas à l'État.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3911",
+   "genre": "mot",
+   "hanzi": "私自",
+   "pinyin": "sīzì",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "sans autorisation, en cachette",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "sans autorisation, en cachette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他私自拿走了公司的东西。",
+     "pinyin": "Tā sīzì ná zǒu le gōngsī de dōngxi.",
+     "fr": "Il a emporté du matériel de l'entreprise sans rien dire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3912",
+   "genre": "mot",
+   "hanzi": "思路",
+   "pinyin": "sīlù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fil des idées, raisonnement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fil des idées, raisonnement, démarche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的文章思路很清楚。",
+     "pinyin": "Tā de wénzhāng sīlù hěn qīngchu.",
+     "fr": "Son article est bien construit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3913",
+   "genre": "mot",
+   "hanzi": "思念",
+   "pinyin": "sīniàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "penser à quelqu'un qui manque",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/思.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他非常思念远方的家人。",
+     "pinyin": "Tā fēicháng sīniàn yuǎnfāng de jiārén.",
+     "fr": "Sa famille restée au loin lui manque énormément.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3914",
+   "genre": "mot",
+   "hanzi": "思前想后",
+   "pinyin": "sīqián-xiǎnghòu",
+   "sens": {
+    "glose": "peser le pour et le contre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "peser le pour et le contre, réfléchir longuement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他思前想后，还是决定留下。",
+     "pinyin": "Tā sīqián-xiǎnghòu, háishi juédìng liúxia.",
+     "fr": "Après mûre réflexion, il a décidé de rester.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3915",
+   "genre": "mot",
+   "hanzi": "思索",
+   "pinyin": "sīsuǒ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réfléchir, méditer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réfléchir, méditer, chercher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在思索这个问题的答案。",
+     "pinyin": "Tā zài sīsuǒ zhège wèntí de dá'àn.",
+     "fr": "Il cherche la réponse à cette question.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "撕",
+   "genre": "caractere",
+   "hanzi": "撕",
+   "pinyin": "sī",
+   "mots": [
+    "L7-3916"
+   ],
+   "sens": {
+    "glose": "déchirer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déchirer, arracher"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他把信撕了。",
+     "pinyin": "Tā bǎ xìn sī le.",
+     "fr": "Il a mis la lettre en morceaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3917",
+   "genre": "mot",
+   "hanzi": "死心",
+   "pinyin": "sǐxīn",
+   "sens": {
+    "glose": "abandonner tout espoir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "abandonner tout espoir, renoncer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你死心吧，他不会回来了。",
+     "pinyin": "Nǐ sǐxīn ba, tā bù huì huílai le.",
+     "fr": "Fais une croix dessus, il ne reviendra pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3918",
+   "genre": "mot",
+   "hanzi": "死心塌地",
+   "pinyin": "sǐxīn-tādì",
+   "sens": {
+    "glose": "corps et âme, inébranlable",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "corps et âme, de façon inébranlable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他死心塌地地爱着她。",
+     "pinyin": "Tā sǐxīn-tādì de ài zhe tā.",
+     "fr": "Il lui est dévoué sans réserve.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3919",
+   "genre": "mot",
+   "hanzi": "四合院",
+   "pinyin": "sìhéyuàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "maison à cour carrée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maison traditionnelle à cour carrée (siheyuan)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "北京有很多老四合院。",
+     "pinyin": "Běijīng yǒu hěn duō lǎo sìhéyuàn.",
+     "fr": "Pékin compte beaucoup de vieilles demeures traditionnelles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3920",
+   "genre": "mot",
+   "hanzi": "四季",
+   "pinyin": "sìjì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "les quatre saisons",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "les quatre saisons"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里四季如春。",
+     "pinyin": "Zhèli sìjì rú chūn.",
+     "fr": "Ici, c'est le printemps toute l'année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3921",
+   "genre": "mot",
+   "hanzi": "四面八方",
+   "pinyin": "sìmiàn-bāfāng",
+   "sens": {
+    "glose": "de toutes parts",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "de toutes parts, dans toutes les directions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人们从四面八方赶来。",
+     "pinyin": "Rénmen cóng sìmiàn-bāfāng gǎn lái.",
+     "fr": "Les gens accourent de partout.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3922",
+   "genre": "mot",
+   "hanzi": "寺庙",
+   "pinyin": "sìmiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "temple (bouddhique)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "temple bouddhique, monastère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上有一座古老的寺庙。",
+     "pinyin": "Shān shang yǒu yī zuò gǔlǎo de sìmiào.",
+     "fr": "Un sanctuaire très ancien se dresse sur la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3923",
+   "genre": "mot",
+   "hanzi": "似曾相识",
+   "pinyin": "sìcéng-xiāngshí",
+   "sens": {
+    "glose": "comme déjà vu, vaguement familier",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "comme déjà vu, vaguement familier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个地方给我一种似曾相识的感觉。",
+     "pinyin": "Zhège dìfang gěi wǒ yī zhǒng sìcéng-xiāngshí de gǎnjué.",
+     "fr": "J'ai l'impression d'être déjà venu ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3924",
+   "genre": "mot",
+   "hanzi": "似是而非",
+   "pinyin": "sìshì-érfēi",
+   "sens": {
+    "glose": "spécieux, faussement juste",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "spécieux, qui paraît juste mais ne l'est pas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的说法似是而非。",
+     "pinyin": "Tā de shuōfǎ sìshì-érfēi.",
+     "fr": "Son argument a l'air solide, mais il ne tient pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3925",
+   "genre": "mot",
+   "hanzi": "伺机",
+   "pinyin": "sìjī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "guetter l'occasion",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "guetter l'occasion, attendre le bon moment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "小偷在人群中伺机下手。",
+     "pinyin": "Xiǎotōu zài rénqún zhōng sìjī xiàshǒu.",
+     "fr": "Dans la foule, le voleur attend son heure pour agir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "饲",
+   "genre": "caractere",
+   "hanzi": "饲",
+   "pinyin": "sì",
+   "sens": {
+    "glose": "nourrir, élever (animaux)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nourrir, élever (des animaux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3926",
+   "genre": "mot",
+   "hanzi": "饲料",
+   "pinyin": "sìliào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fourrage, aliments pour animaux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fourrage, aliments pour animaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "农民每天给牛喂饲料。",
+     "pinyin": "Nóngmín měi tiān gěi niú wèi sìliào.",
+     "fr": "Le fermier nourrit ses vaches tous les jours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3927",
+   "genre": "mot",
+   "hanzi": "饲养",
+   "pinyin": "sìyǎng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "élever (des animaux)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "élever, nourrir (des animaux)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在家里饲养了很多鸡。",
+     "pinyin": "Tā zài jiā li sìyǎng le hěn duō jī.",
+     "fr": "Il a beaucoup de poules chez lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3928",
+   "genre": "mot",
+   "hanzi": "松绑",
+   "pinyin": "sōngbǎng",
+   "sens": {
+    "glose": "délier ; assouplir (règles)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "délier, détacher"
+     },
+     {
+      "categorie": "V",
+      "fr": "assouplir (règles), libérer des contraintes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府给小企业松绑。",
+     "pinyin": "Zhèngfǔ gěi xiǎo qǐyè sōngbǎng.",
+     "fr": "Le gouvernement allège les contraintes pesant sur les petites entreprises.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "弛",
+   "genre": "caractere",
+   "hanzi": "弛",
+   "pinyin": "chí",
+   "sens": {
+    "glose": "se relâcher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se relâcher, se détendre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3929",
+   "genre": "mot",
+   "hanzi": "松弛",
+   "pinyin": "sōngchí",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "relâché, détendu ; flasque",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "relâché, détendu ; flasque, laxiste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的肌肉很松弛。",
+     "pinyin": "Tā de jīròu hěn sōngchí.",
+     "fr": "Ses muscles manquent de tonus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "耸",
+   "genre": "caractere",
+   "hanzi": "耸",
+   "pinyin": "sǒng",
+   "sens": {
+    "glose": "se dresser ; hausser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dresser ; hausser (les épaules)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3930",
+   "genre": "mot",
+   "hanzi": "耸立",
+   "pinyin": "sǒnglì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se dresser, s'élever",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se dresser, s'élever (haut et droit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "城市中心耸立着一座高楼。",
+     "pinyin": "Chéngshì zhōngxīn sǒnglì zhe yī zuò gāolóu.",
+     "fr": "Une tour domine le centre de la ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3931",
+   "genre": "mot",
+   "hanzi": "送别",
+   "pinyin": "sòngbié",
+   "sens": {
+    "glose": "faire ses adieux, raccompagner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire ses adieux, raccompagner au départ"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "朋友们到车站为他送别。",
+     "pinyin": "Péngyoumen dào chēzhàn wèi tā sòngbié.",
+     "fr": "Ses amis sont venus à la gare lui dire au revoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3932",
+   "genre": "mot",
+   "hanzi": "搜查",
+   "pinyin": "sōuchá",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "fouiller, perquisitionner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fouiller, perquisitionner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察搜查了他的房间。",
+     "pinyin": "Jǐngchá sōuchá le tā de fángjiān.",
+     "fr": "La police a passé sa chambre au peigne fin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3933",
+   "genre": "mot",
+   "hanzi": "搜集",
+   "pinyin": "sōují",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "recueillir, collecter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "recueillir, collecter, rassembler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他喜欢搜集老照片。",
+     "pinyin": "Tā xǐhuan sōují lǎo zhàopiàn.",
+     "fr": "Il aime chiner de vieilles photos.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3934",
+   "genre": "mot",
+   "hanzi": "搜救",
+   "pinyin": "sōujiù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rechercher et secourir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rechercher et secourir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "救援队正在山里搜救。",
+     "pinyin": "Jiùyuánduì zhèngzài shān li sōujiù.",
+     "fr": "Les secours ratissent la montagne à la recherche des disparus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3935",
+   "genre": "mot",
+   "hanzi": "搜寻",
+   "pinyin": "sōuxún",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rechercher, chercher partout",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rechercher, chercher partout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察在搜寻失踪的孩子。",
+     "pinyin": "Jǐngchá zài sōuxún shīzōng de háizi.",
+     "fr": "La police tente de retrouver l'enfant disparu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "艘",
+   "genre": "caractere",
+   "hanzi": "艘",
+   "pinyin": "sōu",
+   "mots": [
+    "L7-3936"
+   ],
+   "sens": {
+    "glose": "classificateur des bateaux",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "classificateur des bateaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "港口停着几艘大船。",
+     "pinyin": "Gǎngkǒu tíng zhe jǐ sōu dà chuán.",
+     "fr": "Quelques grands navires sont à quai dans le port.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3937",
+   "genre": "mot",
+   "hanzi": "苏醒",
+   "pinyin": "sūxǐng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "reprendre connaissance ; se réveiller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "reprendre connaissance ; se réveiller, renaître"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "病人终于苏醒了。",
+     "pinyin": "Bìngrén zhōngyú sūxǐng le.",
+     "fr": "Le malade a enfin rouvert les yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "酥",
+   "genre": "caractere",
+   "hanzi": "酥",
+   "pinyin": "sū",
+   "mots": [
+    "L7-3938"
+   ],
+   "sens": {
+    "glose": "croustillant, friable ; engourdi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "croustillant, friable"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "engourdi, sans force"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种饼干又香又酥。",
+     "pinyin": "Zhè zhǒng bǐnggān yòu xiāng yòu sū.",
+     "fr": "Ces biscuits sont parfumés et fondants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3940",
+   "genre": "mot",
+   "hanzi": "俗话",
+   "pinyin": "súhuà",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dicton, proverbe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dicton, proverbe populaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这句俗话很有道理。",
+     "pinyin": "Zhè jù súhuà hěn yǒu dàoli.",
+     "fr": "Cette sagesse populaire est pleine de bon sens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3941",
+   "genre": "mot",
+   "hanzi": "俗话说",
+   "pinyin": "súhuà shuō",
+   "sens": {
+    "glose": "comme dit le proverbe",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "comme dit le proverbe, comme on dit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "俗话说，活到老，学到老。",
+     "pinyin": "Súhuà shuō, huó dào lǎo, xué dào lǎo.",
+     "fr": "On apprend à tout âge, dit la sagesse populaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3942",
+   "genre": "mot",
+   "hanzi": "俗语",
+   "pinyin": "súyǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "expression populaire, dicton",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "expression populaire, dicton"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "汉语里有很多有意思的俗语。",
+     "pinyin": "Hànyǔ li yǒu hěn duō yǒu yìsi de súyǔ.",
+     "fr": "Le chinois regorge de formules imagées amusantes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3943",
+   "genre": "mot",
+   "hanzi": "诉苦",
+   "pinyin": "sùkǔ",
+   "sens": {
+    "glose": "raconter ses malheurs",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "raconter ses malheurs, se plaindre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她常常向我诉苦。",
+     "pinyin": "Tā chángcháng xiàng wǒ sùkǔ.",
+     "fr": "Elle vient souvent pleurer sur mon épaule.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1328 @@
+{
+ "niveau": "7-9",
+ "lot": "91",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/91.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:fb939ab50445d552420f4fca753b5cbab35d76b478d06a7d9365d1e8e2f8d75c",
+  "contexte": "wenlu dico contexte 7-9 91",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-3944",
+   "genre": "mot",
+   "hanzi": "诉说",
+   "pinyin": "sùshuō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "raconter, confier (ses peines)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "raconter, confier (ses peines, son histoire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她向我诉说了自己的经历。",
+     "pinyin": "Tā xiàng wǒ sùshuō le zìjǐ de jīnglì.",
+     "fr": "Elle m'a parlé de tout ce qu'elle avait vécu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "讼",
+   "genre": "caractere",
+   "hanzi": "讼",
+   "pinyin": "sòng",
+   "sens": {
+    "glose": "procès, litige",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "procès, litige"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3945",
+   "genre": "mot",
+   "hanzi": "诉讼",
+   "pinyin": "sùsòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "procès, procédure judiciaire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "intenter un procès, plaider"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他决定向法院提起诉讼。",
+     "pinyin": "Tā juédìng xiàng fǎyuàn tíqǐ sùsòng.",
+     "fr": "Il a décidé de porter l'affaire devant les tribunaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3947",
+   "genre": "mot",
+   "hanzi": "素不相识",
+   "pinyin": "sùbùxiāngshí",
+   "sens": {
+    "glose": "parfaitement inconnu",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qu'on n'a jamais rencontré, parfaitement inconnu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一个素不相识的人帮了我。",
+     "pinyin": "Yī ge sùbùxiāngshí de rén bāng le wǒ.",
+     "fr": "Quelqu'un que je n'avais jamais vu m'a aidé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3948",
+   "genre": "mot",
+   "hanzi": "素材",
+   "pinyin": "sùcái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "matériaux (pour une œuvre)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "matériaux, matière première (pour une œuvre)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "生活是写作最好的素材。",
+     "pinyin": "Shēnghuó shì xiězuò zuì hǎo de sùcái.",
+     "fr": "La vie offre la meilleure matière pour écrire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3949",
+   "genre": "mot",
+   "hanzi": "素描",
+   "pinyin": "sùmiáo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dessin, croquis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dessin (au crayon, au fusain), croquis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在学画素描。",
+     "pinyin": "Tā zài xué huà sùmiáo.",
+     "fr": "Elle apprend à dessiner au crayon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3950",
+   "genre": "mot",
+   "hanzi": "素食",
+   "pinyin": "sùshí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nourriture végétarienne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nourriture végétarienne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他只吃素食。",
+     "pinyin": "Tā zhǐ chī sùshí.",
+     "fr": "Il ne mange ni viande ni poisson.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3951",
+   "genre": "mot",
+   "hanzi": "素养",
+   "pinyin": "sùyǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "culture, qualités acquises",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "culture, formation, qualités acquises"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他有很高的艺术素养。",
+     "pinyin": "Tā yǒu hěn gāo de yìshù sùyǎng.",
+     "fr": "Il a une solide culture artistique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3952",
+   "genre": "mot",
+   "hanzi": "塑造",
+   "pinyin": "sùzào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "modeler ; camper (un personnage)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "modeler, sculpter ; façonner"
+     },
+     {
+      "categorie": "V",
+      "fr": "créer, camper (un personnage)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这部小说塑造了很多人物。",
+     "pinyin": "Zhè bù xiǎoshuō sùzào le hěn duō rénwù.",
+     "fr": "Ce roman met en scène de nombreux personnages.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蒜",
+   "genre": "caractere",
+   "hanzi": "蒜",
+   "pinyin": "suàn",
+   "mots": [
+    "L7-3953"
+   ],
+   "sens": {
+    "glose": "ail",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "做这个菜要放点儿蒜。",
+     "pinyin": "Zuò zhège cài yào fàng diǎnr suàn.",
+     "fr": "Pour ce plat, il faut ajouter une gousse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3954",
+   "genre": "mot",
+   "hanzi": "算计",
+   "pinyin": "suànji",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "calculer ; manigancer contre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "calculer, compter ; prévoir"
+     },
+     {
+      "categorie": "V",
+      "fr": "manigancer, comploter contre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总是算计别人。",
+     "pinyin": "Tā zǒngshì suànji biérén.",
+     "fr": "Il cherche toujours à rouler les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3955",
+   "genre": "mot",
+   "hanzi": "算盘",
+   "pinyin": "suànpan",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "boulier ; calcul, arrière-pensée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "boulier"
+     },
+     {
+      "categorie": "N",
+      "fr": "calcul, plan, arrière-pensée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷会打算盘。",
+     "pinyin": "Yéye huì dǎ suànpan.",
+     "fr": "Grand-père sait compter avec des boules.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3956",
+   "genre": "mot",
+   "hanzi": "算账",
+   "pinyin": "suànzhàng",
+   "sens": {
+    "glose": "faire les comptes ; régler ses comptes",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire les comptes"
+     },
+     {
+      "categorie": "V",
+      "fr": "régler ses comptes avec quelqu'un"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "等我回来再跟你算账！",
+     "pinyin": "Děng wǒ huílai zài gēn nǐ suànzhàng!",
+     "fr": "Attends que je revienne, tu vas voir !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3957",
+   "genre": "mot",
+   "hanzi": "虽说",
+   "pinyin": "suīshuō",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "bien que, quoique",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "bien que, quoique (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "虽说他年纪小，但很懂事。",
+     "pinyin": "Suīshuō tā niánjì xiǎo, dàn hěn dǒngshì.",
+     "fr": "Il a beau être jeune, il est très raisonnable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3958",
+   "genre": "mot",
+   "hanzi": "随处可见",
+   "pinyin": "suíchù kě jiàn",
+   "sens": {
+    "glose": "qu'on voit partout",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qu'on voit partout, omniprésent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种花在南方随处可见。",
+     "pinyin": "Zhè zhǒng huā zài nánfāng suíchù kě jiàn.",
+     "fr": "Cette fleur pousse n'importe où dans le Sud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3959",
+   "genre": "mot",
+   "hanzi": "随大溜",
+   "pinyin": "suí dàliù",
+   "sens": {
+    "glose": "faire comme tout le monde",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "suivre le mouvement, faire comme tout le monde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "做事不要总是随大溜。",
+     "pinyin": "Zuò shì bùyào zǒngshì suí dàliù.",
+     "fr": "Il ne faut pas toujours suivre la foule.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3960",
+   "genre": "mot",
+   "hanzi": "随机",
+   "pinyin": "suíjī",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "aléatoire ; selon les circonstances",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "aléatoire, au hasard ; selon les circonstances"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们随机选了十个人。",
+     "pinyin": "Wǒmen suíjī xuǎn le shí ge rén.",
+     "fr": "Nous avons tiré au sort dix personnes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3961",
+   "genre": "mot",
+   "hanzi": "随即",
+   "pinyin": "suíjí",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "aussitôt, immédiatement après",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "aussitôt, immédiatement après"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他接到电话，随即出了门。",
+     "pinyin": "Tā jiēdào diànhuà, suíjí chū le mén.",
+     "fr": "Après l'appel, il est sorti sur-le-champ.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3962",
+   "genre": "mot",
+   "hanzi": "随身",
+   "pinyin": "suíshēn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sur soi, qu'on porte avec soi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sur soi, qu'on porte avec soi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请带好随身物品。",
+     "pinyin": "Qǐng dài hǎo suíshēn wùpǐn.",
+     "fr": "N'oubliez pas vos effets personnels.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3963",
+   "genre": "mot",
+   "hanzi": "随时随地",
+   "pinyin": "suíshí-suídì",
+   "sens": {
+    "glose": "n'importe quand, n'importe où",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "n'importe quand, n'importe où"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有了手机，可以随时随地上网。",
+     "pinyin": "Yǒu le shǒujī, kěyǐ suíshí-suídì shàngwǎng.",
+     "fr": "Avec un téléphone, on est connecté partout et tout le temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3964",
+   "genre": "mot",
+   "hanzi": "随心所欲",
+   "pinyin": "suíxīnsuǒyù",
+   "sens": {
+    "glose": "à sa guise, comme on veut",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "à sa guise, comme bon lui semble"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你不能随心所欲地花钱。",
+     "pinyin": "Nǐ bù néng suíxīnsuǒyù de huā qián.",
+     "fr": "Tu ne peux pas dépenser sans compter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "遂",
+   "genre": "caractere",
+   "hanzi": "遂",
+   "pinyin": "suì",
+   "sens": {
+    "glose": "réaliser (un vœu) ; alors",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "satisfaire, réaliser (un vœu)"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "alors, aussitôt (écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3965",
+   "genre": "mot",
+   "hanzi": "遂心",
+   "pinyin": "suìxīn",
+   "sens": {
+    "glose": "à sa convenance",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "à sa convenance, conforme à ses désirs"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事办得很遂心。",
+     "pinyin": "Zhè jiàn shì bàn de hěn suìxīn.",
+     "fr": "L'affaire s'est réglée exactement comme je le voulais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "隧",
+   "genre": "caractere",
+   "hanzi": "隧",
+   "pinyin": "suì",
+   "sens": {
+    "glose": "tunnel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tunnel, passage souterrain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3966",
+   "genre": "mot",
+   "hanzi": "隧道",
+   "pinyin": "suìdào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "tunnel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tunnel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "火车穿过了一条长长的隧道。",
+     "pinyin": "Huǒchē chuānguò le yī tiáo chángcháng de suìdào.",
+     "fr": "Le train est passé sous la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3968",
+   "genre": "mot",
+   "hanzi": "损坏",
+   "pinyin": "sǔnhuài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "endommager, abîmer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "endommager, abîmer, détériorer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请不要损坏公共财物。",
+     "pinyin": "Qǐng bùyào sǔnhuài gōnggòng cáiwù.",
+     "fr": "Merci de respecter les biens publics.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3969",
+   "genre": "mot",
+   "hanzi": "损人利己",
+   "pinyin": "sǔnrén-lìjǐ",
+   "sens": {
+    "glose": "nuire à autrui pour son profit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nuire à autrui pour son propre profit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "损人利己的事不能做。",
+     "pinyin": "Sǔnrén-lìjǐ de shì bù néng zuò.",
+     "fr": "Il ne faut pas s'enrichir aux dépens des autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3970",
+   "genre": "mot",
+   "hanzi": "损伤",
+   "pinyin": "sǔnshāng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "endommager, léser, blesser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "endommager, léser, blesser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "长时间看手机会损伤视力。",
+     "pinyin": "Cháng shíjiān kàn shǒujī huì sǔnshāng shìlì.",
+     "fr": "Regarder son téléphone trop longtemps abîme les yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3972",
+   "genre": "mot",
+   "hanzi": "缩水",
+   "pinyin": "suōshuǐ",
+   "sens": {
+    "glose": "rétrécir ; diminuer (valeur)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rétrécir au lavage"
+     },
+     {
+      "categorie": "V",
+      "fr": "diminuer, se réduire (valeur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件毛衣洗了以后缩水了。",
+     "pinyin": "Zhè jiàn máoyī xǐ le yǐhòu suōshuǐ le.",
+     "fr": "Ce pull est devenu trop petit après la machine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3973",
+   "genre": "mot",
+   "hanzi": "缩影",
+   "pinyin": "suōyǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "miniature, microcosme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "miniature, microcosme, image en réduction"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个小镇是中国农村的缩影。",
+     "pinyin": "Zhège xiǎo zhèn shì Zhōngguó nóngcūn de suōyǐng.",
+     "fr": "Cette petite ville résume à elle seule la Chine rurale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3974",
+   "genre": "mot",
+   "hanzi": "所属",
+   "pinyin": "suǒshǔ",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "dont on relève, dont on dépend",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dont on relève, qui appartient à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请写上你所属的单位。",
+     "pinyin": "Qǐng xiě shang nǐ suǒshǔ de dānwèi.",
+     "fr": "Indiquez l'organisme qui vous emploie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3975",
+   "genre": "mot",
+   "hanzi": "所谓",
+   "pinyin": "suǒwèi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ce qu'on appelle ; soi-disant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ce qu'on appelle"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "soi-disant, prétendu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他所谓的朋友都不见了。",
+     "pinyin": "Tā suǒwèi de péngyou dōu bù jiàn le.",
+     "fr": "Ses prétendus amis ont tous disparu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3976",
+   "genre": "mot",
+   "hanzi": "所作所为",
+   "pinyin": "suǒzuò-suǒwéi",
+   "sens": {
+    "glose": "agissements, conduite",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "agissements, conduite, faits et gestes"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的所作所为让大家很失望。",
+     "pinyin": "Tā de suǒzuò-suǒwéi ràng dàjiā hěn shīwàng.",
+     "fr": "Son comportement a déçu tout le monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3977",
+   "genre": "mot",
+   "hanzi": "索赔",
+   "pinyin": "suǒpéi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réclamer des dommages-intérêts",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réclamer des dommages-intérêts, demander réparation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "顾客向商店索赔。",
+     "pinyin": "Gùkè xiàng shāngdiàn suǒpéi.",
+     "fr": "Le client exige d'être indemnisé par le magasin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3978",
+   "genre": "mot",
+   "hanzi": "索取",
+   "pinyin": "suǒqǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exiger, réclamer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exiger, réclamer, demander"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他向公司索取报酬。",
+     "pinyin": "Tā xiàng gōngsī suǒqǔ bàochou.",
+     "fr": "Il veut être payé par l'entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3979",
+   "genre": "mot",
+   "hanzi": "索性",
+   "pinyin": "suǒxìng",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "tant qu'à faire, carrément",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "tant qu'à faire, carrément, autant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨太大了，我们索性不走了。",
+     "pinyin": "Yǔ tài dà le, wǒmen suǒxìng bù zǒu le.",
+     "fr": "Il pleut trop, autant rester.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3980",
+   "genre": "mot",
+   "hanzi": "锁定",
+   "pinyin": "suǒdìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "verrouiller ; cibler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "verrouiller, bloquer"
+     },
+     {
+      "categorie": "V",
+      "fr": "cibler, fixer (un objectif)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "警察已经锁定了嫌疑人。",
+     "pinyin": "Jǐngchá yǐjīng suǒdìng le xiányírén.",
+     "fr": "La police a identifié le suspect.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3981",
+   "genre": "mot",
+   "hanzi": "他人",
+   "pinyin": "tārén",
+   "categories": [
+    "Pron"
+   ],
+   "sens": {
+    "glose": "autrui, les autres",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "autrui, les autres"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不要随便评价他人。",
+     "pinyin": "Bùyào suíbiàn píngjià tārén.",
+     "fr": "Ne juge pas ton prochain à la légère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3983",
+   "genre": "mot",
+   "hanzi": "踏上",
+   "pinyin": "tàshang",
+   "sens": {
+    "glose": "s'engager sur (un chemin)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "mettre le pied sur, s'engager sur (un chemin)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他踏上了回家的路。",
+     "pinyin": "Tā tàshang le huí jiā de lù.",
+     "fr": "Il a pris le chemin du retour.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3985",
+   "genre": "mot",
+   "hanzi": "胎儿",
+   "pinyin": "tāi'ér",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fœtus",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fœtus, embryon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生说胎儿很健康。",
+     "pinyin": "Yīshēng shuō tāi'ér hěn jiànkāng.",
+     "fr": "Le médecin dit que le bébé se porte bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3986",
+   "genre": "mot",
+   "hanzi": "台球",
+   "pinyin": "táiqiú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "billard",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "billard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我们去打台球。",
+     "pinyin": "Zhōumò wǒmen qù dǎ táiqiú.",
+     "fr": "Ce week-end, on va faire une partie de queue et de boules.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3987",
+   "genre": "mot",
+   "hanzi": "太极",
+   "pinyin": "tàijí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "taiji (faîte suprême) ; taiji-quan",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "taiji, faîte suprême (philosophie)"
+     },
+     {
+      "categorie": "N",
+      "fr": "taiji-quan (forme abrégée)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷每天早上练太极。",
+     "pinyin": "Yéye měi tiān zǎoshang liàn tàijí.",
+     "fr": "Grand-père s'exerce au taiji tous les matins.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3988",
+   "genre": "mot",
+   "hanzi": "太极拳",
+   "pinyin": "tàijíquán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "taiji-quan",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "taiji-quan, boxe de l'ombre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公园里有很多老人在打太极拳。",
+     "pinyin": "Gōngyuán li yǒu hěn duō lǎorén zài dǎ tàijíquán.",
+     "fr": "Dans le parc, beaucoup de personnes âgées font leurs exercices lents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3989",
+   "genre": "mot",
+   "hanzi": "太平",
+   "pinyin": "tàipíng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "paisible, en paix",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paisible, en paix, tranquille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人们希望天下太平。",
+     "pinyin": "Rénmen xīwàng tiānxià tàipíng.",
+     "fr": "Les gens souhaitent la paix dans le monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "泰",
+   "genre": "caractere",
+   "hanzi": "泰",
+   "pinyin": "tài",
+   "sens": {
+    "glose": "paisible, serein",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "paisible, serein"
+     },
+     {
+      "categorie": "N",
+      "fr": "Thaïlande (abrégé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3990",
+   "genre": "mot",
+   "hanzi": "泰斗",
+   "pinyin": "tàidǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sommité, grande autorité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sommité, grande autorité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是中国医学界的泰斗。",
+     "pinyin": "Tā shì Zhōngguó yīxuéjiè de tàidǒu.",
+     "fr": "C'est une figure majeure de la médecine chinoise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "贪",
+   "genre": "caractere",
+   "hanzi": "贪",
+   "pinyin": "tān",
+   "mots": [
+    "L7-3991"
+   ],
+   "sens": {
+    "glose": "convoiter ; être corrompu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "convoiter, être avide de"
+     },
+     {
+      "categorie": "V",
+      "fr": "détourner, être corrompu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他太贪吃了。",
+     "pinyin": "Tā tài tān chī le.",
+     "fr": "Il est trop gourmand.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "婪",
+   "genre": "caractere",
+   "hanzi": "婪",
+   "pinyin": "lán",
+   "sens": {
+    "glose": "cupide, avide",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cupide, avide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3992",
+   "genre": "mot",
+   "hanzi": "贪婪",
+   "pinyin": "tānlán",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "cupide, avide",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "cupide, avide, insatiable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用贪婪的眼光看着那些钱。",
+     "pinyin": "Tā yòng tānlán de yǎnguāng kàn zhe nàxiē qián.",
+     "fr": "Il dévore l'argent des yeux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3993",
+   "genre": "mot",
+   "hanzi": "贪玩儿",
+   "pinyin": "tānwánr",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "ne penser qu'à jouer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne penser qu'à jouer, aimer trop s'amuser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这孩子太贪玩儿，不爱学习。",
+     "pinyin": "Zhè háizi tài tānwánr, bù ài xuéxí.",
+     "fr": "Cet enfant ne pense qu'à s'amuser et déteste étudier.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
