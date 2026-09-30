@@ -1216,6 +1216,7 @@ def prolonger(
     *,
     noms: Sequence[str] | None = None,
     depart: Mapping[str, Sequence[str]] | None = None,
+    jusqua: Mapping[str, int] | None = None,
 ) -> dict[str, Parcours]:
     """Prolonge chaque ordre figé jusqu'au bout de ses étapes, et l'écrit ; rend les parcours.
 
@@ -1224,6 +1225,11 @@ def prolonger(
     jours de fermeture compris. La suite se calcule étape par étape,
     avec les règles de `parcours`. Sans ordre figé, tout se calcule depuis le départ. Le
     résultat est validé comme au build (`parcours_fige`) avant d'être écrit.
+
+    `jusqua` : pour un parcours, le dernier jour figé qu'on garde ; la suite se recalcule.
+    Quand une décomposition est réconciliée, un caractère quitte les jours de fermeture et
+    doit prendre place dans son étape : on garde les jours qui ont déjà leurs textes, et
+    l'on recalcule après eux.
     """
     sortie = sortie or BUILD
     ingest = ingest or INGEST
@@ -1239,6 +1245,8 @@ def prolonger(
         if not etapes:
             continue
         fige = charger_ordre(nom, dossier) or []
+        if jusqua and nom in jusqua:
+            fige = [j for j in fige if j.jour <= jusqua[nom]]
         calcule = parcours(
             graphe, (), nom=nom, liste=liste, rangs=rangs, depart=depart.get(nom, ()), etapes=etapes, prefixe=fige
         )

@@ -184,12 +184,16 @@ def parcours_figer(
 @_parcours.command("prolonger")
 def parcours_prolonger(
     nom: list[str] = typer.Option([], help="Parcours à prolonger (lire, hsk) ; tous par défaut."),
+    jusqua: int = typer.Option(0, help="Le dernier jour figé à garder (avec un seul --nom) ; la suite se recalcule."),
 ) -> None:
     """Prolonge data/sources/parcours/ordre-<nom>.tsv jusqu'au bout de ses étapes (graphe.ETAPES), sans bouger un jour figé. Exige `build`. Relire le diff avant de versionner."""
     from .graphe import NOMS_DE_LISTE, OrdreInvalide, ParcoursBloque, prolonger
 
     try:
-        ecrits = prolonger(noms=nom or None)
+        if jusqua and len(nom) != 1:
+            typer.echo("--jusqua demande un seul --nom.", err=True)
+            raise typer.Exit(code=1)
+        ecrits = prolonger(noms=nom or None, jusqua={nom[0]: jusqua} if jusqua else None)
     except OSError as erreur:
         typer.echo(f"{erreur} — lancer `wenlu build` d'abord.", err=True)
         raise typer.Exit(code=1) from erreur
