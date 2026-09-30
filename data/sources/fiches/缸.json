@@ -21,20 +21,33 @@
   "缶": "sens",
   "工": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "鱼缸",
+   "pinyin": "yúgāng",
+   "fr": "aquarium",
+   "en": "fish tank"
+  },
+  {
+   "hanzi": "水缸",
+   "pinyin": "shuǐgāng",
+   "fr": "jarre à eau",
+   "en": "water vat"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "鱼缸里有几条小金鱼。",
+  "pinyin": "Yúgāng li yǒu jǐ tiáo xiǎo jīnyú.",
+  "fr": "Il y a quelques petits poissons rouges dans l'aquarium.",
+  "en": "There are a few little goldfish in the tank."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7252e08098ced6ac5ca2703379a664520dba69a50ac4ea1f49c680603ab6e227",
-  "essais": 1,
+  "empreinte_invite": "sha256:e68d8cc82d61c0d1f9c01ca41fa9b615ab8073d87b36cbe9ad2f107923483321",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

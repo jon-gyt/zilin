@@ -25,20 +25,33 @@
   "口": "forme",
   "刂": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "收割",
+   "pinyin": "shōugē",
+   "fr": "moissonner",
+   "en": "to harvest"
+  },
+  {
+   "hanzi": "分割",
+   "pinyin": "fēngē",
+   "fr": "séparer, diviser",
+   "en": "to divide, to cut apart"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "农民们正在收割小麦。",
+  "pinyin": "Nóngmínmen zhèngzài shōugē xiǎomài.",
+  "fr": "Les paysans sont en train de moissonner le blé.",
+  "en": "The farmers are harvesting the wheat."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4759ea3accf2dc5752e51491a18a94d45254eeca526030b08b10c1a7d33da897",
-  "essais": 1,
+  "empreinte_invite": "sha256:55733107edf0f1e3ee7eb67a07a74adbd385083ea259fba6b8215dbe15fcd40d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

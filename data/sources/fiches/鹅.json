@@ -21,20 +21,33 @@
   "我": "forme",
   "鸟": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "天鹅",
+   "pinyin": "tiān'é",
+   "fr": "cygne",
+   "en": "swan"
+  },
+  {
+   "hanzi": "企鹅",
+   "pinyin": "qǐ'é",
+   "fr": "manchot, pingouin",
+   "en": "penguin"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "湖上有两只白天鹅。",
+  "pinyin": "Hú shang yǒu liǎng zhī bái tiān'é.",
+  "fr": "Deux cygnes blancs nagent sur le lac.",
+  "en": "There are two white swans on the lake."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c6bdbe104216130744ffd23464a194f33457d6e46903b77acb626a24ab871783",
-  "essais": 1,
+  "empreinte_invite": "sha256:0e9dd541ba7f732ec71b7a1b84aa138953878f4c6efb23184483c1cd4aca6c5d",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

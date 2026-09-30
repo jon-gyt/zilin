@@ -21,20 +21,33 @@
   "身": "sens",
   "弓": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "躬身",
+   "pinyin": "gōngshēn",
+   "fr": "s'incliner",
+   "en": "to bow"
+  },
+  {
+   "hanzi": "躬亲",
+   "pinyin": "gōngqīn",
+   "fr": "s'occuper en personne",
+   "en": "to attend to personally"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他躬身向客人问好。",
+  "pinyin": "Tā gōngshēn xiàng kèrén wènhǎo.",
+  "fr": "Il s'incline pour saluer les invités.",
+  "en": "He bows to greet the guests."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f88cf7ab379a72661c286bbf093f03fc8d11315aed86165bcc61f381c57f0fea",
-  "essais": 1,
+  "empreinte_invite": "sha256:2b1de458a54cd33ae5a4111f1f316f369c6379af72119d538a9da089631d9465",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
