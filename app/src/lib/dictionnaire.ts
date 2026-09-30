@@ -421,7 +421,8 @@ export function chercherDico(q: string, index: IndexDico, max: number = MAX_RESU
 
 /* ---------- les entrées des lots ---------- */
 
-export type Acception = { categorie: string; fr: string };
+/** Une acception ; `pinyin` quand elle se lit autrement que la lecture principale (好 hào). */
+export type Acception = { categorie: string; fr: string; pinyin?: string };
 export type Sens = { statut: 'relu'; glose: string; acceptions: Acception[] };
 export type Exemple = { zh: string; pinyin: string; fr: string };
 export type Decomposition = { norme: string; parts: string[]; sources: string[] };
@@ -478,9 +479,21 @@ export function sensAffichable(v: unknown): Sens | null {
     ? o.acceptions
         .map((a) => a as Record<string, unknown>)
         .filter((a) => a !== null && typeof a === 'object' && chaine(a.fr) !== '')
-        .map((a) => ({ categorie: chaine(a.categorie), fr: chaine(a.fr) }))
+        .map((a) => (chaine(a.pinyin) ? { categorie: chaine(a.categorie), fr: chaine(a.fr), pinyin: chaine(a.pinyin) } : { categorie: chaine(a.categorie), fr: chaine(a.fr) }))
     : [];
   return { statut: 'relu', glose, acceptions };
+}
+
+/**
+ * Ce qu'un mot d'un seul caractère veut dire : il n'a pas de sens à lui (story 10.8), ses
+ * emplois sont les acceptions du caractère de même catégorie et de même lecture. Une
+ * acception sans lecture propre se lit à la lecture principale du caractère.
+ */
+export function acceptionsDEmploi(sens: { acceptions: Acception[] } | null, mot: Pick<EntreeMot, 'categories' | 'pinyin'>, principal: string): Acception[] {
+  if (sens === null) return [];
+  return sens.acceptions.filter(
+    (a) => mot.categories.includes(a.categorie) && (a.pinyin ?? principal) === mot.pinyin
+  );
 }
 
 /** Les phrases d'exemple relues, et elles seules. */

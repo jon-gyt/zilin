@@ -38,7 +38,7 @@
     type EnvDico,
     type VueDico
   } from './dico-ecran';
-  import type { ChargeurDico, EntreeCaractere, EntreeMot, Exemple, IndexDico } from './dictionnaire';
+  import { acceptionsDEmploi, type ChargeurDico, type EntreeCaractere, type EntreeMot, type Exemple, type IndexDico } from './dictionnaire';
   import { remplir } from './ecrans';
   import { premierSens, type StrokeData } from './glyph';
 
@@ -298,11 +298,12 @@
     <ul class="emplois">
       {#each emplois as m (m.id)}
         {@const s = sensDeFiche(m.sens, '')}
+        {@const acc = acceptionsDEmploi(sens, m, pinyin)}
         <li>
           <span class="pin">{m.pinyin}</span>
           {#if categories(m) !== ''}<span>{categories(m)}</span>{/if}
           <span class="niv">{libelleNiveau(m.niveau, t)}</span>
-          {#if s}<span class="fr">{s.glose}</span>{/if}
+          {#if s}<span class="fr">{s.glose}</span>{:else if acc.length > 0}<span class="fr">{acc.map((a) => a.fr).join(' ; ')}</span>{/if}
         </li>
       {/each}
     </ul>

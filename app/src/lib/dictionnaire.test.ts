@@ -16,6 +16,7 @@ import {
   lireIndexDico,
   lireSaisie,
   sensAffichable,
+  acceptionsDEmploi,
   type IndexDico
 } from './dictionnaire';
 
@@ -285,6 +286,27 @@ describe('les entrées des lots', () => {
       exemples: []
     });
     expect(e).toMatchObject({ id: 'L1-0075', emploi: { hanzi: '第二' }, variantes: [], pleines: [] });
+  });
+});
+
+describe('les mots d’un seul caractère', () => {
+  const sens = sensAffichable({
+    statut: 'relu',
+    glose: 'bon, bien ; aimer',
+    acceptions: [
+      { categorie: 'Adj', fr: 'bon, bien' },
+      { categorie: 'Adv', fr: 'très, bien' },
+      { categorie: 'V', fr: 'aimer, avoir du goût pour', pinyin: 'hào' }
+    ]
+  });
+  it('gardent la lecture propre d’une acception', () => {
+    expect(sens?.acceptions[2]).toEqual({ categorie: 'V', fr: 'aimer, avoir du goût pour', pinyin: 'hào' });
+  });
+  it('prennent les acceptions du caractère de même catégorie et de même lecture', () => {
+    expect(acceptionsDEmploi(sens, { categories: ['Adj', 'Adv'], pinyin: 'hǎo' }, 'hǎo').map((a) => a.fr)).toEqual(['bon, bien', 'très, bien']);
+    expect(acceptionsDEmploi(sens, { categories: ['V'], pinyin: 'hào' }, 'hǎo').map((a) => a.fr)).toEqual(['aimer, avoir du goût pour']);
+    expect(acceptionsDEmploi(sens, { categories: ['V'], pinyin: 'hǎo' }, 'hǎo')).toEqual([]);
+    expect(acceptionsDEmploi(null, { categories: ['Adj'], pinyin: 'hǎo' }, 'hǎo')).toEqual([]);
   });
 });
 
