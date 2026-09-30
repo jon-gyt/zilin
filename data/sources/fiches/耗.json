@@ -21,20 +21,33 @@
   "耒": "sens",
   "毛": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "消耗",
+   "pinyin": "xiāohào",
+   "fr": "consommer, épuiser",
+   "en": "to consume, to use up"
+  },
+  {
+   "hanzi": "耗费",
+   "pinyin": "hàofèi",
+   "fr": "dépenser, gaspiller",
+   "en": "to expend, to waste"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这辆车耗油很多。",
+  "pinyin": "Zhè liàng chē hào yóu hěn duō.",
+  "fr": "Cette voiture consomme beaucoup d'essence.",
+  "en": "This car uses a lot of fuel."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:24fa82abd8f94048f582f90c012fc7359885d4fec0752563c466055b734c099c",
-  "essais": 1,
+  "empreinte_invite": "sha256:67e5ee9ecc9ee4fcdc08fa82f2fefa613c95303d2d464fa6cb0e0ccf8d78e75b",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

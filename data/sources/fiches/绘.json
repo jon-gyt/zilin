@@ -23,20 +23,33 @@
   "人": "son",
   "云": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "绘画",
+   "pinyin": "huìhuà",
+   "fr": "peinture, dessin",
+   "en": "painting, drawing"
+  },
+  {
+   "hanzi": "描绘",
+   "pinyin": "miáohuì",
+   "fr": "dépeindre, décrire",
+   "en": "to depict, to portray"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她从小就喜欢绘画。",
+  "pinyin": "Tā cóngxiǎo jiù xǐhuan huìhuà.",
+  "fr": "Elle aime dessiner depuis toute petite.",
+  "en": "She has loved painting since childhood."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8ced8667cc11012b77e525aab8a8133afdf3dab8f261ebbe16a5f9615a038527",
-  "essais": 1,
+  "empreinte_invite": "sha256:82ee181f7a5004574c3edbbbcf51d6e01fa294dc0e9d61166e6340501d34fa76",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

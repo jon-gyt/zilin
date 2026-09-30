@@ -21,20 +21,33 @@
   "氏": "sens",
   "日": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "黄昏",
+   "pinyin": "huánghūn",
+   "fr": "crépuscule",
+   "en": "dusk"
+  },
+  {
+   "hanzi": "昏迷",
+   "pinyin": "hūnmí",
+   "fr": "perdre connaissance, coma",
+   "en": "to lose consciousness, coma"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他头很昏，想睡一会儿。",
+  "pinyin": "Tā tóu hěn hūn, xiǎng shuì yīhuìr.",
+  "fr": "Il a la tête qui tourne, il veut dormir un peu.",
+  "en": "His head is spinning; he wants to sleep for a while."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ed4567645a34dce49fe571ea4abc39bdc2060455a70e8cf321c2986b7cd34585",
-  "essais": 1,
+  "empreinte_invite": "sha256:29a73c15efae1db66ff9674d3082ccb25e834d4a43520ecf83d731532dc204a6",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

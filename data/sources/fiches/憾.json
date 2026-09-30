@@ -27,20 +27,33 @@
   "口": "sens",
   "心": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "遗憾",
+   "pinyin": "yíhàn",
+   "fr": "regret ; dommage",
+   "en": "regret; a pity"
+  },
+  {
+   "hanzi": "缺憾",
+   "pinyin": "quēhàn",
+   "fr": "manque, imperfection",
+   "en": "shortcoming, flaw"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你不能来，真遗憾。",
+  "pinyin": "Nǐ bù néng lái, zhēn yíhàn.",
+  "fr": "Dommage que tu ne puisses pas venir.",
+  "en": "It's a pity you can't come."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5c1b337bedda9fde24d597da97738743703b777983e0a091bdb206e78abc6bc6",
-  "essais": 1,
+  "empreinte_invite": "sha256:ce38cca6181819bdad195ede5e23a361fc27dff2e7c97bdb1761fff0215bc20a",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
