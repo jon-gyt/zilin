@@ -1,0 +1,411 @@
+{
+ "examen": "yueke-455",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "姐姐：我和爷爷去打球了，",
+       "pinyin": "jiě jie wǒ hé yé ye qù dǎ qiú le",
+       "fr": "Grande sœur : je suis parti jouer au ballon avec grand-père.",
+       "en": "Big sister: I've gone to play ball with Grandpa."
+      },
+      {
+       "zh": "你的书在床上。",
+       "pinyin": "nǐ de shū zài chuáng shang",
+       "fr": "Ton livre est sur le lit.",
+       "en": "Your book is on the bed."
+      },
+      {
+       "zh": "五点半回来。",
+       "pinyin": "wǔ diǎn bàn huí lái",
+       "fr": "Retour à cinq heures et demie.",
+       "en": "Back at half past five."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小张，你的手机忘在我家了。",
+       "pinyin": "xiǎo zhāng nǐ de shǒu jī wàng zài wǒ jiā le",
+       "fr": "Xiao Zhang, tu as oublié ton téléphone chez moi.",
+       "en": "Xiao Zhang, you left your phone at my place."
+      },
+      {
+       "zh": "明天我给你送去。",
+       "pinyin": "míng tiān wǒ gěi nǐ sòng qù",
+       "fr": "Je te l'apporte demain.",
+       "en": "I'll bring it to you tomorrow."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Avec qui est-il sorti ?",
+      "en": "Who did he go out with?"
+     },
+     "choix": [
+      {
+       "fr": "Sa grand-mère",
+       "en": "His grandmother"
+      },
+      {
+       "fr": "Son grand-père",
+       "en": "His grandfather"
+      },
+      {
+       "fr": "Sa petite sœur",
+       "en": "His little sister"
+      },
+      {
+       "fr": "Son professeur",
+       "en": "His teacher"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "爷"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qu'ils sont allés faire.",
+      "en": "Tap what they went to do."
+     },
+     "choix": [
+      "姐姐",
+      "爷爷",
+      "打球",
+      "床上"
+     ],
+     "reponse": 2,
+     "porte": [
+      "打",
+      "球"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiao Zhang ?",
+      "en": "What does Xiao Zhang reply?"
+     },
+     "choix": [
+      {
+       "zh": "我妹妹喜欢唱歌。",
+       "pinyin": "wǒ mèi mei xǐ huan chàng gē",
+       "fr": "Ma petite sœur aime chanter.",
+       "en": "My little sister likes singing."
+      },
+      {
+       "zh": "我姐姐在学校。",
+       "pinyin": "wǒ jiě jie zài xué xiào",
+       "fr": "Ma grande sœur est à l'école.",
+       "en": "My big sister is at school."
+      },
+      {
+       "zh": "这里的树很高。",
+       "pinyin": "zhè li de shù hěn gāo",
+       "fr": "Ici, les arbres sont hauts.",
+       "en": "The trees here are tall."
+      },
+      {
+       "zh": "太好了，谢谢你！",
+       "pinyin": "tài hǎo le xiè xie nǐ",
+       "fr": "Super, merci !",
+       "en": "Great, thanks!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "忘",
+      "送"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "手机在小张家里。",
+      "pinyin": "shǒu jī zài xiǎo zhāng jiā lǐ",
+      "fr": "Le téléphone est chez Xiao Zhang.",
+      "en": "The phone is at Xiao Zhang's home."
+     },
+     "reponse": false,
+     "porte": [
+      "忘",
+      "我",
+      "家"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "休息",
+      "pinyin": "xiū xi",
+      "fr": "se reposer",
+      "en": "to rest"
+     },
+     "trou": 0,
+     "choix": [
+      "体",
+      "休",
+      "你",
+      "们"
+     ],
+     "reponse": 1,
+     "porte": [
+      "休"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "东城学校网球班",
+       "pinyin": "dōng chéng xué xiào wǎng qiú bān",
+       "fr": "École de Dongcheng : cours de tennis",
+       "en": "Dongcheng School: tennis class"
+      },
+      {
+       "zh": "每星期三下午四点",
+       "pinyin": "měi xīng qī sān xià wǔ sì diǎn",
+       "fr": "Tous les mercredis à seize heures",
+       "en": "Every Wednesday at 4 pm"
+      },
+      {
+       "zh": "一个月一百元",
+       "pinyin": "yī gè yuè yī bǎi yuán",
+       "fr": "100 yuans par mois",
+       "en": "100 yuan a month"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妹妹，明天我要考试，",
+       "pinyin": "mèi mei míng tiān wǒ yào kǎo shì",
+       "fr": "Petite sœur, j'ai un examen demain :",
+       "en": "Little sister, I have an exam tomorrow,"
+      },
+      {
+       "zh": "今天晚上不看电视了。",
+       "pinyin": "jīn tiān wǎn shang bù kàn diàn shì le",
+       "fr": "ce soir, je ne regarde pas la télé.",
+       "en": "so no TV for me tonight."
+      },
+      {
+       "zh": "你别唱歌，好吗？",
+       "pinyin": "nǐ bié chàng gē hǎo ma",
+       "fr": "Tu veux bien ne pas chanter ?",
+       "en": "Could you not sing, please?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Qu'apprend-on dans ce cours ?",
+      "en": "What does this class teach?"
+     },
+     "choix": [
+      {
+       "fr": "Le chant",
+       "en": "Singing"
+      },
+      {
+       "fr": "La natation",
+       "en": "Swimming"
+      },
+      {
+       "fr": "Le dessin",
+       "en": "Drawing"
+      },
+      {
+       "fr": "Le tennis",
+       "en": "Tennis"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "网",
+      "球"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "一个月一百块钱。",
+      "pinyin": "yī gè yuè yī bǎi kuài qián",
+      "fr": "C'est cent yuans par mois.",
+      "en": "It's a hundred yuan a month."
+     },
+     "reponse": true,
+     "porte": [
+      "百",
+      "元"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui l'attend demain.",
+      "en": "Tap what awaits her tomorrow."
+     },
+     "choix": [
+      "妹妹",
+      "考试",
+      "电视",
+      "唱歌"
+     ],
+     "reponse": 1,
+     "porte": [
+      "考",
+      "试"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond sa petite sœur ?",
+      "en": "What does her little sister reply?"
+     },
+     "choix": [
+      {
+       "zh": "我爷爷八十岁了。",
+       "pinyin": "wǒ yé ye bā shí suì le",
+       "fr": "Mon grand-père a quatre-vingts ans.",
+       "en": "My grandpa is eighty."
+      },
+      {
+       "zh": "好，我不唱了。",
+       "pinyin": "hǎo wǒ bù chàng le",
+       "fr": "D'accord, je ne chante plus.",
+       "en": "OK, I'll stop singing."
+      },
+      {
+       "zh": "我的球在哪里？",
+       "pinyin": "wǒ de qiú zài nǎ li",
+       "fr": "Où est mon ballon ?",
+       "en": "Where's my ball?"
+      },
+      {
+       "zh": "你的衣服很好看。",
+       "pinyin": "nǐ de yī fu hěn hǎo kàn",
+       "fr": "Tes vêtements sont jolis.",
+       "en": "Your clothes are pretty."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "唱"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "笑",
+      "pinyin": "xiào",
+      "fr": "rire, sourire",
+      "en": "to laugh, to smile"
+     },
+     "choix": [
+      {
+       "fr": "courir",
+       "en": "to run"
+      },
+      {
+       "fr": "dormir",
+       "en": "to sleep"
+      },
+      {
+       "fr": "rire",
+       "en": "to laugh"
+      },
+      {
+       "fr": "se laver",
+       "en": "to wash"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "笑"
+     ]
+    }
+   ]
+  }
+ ]
+}
