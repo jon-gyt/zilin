@@ -1,0 +1,1294 @@
+{
+ "niveau": "7-9",
+ "lot": "65",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/65.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:cd282cebb757e1ab16f6756f91e8cec72f9281cd90288693c17979d1053272d5",
+  "contexte": "wenlu dico contexte 7-9 65",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2769",
+   "genre": "mot",
+   "hanzi": "马虎",
+   "pinyin": "mǎhu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "négligent, bâclé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "négligent, peu soigneux, bâclé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他做事太马虎了。",
+     "pinyin": "Tā zuò shì tài mǎhu le.",
+     "fr": "Il travaille avec trop de négligence.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2770",
+   "genre": "mot",
+   "hanzi": "马力",
+   "pinyin": "mǎlì",
+   "categories": [
+    "M"
+   ],
+   "sens": {
+    "glose": "cheval-vapeur",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "cheval-vapeur (unité de puissance)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这辆车有两百马力。",
+     "pinyin": "Zhè liàng chē yǒu liǎng bǎi mǎlì.",
+     "fr": "Cette voiture fait deux cents chevaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "桶",
+   "genre": "caractere",
+   "hanzi": "桶",
+   "pinyin": "tǒng",
+   "mots": [
+    "L7-4143"
+   ],
+   "sens": {
+    "glose": "seau, baril",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "seau, tonneau, bidon"
+     },
+     {
+      "categorie": "M",
+      "fr": "un seau de, un baril de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他提着一桶水。",
+     "pinyin": "Tā tí zhe yī tǒng shuǐ.",
+     "fr": "Il porte un seau d'eau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2771",
+   "genre": "mot",
+   "hanzi": "马桶",
+   "pinyin": "mǎtǒng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cuvette des toilettes",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cuvette des toilettes, WC"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "马桶又坏了，得找人来修。",
+     "pinyin": "Mǎtǒng yòu huài le, děi zhǎo rén lái xiū.",
+     "fr": "Les toilettes sont encore en panne, il faut faire venir quelqu'un.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2772",
+   "genre": "mot",
+   "hanzi": "马戏",
+   "pinyin": "mǎxì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cirque (spectacle)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cirque, spectacle de cirque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们都爱看马戏。",
+     "pinyin": "Háizimen dōu ài kàn mǎxì.",
+     "fr": "Les enfants adorent aller au cirque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2775",
+   "genre": "mot",
+   "hanzi": "埋藏",
+   "pinyin": "máicáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "enfouir, être enfoui",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enfouir, être enfoui sous terre ; garder caché"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的地下埋藏着很多煤。",
+     "pinyin": "Zhèli de dìxià máicáng zhe hěn duō méi.",
+     "fr": "Le sous-sol d'ici renferme beaucoup de charbon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2776",
+   "genre": "mot",
+   "hanzi": "埋伏",
+   "pinyin": "máifu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tendre une embuscade",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tendre une embuscade, se poster en embuscade"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "敌人在山里埋伏了一夜。",
+     "pinyin": "Dírén zài shān li máifu le yī yè.",
+     "fr": "L'ennemi est resté caché toute la nuit dans la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2777",
+   "genre": "mot",
+   "hanzi": "埋没",
+   "pinyin": "máimò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "laisser dans l'ombre (un talent)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "laisser dans l'ombre, ne pas mettre en valeur (un talent)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的才能被埋没了很多年。",
+     "pinyin": "Tā de cáinéng bèi máimò le hěn duō nián.",
+     "fr": "Son talent est resté méconnu pendant des années.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2778",
+   "genre": "mot",
+   "hanzi": "买不起",
+   "pinyin": "mǎi bu qǐ",
+   "sens": {
+    "glose": "ne pas avoir les moyens d'acheter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas pouvoir se payer, être trop cher pour soi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这么贵的房子，我们买不起。",
+     "pinyin": "Zhème guì de fángzi, wǒmen mǎi bu qǐ.",
+     "fr": "Une maison aussi chère, c'est au-dessus de nos moyens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "迈",
+   "genre": "caractere",
+   "hanzi": "迈",
+   "pinyin": "mài",
+   "mots": [
+    "L7-2779"
+   ],
+   "sens": {
+    "glose": "faire un pas, enjamber ; âgé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire un pas, avancer, enjamber"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "âgé, vieux (écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他向前迈了一大步。",
+     "pinyin": "Tā xiàng qián mài le yī dà bù.",
+     "fr": "Il a fait un grand pas en avant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2780",
+   "genre": "mot",
+   "hanzi": "迈进",
+   "pinyin": "màijìn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "avancer à grands pas",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "avancer à grands pas, progresser vers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们正向新的目标迈进。",
+     "pinyin": "Wǒmen zhèng xiàng xīn de mùbiāo màijìn.",
+     "fr": "Nous marchons vers un nouvel objectif.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2781",
+   "genre": "mot",
+   "hanzi": "卖弄",
+   "pinyin": "màinong",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire étalage de, exhiber",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire étalage de, exhiber (son savoir, son talent)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他总喜欢卖弄自己的知识。",
+     "pinyin": "Tā zǒng xǐhuan màinong zìjǐ de zhīshi.",
+     "fr": "Il aime toujours étaler son savoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2782",
+   "genre": "mot",
+   "hanzi": "脉搏",
+   "pinyin": "màibó",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pouls",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pouls ; pulsation, rythme (d'une époque)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生在给他量脉搏。",
+     "pinyin": "Yīshēng zài gěi tā liáng màibó.",
+     "fr": "Le médecin lui prend le pouls.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2783",
+   "genre": "mot",
+   "hanzi": "脉络",
+   "pinyin": "màiluò",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fil conducteur, structure d'ensemble",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "réseau des vaisseaux (médecine) ; fil, articulation d'un texte ou d'une idée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章脉络很清楚。",
+     "pinyin": "Zhè piān wénzhāng màiluò hěn qīngchu.",
+     "fr": "Cet article est très bien articulé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2784",
+   "genre": "mot",
+   "hanzi": "埋怨",
+   "pinyin": "mányuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se plaindre de, reprocher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se plaindre de, reprocher, en vouloir à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别总是埋怨别人。",
+     "pinyin": "Bié zǒngshì mányuàn biérén.",
+     "fr": "Arrête de toujours rejeter la faute sur les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蛮",
+   "genre": "caractere",
+   "hanzi": "蛮",
+   "pinyin": "mán",
+   "mots": [
+    "L7-2785"
+   ],
+   "sens": {
+    "glose": "assez, plutôt ; barbare",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "assez, plutôt, bien (oral)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "barbare, brutal, déraisonnable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书蛮有意思的。",
+     "pinyin": "Zhè běn shū mán yǒu yìsi de.",
+     "fr": "Ce livre est plutôt intéressant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "瞒",
+   "genre": "caractere",
+   "hanzi": "瞒",
+   "pinyin": "mán",
+   "mots": [
+    "L7-2786"
+   ],
+   "sens": {
+    "glose": "cacher, dissimuler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cacher, dissimuler la vérité à quelqu'un"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事你别瞒着妈妈。",
+     "pinyin": "Zhè jiàn shì nǐ bié mán zhe māma.",
+     "fr": "Ne garde pas cette histoire secrète pour maman.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2787",
+   "genre": "mot",
+   "hanzi": "满怀",
+   "pinyin": "mǎnhuái",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être plein de (espoir, confiance)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être rempli de (un sentiment), déborder de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她满怀希望地走进了考场。",
+     "pinyin": "Tā mǎnhuái xīwàng de zǒujìn le kǎochǎng.",
+     "fr": "Elle est entrée dans la salle d'examen le cœur plein d'espoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蔓",
+   "genre": "caractere",
+   "hanzi": "蔓",
+   "pinyin": "màn",
+   "sens": {
+    "glose": "tige rampante, liane",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "tige rampante, liane, sarment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2788",
+   "genre": "mot",
+   "hanzi": "蔓延",
+   "pinyin": "mànyán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se propager, s'étendre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se propager, s'étendre, gagner du terrain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大火很快蔓延到了山上。",
+     "pinyin": "Dàhuǒ hěn kuài mànyán dào le shān shang.",
+     "fr": "L'incendie a vite gagné la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2790",
+   "genre": "mot",
+   "hanzi": "漫游",
+   "pinyin": "mànyóu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "errer librement ; itinérance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "errer, se promener librement"
+     },
+     {
+      "categorie": "V",
+      "fr": "être en itinérance (téléphone)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在海边漫游了一下午。",
+     "pinyin": "Tāmen zài hǎibiān mànyóu le yī xiàwǔ.",
+     "fr": "Ils ont flâné tout l'après-midi au bord de la mer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2791",
+   "genre": "mot",
+   "hanzi": "慢慢来",
+   "pinyin": "mànmàn lái",
+   "sens": {
+    "glose": "doucement, rien ne presse",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "y aller doucement, ne pas se presser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别着急，慢慢来。",
+     "pinyin": "Bié zháojí, mànmàn lái.",
+     "fr": "Pas d'affolement, prends ton temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2792",
+   "genre": "mot",
+   "hanzi": "慢性",
+   "pinyin": "mànxìng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "chronique (maladie)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "chronique ; à action lente"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他有慢性胃病。",
+     "pinyin": "Tā yǒu mànxìng wèibìng.",
+     "fr": "Il souffre d'une maladie de l'estomac qui dure depuis longtemps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2793",
+   "genre": "mot",
+   "hanzi": "忙活",
+   "pinyin": "mánghuo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'affairer, être pris par une tâche",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/忙.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "妈妈在厨房里忙活了一上午。",
+     "pinyin": "Māma zài chúfáng li mánghuo le yī shàngwǔ.",
+     "fr": "Maman a passé toute la matinée à la cuisine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "碌",
+   "genre": "caractere",
+   "hanzi": "碌",
+   "pinyin": "lù",
+   "sens": {
+    "glose": "affairé, occupé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "affairé, occupé ; médiocre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2794",
+   "genre": "mot",
+   "hanzi": "忙碌",
+   "pinyin": "mánglù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "affairé, très occupé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "affairé, très occupé, surchargé de travail"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "年底大家都很忙碌。",
+     "pinyin": "Niándǐ dàjiā dōu hěn mánglù.",
+     "fr": "En fin d'année, tout le monde a beaucoup à faire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2795",
+   "genre": "mot",
+   "hanzi": "忙乱",
+   "pinyin": "mángluàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "affairé et désordonné",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "affairé et désordonné, dans la bousculade"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "早上总是很忙乱。",
+     "pinyin": "Zǎoshang zǒngshì hěn mángluàn.",
+     "fr": "Le matin, c'est toujours la course.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2796",
+   "genre": "mot",
+   "hanzi": "盲目",
+   "pinyin": "mángmù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "aveugle, irréfléchi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "aveugle, irréfléchi, sans discernement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不要盲目相信广告。",
+     "pinyin": "Bùyào mángmù xiāngxìn guǎnggào.",
+     "fr": "Ne crois pas la publicité les yeux fermés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "茫",
+   "genre": "caractere",
+   "hanzi": "茫",
+   "pinyin": "máng",
+   "sens": {
+    "glose": "immense ; vague, confus",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "immense, à perte de vue"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "vague, confus, dans l'ignorance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2797",
+   "genre": "mot",
+   "hanzi": "茫然",
+   "pinyin": "mángrán",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "désemparé, perplexe",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "désemparé, perplexe, qui ne sait que faire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "听了他的话，我一脸茫然。",
+     "pinyin": "Tīng le tā de huà, wǒ yī liǎn mángrán.",
+     "fr": "En l'écoutant, je suis resté sans comprendre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2798",
+   "genre": "mot",
+   "hanzi": "矛头",
+   "pinyin": "máotóu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pointe de lance ; cible des attaques",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pointe de lance ; visée, cible d'une critique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "大家把矛头指向了经理。",
+     "pinyin": "Dàjiā bǎ máotóu zhǐxiàng le jīnglǐ.",
+     "fr": "Tout le monde s'en est pris au directeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "茅",
+   "genre": "caractere",
+   "hanzi": "茅",
+   "pinyin": "máo",
+   "sens": {
+    "glose": "chaume, herbe à toit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chaume, herbe dont on couvre les toits"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2799",
+   "genre": "mot",
+   "hanzi": "茅台",
+   "pinyin": "Máotái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "maotai (eau-de-vie de sorgho)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maotai, eau-de-vie de sorgho du Guizhou"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他请客人喝茅台。",
+     "pinyin": "Tā qǐng kèrén hē Máotái.",
+     "fr": "Il a offert du maotai à ses invités.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "茂",
+   "genre": "caractere",
+   "hanzi": "茂",
+   "pinyin": "mào",
+   "sens": {
+    "glose": "luxuriant, abondant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "luxuriant, touffu, abondant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2800",
+   "genre": "mot",
+   "hanzi": "茂密",
+   "pinyin": "màomì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "touffu, dense (végétation)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "touffu, dense (végétation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上的树林很茂密。",
+     "pinyin": "Shān shang de shùlín hěn màomì.",
+     "fr": "Sur la montagne, la forêt est très épaisse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2801",
+   "genre": "mot",
+   "hanzi": "茂盛",
+   "pinyin": "màoshèng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "luxuriant, florissant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "luxuriant, florissant (plantes)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨后，草长得十分茂盛。",
+     "pinyin": "Yǔ hòu, cǎo zhǎng de shífēn màoshèng.",
+     "fr": "Après la pluie, l'herbe a poussé à foison.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2802",
+   "genre": "mot",
+   "hanzi": "冒充",
+   "pinyin": "màochōng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se faire passer pour",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se faire passer pour, usurper l'identité de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有人冒充警察骗钱。",
+     "pinyin": "Yǒu rén màochōng jǐngchá piàn qián.",
+     "fr": "Quelqu'un se fait passer pour un policier afin d'escroquer les gens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2803",
+   "genre": "mot",
+   "hanzi": "冒犯",
+   "pinyin": "màofàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "offenser, froisser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "offenser, froisser, manquer de respect à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "如果我冒犯了你，请原谅。",
+     "pinyin": "Rúguǒ wǒ màofàn le nǐ, qǐng yuánliàng.",
+     "fr": "Si je t'ai blessé, pardonne-moi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "昧",
+   "genre": "caractere",
+   "hanzi": "昧",
+   "pinyin": "mèi",
+   "sens": {
+    "glose": "obscur ; ignorant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "obscur ; ignorant, borné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2804",
+   "genre": "mot",
+   "hanzi": "冒昧",
+   "pinyin": "màomèi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "se permettre, oser (par politesse)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "audacieux, indiscret ; se dit par modestie : oser se permettre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我冒昧问一句，您今年多大？",
+     "pinyin": "Wǒ màomèi wèn yī jù, nín jīnnián duō dà?",
+     "fr": "Si je puis me permettre, quel âge avez-vous ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2805",
+   "genre": "mot",
+   "hanzi": "冒险",
+   "pinyin": "màoxiǎn",
+   "sens": {
+    "glose": "prendre des risques ; aventure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "prendre des risques, s'aventurer"
+     },
+     {
+      "categorie": "N",
+      "fr": "aventure, entreprise risquée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "为了救孩子，他冒险跳进了河里。",
+     "pinyin": "Wèile jiù háizi, tā màoxiǎn tiàojìn le hé li.",
+     "fr": "Pour sauver l'enfant, il a sauté dans la rivière au péril de sa vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2806",
+   "genre": "mot",
+   "hanzi": "没劲",
+   "pinyin": "méijìn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ennuyeux ; sans force",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ennuyeux, sans intérêt ; sans force, mou"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个电影真没劲。",
+     "pinyin": "Zhège diànyǐng zhēn méijìn.",
+     "fr": "Ce film est vraiment rasoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2807",
+   "genre": "mot",
+   "hanzi": "没说的",
+   "pinyin": "méishuōde",
+   "sens": {
+    "glose": "irréprochable ; cela va de soi",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "irréprochable, parfait"
+     },
+     {
+      "categorie": "V",
+      "fr": "cela va sans dire, pas de problème"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对朋友真是没说的。",
+     "pinyin": "Tā duì péngyou zhēn shì méishuōde.",
+     "fr": "Avec ses amis, il n'y a rien à lui reprocher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2808",
+   "genre": "mot",
+   "hanzi": "没完没了",
+   "pinyin": "méiwán-méiliǎo",
+   "sens": {
+    "glose": "interminable, sans fin",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "interminable, qui n'en finit pas"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨下得没完没了。",
+     "pinyin": "Yǔ xià de méiwán-méiliǎo.",
+     "fr": "La pluie ne s'arrête plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2809",
+   "genre": "mot",
+   "hanzi": "没意思",
+   "pinyin": "méi yìsi",
+   "sens": {
+    "glose": "pas intéressant ; pas gentil",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "pas intéressant, ennuyeux ; peu aimable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一个人看电影太没意思了。",
+     "pinyin": "Yī ge rén kàn diànyǐng tài méi yìsi le.",
+     "fr": "Aller au cinéma seul, ce n'est pas drôle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "辙",
+   "genre": "caractere",
+   "hanzi": "辙",
+   "pinyin": "zhé",
+   "sens": {
+    "glose": "ornière ; moyen, solution",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ornière, trace de roue"
+     },
+     {
+      "categorie": "N",
+      "fr": "moyen, solution (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2810",
+   "genre": "mot",
+   "hanzi": "没辙",
+   "pinyin": "méizhé",
+   "sens": {
+    "glose": "ne plus savoir que faire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être à court de solutions, être à bout de ressources"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子一哭，他就没辙了。",
+     "pinyin": "Háizi yī kū, tā jiù méizhé le.",
+     "fr": "Dès que l'enfant pleure, il est désarmé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2811",
+   "genre": "mot",
+   "hanzi": "没准儿",
+   "pinyin": "méizhǔnr",
+   "sens": {
+    "glose": "peut-être, qui sait",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "peut-être, il se peut que (oral)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "没准儿他已经到家了。",
+     "pinyin": "Méizhǔnr tā yǐjīng dào jiā le.",
+     "fr": "Il est sans doute déjà rentré chez lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "玫",
+   "genre": "caractere",
+   "hanzi": "玫",
+   "pinyin": "méi",
+   "sens": {
+    "glose": "rose (la fleur)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rose (la fleur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2812",
+   "genre": "mot",
+   "hanzi": "玫瑰",
+   "pinyin": "méigui",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rose (fleur)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rose, rosier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他送给女朋友一束玫瑰。",
+     "pinyin": "Tā sòng gěi nǚpéngyou yī shù méigui.",
+     "fr": "Il a offert un bouquet de roses à sa petite amie.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

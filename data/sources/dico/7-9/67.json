@@ -1,0 +1,1312 @@
+{
+ "niveau": "7-9",
+ "lot": "67",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/67.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:283b66de569b57822a126d361c90930bc336ddcd4008fe27cd72662b7bbf431e",
+  "contexte": "wenlu dico contexte 7-9 67",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2858",
+   "genre": "mot",
+   "hanzi": "密度",
+   "pinyin": "mìdù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "densité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "densité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个城市人口密度很大。",
+     "pinyin": "Zhège chéngshì rénkǒu mìdù hěn dà.",
+     "fr": "Cette ville est très densément peuplée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2859",
+   "genre": "mot",
+   "hanzi": "密封",
+   "pinyin": "mìfēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "sceller hermétiquement",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "sceller, fermer hermétiquement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些茶叶要密封保存。",
+     "pinyin": "Zhèxiē cháyè yào mìfēng bǎocún.",
+     "fr": "Ce thé doit se conserver à l'abri de l'air.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2860",
+   "genre": "mot",
+   "hanzi": "密集",
+   "pinyin": "mìjí",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "dense, serré ; se concentrer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dense, serré, concentré"
+     },
+     {
+      "categorie": "V",
+      "fr": "se concentrer, se rassembler en masse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里高楼密集。",
+     "pinyin": "Zhèli gāolóu mìjí.",
+     "fr": "Ici, les immeubles se pressent les uns contre les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2862",
+   "genre": "mot",
+   "hanzi": "蜜蜂",
+   "pinyin": "mìfēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "abeille",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "abeille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "花园里有很多蜜蜂。",
+     "pinyin": "Huāyuán li yǒu hěn duō mìfēng.",
+     "fr": "Le jardin bourdonne d'abeilles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2863",
+   "genre": "mot",
+   "hanzi": "蜜月",
+   "pinyin": "mìyuè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lune de miel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lune de miel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们去海南度蜜月。",
+     "pinyin": "Tāmen qù Hǎinán dù mìyuè.",
+     "fr": "Ils partent à Hainan pour leur voyage de noces.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2864",
+   "genre": "mot",
+   "hanzi": "棉花",
+   "pinyin": "miánhua",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coton",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coton (plante et fibre)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的农民种棉花。",
+     "pinyin": "Zhèli de nóngmín zhòng miánhua.",
+     "fr": "Les paysans d'ici cultivent le coton.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2866",
+   "genre": "mot",
+   "hanzi": "免不了",
+   "pinyin": "miǎnbuliǎo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "inévitable, ne pas pouvoir éviter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne pas pouvoir éviter, être inévitable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "刚开始工作，免不了会出错。",
+     "pinyin": "Gāng kāishǐ gōngzuò, miǎnbuliǎo huì chū cuò.",
+     "fr": "Quand on débute, on fait forcément des erreurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2867",
+   "genre": "mot",
+   "hanzi": "免除",
+   "pinyin": "miǎnchú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "exempter, dispenser ; éviter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "exempter, dispenser ; éviter, écarter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他被免除了学费。",
+     "pinyin": "Tā bèi miǎnchú le xuéfèi.",
+     "fr": "Il n'a pas eu à payer ses frais de scolarité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2868",
+   "genre": "mot",
+   "hanzi": "免疫",
+   "pinyin": "miǎnyì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être immunisé ; immunité",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être immunisé, avoir l'immunité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "打了针以后，身体就能免疫这种病。",
+     "pinyin": "Dǎ le zhēn yǐhòu, shēntǐ jiù néng miǎnyì zhè zhǒng bìng.",
+     "fr": "Après la piqûre, le corps est protégé contre cette maladie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2869",
+   "genre": "mot",
+   "hanzi": "免职",
+   "pinyin": "miǎnzhí",
+   "sens": {
+    "glose": "destituer, relever de ses fonctions",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "destituer, relever de ses fonctions"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那个官员被免职了。",
+     "pinyin": "Nàge guānyuán bèi miǎnzhí le.",
+     "fr": "Ce fonctionnaire a été limogé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "勉",
+   "genre": "caractere",
+   "hanzi": "勉",
+   "pinyin": "miǎn",
+   "sens": {
+    "glose": "s'efforcer ; encourager",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'efforcer ; encourager, exhorter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2870",
+   "genre": "mot",
+   "hanzi": "勉强",
+   "pinyin": "miǎnqiǎng",
+   "categories": [
+    "Adj",
+    "V"
+   ],
+   "sens": {
+    "glose": "à contrecœur ; tout juste ; forcer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "à contrecœur ; tout juste suffisant"
+     },
+     {
+      "categorie": "V",
+      "fr": "forcer, contraindre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "如果你不想去，我不勉强你。",
+     "pinyin": "Rúguǒ nǐ bù xiǎng qù, wǒ bù miǎnqiǎng nǐ.",
+     "fr": "Si tu n'as pas envie d'y aller, je ne t'y oblige pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "缅",
+   "genre": "caractere",
+   "hanzi": "缅",
+   "pinyin": "miǎn",
+   "sens": {
+    "glose": "lointain ; se remémorer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lointain, reculé"
+     },
+     {
+      "categorie": "V",
+      "fr": "se remémorer (écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2871",
+   "genre": "mot",
+   "hanzi": "缅怀",
+   "pinyin": "miǎnhuái",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "honorer la mémoire de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "honorer la mémoire de, se souvenir avec respect"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们缅怀为国家牺牲的人。",
+     "pinyin": "Wǒmen miǎnhuái wèi guójiā xīshēng de rén.",
+     "fr": "Nous rendons hommage à ceux qui sont morts pour le pays.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2872",
+   "genre": "mot",
+   "hanzi": "面部",
+   "pinyin": "miànbù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "visage, face",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "visage, partie du visage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的面部表情很丰富。",
+     "pinyin": "Tā de miànbù biǎoqíng hěn fēngfù.",
+     "fr": "Il a une mimique très expressive.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2873",
+   "genre": "mot",
+   "hanzi": "面粉",
+   "pinyin": "miànfěn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "farine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "farine (de blé)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "包饺子要用面粉。",
+     "pinyin": "Bāo jiǎozi yào yòng miànfěn.",
+     "fr": "Pour faire des raviolis, il faut de la farine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2874",
+   "genre": "mot",
+   "hanzi": "面红耳赤",
+   "pinyin": "miànhóng-ěrchì",
+   "sens": {
+    "glose": "rouge jusqu'aux oreilles",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rouge jusqu'aux oreilles (colère, honte)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两个人吵得面红耳赤。",
+     "pinyin": "Liǎng ge rén chǎo de miànhóng-ěrchì.",
+     "fr": "Les deux se sont disputés à en devenir cramoisis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2875",
+   "genre": "mot",
+   "hanzi": "面面俱到",
+   "pinyin": "miànmiàn-jùdào",
+   "sens": {
+    "glose": "complet, qui n'oublie rien",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "complet, qui prend tout en compte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "写文章不必面面俱到。",
+     "pinyin": "Xiě wénzhāng bùbì miànmiàn-jùdào.",
+     "fr": "Un article n'a pas besoin de tout traiter.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2876",
+   "genre": "mot",
+   "hanzi": "面目全非",
+   "pinyin": "miànmù-quánfēi",
+   "sens": {
+    "glose": "méconnaissable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "méconnaissable, complètement transformé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老房子已经面目全非了。",
+     "pinyin": "Lǎo fángzi yǐjīng miànmù-quánfēi le.",
+     "fr": "La vieille maison a complètement changé d'aspect.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2878",
+   "genre": "mot",
+   "hanzi": "苗条",
+   "pinyin": "miáotiao",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "svelte, mince",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "svelte, mince, élancé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的身材很苗条。",
+     "pinyin": "Tā de shēncái hěn miáotiao.",
+     "fr": "Elle a une jolie silhouette.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2879",
+   "genre": "mot",
+   "hanzi": "苗头",
+   "pinyin": "miáotou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "signe avant-coureur, tendance",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "signe avant-coureur, tendance naissante"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "发现不好的苗头要早点儿处理。",
+     "pinyin": "Fāxiàn bù hǎo de miáotou yào zǎo diǎnr chǔlǐ.",
+     "fr": "Quand on voit poindre un problème, il faut s'en occuper tôt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2880",
+   "genre": "mot",
+   "hanzi": "描绘",
+   "pinyin": "miáohuì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "dépeindre, décrire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépeindre, décrire, représenter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这幅画描绘了农村的生活。",
+     "pinyin": "Zhè fú huà miáohuì le nóngcūn de shēnghuó.",
+     "fr": "Ce tableau montre la vie à la campagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "瞄",
+   "genre": "caractere",
+   "hanzi": "瞄",
+   "pinyin": "miáo",
+   "sens": {
+    "glose": "viser ; lorgner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "viser ; jeter un coup d'œil, lorgner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2881",
+   "genre": "mot",
+   "hanzi": "瞄准",
+   "pinyin": "miáozhǔn",
+   "sens": {
+    "glose": "viser, cibler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "viser, pointer ; cibler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家公司瞄准了年轻人市场。",
+     "pinyin": "Zhè jiā gōngsī miáozhǔn le niánqīngrén shìchǎng.",
+     "fr": "Cette entreprise s'attaque au marché des jeunes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "渺",
+   "genre": "caractere",
+   "hanzi": "渺",
+   "pinyin": "miǎo",
+   "sens": {
+    "glose": "infime ; lointain, vague",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "infime, minuscule ; lointain, vague"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2882",
+   "genre": "mot",
+   "hanzi": "渺小",
+   "pinyin": "miǎoxiǎo",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "insignifiant, infime",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "insignifiant, infime, tout petit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在大自然面前，人是很渺小的。",
+     "pinyin": "Zài dàzìrán miànqián, rén shì hěn miǎoxiǎo de.",
+     "fr": "Face à la nature, l'homme n'est pas grand-chose.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "庙",
+   "genre": "caractere",
+   "hanzi": "庙",
+   "pinyin": "miào",
+   "mots": [
+    "L7-2883"
+   ],
+   "sens": {
+    "glose": "temple",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "temple, sanctuaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "山上有一座古庙。",
+     "pinyin": "Shān shang yǒu yī zuò gǔ miào.",
+     "fr": "Il y a un vieux temple sur la montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2884",
+   "genre": "mot",
+   "hanzi": "庙会",
+   "pinyin": "miàohuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "foire du temple",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "foire du temple, fête populaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春节的时候，我们去逛庙会。",
+     "pinyin": "Chūnjié de shíhou, wǒmen qù guàng miàohuì.",
+     "fr": "À la fête du Printemps, nous allons flâner à la foire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2885",
+   "genre": "mot",
+   "hanzi": "灭绝",
+   "pinyin": "mièjué",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "disparaître (espèce), s'éteindre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "disparaître, s'éteindre (espèce) ; exterminer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种动物已经灭绝了。",
+     "pinyin": "Zhè zhǒng dòngwù yǐjīng mièjué le.",
+     "fr": "Cette espèce animale n'existe plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2886",
+   "genre": "mot",
+   "hanzi": "灭亡",
+   "pinyin": "mièwáng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "périr, être anéanti",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "périr, être anéanti (pays, dynastie)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个国家在战争中灭亡了。",
+     "pinyin": "Zhège guójiā zài zhànzhēng zhōng mièwáng le.",
+     "fr": "Ce pays a disparu dans la guerre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2887",
+   "genre": "mot",
+   "hanzi": "民办",
+   "pinyin": "mínbàn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "privé, géré par des particuliers",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "privé, fondé et géré par des particuliers"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在一所民办学校教书。",
+     "pinyin": "Tā zài yī suǒ mínbàn xuéxiào jiāoshū.",
+     "fr": "Il enseigne dans un établissement privé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2888",
+   "genre": "mot",
+   "hanzi": "民俗",
+   "pinyin": "mínsú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coutumes populaires, folklore",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coutumes populaires, folklore"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对各地的民俗很感兴趣。",
+     "pinyin": "Tā duì gè dì de mínsú hěn gǎn xìngqù.",
+     "fr": "Il s'intéresse beaucoup aux traditions de chaque région.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2889",
+   "genre": "mot",
+   "hanzi": "民用",
+   "pinyin": "mínyòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "civil, à usage civil",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "civil, à usage civil"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一个民用机场。",
+     "pinyin": "Zhè shì yī ge mínyòng jīchǎng.",
+     "fr": "C'est un aéroport qui n'est pas militaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2890",
+   "genre": "mot",
+   "hanzi": "民众",
+   "pinyin": "mínzhòng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "population, masses",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "population, masses, gens du peuple"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府要听取民众的意见。",
+     "pinyin": "Zhèngfǔ yào tīngqǔ mínzhòng de yìjiàn.",
+     "fr": "Le gouvernement doit écouter l'avis des citoyens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2891",
+   "genre": "mot",
+   "hanzi": "敏捷",
+   "pinyin": "mǐnjié",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "agile, vif, prompt",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "agile, vif, prompt"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "猫的动作非常敏捷。",
+     "pinyin": "Māo de dòngzuò fēicháng mǐnjié.",
+     "fr": "Le chat se déplace avec beaucoup d'agilité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2892",
+   "genre": "mot",
+   "hanzi": "敏锐",
+   "pinyin": "mǐnruì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "aigu, perspicace",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "aigu, perspicace, pénétrant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "记者要有敏锐的眼光。",
+     "pinyin": "Jìzhě yào yǒu mǐnruì de yǎnguāng.",
+     "fr": "Un journaliste doit avoir l'œil perçant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2893",
+   "genre": "mot",
+   "hanzi": "名副其实",
+   "pinyin": "míngfùqíshí",
+   "sens": {
+    "glose": "digne de son nom",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "digne de son nom, qui mérite sa réputation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一位名副其实的专家。",
+     "pinyin": "Tā shì yī wèi míngfùqíshí de zhuānjiā.",
+     "fr": "C'est un expert au vrai sens du terme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2894",
+   "genre": "mot",
+   "hanzi": "名贵",
+   "pinyin": "míngguì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "précieux, de grande valeur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "précieux, rare et coûteux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一种名贵的花。",
+     "pinyin": "Zhè shì yī zhǒng míngguì de huā.",
+     "fr": "C'est une fleur rare et chère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2895",
+   "genre": "mot",
+   "hanzi": "名利",
+   "pinyin": "mínglì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gloire et fortune",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gloire et fortune, honneurs et profits"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对名利不感兴趣。",
+     "pinyin": "Tā duì mínglì bù gǎn xìngqù.",
+     "fr": "Il ne recherche ni la célébrité ni l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2896",
+   "genre": "mot",
+   "hanzi": "名气",
+   "pinyin": "míngqi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "renommée, notoriété",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "renommée, notoriété"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家饭馆在本地很有名气。",
+     "pinyin": "Zhè jiā fànguǎn zài běndì hěn yǒu míngqi.",
+     "fr": "Ce restaurant est très connu dans le coin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2897",
+   "genre": "mot",
+   "hanzi": "名声",
+   "pinyin": "míngshēng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "réputation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "réputation, renom"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事影响了公司的名声。",
+     "pinyin": "Zhè jiàn shì yǐngxiǎng le gōngsī de míngshēng.",
+     "fr": "Cette affaire a nui à l'image de l'entreprise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2898",
+   "genre": "mot",
+   "hanzi": "名言",
+   "pinyin": "míngyán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "citation célèbre, maxime",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "citation célèbre, maxime"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他常常引用名人名言。",
+     "pinyin": "Tā chángcháng yǐnyòng míngrén míngyán.",
+     "fr": "Il cite souvent les paroles de personnages illustres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2899",
+   "genre": "mot",
+   "hanzi": "名著",
+   "pinyin": "míngzhù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chef-d'œuvre littéraire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "chef-d'œuvre, œuvre célèbre (littérature)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他读过很多世界名著。",
+     "pinyin": "Tā dú guo hěn duō shìjiè míngzhù.",
+     "fr": "Il a lu beaucoup de grands classiques de la littérature mondiale.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2900",
+   "genre": "mot",
+   "hanzi": "明朗",
+   "pinyin": "mínglǎng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "clair, lumineux ; net",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "clair, lumineux"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "net, évident ; franc, ouvert"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "情况渐渐明朗了。",
+     "pinyin": "Qíngkuàng jiànjiàn mínglǎng le.",
+     "fr": "La situation s'éclaircit peu à peu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "媚",
+   "genre": "caractere",
+   "hanzi": "媚",
+   "pinyin": "mèi",
+   "sens": {
+    "glose": "flatter ; charmant",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "flatter, chercher à plaire"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "charmant, gracieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2901",
+   "genre": "mot",
+   "hanzi": "明媚",
+   "pinyin": "míngmèi",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "radieux, lumineux (paysage)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "radieux, lumineux, riant (paysage, lumière)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天阳光明媚。",
+     "pinyin": "Chūntiān yángguāng míngmèi.",
+     "fr": "Au printemps, le soleil brille gaiement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2902",
+   "genre": "mot",
+   "hanzi": "明智",
+   "pinyin": "míngzhì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "sage, judicieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "sage, judicieux, avisé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你做了一个明智的决定。",
+     "pinyin": "Nǐ zuò le yī ge míngzhì de juédìng.",
+     "fr": "Tu as pris la bonne décision.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "铭",
+   "genre": "caractere",
+   "hanzi": "铭",
+   "pinyin": "míng",
+   "sens": {
+    "glose": "inscription ; graver",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "inscription gravée"
+     },
+     {
+      "categorie": "V",
+      "fr": "graver (dans sa mémoire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2903",
+   "genre": "mot",
+   "hanzi": "铭记",
+   "pinyin": "míngjì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "graver dans sa mémoire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder gravé dans sa mémoire, ne jamais oublier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师的话我会永远铭记。",
+     "pinyin": "Lǎoshī de huà wǒ huì yǒngyuǎn míngjì.",
+     "fr": "Je n'oublierai jamais les paroles de mon professeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2905",
+   "genre": "mot",
+   "hanzi": "命名",
+   "pinyin": "mìngmíng",
+   "sens": {
+    "glose": "nommer, baptiser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nommer, donner un nom à, baptiser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条街以一位诗人命名。",
+     "pinyin": "Zhè tiáo jiē yǐ yī wèi shīrén mìngmíng.",
+     "fr": "Cette rue porte le nom d'un poète.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

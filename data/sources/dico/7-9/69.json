@@ -1,0 +1,1320 @@
+{
+ "niveau": "7-9",
+ "lot": "69",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/69.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:9574c6eef7827ecad5a784c1ab3838e5b3a42490bc30918f0727ded0cef758c4",
+  "contexte": "wenlu dico contexte 7-9 69",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2945",
+   "genre": "mot",
+   "hanzi": "募捐",
+   "pinyin": "mùjuān",
+   "sens": {
+    "glose": "collecter des dons",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "collecter des dons, faire une quête"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学生们为灾区募捐。",
+     "pinyin": "Xuéshengmen wèi zāiqū mùjuān.",
+     "fr": "Les élèves récoltent de l'argent pour les sinistrés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2946",
+   "genre": "mot",
+   "hanzi": "墓碑",
+   "pinyin": "mùbēi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pierre tombale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pierre tombale, stèle funéraire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "墓碑上刻着他的名字。",
+     "pinyin": "Mùbēi shang kè zhe tā de míngzi.",
+     "fr": "Son nom est gravé sur la tombe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2947",
+   "genre": "mot",
+   "hanzi": "墓地",
+   "pinyin": "mùdì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cimetière, tombe",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cimetière, lieu de sépulture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "清明节我们去墓地看爷爷。",
+     "pinyin": "Qīngmíngjié wǒmen qù mùdì kàn yéye.",
+     "fr": "À la fête de Qingming, nous allons sur la tombe de grand-père.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2949",
+   "genre": "mot",
+   "hanzi": "幕后",
+   "pinyin": "mùhòu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coulisses ; en sous-main",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coulisses ; dans l'ombre, en sous-main"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "谁是幕后的老板？",
+     "pinyin": "Shéi shì mùhòu de lǎobǎn?",
+     "fr": "Qui tire les ficelles en réalité ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "穆",
+   "genre": "caractere",
+   "hanzi": "穆",
+   "pinyin": "mù",
+   "sens": {
+    "glose": "solennel, respectueux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "solennel, respectueux, grave"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "斯",
+   "genre": "caractere",
+   "hanzi": "斯",
+   "pinyin": "sī",
+   "sens": {
+    "glose": "ce, ceci (classique)",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "ce, ceci (langue classique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2950",
+   "genre": "mot",
+   "hanzi": "穆斯林",
+   "pinyin": "mùsīlín",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "musulman",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "musulman, musulmane"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是穆斯林，不吃猪肉。",
+     "pinyin": "Tā shì mùsīlín, bù chī zhūròu.",
+     "fr": "Il est de confession musulmane et ne mange pas de porc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2951",
+   "genre": "mot",
+   "hanzi": "拿手",
+   "pinyin": "náshǒu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "doué pour, que l'on maîtrise",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "doué pour, qu'on maîtrise parfaitement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "红烧肉是我妈妈的拿手菜。",
+     "pinyin": "Hóngshāoròu shì wǒ māma de náshǒu cài.",
+     "fr": "Le porc braisé, c'est la spécialité de ma mère.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2952",
+   "genre": "mot",
+   "hanzi": "哪知道",
+   "pinyin": "nǎ zhīdào",
+   "sens": {
+    "glose": "qui aurait cru que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "qui aurait cru que, contre toute attente"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我以为他会来，哪知道他忘了。",
+     "pinyin": "Wǒ yǐwéi tā huì lái, nǎ zhīdào tā wàng le.",
+     "fr": "Je pensais qu'il viendrait, mais voilà qu'il a oublié.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "呐",
+   "genre": "caractere",
+   "hanzi": "呐",
+   "pinyin": "nà",
+   "sens": {
+    "glose": "crier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "crier, pousser des cris"
+     },
+     {
+      "categorie": "Aux",
+      "fr": "particule finale (oral)",
+      "pinyin": "na"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2953",
+   "genre": "mot",
+   "hanzi": "呐喊",
+   "pinyin": "nàhǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "crier, pousser des clameurs",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "crier, pousser des clameurs, acclamer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "观众们大声呐喊。",
+     "pinyin": "Guānzhòngmen dàshēng nàhǎn.",
+     "fr": "Les spectateurs encouragent à pleine voix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2954",
+   "genre": "mot",
+   "hanzi": "纳闷儿",
+   "pinyin": "nàmènr",
+   "sens": {
+    "glose": "être perplexe, se demander",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être perplexe, se demander pourquoi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为什么不来，我很纳闷儿。",
+     "pinyin": "Tā wèishénme bù lái, wǒ hěn nàmènr.",
+     "fr": "Je ne comprends pas pourquoi il ne vient pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2955",
+   "genre": "mot",
+   "hanzi": "纳入",
+   "pinyin": "nàrù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "intégrer, inclure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "intégrer, inclure, faire entrer dans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题已经纳入了计划。",
+     "pinyin": "Zhège wèntí yǐjīng nàrù le jìhuà.",
+     "fr": "Cette question a déjà été prise en compte dans le plan.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2956",
+   "genre": "mot",
+   "hanzi": "纳税",
+   "pinyin": "nàshuì",
+   "sens": {
+    "glose": "payer des impôts",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "payer des impôts, s'acquitter d'une taxe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个公民都应该依法纳税。",
+     "pinyin": "Měi ge gōngmín dōu yīnggāi yīfǎ nàshuì.",
+     "fr": "Tout citoyen a le devoir légal de contribuer à l'impôt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2957",
+   "genre": "mot",
+   "hanzi": "纳税人",
+   "pinyin": "nàshuìrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "contribuable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "contribuable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府花的是纳税人的钱。",
+     "pinyin": "Zhèngfǔ huā de shì nàshuìrén de qián.",
+     "fr": "Le gouvernement dépense l'argent des contribuables.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "乃",
+   "genre": "caractere",
+   "hanzi": "乃",
+   "pinyin": "nǎi",
+   "mots": [
+    "L7-2958"
+   ],
+   "sens": {
+    "glose": "être (écrit) ; alors",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être, c'est (écrit)"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "alors, ainsi seulement (écrit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "失败乃成功之母。",
+     "pinyin": "Shībài nǎi chénggōng zhī mǔ.",
+     "fr": "L'échec est la mère du succès.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2959",
+   "genre": "mot",
+   "hanzi": "乃至",
+   "pinyin": "nǎizhì",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "et même, voire",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "et même, voire, jusqu'à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事影响了全国乃至全世界。",
+     "pinyin": "Zhè jiàn shì yǐngxiǎng le quánguó nǎizhì quán shìjiè.",
+     "fr": "Cette affaire a eu des répercussions dans tout le pays, et au-delà.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2961",
+   "genre": "mot",
+   "hanzi": "耐人寻味",
+   "pinyin": "nàirénxúnwèi",
+   "sens": {
+    "glose": "qui donne à réfléchir",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qui donne à réfléchir, riche de sens"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的话很耐人寻味。",
+     "pinyin": "Tā de huà hěn nàirénxúnwèi.",
+     "fr": "Ses paroles méritent qu'on s'y arrête.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2962",
+   "genre": "mot",
+   "hanzi": "耐性",
+   "pinyin": "nàixìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "patience",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "patience, endurance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "教孩子要有耐性。",
+     "pinyin": "Jiāo háizi yào yǒu nàixìng.",
+     "fr": "Pour enseigner aux enfants, il faut savoir attendre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2963",
+   "genre": "mot",
+   "hanzi": "南瓜",
+   "pinyin": "nángua",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "citrouille, potiron",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "citrouille, potiron, courge"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "奶奶种了很多南瓜。",
+     "pinyin": "Nǎinai zhòng le hěn duō nángua.",
+     "fr": "Grand-mère a planté beaucoup de courges.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2964",
+   "genre": "mot",
+   "hanzi": "难处",
+   "pinyin": "nánchù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "difficulté, embarras",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "difficulté, embarras, problème personnel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个人都有自己的难处。",
+     "pinyin": "Měi ge rén dōu yǒu zìjǐ de nánchù.",
+     "fr": "Chacun a ses propres soucis.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2965",
+   "genre": "mot",
+   "hanzi": "难得一见",
+   "pinyin": "nándé yī jiàn",
+   "sens": {
+    "glose": "rare, qu'on voit rarement",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rare, qu'on a rarement l'occasion de voir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是难得一见的美景。",
+     "pinyin": "Zhè shì nándé yī jiàn de měijǐng.",
+     "fr": "C'est un paysage qu'on a peu d'occasions d'admirer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2966",
+   "genre": "mot",
+   "hanzi": "难点",
+   "pinyin": "nándiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "point difficile",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "point difficile, difficulté principale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这一课的难点是语法。",
+     "pinyin": "Zhè yī kè de nándiǎn shì yǔfǎ.",
+     "fr": "Dans cette leçon, c'est la grammaire qui pose problème.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2967",
+   "genre": "mot",
+   "hanzi": "难怪",
+   "pinyin": "nánguài",
+   "categories": [
+    "Adv",
+    "V"
+   ],
+   "sens": {
+    "glose": "pas étonnant que ; excusable",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "pas étonnant que, c'est pour ça que"
+     },
+     {
+      "categorie": "V",
+      "fr": "être compréhensible, excusable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他病了，难怪没来上课。",
+     "pinyin": "Tā bìng le, nánguài méi lái shàng kè.",
+     "fr": "Il est malade, voilà pourquoi il n'est pas venu en cours.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2968",
+   "genre": "mot",
+   "hanzi": "难关",
+   "pinyin": "nánguān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "passage difficile, cap à franchir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "passage difficile, cap à franchir, crise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们一起度过了难关。",
+     "pinyin": "Wǒmen yīqǐ dùguò le nánguān.",
+     "fr": "Ensemble, nous avons surmonté les difficultés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2969",
+   "genre": "mot",
+   "hanzi": "难堪",
+   "pinyin": "nánkān",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "gêné, humilié ; insupportable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "embarrassé, gêné, humiliant"
+     },
+     {
+      "categorie": "V",
+      "fr": "ne pas pouvoir supporter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他当众批评我，让我很难堪。",
+     "pinyin": "Tā dāngzhòng pīpíng wǒ, ràng wǒ hěn nánkān.",
+     "fr": "Il m'a critiqué devant tout le monde, j'étais mortifié.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2970",
+   "genre": "mot",
+   "hanzi": "难说",
+   "pinyin": "nánshuō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "difficile à dire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être difficile à dire, être incertain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天会不会下雨，很难说。",
+     "pinyin": "Míngtiān huì bù huì xià yǔ, hěn nánshuō.",
+     "fr": "S'il pleuvra demain, on ne peut pas savoir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2971",
+   "genre": "mot",
+   "hanzi": "难为情",
+   "pinyin": "nánwéiqíng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "gêné, intimidé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "gêné, intimidé, honteux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "被老师表扬，他有点儿难为情。",
+     "pinyin": "Bèi lǎoshī biǎoyáng, tā yǒudiǎnr nánwéiqíng.",
+     "fr": "Félicité par le professeur, il a un peu rougi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2972",
+   "genre": "mot",
+   "hanzi": "难以想象",
+   "pinyin": "nányǐ-xiǎngxiàng",
+   "sens": {
+    "glose": "inimaginable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inimaginable, qu'on a peine à imaginer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的变化大得难以想象。",
+     "pinyin": "Zhèli de biànhuà dà de nányǐ-xiǎngxiàng.",
+     "fr": "Ici, les changements dépassent l'entendement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2973",
+   "genre": "mot",
+   "hanzi": "难以置信",
+   "pinyin": "nányǐ-zhìxìn",
+   "sens": {
+    "glose": "incroyable",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "incroyable, à peine croyable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个消息真让人难以置信。",
+     "pinyin": "Zhège xiāoxi zhēn ràng rén nányǐ-zhìxìn.",
+     "fr": "On a vraiment du mal à croire cette nouvelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "挠",
+   "genre": "caractere",
+   "hanzi": "挠",
+   "pinyin": "náo",
+   "mots": [
+    "L7-2974"
+   ],
+   "sens": {
+    "glose": "gratter ; entraver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gratter ; entraver, faire obstacle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他挠了挠头，不知道怎么回答。",
+     "pinyin": "Tā náo le náo tóu, bù zhīdào zěnme huídá.",
+     "fr": "Il s'est gratté la tête, ne sachant que répondre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2975",
+   "genre": "mot",
+   "hanzi": "恼羞成怒",
+   "pinyin": "nǎoxiū-chéngnù",
+   "sens": {
+    "glose": "s'emporter par dépit",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se mettre en colère par dépit, de honte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "被人说中了，他恼羞成怒。",
+     "pinyin": "Bèi rén shuō zhòng le, tā nǎoxiū-chéngnù.",
+     "fr": "Piqué au vif, il s'est fâché tout rouge.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2976",
+   "genre": "mot",
+   "hanzi": "脑海",
+   "pinyin": "nǎohǎi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "esprit, mémoire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "esprit, mémoire, tête"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那个画面一直留在我的脑海里。",
+     "pinyin": "Nàge huàmiàn yīzhí liú zài wǒ de nǎohǎi li.",
+     "fr": "Cette image ne m'a jamais quitté.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2977",
+   "genre": "mot",
+   "hanzi": "脑筋",
+   "pinyin": "nǎojīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cerveau, intelligence ; idées",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cerveau, intelligence ; façon de penser"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题要动动脑筋。",
+     "pinyin": "Zhège wèntí yào dòngdong nǎojīn.",
+     "fr": "Ce problème demande un peu de réflexion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2978",
+   "genre": "mot",
+   "hanzi": "闹事",
+   "pinyin": "nàoshì",
+   "sens": {
+    "glose": "faire du grabuge",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire du grabuge, causer des troubles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有几个人在饭馆里闹事。",
+     "pinyin": "Yǒu jǐ ge rén zài fànguǎn li nàoshì.",
+     "fr": "Quelques individus sèment la pagaille dans le restaurant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2979",
+   "genre": "mot",
+   "hanzi": "闹着玩儿",
+   "pinyin": "nàozhewánr",
+   "sens": {
+    "glose": "plaisanter, faire pour rire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "plaisanter, faire quelque chose pour rire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别生气，我是闹着玩儿的。",
+     "pinyin": "Bié shēngqì, wǒ shì nàozhewánr de.",
+     "fr": "Ne te fâche pas, je te taquinais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2980",
+   "genre": "mot",
+   "hanzi": "内存",
+   "pinyin": "nèicún",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mémoire (informatique)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mémoire vive, espace de stockage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的手机内存不够了。",
+     "pinyin": "Wǒ de shǒujī nèicún bù gòu le.",
+     "fr": "Mon téléphone n'a plus assez de place.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "阁",
+   "genre": "caractere",
+   "hanzi": "阁",
+   "pinyin": "gé",
+   "sens": {
+    "glose": "pavillon ; cabinet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pavillon, belvédère ; cabinet (gouvernement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2981",
+   "genre": "mot",
+   "hanzi": "内阁",
+   "pinyin": "nèigé",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cabinet (gouvernement)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cabinet, gouvernement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新内阁今天成立了。",
+     "pinyin": "Xīn nèigé jīntiān chénglì le.",
+     "fr": "Le nouveau gouvernement a été formé aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2982",
+   "genre": "mot",
+   "hanzi": "内涵",
+   "pinyin": "nèihán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "sens profond ; richesse intérieure",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sens profond, contenu"
+     },
+     {
+      "categorie": "N",
+      "fr": "richesse intérieure, culture (d'une personne)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首诗的内涵很丰富。",
+     "pinyin": "Zhè shǒu shī de nèihán hěn fēngfù.",
+     "fr": "Ce poème est chargé de sens.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2983",
+   "genre": "mot",
+   "hanzi": "内行",
+   "pinyin": "nèiháng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "expert, connaisseur",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "expert, connaisseur, du métier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "在这方面他是内行。",
+     "pinyin": "Zài zhè fāngmiàn tā shì nèiháng.",
+     "fr": "Dans ce domaine, il s'y connaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2984",
+   "genre": "mot",
+   "hanzi": "内幕",
+   "pinyin": "nèimù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "dessous d'une affaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "dessous d'une affaire, coulisses"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "记者发现了这件事的内幕。",
+     "pinyin": "Jìzhě fāxiàn le zhè jiàn shì de nèimù.",
+     "fr": "Le journaliste a découvert le fin mot de l'affaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2985",
+   "genre": "mot",
+   "hanzi": "内向",
+   "pinyin": "nèixiàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "introverti, réservé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "introverti, réservé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她性格内向，不爱说话。",
+     "pinyin": "Tā xìnggé nèixiàng, bù ài shuōhuà.",
+     "fr": "Elle est de nature discrète et parle peu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2986",
+   "genre": "mot",
+   "hanzi": "内需",
+   "pinyin": "nèixū",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "demande intérieure",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "demande intérieure, consommation du pays"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "政府想扩大内需。",
+     "pinyin": "Zhèngfǔ xiǎng kuòdà nèixū.",
+     "fr": "Le gouvernement veut stimuler la consommation des ménages.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "嫩",
+   "genre": "caractere",
+   "hanzi": "嫩",
+   "pinyin": "nèn",
+   "mots": [
+    "L7-2987"
+   ],
+   "sens": {
+    "glose": "tendre, jeune ; clair (couleur)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "tendre, délicat, jeune"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "clair, pâle (couleur)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "inexpérimenté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这块牛肉很嫩。",
+     "pinyin": "Zhè kuài niúròu hěn nèn.",
+     "fr": "Ce morceau de bœuf fond dans la bouche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2988",
+   "genre": "mot",
+   "hanzi": "能耗",
+   "pinyin": "nénghào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "consommation d'énergie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "consommation d'énergie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种空调能耗很低。",
+     "pinyin": "Zhè zhǒng kōngtiáo nénghào hěn dī.",
+     "fr": "Ce climatiseur consomme peu d'électricité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2989",
+   "genre": "mot",
+   "hanzi": "能耐",
+   "pinyin": "néngnai",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "capacités, savoir-faire ; capable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "capacités, savoir-faire"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "capable, habile"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他真有能耐，什么都能修。",
+     "pinyin": "Tā zhēn yǒu néngnai, shénme dōu néng xiū.",
+     "fr": "Il est vraiment doué, il sait tout réparer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2990",
+   "genre": "mot",
+   "hanzi": "能人",
+   "pinyin": "néngrén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "personne capable, as",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "personne capable, as, homme de ressources"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是村里的能人。",
+     "pinyin": "Tā shì cūn li de néngrén.",
+     "fr": "C'est le débrouillard du village.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2991",
+   "genre": "mot",
+   "hanzi": "能源",
+   "pinyin": "néngyuán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "énergie, sources d'énergie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "énergie, sources d'énergie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要节约能源。",
+     "pinyin": "Wǒmen yào jiéyuē néngyuán.",
+     "fr": "Nous devons économiser l'énergie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "尼",
+   "genre": "caractere",
+   "hanzi": "尼",
+   "pinyin": "ní",
+   "sens": {
+    "glose": "nonne bouddhiste",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nonne bouddhiste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}

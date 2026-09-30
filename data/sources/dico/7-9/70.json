@@ -1,0 +1,1331 @@
+{
+ "niveau": "7-9",
+ "lot": "70",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/70.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:3419e77fa611e8d7025d758f628579cb77cf4567a8faedfc0c59f9dff37afb0c",
+  "contexte": "wenlu dico contexte 7-9 70",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2992",
+   "genre": "mot",
+   "hanzi": "尼龙",
+   "pinyin": "nílóng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nylon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nylon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服是尼龙的。",
+     "pinyin": "Zhè jiàn yīfu shì nílóng de.",
+     "fr": "Ce vêtement est en fibre synthétique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "潭",
+   "genre": "caractere",
+   "hanzi": "潭",
+   "pinyin": "tán",
+   "sens": {
+    "glose": "étang profond, bassin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "étang profond, bassin naturel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2993",
+   "genre": "mot",
+   "hanzi": "泥潭",
+   "pinyin": "nítán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bourbier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bourbier, fondrière ; situation inextricable"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "车陷进了泥潭。",
+     "pinyin": "Chē xiànjìn le nítán.",
+     "fr": "La voiture s'est enlisée dans la boue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2994",
+   "genre": "mot",
+   "hanzi": "泥土",
+   "pinyin": "nítǔ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "terre, sol",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "terre, sol, glaise"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨后泥土的气味很好闻。",
+     "pinyin": "Yǔ hòu nítǔ de qìwèi hěn hǎowén.",
+     "fr": "Après la pluie, la terre sent bon.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2996",
+   "genre": "mot",
+   "hanzi": "拟定",
+   "pinyin": "nǐdìng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "élaborer, rédiger (un plan)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "élaborer, rédiger, établir (un plan, un texte)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们已经拟定了新的方案。",
+     "pinyin": "Wǒmen yǐjīng nǐdìng le xīn de fāng'àn.",
+     "fr": "Nous avons mis au point un nouveau projet.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "逆",
+   "genre": "caractere",
+   "hanzi": "逆",
+   "pinyin": "nì",
+   "mots": [
+    "L7-2997"
+   ],
+   "sens": {
+    "glose": "aller contre ; inverse",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "aller contre, s'opposer à"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "contraire, inverse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们逆着风往前走。",
+     "pinyin": "Wǒmen nì zhe fēng wǎng qián zǒu.",
+     "fr": "Nous avançons face au vent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2998",
+   "genre": "mot",
+   "hanzi": "匿名",
+   "pinyin": "nìmíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "anonyme, garder l'anonymat",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder l'anonymat, ne pas se nommer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他匿名给学校捐了一笔钱。",
+     "pinyin": "Tā nìmíng gěi xuéxiào juān le yī bǐ qián.",
+     "fr": "Il a fait un don à l'école sans donner son nom.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2999",
+   "genre": "mot",
+   "hanzi": "年画",
+   "pinyin": "niánhuà",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "image du Nouvel An",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "image populaire du Nouvel An, estampe porte-bonheur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "过年的时候，家家户户贴年画。",
+     "pinyin": "Guònián de shíhou, jiājiā-hùhù tiē niánhuà.",
+     "fr": "Au Nouvel An, chaque foyer décore ses murs d'images colorées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3000",
+   "genre": "mot",
+   "hanzi": "年迈",
+   "pinyin": "niánmài",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "âgé, vieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "âgé, vieux, avancé en âge"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他要照顾年迈的父母。",
+     "pinyin": "Tā yào zhàogù niánmài de fùmǔ.",
+     "fr": "Il doit s'occuper de ses vieux parents.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3001",
+   "genre": "mot",
+   "hanzi": "年限",
+   "pinyin": "niánxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "durée fixée (en années)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "durée fixée en années, nombre d'années requis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种车的使用年限是十五年。",
+     "pinyin": "Zhè zhǒng chē de shǐyòng niánxiàn shì shíwǔ nián.",
+     "fr": "Ce type de véhicule peut rouler quinze ans au maximum.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3002",
+   "genre": "mot",
+   "hanzi": "年薪",
+   "pinyin": "niánxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "salaire annuel",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "salaire annuel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的年薪有五十万。",
+     "pinyin": "Tā de niánxīn yǒu wǔshí wàn.",
+     "fr": "Il gagne cinq cent mille yuans par an.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3003",
+   "genre": "mot",
+   "hanzi": "年夜饭",
+   "pinyin": "niányèfàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "repas du réveillon du Nouvel An",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "repas du réveillon du Nouvel An chinois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "全家人一起吃年夜饭。",
+     "pinyin": "Quán jiā rén yīqǐ chī niányèfàn.",
+     "fr": "Toute la famille se retrouve à table la veille de la fête.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3004",
+   "genre": "mot",
+   "hanzi": "年终",
+   "pinyin": "niánzhōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fin d'année",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fin d'année"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "公司年终会发奖金。",
+     "pinyin": "Gōngsī niánzhōng huì fā jiǎngjīn.",
+     "fr": "L'entreprise verse une prime en décembre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "黏",
+   "genre": "caractere",
+   "hanzi": "黏",
+   "pinyin": "nián",
+   "mots": [
+    "L7-3005"
+   ],
+   "sens": {
+    "glose": "collant, gluant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "collant, gluant"
+     },
+     {
+      "categorie": "V",
+      "fr": "coller, s'attacher à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种米做的饭很黏。",
+     "pinyin": "Zhè zhǒng mǐ zuò de fàn hěn nián.",
+     "fr": "Ce riz-là colle beaucoup une fois cuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3006",
+   "genre": "mot",
+   "hanzi": "念念不忘",
+   "pinyin": "niànniàn-bùwàng",
+   "sens": {
+    "glose": "ne cesser de penser à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "ne cesser de penser à, ne jamais oublier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对家乡念念不忘。",
+     "pinyin": "Tā duì jiāxiāng niànniàn-bùwàng.",
+     "fr": "Son pays natal ne quitte jamais ses pensées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3007",
+   "genre": "mot",
+   "hanzi": "念书",
+   "pinyin": "niànshū",
+   "sens": {
+    "glose": "étudier, aller à l'école",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/书.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "他在北京念书。",
+     "pinyin": "Tā zài Běijīng niànshū.",
+     "fr": "Il fait ses études à Pékin.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3008",
+   "genre": "mot",
+   "hanzi": "念头",
+   "pinyin": "niàntou",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "idée, pensée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "idée, pensée, intention"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他突然有了一个念头。",
+     "pinyin": "Tā tūrán yǒu le yī ge niàntou.",
+     "fr": "Une idée lui est soudain venue.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "酿",
+   "genre": "caractere",
+   "hanzi": "酿",
+   "pinyin": "niàng",
+   "sens": {
+    "glose": "brasser, fermenter ; provoquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "brasser, faire fermenter (vin, alcool)"
+     },
+     {
+      "categorie": "V",
+      "fr": "provoquer, entraîner (un malheur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3010",
+   "genre": "mot",
+   "hanzi": "酿造",
+   "pinyin": "niàngzào",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "brasser, fabriquer par fermentation",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "brasser, fabriquer par fermentation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种酒是用米酿造的。",
+     "pinyin": "Zhè zhǒng jiǔ shì yòng mǐ niàngzào de.",
+     "fr": "Cet alcool est fait à partir de riz.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "巢",
+   "genre": "caractere",
+   "hanzi": "巢",
+   "pinyin": "cháo",
+   "sens": {
+    "glose": "nid ; repaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nid ; repaire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3011",
+   "genre": "mot",
+   "hanzi": "鸟巢",
+   "pinyin": "niǎocháo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nid d'oiseau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nid d'oiseau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "树上有一个鸟巢。",
+     "pinyin": "Shù shang yǒu yī ge niǎocháo.",
+     "fr": "Il y a un nid dans l'arbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "尿",
+   "genre": "caractere",
+   "hanzi": "尿",
+   "pinyin": "niào",
+   "mots": [
+    "L7-3012"
+   ],
+   "sens": {
+    "glose": "urine ; uriner",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "urine"
+     },
+     {
+      "categorie": "V",
+      "fr": "uriner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子尿床了。",
+     "pinyin": "Háizi niào chuáng le.",
+     "fr": "L'enfant a fait pipi au lit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "捏",
+   "genre": "caractere",
+   "hanzi": "捏",
+   "pinyin": "niē",
+   "mots": [
+    "L7-3013"
+   ],
+   "sens": {
+    "glose": "pincer ; modeler ; inventer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pincer, tenir entre les doigts"
+     },
+     {
+      "categorie": "V",
+      "fr": "modeler, pétrir"
+     },
+     {
+      "categorie": "V",
+      "fr": "inventer de toutes pièces"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他轻轻捏了一下孩子的脸。",
+     "pinyin": "Tā qīngqīng niē le yīxià háizi de liǎn.",
+     "fr": "Il a gentiment pincé la joue de l'enfant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拧",
+   "genre": "caractere",
+   "hanzi": "拧",
+   "pinyin": "níng",
+   "mots": [
+    "L7-3014",
+    "L7-3017"
+   ],
+   "sens": {
+    "glose": "tordre, essorer ; visser ; têtu",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tordre, essorer ; pincer"
+     },
+     {
+      "categorie": "V",
+      "fr": "visser, dévisser, tourner",
+      "pinyin": "nǐng"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "têtu, entêté",
+      "pinyin": "nìng"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "把毛巾拧干。",
+     "pinyin": "Bǎ máojīn nínggān.",
+     "fr": "Essore bien la serviette.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "他拧开了瓶子。",
+     "pinyin": "Tā nǐngkāi le píngzi.",
+     "fr": "Il a dévissé le bouchon de la bouteille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3015",
+   "genre": "mot",
+   "hanzi": "凝固",
+   "pinyin": "nínggù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se solidifier, se figer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se solidifier, se figer, se coaguler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水在零度会凝固。",
+     "pinyin": "Shuǐ zài líng dù huì nínggù.",
+     "fr": "L'eau gèle à zéro degré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3016",
+   "genre": "mot",
+   "hanzi": "凝聚",
+   "pinyin": "níngjù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "condenser ; rassembler, souder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se condenser"
+     },
+     {
+      "categorie": "V",
+      "fr": "rassembler, souder (des forces, des cœurs)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这本书凝聚了他十年的心血。",
+     "pinyin": "Zhè běn shū níngjù le tā shí nián de xīnxuè.",
+     "fr": "Ce livre est le fruit de dix années de travail acharné.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3018",
+   "genre": "mot",
+   "hanzi": "宁可",
+   "pinyin": "nìngkě",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "plutôt, préférer",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "plutôt, de préférence (quitte à)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我宁可走路，也不坐他的车。",
+     "pinyin": "Wǒ nìngkě zǒulù, yě bù zuò tā de chē.",
+     "fr": "J'irai à pied plutôt que de monter dans sa voiture.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3019",
+   "genre": "mot",
+   "hanzi": "宁愿",
+   "pinyin": "nìngyuàn",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "aimer mieux, préférer",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "aimer mieux, préférer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他宁愿自己吃亏，也不让朋友为难。",
+     "pinyin": "Tā nìngyuàn zìjǐ chīkuī, yě bù ràng péngyou wéinán.",
+     "fr": "Il consent à y perdre plutôt que de mettre ses amis dans l'embarras.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3020",
+   "genre": "mot",
+   "hanzi": "扭曲",
+   "pinyin": "niǔqū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tordre, déformer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tordre, déformer, dénaturer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他扭曲了我的意思。",
+     "pinyin": "Tā niǔqū le wǒ de yìsi.",
+     "fr": "Il a trahi mes propos.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3021",
+   "genre": "mot",
+   "hanzi": "扭头",
+   "pinyin": "niǔtóu",
+   "sens": {
+    "glose": "tourner la tête",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tourner la tête ; faire demi-tour"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他扭头就走了。",
+     "pinyin": "Tā niǔtóu jiù zǒu le.",
+     "fr": "Il a tourné les talons et il est parti.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3022",
+   "genre": "mot",
+   "hanzi": "扭转",
+   "pinyin": "niǔzhuǎn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "renverser (une situation)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "renverser, retourner (une situation, une tendance)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们必须扭转这种局面。",
+     "pinyin": "Wǒmen bìxū niǔzhuǎn zhè zhǒng júmiàn.",
+     "fr": "Nous devons inverser la tendance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "纽",
+   "genre": "caractere",
+   "hanzi": "纽",
+   "pinyin": "niǔ",
+   "sens": {
+    "glose": "bouton ; lien",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bouton ; nœud, lien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3023",
+   "genre": "mot",
+   "hanzi": "纽带",
+   "pinyin": "niǔdài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "lien, trait d'union",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "lien, trait d'union"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "语言是文化交流的纽带。",
+     "pinyin": "Yǔyán shì wénhuà jiāoliú de niǔdài.",
+     "fr": "La langue fait le pont entre les cultures.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3024",
+   "genre": "mot",
+   "hanzi": "纽扣",
+   "pinyin": "niǔkòu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bouton (de vêtement)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bouton de vêtement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的衬衫掉了一个纽扣。",
+     "pinyin": "Wǒ de chènshān diào le yī ge niǔkòu.",
+     "fr": "Ma chemise a perdu un bouton.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3025",
+   "genre": "mot",
+   "hanzi": "农场",
+   "pinyin": "nóngchǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ferme, exploitation agricole",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ferme, exploitation agricole"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在农场养牛。",
+     "pinyin": "Tā zài nóngchǎng yǎng niú.",
+     "fr": "Il élève des vaches à la campagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3026",
+   "genre": "mot",
+   "hanzi": "农历",
+   "pinyin": "nónglì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "calendrier lunaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "calendrier lunaire chinois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春节是农历正月初一。",
+     "pinyin": "Chūnjié shì nónglì zhēngyuè chūyī.",
+     "fr": "La fête du Printemps tombe le premier jour du premier mois lunaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3027",
+   "genre": "mot",
+   "hanzi": "农民工",
+   "pinyin": "nóngmíngōng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "travailleur migrant d'origine rurale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "travailleur migrant venu de la campagne"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "城里有很多农民工。",
+     "pinyin": "Chéng li yǒu hěn duō nóngmíngōng.",
+     "fr": "Beaucoup de paysans venus des campagnes travaillent en ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3028",
+   "genre": "mot",
+   "hanzi": "农作物",
+   "pinyin": "nóngzuòwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cultures, produits agricoles",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cultures, plantes cultivées"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今年的农作物长得很好。",
+     "pinyin": "Jīnnián de nóngzuòwù zhǎng de hěn hǎo.",
+     "fr": "Cette année, les récoltes s'annoncent belles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3029",
+   "genre": "mot",
+   "hanzi": "浓厚",
+   "pinyin": "nónghòu",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "épais, dense ; vif (intérêt)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "épais, dense (brouillard, fumée)"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "profond, vif (intérêt, atmosphère)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对历史有浓厚的兴趣。",
+     "pinyin": "Tā duì lìshǐ yǒu nónghòu de xìngqù.",
+     "fr": "Il se passionne pour l'histoire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3030",
+   "genre": "mot",
+   "hanzi": "浓缩",
+   "pinyin": "nóngsuō",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "concentrer, condenser",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "concentrer, condenser, résumer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章浓缩了他的主要观点。",
+     "pinyin": "Zhè piān wénzhāng nóngsuō le tā de zhǔyào guāndiǎn.",
+     "fr": "Cet article ramasse l'essentiel de ses idées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "郁",
+   "genre": "caractere",
+   "hanzi": "郁",
+   "pinyin": "yù",
+   "sens": {
+    "glose": "luxuriant, parfumé ; mélancolique",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "luxuriant ; parfumé, riche"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "mélancolique, morose"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3031",
+   "genre": "mot",
+   "hanzi": "浓郁",
+   "pinyin": "nóngyù",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "intense, riche (parfum)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "intense, riche (parfum, saveur, couleur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "花园里花香浓郁。",
+     "pinyin": "Huāyuán li huāxiāng nóngyù.",
+     "fr": "Le jardin embaume le parfum des fleurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3032",
+   "genre": "mot",
+   "hanzi": "浓重",
+   "pinyin": "nóngzhòng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "épais, fort, prononcé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "épais, dense ; fort, prononcé (accent, odeur)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他说话带着浓重的口音。",
+     "pinyin": "Tā shuōhuà dài zhe nóngzhòng de kǒuyīn.",
+     "fr": "Il parle avec un accent marqué.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3033",
+   "genre": "mot",
+   "hanzi": "弄虚作假",
+   "pinyin": "nòngxū-zuòjiǎ",
+   "sens": {
+    "glose": "tricher, falsifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tricher, truquer, falsifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "考试不能弄虚作假。",
+     "pinyin": "Kǎoshì bù néng nòngxū-zuòjiǎ.",
+     "fr": "Aux examens, toute fraude est interdite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "奴",
+   "genre": "caractere",
+   "hanzi": "奴",
+   "pinyin": "nú",
+   "sens": {
+    "glose": "esclave, serviteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "esclave, serviteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "隶",
+   "genre": "caractere",
+   "hanzi": "隶",
+   "pinyin": "lì",
+   "sens": {
+    "glose": "dépendre de ; esclave",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dépendre de, relever de"
+     },
+     {
+      "categorie": "N",
+      "fr": "esclave, serviteur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3034",
+   "genre": "mot",
+   "hanzi": "奴隶",
+   "pinyin": "núlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "esclave",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "esclave"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他不愿做金钱的奴隶。",
+     "pinyin": "Tā bù yuàn zuò jīnqián de núlì.",
+     "fr": "Il refuse d'être l'esclave de l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "婿",
+   "genre": "caractere",
+   "hanzi": "婿",
+   "pinyin": "xù",
+   "sens": {
+    "glose": "gendre ; mari",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gendre ; mari"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-3035",
+   "genre": "mot",
+   "hanzi": "女婿",
+   "pinyin": "nǚxu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gendre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gendre, mari de la fille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对这个女婿很满意。",
+     "pinyin": "Tā duì zhège nǚxu hěn mǎnyì.",
+     "fr": "Il est très content de son beau-fils.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-3036",
+   "genre": "mot",
+   "hanzi": "暖烘烘",
+   "pinyin": "nuǎnhōnghōng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "bien chaud, douillet",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bien chaud, douillet"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "屋子里暖烘烘的。",
+     "pinyin": "Wūzi li nuǎnhōnghōng de.",
+     "fr": "Il fait bon dans la pièce.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

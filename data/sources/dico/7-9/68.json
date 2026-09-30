@@ -1,0 +1,1285 @@
+{
+ "niveau": "7-9",
+ "lot": "68",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/68.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:648bf810da24580e0424b86140b1870bd3325b1a567ea14847258a6af7ce85ef",
+  "contexte": "wenlu dico contexte 7-9 68",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-2906",
+   "genre": "mot",
+   "hanzi": "命题",
+   "pinyin": "mìngtí",
+   "sens": {
+    "glose": "proposition ; donner un sujet",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "proposition (logique), thèse"
+     },
+     {
+      "categorie": "V",
+      "fr": "donner un sujet (d'examen, de dissertation)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次考试由王老师命题。",
+     "pinyin": "Zhè cì kǎoshì yóu Wáng lǎoshī mìngtí.",
+     "fr": "C'est le professeur Wang qui rédige les sujets de cet examen.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2907",
+   "genre": "mot",
+   "hanzi": "摸索",
+   "pinyin": "mōsuo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "tâtonner, chercher à tâtons",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tâtonner, chercher à tâtons ; chercher sa voie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们还在摸索新的方法。",
+     "pinyin": "Wǒmen hái zài mōsuo xīn de fāngfǎ.",
+     "fr": "Nous essayons encore de trouver une nouvelle méthode.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "拟",
+   "genre": "caractere",
+   "hanzi": "拟",
+   "pinyin": "nǐ",
+   "mots": [
+    "L7-2995"
+   ],
+   "sens": {
+    "glose": "rédiger (un projet) ; envisager ; imiter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rédiger, élaborer (un projet, un texte)"
+     },
+     {
+      "categorie": "V",
+      "fr": "se proposer de, envisager"
+     },
+     {
+      "categorie": "V",
+      "fr": "imiter, simuler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他拟了一份计划。",
+     "pinyin": "Tā nǐ le yī fèn jìhuà.",
+     "fr": "Il a préparé un plan par écrit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2908",
+   "genre": "mot",
+   "hanzi": "模拟",
+   "pinyin": "mónǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "simuler, imiter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "simuler, imiter, reproduire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "考试前我们做了一次模拟考试。",
+     "pinyin": "Kǎoshì qián wǒmen zuò le yī cì mónǐ kǎoshì.",
+     "fr": "Avant l'examen, nous avons passé un examen blanc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2909",
+   "genre": "mot",
+   "hanzi": "磨合",
+   "pinyin": "móhé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se roder, s'adapter l'un à l'autre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se roder ; s'adapter l'un à l'autre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新同事之间需要时间磨合。",
+     "pinyin": "Xīn tóngshì zhījiān xūyào shíjiān móhé.",
+     "fr": "Entre nouveaux collègues, il faut du temps pour trouver ses marques.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2910",
+   "genre": "mot",
+   "hanzi": "磨难",
+   "pinyin": "mónàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "épreuves, souffrances endurées",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "épreuves, tribulations, souffrances endurées"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一生经历了很多磨难。",
+     "pinyin": "Tā yīshēng jīnglì le hěn duō mónàn.",
+     "fr": "Il a beaucoup souffert au cours de sa vie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2911",
+   "genre": "mot",
+   "hanzi": "磨损",
+   "pinyin": "mósǔn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'user, usure",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'user, s'abîmer par frottement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这双鞋已经磨损得很厉害了。",
+     "pinyin": "Zhè shuāng xié yǐjīng mósǔn de hěn lìhai le.",
+     "fr": "Ces chaussures sont déjà bien abîmées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "蘑",
+   "genre": "caractere",
+   "hanzi": "蘑",
+   "pinyin": "mó",
+   "sens": {
+    "glose": "champignon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "champignon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "菇",
+   "genre": "caractere",
+   "hanzi": "菇",
+   "pinyin": "gū",
+   "sens": {
+    "glose": "champignon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "champignon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2912",
+   "genre": "mot",
+   "hanzi": "蘑菇",
+   "pinyin": "mógu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "champignon",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "champignon"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨后山上长出了很多蘑菇。",
+     "pinyin": "Yǔ hòu shān shang zhǎngchū le hěn duō mógu.",
+     "fr": "Après la pluie, la montagne s'est couverte de champignons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "魔",
+   "genre": "caractere",
+   "hanzi": "魔",
+   "pinyin": "mó",
+   "sens": {
+    "glose": "démon ; magique",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "démon, diable"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "magique, surnaturel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2913",
+   "genre": "mot",
+   "hanzi": "魔鬼",
+   "pinyin": "móguǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "démon, diable",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "démon, diable ; personne cruelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "故事里的魔鬼最后被打败了。",
+     "pinyin": "Gùshi li de móguǐ zuìhòu bèi dǎbài le.",
+     "fr": "Dans l'histoire, le démon finit par être vaincu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2914",
+   "genre": "mot",
+   "hanzi": "魔术",
+   "pinyin": "móshù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "magie, prestidigitation",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "magie, tour de prestidigitation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他给孩子们变魔术。",
+     "pinyin": "Tā gěi háizimen biàn móshù.",
+     "fr": "Il fait des tours pour amuser les enfants.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "抹",
+   "genre": "caractere",
+   "hanzi": "抹",
+   "pinyin": "mǒ",
+   "mots": [
+    "L7-2915"
+   ],
+   "sens": {
+    "glose": "enduire, étaler ; effacer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "enduire, étaler ; essuyer (larmes)"
+     },
+     {
+      "categorie": "V",
+      "fr": "rayer, effacer"
+     },
+     {
+      "categorie": "V",
+      "fr": "essuyer avec un chiffon",
+      "pinyin": "mā"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她在面包上抹了一层黄油。",
+     "pinyin": "Tā zài miànbāo shang mǒ le yī céng huángyóu.",
+     "fr": "Elle a tartiné du beurre sur son pain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2916",
+   "genre": "mot",
+   "hanzi": "末日",
+   "pinyin": "mòrì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "fin du monde ; dernier jour",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "fin du monde ; dernier jour, fin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别难过，考不好也不是世界末日。",
+     "pinyin": "Bié nánguò, kǎo bù hǎo yě bù shì shìjiè mòrì.",
+     "fr": "Ne sois pas triste, rater un examen, ce n'est pas si grave.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2917",
+   "genre": "mot",
+   "hanzi": "没落",
+   "pinyin": "mòluò",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "décliner, tomber en décadence",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "décliner, tomber en décadence"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个家族慢慢没落了。",
+     "pinyin": "Zhège jiāzú mànmàn mòluò le.",
+     "fr": "Cette famille a peu à peu perdu sa splendeur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "陌",
+   "genre": "caractere",
+   "hanzi": "陌",
+   "pinyin": "mò",
+   "sens": {
+    "glose": "sentier ; inconnu",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "sentier entre les champs"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "inconnu, étranger"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2918",
+   "genre": "mot",
+   "hanzi": "陌生",
+   "pinyin": "mòshēng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "inconnu, étranger, peu familier",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inconnu, étranger, peu familier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不要给陌生人开门。",
+     "pinyin": "Bùyào gěi mòshēngrén kāi mén.",
+     "fr": "N'ouvre pas la porte à quelqu'un que tu ne connais pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2919",
+   "genre": "mot",
+   "hanzi": "莫非",
+   "pinyin": "mòfēi",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "se pourrait-il que, serait-ce que",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "se pourrait-il que, serait-ce que"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他还没来，莫非是生病了？",
+     "pinyin": "Tā hái méi lái, mòfēi shì shēngbìng le?",
+     "fr": "Il n'est toujours pas là, serait-il malade ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2920",
+   "genre": "mot",
+   "hanzi": "莫过于",
+   "pinyin": "mòguòyú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rien de plus… que",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "n'y avoir rien de plus… que, être avant tout"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "人生最大的快乐莫过于帮助别人。",
+     "pinyin": "Rénshēng zuì dà de kuàilè mòguòyú bāngzhù biérén.",
+     "fr": "Le plus grand bonheur dans la vie, c'est d'aider les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2921",
+   "genre": "mot",
+   "hanzi": "莫名其妙",
+   "pinyin": "mòmíngqímiào",
+   "sens": {
+    "glose": "incompréhensible, sans raison",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "incompréhensible, absurde, sans raison apparente"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他莫名其妙地生气了。",
+     "pinyin": "Tā mòmíngqímiào de shēngqì le.",
+     "fr": "Il s'est fâché sans qu'on sache pourquoi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2922",
+   "genre": "mot",
+   "hanzi": "漠然",
+   "pinyin": "mòrán",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "indifférent, froid",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "indifférent, froid, impassible"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对别人的痛苦很漠然。",
+     "pinyin": "Tā duì biérén de tòngkǔ hěn mòrán.",
+     "fr": "La souffrance des autres le laisse de marbre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2924",
+   "genre": "mot",
+   "hanzi": "默读",
+   "pinyin": "mòdú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "lire en silence",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lire en silence, lire des yeux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请大家默读课文。",
+     "pinyin": "Qǐng dàjiā mòdú kèwén.",
+     "fr": "Lisez le texte sans le dire à voix haute, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2925",
+   "genre": "mot",
+   "hanzi": "默默无闻",
+   "pinyin": "mòmò-wúwén",
+   "sens": {
+    "glose": "inconnu, qui œuvre dans l'ombre",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inconnu, obscur, qui œuvre dans l'ombre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一生默默无闻地工作。",
+     "pinyin": "Tā yīshēng mòmò-wúwén de gōngzuò.",
+     "fr": "Il a travaillé toute sa vie sans chercher la lumière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "契",
+   "genre": "caractere",
+   "hanzi": "契",
+   "pinyin": "qì",
+   "sens": {
+    "glose": "contrat ; s'accorder",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "contrat, acte"
+     },
+     {
+      "categorie": "V",
+      "fr": "s'accorder, s'entendre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2926",
+   "genre": "mot",
+   "hanzi": "默契",
+   "pinyin": "mòqì",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "entente tacite, complicité",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "entente tacite, complicité"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "en parfaite entente, complice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们两个人配合得很默契。",
+     "pinyin": "Tāmen liǎng ge rén pèihé de hěn mòqì.",
+     "fr": "Ils travaillent ensemble en parfaite harmonie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2927",
+   "genre": "mot",
+   "hanzi": "谋害",
+   "pinyin": "móuhài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "assassiner (avec préméditation)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "assassiner avec préméditation, comploter la mort de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有人想谋害国王。",
+     "pinyin": "Yǒu rén xiǎng móuhài guówáng.",
+     "fr": "Quelqu'un veut tuer le roi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2928",
+   "genre": "mot",
+   "hanzi": "谋求",
+   "pinyin": "móuqiú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "rechercher, viser (un avantage)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rechercher, viser, tenter d'obtenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "两国都在谋求合作。",
+     "pinyin": "Liǎng guó dōu zài móuqiú hézuò.",
+     "fr": "Les deux pays cherchent à coopérer.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2929",
+   "genre": "mot",
+   "hanzi": "谋生",
+   "pinyin": "móushēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "gagner sa vie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "gagner sa vie, assurer sa subsistance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他靠卖画谋生。",
+     "pinyin": "Tā kào mài huà móushēng.",
+     "fr": "Il vit de la vente de ses tableaux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "牡",
+   "genre": "caractere",
+   "hanzi": "牡",
+   "pinyin": "mǔ",
+   "sens": {
+    "glose": "mâle (animal)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "mâle (animal)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "丹",
+   "genre": "caractere",
+   "hanzi": "丹",
+   "pinyin": "dān",
+   "sens": {
+    "glose": "rouge vermillon ; pilule",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "rouge, vermillon"
+     },
+     {
+      "categorie": "N",
+      "fr": "pilule, élixir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2930",
+   "genre": "mot",
+   "hanzi": "牡丹",
+   "pinyin": "mǔdan",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pivoine",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pivoine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天牡丹花开了。",
+     "pinyin": "Chūntiān mǔdan huā kāi le.",
+     "fr": "Au printemps, les pivoines s'ouvrent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "亩",
+   "genre": "caractere",
+   "hanzi": "亩",
+   "pinyin": "mǔ",
+   "mots": [
+    "L7-2931"
+   ],
+   "sens": {
+    "glose": "mu, unité de surface agraire",
+    "acceptions": [
+     {
+      "categorie": "M",
+      "fr": "mu, mesure agraire d'environ 667 m²"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他家有十亩地。",
+     "pinyin": "Tā jiā yǒu shí mǔ dì.",
+     "fr": "Sa famille possède dix mu de terre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2932",
+   "genre": "mot",
+   "hanzi": "木板",
+   "pinyin": "mùbǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "planche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "planche, panneau de bois"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用木板做了一张桌子。",
+     "pinyin": "Tā yòng mùbǎn zuò le yī zhāng zhuōzi.",
+     "fr": "Il a fabriqué une table avec des planches.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2933",
+   "genre": "mot",
+   "hanzi": "木材",
+   "pinyin": "mùcái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bois (matériau)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bois de construction, bois d'œuvre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这些家具用的是好木材。",
+     "pinyin": "Zhèxiē jiājù yòng de shì hǎo mùcái.",
+     "fr": "Ces meubles sont faits d'un bois de qualité.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2934",
+   "genre": "mot",
+   "hanzi": "木匠",
+   "pinyin": "mùjiang",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "menuisier, charpentier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "menuisier, charpentier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他爷爷是个木匠。",
+     "pinyin": "Tā yéye shì ge mùjiang.",
+     "fr": "Son grand-père travaillait le bois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2935",
+   "genre": "mot",
+   "hanzi": "木偶",
+   "pinyin": "mù'ǒu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "marionnette",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marionnette ; pantin"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们在看木偶戏。",
+     "pinyin": "Háizimen zài kàn mù'ǒu xì.",
+     "fr": "Les enfants regardent un spectacle de marionnettes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2936",
+   "genre": "mot",
+   "hanzi": "目不转睛",
+   "pinyin": "mùbùzhuǎnjīng",
+   "sens": {
+    "glose": "fixer des yeux, sans ciller",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "les yeux fixés, sans détourner le regard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们目不转睛地看着表演。",
+     "pinyin": "Háizimen mùbùzhuǎnjīng de kàn zhe biǎoyǎn.",
+     "fr": "Les enfants suivent le spectacle sans en perdre une miette.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2937",
+   "genre": "mot",
+   "hanzi": "目瞪口呆",
+   "pinyin": "mùdèng-kǒudāi",
+   "sens": {
+    "glose": "bouche bée, stupéfait",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "bouche bée, stupéfait, abasourdi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到这个结果，大家都目瞪口呆。",
+     "pinyin": "Kàndào zhège jiéguǒ, dàjiā dōu mùdèng-kǒudāi.",
+     "fr": "Devant ce résultat, tout le monde est resté sans voix.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2938",
+   "genre": "mot",
+   "hanzi": "目的地",
+   "pinyin": "mùdìdì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "destination",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "destination, lieu d'arrivée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们终于到达了目的地。",
+     "pinyin": "Wǒmen zhōngyú dàodá le mùdìdì.",
+     "fr": "Nous sommes enfin arrivés au bout du voyage.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2939",
+   "genre": "mot",
+   "hanzi": "目睹",
+   "pinyin": "mùdǔ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être témoin de, voir de ses yeux",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être témoin de, voir de ses propres yeux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他亲眼目睹了那次事故。",
+     "pinyin": "Tā qīnyǎn mùdǔ le nà cì shìgù.",
+     "fr": "Il a assisté à l'accident.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2940",
+   "genre": "mot",
+   "hanzi": "目录",
+   "pinyin": "mùlù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "table des matières ; catalogue",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "table des matières ; catalogue, liste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "先看看这本书的目录。",
+     "pinyin": "Xiān kànkan zhè běn shū de mùlù.",
+     "fr": "Regarde d'abord le sommaire de ce livre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2941",
+   "genre": "mot",
+   "hanzi": "目中无人",
+   "pinyin": "mùzhōng-wúrén",
+   "sens": {
+    "glose": "arrogant, méprisant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "arrogant, qui méprise tout le monde"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他太骄傲了，目中无人。",
+     "pinyin": "Tā tài jiāo'ào le, mùzhōng-wúrén.",
+     "fr": "Il est trop fier, il ne voit personne au-dessus de lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "沐",
+   "genre": "caractere",
+   "hanzi": "沐",
+   "pinyin": "mù",
+   "sens": {
+    "glose": "se laver ; baigner dans",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se laver (les cheveux) ; baigner dans"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "浴",
+   "genre": "caractere",
+   "hanzi": "浴",
+   "pinyin": "yù",
+   "sens": {
+    "glose": "bain, se baigner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se baigner, prendre un bain"
+     },
+     {
+      "categorie": "N",
+      "fr": "bain"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2942",
+   "genre": "mot",
+   "hanzi": "沐浴露",
+   "pinyin": "mùyùlù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "gel douche",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "gel douche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我忘了买沐浴露。",
+     "pinyin": "Wǒ wàng le mǎi mùyùlù.",
+     "fr": "J'ai oublié d'acheter du savon pour la douche.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "牧",
+   "genre": "caractere",
+   "hanzi": "牧",
+   "pinyin": "mù",
+   "sens": {
+    "glose": "faire paître, élever (du bétail)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire paître, garder des troupeaux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-2943",
+   "genre": "mot",
+   "hanzi": "牧场",
+   "pinyin": "mùchǎng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pâturage, ranch",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pâturage, ranch, élevage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "草原上有很多牧场。",
+     "pinyin": "Cǎoyuán shang yǒu hěn duō mùchǎng.",
+     "fr": "La prairie compte de nombreux troupeaux au pré.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-2944",
+   "genre": "mot",
+   "hanzi": "牧民",
+   "pinyin": "mùmín",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "éleveur, pasteur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "éleveur, pasteur (nomade)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "牧民骑着马放羊。",
+     "pinyin": "Mùmín qí zhe mǎ fàng yáng.",
+     "fr": "Les éleveurs gardent leurs moutons à cheval.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "募",
+   "genre": "caractere",
+   "hanzi": "募",
+   "pinyin": "mù",
+   "sens": {
+    "glose": "recruter ; collecter (des fonds)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "recruter, enrôler ; collecter (des fonds)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}
