@@ -282,7 +282,7 @@ qui n'est pas un des 3 000 (亻, 氵, 亠…), pour dessiner les briques d'une f
   principale en tête).
 - `decomposition` : la décomposition canonique GF 0014-2009 et ses sources, comme `parts`
   et `sources` d'une fiche ; `parts` vide pour une brique de la norme. **`null` quand elle
-  n'est pas réconciliée** (60 caractères sur 3 000 : 兴, 段, 检…) : l'app ne montre pas
+  n'est pas réconciliée** (16 caractères sur 3 000 depuis la story 10.9 : 兴, 检, 敢…, `decompositions-corrigees.md`) : l'app ne montre pas
   une décomposition que le pipeline n'a pas validée.
 - `mots` : les `id` des mots dont une graphie contient le caractère, par niveau puis dans
   l'ordre de la norme (一 en a plus de deux cents).
