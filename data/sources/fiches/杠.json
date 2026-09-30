@@ -3,6 +3,7 @@
  "parcours": "lire",
  "jour": 1020,
  "pinyin": [
+  "gàng",
   "gāng"
  ],
  "sens_fr": "barre, bâton, trait",
@@ -21,20 +22,33 @@
   "木": "sens",
   "工": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "杠杆",
+   "pinyin": "gànggǎn",
+   "fr": "levier",
+   "en": "lever"
+  },
+  {
+   "hanzi": "单杠",
+   "pinyin": "dāngàng",
+   "fr": "barre fixe",
+   "en": "horizontal bar"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他在单杠上练了很久。",
+  "pinyin": "Tā zài dāngàng shàng liàn le hěn jiǔ.",
+  "fr": "Il s'est longtemps entraîné à la barre fixe.",
+  "en": "He trained on the horizontal bar for a long time."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c5ad2c0da0bfaacc13f525620a7a45f977d7edc7a3bce3ae303a724dd43a9607",
-  "essais": 1,
+  "empreinte_invite": "sha256:f748562f35dfa0b6fcff575eb85501356ef1f924b2a27d5946a6c07f40665009",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
