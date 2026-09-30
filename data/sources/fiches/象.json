@@ -19,20 +19,33 @@
  "roles": {
   "象": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "大象",
+   "pinyin": "dàxiàng",
+   "fr": "éléphant",
+   "en": "elephant"
+  },
+  {
+   "hanzi": "现象",
+   "pinyin": "xiànxiàng",
+   "fr": "phénomène",
+   "en": "phenomenon"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我喜欢大象。",
+  "pinyin": "Wǒ xǐhuan dàxiàng.",
+  "fr": "J'aime les éléphants.",
+  "en": "I like elephants."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f7d1853f1c8483dded8b08458407a6210ea411532d52413c3b372ecdbdf06992",
-  "essais": 1,
+  "empreinte_invite": "sha256:83c8a0cdd1116d28f20e8ebf8f8b199e29bec2f34566dbddd6079048e972fd55",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

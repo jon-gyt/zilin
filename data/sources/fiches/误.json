@@ -23,20 +23,33 @@
   "口": "son",
   "天": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "错误",
+   "pinyin": "cuòwù",
+   "fr": "erreur, faute",
+   "en": "mistake, error"
+  },
+  {
+   "hanzi": "误会",
+   "pinyin": "wùhuì",
+   "fr": "malentendu, mal comprendre",
+   "en": "misunderstanding, to misunderstand"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你误会我了。",
+  "pinyin": "Nǐ wùhuì wǒ le.",
+  "fr": "Tu m'as mal compris.",
+  "en": "You've misunderstood me."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f1c25889ae71cb566e096e31afd106e0c55a00caa65b6f27058b05b488bbd29b",
-  "essais": 1,
+  "empreinte_invite": "sha256:fc95214f5b9e497ff7badd13cb558d58f9bba9570be08238e8379326c3569968",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

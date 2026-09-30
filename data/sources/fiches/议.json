@@ -21,20 +21,33 @@
   "讠": "sens",
   "义": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "会议",
+   "pinyin": "huìyì",
+   "fr": "réunion",
+   "en": "meeting"
+  },
+  {
+   "hanzi": "建议",
+   "pinyin": "jiànyì",
+   "fr": "proposer, suggestion",
+   "en": "to suggest, suggestion"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "下午三点有一个会议。",
+  "pinyin": "Xiàwǔ sān diǎn yǒu yī gè huìyì.",
+  "fr": "Il y a une réunion à trois heures de l'après-midi.",
+  "en": "There's a meeting at three in the afternoon."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f3ad84b20013c1fc7706cc041b923fe313395f68ece57a73f1af0b4e9a8c2895",
-  "essais": 1,
+  "empreinte_invite": "sha256:51ed6dcb5f2265f45f7751aca146926d1e011721416fa0d4705f988e7bf060ab",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

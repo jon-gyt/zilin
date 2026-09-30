@@ -23,20 +23,33 @@
   "一": "forme",
   "日": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "宣布",
+   "pinyin": "xuānbù",
+   "fr": "annoncer, proclamer",
+   "en": "to announce"
+  },
+  {
+   "hanzi": "宣传",
+   "pinyin": "xuānchuán",
+   "fr": "faire connaître, promouvoir",
+   "en": "to publicize, to promote"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "老师宣布了考试的时间。",
+  "pinyin": "Lǎoshī xuānbù le kǎoshì de shíjiān.",
+  "fr": "Le professeur a annoncé la date de l'examen.",
+  "en": "The teacher announced when the exam will be."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:79907e3e739ce4570d85ddc6afa28216c9bc392df20720580bc296321beac106",
-  "essais": 1,
+  "empreinte_invite": "sha256:b20870d8f0873b380a0c79e700987b32b6b8570f42add411db155a6a1afa857c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
