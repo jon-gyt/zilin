@@ -19,20 +19,33 @@
  "roles": {
   "央": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "中央",
+   "pinyin": "zhōngyāng",
+   "fr": "centre, milieu",
+   "en": "centre, middle"
+  },
+  {
+   "hanzi": "央求",
+   "pinyin": "yāngqiú",
+   "fr": "supplier",
+   "en": "to beg"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "房间中央有一张桌子。",
+  "pinyin": "Fángjiān zhōngyāng yǒu yī zhāng zhuōzi.",
+  "fr": "Il y a une table au milieu de la pièce.",
+  "en": "There is a table in the middle of the room."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:92d0ea235840ee81fdb1f5576026ba754fc7f1e5a4c514f53ee37c98bad09aa7",
-  "essais": 1,
+  "empreinte_invite": "sha256:d9aeef06fe21550bfa6fd989a882c15e36fdb3c1df642da5f009272e3f1487c4",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

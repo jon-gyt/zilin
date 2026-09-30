@@ -23,20 +23,33 @@
   "勹": "son",
   "日": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "询问",
+   "pinyin": "xúnwèn",
+   "fr": "demander, s'informer",
+   "en": "to ask, to inquire"
+  },
+  {
+   "hanzi": "查询",
+   "pinyin": "cháxún",
+   "fr": "consulter, se renseigner",
+   "en": "to look up, to inquire"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "你可以打电话询问。",
+  "pinyin": "Nǐ kěyǐ dǎ diànhuà xúnwèn.",
+  "fr": "Tu peux téléphoner pour te renseigner.",
+  "en": "You can call to ask."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ff7cb02a890dc74e8d2e5373237e36060d36eef9d5dad51368569cbff02fd6c7",
-  "essais": 1,
+  "empreinte_invite": "sha256:1b65eca5505524cd67b0ac717d840e64f5beab4f8b924eb053029987e7dba8ab",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

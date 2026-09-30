@@ -21,20 +21,33 @@
   "宀": "sens",
   "火": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "火灾",
+   "pinyin": "huǒzāi",
+   "fr": "incendie",
+   "en": "fire (disaster)"
+  },
+  {
+   "hanzi": "灾害",
+   "pinyin": "zāihài",
+   "fr": "sinistre, désastre",
+   "en": "calamity, disaster"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "那年这里发生了水灾。",
+  "pinyin": "Nà nián zhèli fāshēng le shuǐzāi.",
+  "fr": "Cette année-là, il y a eu une inondation ici.",
+  "en": "That year there was a flood here."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4303216d76454765559eb4535fb2b6d5c16096429a1296399de14ae7354c6ddf",
-  "essais": 1,
+  "empreinte_invite": "sha256:576516334af8c02a45f81918483c25e159e22aaf139eb28af1267c9c89fdf113",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

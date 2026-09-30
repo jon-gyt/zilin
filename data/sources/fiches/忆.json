@@ -21,20 +21,33 @@
   "忄": "sens",
   "乙": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "回忆",
+   "pinyin": "huíyì",
+   "fr": "souvenir, se remémorer",
+   "en": "memory, to recall"
+  },
+  {
+   "hanzi": "记忆",
+   "pinyin": "jìyì",
+   "fr": "mémoire",
+   "en": "memory"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这张照片里有很多美好的回忆。",
+  "pinyin": "Zhè zhāng zhàopiàn li yǒu hěn duō měihǎo de huíyì.",
+  "fr": "Cette photo contient beaucoup de beaux souvenirs.",
+  "en": "This photo holds many happy memories."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f82e5645f69ac0d31dc7eb17b217536216c8301a36ca3a44fa6b52d68389c64b",
-  "essais": 1,
+  "empreinte_invite": "sha256:83c4b19eb33660a329789d83080735e131bfba8abaad8b994ff729c61c4f0915",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

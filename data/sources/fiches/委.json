@@ -21,20 +21,33 @@
   "禾": "forme",
   "女": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "委托",
+   "pinyin": "wěituō",
+   "fr": "confier, charger quelqu'un de",
+   "en": "to entrust"
+  },
+  {
+   "hanzi": "委员",
+   "pinyin": "wěiyuán",
+   "fr": "membre d'un comité",
+   "en": "committee member"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我委托朋友帮我买票。",
+  "pinyin": "Wǒ wěituō péngyou bāng wǒ mǎi piào.",
+  "fr": "J'ai chargé un ami de m'acheter un billet.",
+  "en": "I asked a friend to buy a ticket for me."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:885dffc27ea9c253e0d65ea6b545144153e3b9ed1cc49cd9bf2c72868bf46dc6",
-  "essais": 1,
+  "empreinte_invite": "sha256:1f217f84401af6fe31a7a6ad172ace5ab518e23bcef44ea623bc6d5e9a65c081",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

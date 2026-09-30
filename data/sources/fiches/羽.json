@@ -19,20 +19,33 @@
  "roles": {
   "习": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "羽毛",
+   "pinyin": "yǔmáo",
+   "fr": "plume",
+   "en": "feather"
+  },
+  {
+   "hanzi": "羽绒",
+   "pinyin": "yǔróng",
+   "fr": "duvet",
+   "en": "down (feathers)"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这只鸟的羽毛很漂亮。",
+  "pinyin": "Zhè zhī niǎo de yǔmáo hěn piàoliang.",
+  "fr": "Cet oiseau a de très belles plumes.",
+  "en": "This bird has beautiful feathers."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b5fbacb353c387f313a2c58c4aec60a77157a4060b8560825dbb1b82e3e85db3",
-  "essais": 1,
+  "empreinte_invite": "sha256:98c2f74ff5c3c45b69b3fe1e3333a84133aa25fba894331324b2b7d0c67afe79",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
