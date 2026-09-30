@@ -1,0 +1,705 @@
+{
+ "examen": "yueke-1605",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我下个月要搬到新宿舍了，",
+       "pinyin": "wǒ xià gè yuè yào bān dào xīn sù shè le",
+       "fr": "Le mois prochain, je déménage dans une nouvelle résidence,",
+       "en": "Next month I'm moving to a new dorm,"
+      },
+      {
+       "zh": "房间比现在的大，还有一个小客厅。",
+       "pinyin": "fáng jiān bǐ xiàn zài de dà hái yǒu yī gè xiǎo kè tīng",
+       "fr": "la chambre est plus grande que l'actuelle, avec en plus un petit salon.",
+       "en": "the room is bigger than my current one, and there's a small living room too."
+      },
+      {
+       "zh": "可惜离学校远了一点。",
+       "pinyin": "kě xī lí xué xiào yuǎn le yī diǎn",
+       "fr": "Dommage, c'est un peu plus loin de l'école.",
+       "en": "Shame it's a bit further from school."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "下个月",
+       "pinyin": "xià gè yuè",
+       "fr": "le mois prochain",
+       "en": "next month"
+      },
+      {
+       "zh": "搬",
+       "pinyin": "bān",
+       "fr": "déménager",
+       "en": "to move"
+      },
+      {
+       "zh": "新",
+       "pinyin": "xīn",
+       "fr": "nouveau",
+       "en": "new"
+      },
+      {
+       "zh": "宿舍",
+       "pinyin": "sù shè",
+       "fr": "résidence, dortoir",
+       "en": "dormitory"
+      },
+      {
+       "zh": "房间",
+       "pinyin": "fáng jiān",
+       "fr": "chambre, pièce",
+       "en": "room"
+      },
+      {
+       "zh": "还有",
+       "pinyin": "hái yǒu",
+       "fr": "il y a aussi",
+       "en": "there is also"
+      },
+      {
+       "zh": "客厅",
+       "pinyin": "kè tīng",
+       "fr": "salon",
+       "en": "living room"
+      },
+      {
+       "zh": "可惜",
+       "pinyin": "kě xī",
+       "fr": "dommage",
+       "en": "a pity"
+      },
+      {
+       "zh": "离",
+       "pinyin": "lí",
+       "fr": "loin de, à distance de",
+       "en": "from (distance)"
+      },
+      {
+       "zh": "远",
+       "pinyin": "yuǎn",
+       "fr": "loin",
+       "en": "far"
+      },
+      {
+       "zh": "一点",
+       "pinyin": "yī diǎn",
+       "fr": "un peu",
+       "en": "a little"
+      },
+      {
+       "zh": "这个",
+       "pinyin": "zhè gè",
+       "fr": "ce, cette",
+       "en": "this"
+      },
+      {
+       "zh": "苹果",
+       "pinyin": "píng guǒ",
+       "fr": "pomme",
+       "en": "apple"
+      },
+      {
+       "zh": "甜",
+       "pinyin": "tián",
+       "fr": "sucré",
+       "en": "sweet"
+      },
+      {
+       "zh": "睡觉",
+       "pinyin": "shuì jiào",
+       "fr": "dormir",
+       "en": "to sleep"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un écriteau",
+      "en": "A notice"
+     },
+     "lignes": [
+      {
+       "zh": "宿舍楼",
+       "pinyin": "sù shè lóu",
+       "fr": "Bâtiment de la résidence",
+       "en": "Dormitory building"
+      },
+      {
+       "zh": "晚上十一点锁门",
+       "pinyin": "wǎn shang shí yī diǎn suǒ mén",
+       "fr": "Portes fermées à clé à 23 h",
+       "en": "Doors locked at 11 pm"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "宿舍楼",
+       "pinyin": "sù shè lóu",
+       "fr": "bâtiment de résidence",
+       "en": "dormitory building"
+      },
+      {
+       "zh": "十一点",
+       "pinyin": "shí yī diǎn",
+       "fr": "onze heures",
+       "en": "eleven o'clock"
+      },
+      {
+       "zh": "锁门",
+       "pinyin": "suǒ mén",
+       "fr": "fermer à clé",
+       "en": "to lock the door"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel est le défaut du nouveau logement ?",
+      "en": "What is the drawback of the new place?"
+     },
+     "choix": [
+      {
+       "fr": "Il est plus petit",
+       "en": "It's smaller"
+      },
+      {
+       "fr": "Il est plus cher",
+       "en": "It's more expensive"
+      },
+      {
+       "fr": "Il est plus éloigné",
+       "en": "It's further away"
+      },
+      {
+       "fr": "Il est plus bruyant",
+       "en": "It's noisier"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "惜",
+      "远"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la pièce en plus.",
+      "en": "Tap the extra room."
+     },
+     "choix": [
+      "房间",
+      "客厅",
+      "宿舍",
+      "学校"
+     ],
+     "reponse": 1,
+     "porte": [
+      "客",
+      "厅"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "今天星期二。",
+       "pinyin": "jīn tiān xīng qī èr",
+       "fr": "Aujourd'hui, c'est mardi.",
+       "en": "Today is Tuesday."
+      },
+      {
+       "zh": "这个苹果很甜。",
+       "pinyin": "zhè gè píng guǒ hěn tián",
+       "fr": "Cette pomme est très sucrée.",
+       "en": "This apple is very sweet."
+      },
+      {
+       "zh": "他在睡觉。",
+       "pinyin": "tā zài shuì jiào",
+       "fr": "Il dort.",
+       "en": "He's sleeping."
+      },
+      {
+       "zh": "太好了！我去帮你搬吧。",
+       "pinyin": "tài hǎo le wǒ qù bāng nǐ bān ba",
+       "fr": "Super ! Je viens t'aider à déménager.",
+       "en": "Great! I'll come and help you move."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "宿",
+      "搬"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "宿舍楼晚上十点锁门。",
+      "pinyin": "sù shè lóu wǎn shang shí diǎn suǒ mén",
+      "fr": "La résidence ferme à clé à 22 h.",
+      "en": "The dorm building is locked at 10 pm."
+     },
+     "reponse": false,
+     "porte": [
+      "锁",
+      "十",
+      "一"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "兔",
+      "pinyin": "tù",
+      "fr": "lapin",
+      "en": "rabbit"
+     },
+     "choix": [
+      "tū",
+      "tú",
+      "tǔ",
+      "tù"
+     ],
+     "reponse": 3,
+     "porte": [
+      "兔"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "menu",
+     "contexte": {
+      "fr": "Un menu",
+      "en": "A menu"
+     },
+     "lignes": [
+      {
+       "zh": "蔬菜饺子：十八元",
+       "pinyin": "shū cài jiǎo zi shí bā yuán",
+       "fr": "Raviolis aux légumes : 18 yuans",
+       "en": "Vegetable dumplings: 18 yuan"
+      },
+      {
+       "zh": "牛肉面：二十元",
+       "pinyin": "niú ròu miàn èr shí yuán",
+       "fr": "Nouilles au bœuf : 20 yuans",
+       "en": "Beef noodles: 20 yuan"
+      },
+      {
+       "zh": "桃汁：九元",
+       "pinyin": "táo zhī jiǔ yuán",
+       "fr": "Jus de pêche : 9 yuans",
+       "en": "Peach juice: 9 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "蔬菜",
+       "pinyin": "shū cài",
+       "fr": "légumes",
+       "en": "vegetables"
+      },
+      {
+       "zh": "饺子",
+       "pinyin": "jiǎo zi",
+       "fr": "raviolis",
+       "en": "dumplings"
+      },
+      {
+       "zh": "十八元",
+       "pinyin": "shí bā yuán",
+       "fr": "dix-huit yuans",
+       "en": "eighteen yuan"
+      },
+      {
+       "zh": "二十元",
+       "pinyin": "èr shí yuán",
+       "fr": "vingt yuans",
+       "en": "twenty yuan"
+      },
+      {
+       "zh": "桃汁",
+       "pinyin": "táo zhī",
+       "fr": "jus de pêche",
+       "en": "peach juice"
+      },
+      {
+       "zh": "九元",
+       "pinyin": "jiǔ yuán",
+       "fr": "neuf yuans",
+       "en": "nine yuan"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "lettre",
+     "contexte": {
+      "fr": "Une lettre",
+      "en": "A letter"
+     },
+     "lignes": [
+      {
+       "zh": "小美：",
+       "pinyin": "xiǎo měi",
+       "fr": "Xiaomei,",
+       "en": "Xiaomei,"
+      },
+      {
+       "zh": "我这几天胃不舒服，",
+       "pinyin": "wǒ zhè jǐ tiān wèi bù shū fu",
+       "fr": "ces jours-ci j'ai mal à l'estomac,",
+       "en": "my stomach has been bad these last few days,"
+      },
+      {
+       "zh": "吃什么都吐。",
+       "pinyin": "chī shén me dōu tǔ",
+       "fr": "je vomis tout ce que je mange.",
+       "en": "I throw up whatever I eat."
+      },
+      {
+       "zh": "医生让我多休息，",
+       "pinyin": "yī shēng ràng wǒ duō xiū xi",
+       "fr": "le médecin me dit de bien me reposer,",
+       "en": "the doctor told me to rest,"
+      },
+      {
+       "zh": "所以星期天不能去看电影了，真可惜！",
+       "pinyin": "suǒ yǐ xīng qī tiān bù néng qù kàn diàn yǐng le zhēn kě xī",
+       "fr": "alors dimanche je ne pourrai pas aller au cinéma, quel dommage !",
+       "en": "so I can't go to the cinema on Sunday, what a pity!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "小美",
+       "pinyin": "xiǎo měi",
+       "fr": "Xiaomei (prénom)",
+       "en": "Xiaomei (given name)"
+      },
+      {
+       "zh": "这几天",
+       "pinyin": "zhè jǐ tiān",
+       "fr": "ces jours-ci",
+       "en": "these few days"
+      },
+      {
+       "zh": "胃",
+       "pinyin": "wèi",
+       "fr": "estomac",
+       "en": "stomach"
+      },
+      {
+       "zh": "不舒服",
+       "pinyin": "bù shū fu",
+       "fr": "ne pas se sentir bien",
+       "en": "unwell"
+      },
+      {
+       "zh": "什么都",
+       "pinyin": "shén me dōu",
+       "fr": "n'importe quoi, tout",
+       "en": "anything, everything"
+      },
+      {
+       "zh": "吐",
+       "pinyin": "tǔ",
+       "fr": "vomir",
+       "en": "to vomit"
+      },
+      {
+       "zh": "让",
+       "pinyin": "ràng",
+       "fr": "demander de, faire faire",
+       "en": "to tell, to make"
+      },
+      {
+       "zh": "休息",
+       "pinyin": "xiū xi",
+       "fr": "se reposer",
+       "en": "to rest"
+      },
+      {
+       "zh": "所以",
+       "pinyin": "suǒ yǐ",
+       "fr": "donc",
+       "en": "so"
+      },
+      {
+       "zh": "不能",
+       "pinyin": "bù néng",
+       "fr": "ne pas pouvoir",
+       "en": "cannot"
+      },
+      {
+       "zh": "看电影",
+       "pinyin": "kàn diàn yǐng",
+       "fr": "aller au cinéma",
+       "en": "to see a film"
+      },
+      {
+       "zh": "真",
+       "pinyin": "zhēn",
+       "fr": "vraiment",
+       "en": "really"
+      },
+      {
+       "zh": "可惜",
+       "pinyin": "kě xī",
+       "fr": "dommage",
+       "en": "a pity"
+      },
+      {
+       "zh": "没关系",
+       "pinyin": "méi guān xi",
+       "fr": "ce n'est pas grave",
+       "en": "never mind"
+      },
+      {
+       "zh": "好好",
+       "pinyin": "hǎo hǎo",
+       "fr": "bien, comme il faut",
+       "en": "properly"
+      },
+      {
+       "zh": "自行车",
+       "pinyin": "zì xíng chē",
+       "fr": "vélo",
+       "en": "bicycle"
+      },
+      {
+       "zh": "红色",
+       "pinyin": "hóng sè",
+       "fr": "rouge",
+       "en": "red"
+      },
+      {
+       "zh": "几点",
+       "pinyin": "jǐ diǎn",
+       "fr": "quelle heure",
+       "en": "what time"
+      },
+      {
+       "zh": "起床",
+       "pinyin": "qǐ chuáng",
+       "fr": "se lever",
+       "en": "to get up"
+      },
+      {
+       "zh": "件",
+       "pinyin": "jiàn",
+       "fr": "(pour les vêtements)",
+       "en": "(measure word for clothes)"
+      },
+      {
+       "zh": "便宜",
+       "pinyin": "biàn yí",
+       "fr": "bon marché",
+       "en": "cheap"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Combien coûtent les raviolis aux légumes ?",
+      "en": "How much are the vegetable dumplings?"
+     },
+     "choix": [
+      {
+       "fr": "Vingt yuans",
+       "en": "Twenty yuan"
+      },
+      {
+       "fr": "Neuf yuans",
+       "en": "Nine yuan"
+      },
+      {
+       "fr": "Dix-huit yuans",
+       "en": "Eighteen yuan"
+      },
+      {
+       "fr": "Huit yuans",
+       "en": "Eight yuan"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "蔬",
+      "十",
+      "八"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche la boisson.",
+      "en": "Tap the drink."
+     },
+     "choix": [
+      "饺子",
+      "牛肉面",
+      "桃汁",
+      "九元"
+     ],
+     "reponse": 2,
+     "porte": [
+      "桃",
+      "汁"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "她星期天可以去看电影。",
+      "pinyin": "tā xīng qī tiān kě yǐ qù kàn diàn yǐng",
+      "fr": "Elle peut aller au cinéma dimanche.",
+      "en": "She can go to the cinema on Sunday."
+     },
+     "reponse": false,
+     "porte": [
+      "胃",
+      "不",
+      "能",
+      "惜"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que répond Xiaomei ?",
+      "en": "What does Xiaomei reply?"
+     },
+     "choix": [
+      {
+       "zh": "没关系，好好休息吧！",
+       "pinyin": "méi guān xi hǎo hǎo xiū xi ba",
+       "fr": "Ce n'est pas grave, repose-toi bien !",
+       "en": "Never mind, get plenty of rest!"
+      },
+      {
+       "zh": "我的自行车是红色的。",
+       "pinyin": "wǒ de zì xíng chē shì hóng sè de",
+       "fr": "Mon vélo est rouge.",
+       "en": "My bike is red."
+      },
+      {
+       "zh": "你几点起床？",
+       "pinyin": "nǐ jǐ diǎn qǐ chuáng",
+       "fr": "À quelle heure te lèves-tu ?",
+       "en": "What time do you get up?"
+      },
+      {
+       "zh": "这件衣服很便宜。",
+       "pinyin": "zhè jiàn yī fu hěn biàn yí",
+       "fr": "Ce vêtement n'est pas cher.",
+       "en": "These clothes are cheap."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "胃",
+      "吐"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "瘦",
+      "pinyin": "shòu",
+      "fr": "maigre, mince",
+      "en": "thin"
+     },
+     "choix": [
+      {
+       "fr": "gros, épais",
+       "en": "fat"
+      },
+      {
+       "fr": "grand, haut",
+       "en": "tall"
+      },
+      {
+       "fr": "maigre, mince",
+       "en": "thin"
+      },
+      {
+       "fr": "court, bref",
+       "en": "short"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "瘦"
+     ]
+    }
+   ]
+  }
+ ]
+}
