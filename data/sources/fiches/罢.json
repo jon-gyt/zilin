@@ -21,20 +21,33 @@
   "罒": "sens",
   "去": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "罢工",
+   "pinyin": "bàgōng",
+   "fr": "faire grève",
+   "en": "to go on strike"
+  },
+  {
+   "hanzi": "罢了",
+   "pinyin": "bàle",
+   "fr": "voilà tout, rien de plus",
+   "en": "that's all, nothing more"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "工人们罢工了。",
+  "pinyin": "Gōngrénmen bàgōng le.",
+  "fr": "Les ouvriers se sont mis en grève.",
+  "en": "The workers have gone on strike."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4c00ecca156841318b2731c010e8e0a7d572569b684b0580d1ff7135fa0dd59c",
-  "essais": 1,
+  "empreinte_invite": "sha256:9632bc61d093362e47a68fef1ef52beb8be0468da186c6ce57a23b13602ba018",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

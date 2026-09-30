@@ -21,20 +21,33 @@
   "扌": "sens",
   "发": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "拨打",
+   "pinyin": "bōdǎ",
+   "fr": "composer (un numéro)",
+   "en": "to dial"
+  },
+  {
+   "hanzi": "拨款",
+   "pinyin": "bōkuǎn",
+   "fr": "allouer des fonds",
+   "en": "to allocate funds"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "请拨打这个电话。",
+  "pinyin": "Qǐng bōdǎ zhège diànhuà.",
+  "fr": "Veuillez composer ce numéro.",
+  "en": "Please dial this number."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0a8dc6ce3e254a74e172ce68480d5f22da8f5a146afec28aa35d610b35e54f93",
-  "essais": 1,
+  "empreinte_invite": "sha256:ca4477a13eadeeffeaf92073fb387c93359c48326a35956bf7965883fe072312",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
