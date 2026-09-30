@@ -1,0 +1,1507 @@
+{
+ "niveau": "3",
+ "lot": "01",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/3/01.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:ccf2977fb192c855e416bfa0f618b4df18c017ea42ffe610679011ae57f6461f",
+  "contexte": "wenlu dico contexte 3 01",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L3-0001",
+   "genre": "mot",
+   "hanzi": "爱心",
+   "pinyin": "àixīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bonté, amour d'autrui",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bonté, compassion envers les autres"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她是一个很有爱心的人。",
+     "pinyin": "Tā shì yī ge hěn yǒu àixīn de rén.",
+     "fr": "Elle est très bonne envers les autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0002",
+   "genre": "mot",
+   "hanzi": "安排",
+   "pinyin": "ānpái",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "organiser, prévoir ; programme",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "organiser, arranger, prévoir"
+     },
+     {
+      "categorie": "N",
+      "fr": "organisation, programme prévu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "明天的工作我已经安排好了。",
+     "pinyin": "Míngtiān de gōngzuò wǒ yǐjīng ānpái hǎo le.",
+     "fr": "J'ai déjà tout prévu pour le travail de demain.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你周末有什么安排？",
+     "pinyin": "Nǐ zhōumò yǒu shénme ānpái?",
+     "fr": "Qu'est-ce que tu fais ce week-end ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0003",
+   "genre": "mot",
+   "hanzi": "安装",
+   "pinyin": "ānzhuāng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "installer, monter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "installer, monter (un appareil, un logiciel)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新空调明天来安装。",
+     "pinyin": "Xīn kōngtiáo míngtiān lái ānzhuāng.",
+     "fr": "On vient poser le nouveau climatiseur demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "按",
+   "genre": "caractere",
+   "hanzi": "按",
+   "pinyin": "àn",
+   "mots": [
+    "L3-0004"
+   ],
+   "sens": {
+    "glose": "appuyer ; selon, d'après",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "appuyer sur, presser"
+     },
+     {
+      "categorie": "Prep",
+      "fr": "selon, d'après, suivant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你按一下这里就开了。",
+     "pinyin": "Nǐ àn yīxià zhèli jiù kāi le.",
+     "fr": "Appuie ici et ça s'ouvre.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我们按老师说的做。",
+     "pinyin": "Wǒmen àn lǎoshī shuō de zuò.",
+     "fr": "On fait comme le professeur a dit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0005",
+   "genre": "mot",
+   "hanzi": "按照",
+   "pinyin": "ànzhào",
+   "categories": [
+    "Prep"
+   ],
+   "sens": {
+    "glose": "selon, conformément à",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "selon, conformément à, d'après"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请按照要求写。",
+     "pinyin": "Qǐng ànzhào yāoqiú xiě.",
+     "fr": "Écrivez en suivant les consignes, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "把",
+   "genre": "caractere",
+   "hanzi": "把",
+   "pinyin": "bǎ",
+   "mots": [
+    "L3-0006",
+    "L3-0007"
+   ],
+   "sens": {
+    "glose": "introduit l'objet ; classif. à manche",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "introduit l'objet placé devant le verbe"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des objets à poignée : chaise, couteau, parapluie"
+     },
+     {
+      "categorie": "V",
+      "fr": "tenir, saisir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把门关上。",
+     "pinyin": "Qǐng bǎ mén guān shang.",
+     "fr": "Ferme la porte, s'il te plaît.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "我买了一把椅子。",
+     "pinyin": "Wǒ mǎi le yī bǎ yǐzi.",
+     "fr": "J'ai acheté une chaise.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "握",
+   "genre": "caractere",
+   "hanzi": "握",
+   "pinyin": "wò",
+   "mots": [
+    "L5-0797"
+   ],
+   "sens": {
+    "glose": "serrer, tenir dans la main",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "serrer, tenir dans la main"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他握着我的手。",
+     "pinyin": "Tā wò zhe wǒ de shǒu.",
+     "fr": "Il me tenait la main.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0008",
+   "genre": "mot",
+   "hanzi": "把握",
+   "pinyin": "bǎwò",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "saisir ; assurance, certitude",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "saisir (une occasion), maîtriser"
+     },
+     {
+      "categorie": "N",
+      "fr": "assurance, certitude de réussir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这次考试我没有把握。",
+     "pinyin": "Zhè cì kǎoshì wǒ méiyǒu bǎwò.",
+     "fr": "Je ne suis pas sûr de réussir cet examen.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你要把握这个机会。",
+     "pinyin": "Nǐ yào bǎwò zhège jīhuì.",
+     "fr": "Il faut que tu saisisses cette chance.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0010",
+   "genre": "mot",
+   "hanzi": "白菜",
+   "pinyin": "báicài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "chou chinois",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/菜.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "冬天的白菜很便宜。",
+     "pinyin": "Dōngtiān de báicài hěn piányi.",
+     "fr": "En hiver, le chou chinois ne coûte pas cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0011",
+   "genre": "mot",
+   "hanzi": "班级",
+   "pinyin": "bānjí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "classe (d'élèves)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "classe, groupe d'élèves"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们班级有三十个学生。",
+     "pinyin": "Wǒmen bānjí yǒu sānshí ge xuésheng.",
+     "fr": "Notre classe compte trente élèves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "搬",
+   "genre": "caractere",
+   "hanzi": "搬",
+   "pinyin": "bān",
+   "mots": [
+    "L3-0012"
+   ],
+   "sens": {
+    "glose": "déplacer, transporter ; déménager",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déplacer, transporter (un objet lourd)"
+     },
+     {
+      "categorie": "V",
+      "fr": "déménager"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你能帮我搬一下桌子吗？",
+     "pinyin": "Nǐ néng bāng wǒ bān yīxià zhuōzi ma?",
+     "fr": "Tu peux m'aider à déplacer la table ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0013",
+   "genre": "mot",
+   "hanzi": "搬家",
+   "pinyin": "bānjiā",
+   "sens": {
+    "glose": "déménager",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déménager, changer de logement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们下个月搬家。",
+     "pinyin": "Wǒmen xià ge yuè bānjiā.",
+     "fr": "Nous déménageons le mois prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0015",
+   "genre": "mot",
+   "hanzi": "办理",
+   "pinyin": "bànlǐ",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'occuper de, faire (une démarche)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'occuper de, traiter, effectuer (une démarche)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我明天去办理手续。",
+     "pinyin": "Wǒ míngtiān qù bànlǐ shǒuxù.",
+     "fr": "Demain, je vais faire les formalités.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "保",
+   "genre": "caractere",
+   "hanzi": "保",
+   "pinyin": "bǎo",
+   "mots": [
+    "L3-0016"
+   ],
+   "sens": {
+    "glose": "protéger, garder ; garantir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "protéger, préserver ; garantir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我保你喜欢。",
+     "pinyin": "Wǒ bǎo nǐ xǐhuan.",
+     "fr": "Je te promets que ça va te plaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0017",
+   "genre": "mot",
+   "hanzi": "保安",
+   "pinyin": "bǎo'ān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "agent de sécurité, gardien",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "agent de sécurité, vigile, gardien"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "门口有两个保安。",
+     "pinyin": "Ménkǒu yǒu liǎng ge bǎo'ān.",
+     "fr": "Il y a deux vigiles à l'entrée.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "持",
+   "genre": "caractere",
+   "hanzi": "持",
+   "pinyin": "chí",
+   "mots": [
+    "L7-0484"
+   ],
+   "sens": {
+    "glose": "tenir ; maintenir, soutenir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "tenir en main ; maintenir, soutenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他每天坚持跑步。",
+     "pinyin": "Tā měitiān jiānchí pǎobù.",
+     "fr": "Il court tous les jours, sans faute.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0018",
+   "genre": "mot",
+   "hanzi": "保持",
+   "pinyin": "bǎochí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "maintenir, garder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "maintenir, garder (un état)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请保持安静。",
+     "pinyin": "Qǐng bǎochí ānjìng.",
+     "fr": "Silence, s'il vous plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "存",
+   "genre": "caractere",
+   "hanzi": "存",
+   "pinyin": "cún",
+   "mots": [
+    "L3-0121"
+   ],
+   "sens": {
+    "glose": "déposer, mettre de côté ; exister",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déposer, mettre de côté (argent, bagages)"
+     },
+     {
+      "categorie": "V",
+      "fr": "exister, subsister"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我把钱存在银行里。",
+     "pinyin": "Wǒ bǎ qián cún zài yínháng li.",
+     "fr": "J'ai mis mon argent à la banque.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0019",
+   "genre": "mot",
+   "hanzi": "保存",
+   "pinyin": "bǎocún",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "conserver, sauvegarder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "conserver, garder ; enregistrer (un fichier)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别忘了保存文件。",
+     "pinyin": "Bié wàng le bǎocún wénjiàn.",
+     "fr": "N'oublie pas d'enregistrer le fichier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0020",
+   "genre": "mot",
+   "hanzi": "保护",
+   "pinyin": "bǎohù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "protéger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "protéger, préserver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要保护环境。",
+     "pinyin": "Wǒmen yào bǎohù huánjìng.",
+     "fr": "Nous devons respecter l'environnement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0021",
+   "genre": "mot",
+   "hanzi": "保留",
+   "pinyin": "bǎoliú",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "garder, conserver ; réserver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garder, conserver ; réserver (un avis)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里还保留着很多老房子。",
+     "pinyin": "Zhèli hái bǎoliú zhe hěn duō lǎo fángzi.",
+     "fr": "Beaucoup de vieilles maisons sont encore debout ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "险",
+   "genre": "caractere",
+   "hanzi": "险",
+   "pinyin": "xiǎn",
+   "mots": [
+    "L6-0880"
+   ],
+   "sens": {
+    "glose": "dangereux, périlleux ; danger",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "dangereux, périlleux"
+     },
+     {
+      "categorie": "N",
+      "fr": "danger, risque"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条路很险。",
+     "pinyin": "Zhè tiáo lù hěn xiǎn.",
+     "fr": "Cette route n'est pas sûre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0022",
+   "genre": "mot",
+   "hanzi": "保险",
+   "pinyin": "bǎoxiǎn",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "assurance ; sûr, sans risque",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "assurance"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "sûr, sans risque, prudent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你买保险了吗？",
+     "pinyin": "Nǐ mǎi bǎoxiǎn le ma?",
+     "fr": "Tu as pris une assurance ?",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "这样做比较保险。",
+     "pinyin": "Zhèyàng zuò bǐjiào bǎoxiǎn.",
+     "fr": "C'est plus prudent de faire comme ça.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "证",
+   "genre": "caractere",
+   "hanzi": "证",
+   "pinyin": "zhèng",
+   "mots": [
+    "L3-0898"
+   ],
+   "sens": {
+    "glose": "certificat, carte ; preuve",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "certificat, carte, pièce justificative"
+     },
+     {
+      "categorie": "V",
+      "fr": "prouver, attester"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个证你要带好。",
+     "pinyin": "Zhège zhèng nǐ yào dài hǎo.",
+     "fr": "Garde bien ce papier sur toi.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0023",
+   "genre": "mot",
+   "hanzi": "保证",
+   "pinyin": "bǎozhèng",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "garantir, promettre ; garantie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "garantir, promettre"
+     },
+     {
+      "categorie": "N",
+      "fr": "garantie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我保证下次不这样了。",
+     "pinyin": "Wǒ bǎozhèng xià cì bù zhèyàng le.",
+     "fr": "Je te jure que ça ne se reproduira pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0025",
+   "genre": "mot",
+   "hanzi": "报到",
+   "pinyin": "bàodào",
+   "sens": {
+    "glose": "se présenter à son arrivée",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se présenter, signaler son arrivée, s'enregistrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "新同学明天去学校报到。",
+     "pinyin": "Xīn tóngxué míngtiān qù xuéxiào bàodào.",
+     "fr": "Les nouveaux élèves se présentent à l'école demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0026",
+   "genre": "mot",
+   "hanzi": "报道",
+   "pinyin": "bàodào",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "relater (presse) ; reportage",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rendre compte, relater (presse, télévision)"
+     },
+     {
+      "categorie": "N",
+      "fr": "reportage, article"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "报纸上有一篇关于他的报道。",
+     "pinyin": "Bàozhǐ shang yǒu yī piān guānyú tā de bàodào.",
+     "fr": "Le journal a publié un article sur lui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0027",
+   "genre": "mot",
+   "hanzi": "报告",
+   "pinyin": "bàogào",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "rapport, exposé ; signaler",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rapport, exposé"
+     },
+     {
+      "categorie": "V",
+      "fr": "rendre compte, signaler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我今天要写一个报告。",
+     "pinyin": "Wǒ jīntiān yào xiě yī ge bàogào.",
+     "fr": "Je dois rédiger un rapport aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0029",
+   "genre": "mot",
+   "hanzi": "北部",
+   "pinyin": "běibù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "le nord (d'un pays, d'une région)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la partie nord, le nord (d'un pays, d'une région)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他住在中国北部。",
+     "pinyin": "Tā zhù zài Zhōngguó běibù.",
+     "fr": "Il habite dans le nord de la Chine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0031",
+   "genre": "mot",
+   "hanzi": "背后",
+   "pinyin": "bèihòu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "derrière ; dans le dos",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "derrière, à l'arrière ; en cachette, dans le dos"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "别在背后说别人。",
+     "pinyin": "Bié zài bèihòu shuō biéren.",
+     "fr": "Ne dis pas de mal des gens en leur absence.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "被",
+   "genre": "caractere",
+   "hanzi": "被",
+   "pinyin": "bèi",
+   "mots": [
+    "L3-0032"
+   ],
+   "sens": {
+    "glose": "par (passif) ; couverture",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "par : marque le passif"
+     },
+     {
+      "categorie": "N",
+      "fr": "couverture, couette"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的钱包被人拿走了。",
+     "pinyin": "Wǒ de qiánbāo bèi rén ná zǒu le.",
+     "fr": "Quelqu'un a pris mon portefeuille.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0033",
+   "genre": "mot",
+   "hanzi": "被子",
+   "pinyin": "bèizi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "couette, couverture",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "couette, couverture de lit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条被子很暖和。",
+     "pinyin": "Zhè tiáo bèizi hěn nuǎnhuo.",
+     "fr": "Cette couette tient bien chaud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0034",
+   "genre": "mot",
+   "hanzi": "本来",
+   "pinyin": "běnlái",
+   "categories": [
+    "Adj",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "au départ, à l'origine",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/本.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "我本来想去，后来没时间了。",
+     "pinyin": "Wǒ běnlái xiǎng qù, hòulái méi shíjiān le.",
+     "fr": "Je voulais y aller, mais finalement je n'ai pas eu le temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "领",
+   "genre": "caractere",
+   "hanzi": "领",
+   "pinyin": "lǐng",
+   "mots": [
+    "L3-0456"
+   ],
+   "sens": {
+    "glose": "conduire, mener ; recevoir ; col",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "conduire, guider, mener"
+     },
+     {
+      "categorie": "V",
+      "fr": "recevoir, aller chercher (ce qui est dû)"
+     },
+     {
+      "categorie": "N",
+      "fr": "col (d'un vêtement)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他领我们去看房间。",
+     "pinyin": "Tā lǐng wǒmen qù kàn fángjiān.",
+     "fr": "Il nous a emmenés voir la chambre.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "下午去领书。",
+     "pinyin": "Xiàwǔ qù lǐng shū.",
+     "fr": "Cet après-midi, on va chercher les livres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0035",
+   "genre": "mot",
+   "hanzi": "本领",
+   "pinyin": "běnlǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "savoir-faire, compétence",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "savoir-faire, compétence, talent"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的本领很大。",
+     "pinyin": "Tā de běnlǐng hěn dà.",
+     "fr": "Il sait faire beaucoup de choses.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0036",
+   "genre": "mot",
+   "hanzi": "本事",
+   "pinyin": "běnshi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "capacité, talent",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "capacité, talent, habileté"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "有本事你自己做。",
+     "pinyin": "Yǒu běnshi nǐ zìjǐ zuò.",
+     "fr": "Si tu en es capable, fais-le toi-même.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "较",
+   "genre": "caractere",
+   "hanzi": "较",
+   "pinyin": "jiào",
+   "mots": [
+    "L3-0356"
+   ],
+   "sens": {
+    "glose": "relativement, plutôt ; comparer",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "relativement, plutôt"
+     },
+     {
+      "categorie": "V",
+      "fr": "comparer : langue écrite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的东西较贵。",
+     "pinyin": "Zhèli de dōngxi jiào guì.",
+     "fr": "Ici, les choses sont plutôt chères.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0037",
+   "genre": "mot",
+   "hanzi": "比较",
+   "pinyin": "bǐjiào",
+   "categories": [
+    "Adv",
+    "V"
+   ],
+   "sens": {
+    "glose": "assez, plutôt ; comparer",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "assez, relativement"
+     },
+     {
+      "categorie": "V",
+      "fr": "comparer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天比较热。",
+     "pinyin": "Jīntiān bǐjiào rè.",
+     "fr": "Il fait assez chaud aujourd'hui.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你比较一下这两个。",
+     "pinyin": "Nǐ bǐjiào yīxià zhè liǎng ge.",
+     "fr": "Compare un peu ces deux-là.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0038",
+   "genre": "mot",
+   "hanzi": "比例",
+   "pinyin": "bǐlì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "proportion, part",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "proportion, part, ratio"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们班男生的比例很高。",
+     "pinyin": "Wǒmen bān nánshēng de bǐlì hěn gāo.",
+     "fr": "Il y a beaucoup de garçons dans notre classe.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "赛",
+   "genre": "caractere",
+   "hanzi": "赛",
+   "pinyin": "sài",
+   "mots": [
+    "L6-0702"
+   ],
+   "sens": {
+    "glose": "rivaliser ; compétition",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "rivaliser, faire la course"
+     },
+     {
+      "categorie": "N",
+      "fr": "match, compétition"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们赛一下，看谁跑得快。",
+     "pinyin": "Wǒmen sài yīxià, kàn shéi pǎo de kuài.",
+     "fr": "Faisons la course, pour voir qui court le plus vite.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0039",
+   "genre": "mot",
+   "hanzi": "比赛",
+   "pinyin": "bǐsài",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "match, compétition ; concourir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "match, compétition"
+     },
+     {
+      "categorie": "V",
+      "fr": "concourir, disputer un match"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天晚上有足球比赛。",
+     "pinyin": "Jīntiān wǎnshang yǒu zúqiú bǐsài.",
+     "fr": "Il y a un match de foot ce soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0040",
+   "genre": "mot",
+   "hanzi": "必然",
+   "pinyin": "bìrán",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "inévitable, nécessaire",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "inévitable, nécessaire, logique"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是必然的结果。",
+     "pinyin": "Zhè shì bìrán de jiéguǒ.",
+     "fr": "C'était un résultat inévitable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0041",
+   "genre": "mot",
+   "hanzi": "必要",
+   "pinyin": "bìyào",
+   "categories": [
+    "Adj",
+    "N"
+   ],
+   "sens": {
+    "glose": "nécessaire ; nécessité",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "nécessaire, indispensable"
+     },
+     {
+      "categorie": "N",
+      "fr": "nécessité, utilité"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "没有必要再说了。",
+     "pinyin": "Méiyǒu bìyào zài shuō le.",
+     "fr": "Inutile d'en dire plus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "化",
+   "genre": "caractere",
+   "hanzi": "化",
+   "pinyin": "huà",
+   "mots": [
+    "L3-0301"
+   ],
+   "sens": {
+    "glose": "transformer, fondre ; -iser",
+    "acceptions": [
+     {
+      "categorie": "Suffix",
+      "fr": "suffixe : -iser, -isation (moderniser)"
+     },
+     {
+      "categorie": "V",
+      "fr": "fondre ; se transformer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "中国的现代化很快。",
+     "pinyin": "Zhōngguó de xiàndàihuà hěn kuài.",
+     "fr": "La Chine se modernise vite.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "雪化了。",
+     "pinyin": "Xuě huà le.",
+     "fr": "La neige a fondu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0042",
+   "genre": "mot",
+   "hanzi": "变化",
+   "pinyin": "biànhuà",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "changement ; changer, évoluer",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "changement, évolution"
+     },
+     {
+      "categorie": "V",
+      "fr": "changer, évoluer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这几年北京变化很大。",
+     "pinyin": "Zhè jǐ nián Běijīng biànhuà hěn dà.",
+     "fr": "Pékin a beaucoup changé ces dernières années.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0043",
+   "genre": "mot",
+   "hanzi": "变为",
+   "pinyin": "biànwéi",
+   "sens": {
+    "glose": "devenir, se changer en",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "devenir, se transformer en"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "雨变为雪了。",
+     "pinyin": "Yǔ biànwéi xuě le.",
+     "fr": "La pluie s'est changée en neige.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "标",
+   "genre": "caractere",
+   "hanzi": "标",
+   "pinyin": "biāo",
+   "mots": [
+    "L7-0201"
+   ],
+   "sens": {
+    "glose": "marquer, indiquer ; marque, signe",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "marquer, indiquer"
+     },
+     {
+      "categorie": "N",
+      "fr": "marque, signe"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把重要的地方标出来。",
+     "pinyin": "Qǐng bǎ zhòngyào de dìfang biāo chūlai.",
+     "fr": "Marque les passages importants, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0044",
+   "genre": "mot",
+   "hanzi": "标题",
+   "pinyin": "biāotí",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "titre (d'un article, d'un texte)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "titre (d'un article, d'un texte)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这篇文章的标题很好。",
+     "pinyin": "Zhè piān wénzhāng de biāotí hěn hǎo.",
+     "fr": "Cet article a un bon titre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L3-0045",
+   "genre": "mot",
+   "hanzi": "标准",
+   "pinyin": "biāozhǔn",
+   "categories": [
+    "N",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "norme, critère ; correct, standard",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "norme, critère"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "correct, conforme, standard"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的普通话很标准。",
+     "pinyin": "Tā de pǔtōnghuà hěn biāozhǔn.",
+     "fr": "Il parle un mandarin impeccable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "达",
+   "genre": "caractere",
+   "hanzi": "达",
+   "pinyin": "dá",
+   "sens": {
+    "glose": "atteindre, parvenir à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "atteindre, arriver à ; exprimer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  }
+ ]
+}
