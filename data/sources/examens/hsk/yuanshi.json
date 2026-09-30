@@ -1,0 +1,845 @@
+{
+ "examen": "yuanshi",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "大明，我们明天去山里玩，好不好？",
+       "pinyin": "dà míng wǒ men míng tiān qù shān lǐ wán hǎo bu hǎo",
+       "fr": "Daming, on va se promener dans la montagne demain, d'accord ?",
+       "en": "Daming, shall we go to the mountains tomorrow?"
+      },
+      {
+       "zh": "早上八时，大学东门见。",
+       "pinyin": "zǎo shang bā shí dà xué dōng mén jiàn",
+       "fr": "Rendez-vous à huit heures du matin, à la porte est de l'université.",
+       "en": "Meet at 8 am at the university's east gate."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "etal",
+     "contexte": {
+      "fr": "Un étal",
+      "en": "A stall"
+     },
+     "lignes": [
+      {
+       "zh": "书包：八十元",
+       "pinyin": "shū bāo bā shí yuán",
+       "fr": "Cartable : 80 yuans",
+       "en": "Schoolbag: 80 yuan"
+      },
+      {
+       "zh": "雨衣：四十元",
+       "pinyin": "yǔ yī sì shí yuán",
+       "fr": "Imperméable : 40 yuans",
+       "en": "Raincoat: 40 yuan"
+      },
+      {
+       "zh": "水杯：十五元",
+       "pinyin": "shuǐ bēi shí wǔ yuán",
+       "fr": "Gourde : 15 yuans",
+       "en": "Water cup: 15 yuan"
+      },
+      {
+       "zh": "本子：三元",
+       "pinyin": "běn zi sān yuán",
+       "fr": "Cahier : 3 yuans",
+       "en": "Notebook: 3 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "八十元",
+       "pinyin": "bā shí yuán",
+       "fr": "80 yuans",
+       "en": "80 yuan"
+      },
+      {
+       "zh": "四十元",
+       "pinyin": "sì shí yuán",
+       "fr": "40 yuans",
+       "en": "40 yuan"
+      },
+      {
+       "zh": "十五元",
+       "pinyin": "shí wǔ yuán",
+       "fr": "15 yuans",
+       "en": "15 yuan"
+      },
+      {
+       "zh": "三元",
+       "pinyin": "sān yuán",
+       "fr": "3 yuans",
+       "en": "3 yuan"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A road sign"
+     },
+     "lignes": [
+      {
+       "zh": "前面路坏了",
+       "pinyin": "qián mian lù huài le",
+       "fr": "Route abîmée plus loin",
+       "en": "Road damaged ahead"
+      },
+      {
+       "zh": "车从右边过",
+       "pinyin": "chē cóng yòu bian guò",
+       "fr": "Les voitures passent à droite",
+       "en": "Vehicles keep right"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "弟弟：妈妈去上班了。",
+       "pinyin": "dì di mā ma qù shàng bān le",
+       "fr": "Petit frère : maman est partie au travail.",
+       "en": "Little brother: Mum has gone to work."
+      },
+      {
+       "zh": "下午去学中文，别玩手机！",
+       "pinyin": "xià wǔ qù xué zhōng wén bié wán shǒu jī",
+       "fr": "Cet après-midi, va au cours de chinois, et pas de téléphone !",
+       "en": "This afternoon, go to your Chinese class, and no phone!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Où se retrouvent-ils ?",
+      "en": "Where are they meeting?"
+     },
+     "choix": [
+      {
+       "fr": "À la porte ouest de l'université",
+       "en": "At the university's west gate"
+      },
+      {
+       "fr": "Devant la gare",
+       "en": "Outside the station"
+      },
+      {
+       "fr": "À la porte est de l'université",
+       "en": "At the university's east gate"
+      },
+      {
+       "fr": "Au pied de la montagne",
+       "en": "At the foot of the mountain"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "东",
+      "门"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他们下午去山里玩。",
+      "pinyin": "tā men xià wǔ qù shān lǐ wán",
+      "fr": "Ils vont à la montagne l'après-midi.",
+      "en": "They are going to the mountains in the afternoon."
+     },
+     "reponse": false,
+     "porte": [
+      "早",
+      "上"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我有两个弟弟。",
+       "pinyin": "wǒ yǒu liǎng gè dì di",
+       "fr": "J'ai deux petits frères.",
+       "en": "I have two younger brothers."
+      },
+      {
+       "zh": "北京比南京大。",
+       "pinyin": "běi jīng bǐ nán jīng dà",
+       "fr": "Pékin est plus grand que Nankin.",
+       "en": "Beijing is bigger than Nanjing."
+      },
+      {
+       "zh": "他们都是学生。",
+       "pinyin": "tā men dōu shì xué sheng",
+       "fr": "Ce sont tous des élèves.",
+       "en": "They are all students."
+      },
+      {
+       "zh": "太好了！明天见！",
+       "pinyin": "tài hǎo le míng tiān jiàn",
+       "fr": "Super ! À demain !",
+       "en": "Great! See you tomorrow!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "好",
+      "不"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "渴",
+      "pinyin": "kě",
+      "fr": "avoir soif",
+      "en": "thirsty"
+     },
+     "choix": [
+      {
+       "fr": "avoir faim",
+       "en": "hungry"
+      },
+      {
+       "fr": "avoir soif",
+       "en": "thirsty"
+      },
+      {
+       "fr": "avoir froid",
+       "en": "cold"
+      },
+      {
+       "fr": "être fatigué",
+       "en": "tired"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "渴"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Combien coûte le cartable ?",
+      "en": "How much is the schoolbag?"
+     },
+     "choix": [
+      {
+       "fr": "15 yuans",
+       "en": "15 yuan"
+      },
+      {
+       "fr": "80 yuans",
+       "en": "80 yuan"
+      },
+      {
+       "fr": "3 yuans",
+       "en": "3 yuan"
+      },
+      {
+       "fr": "18 yuans",
+       "en": "18 yuan"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "书",
+      "包",
+      "八",
+      "十"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche ce qui coûte le moins cher.",
+      "en": "Tap the cheapest item."
+     },
+     "choix": [
+      "书包",
+      "雨衣",
+      "水杯",
+      "本子"
+     ],
+     "reponse": 3,
+     "porte": [
+      "本",
+      "子"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "男",
+      "pinyin": "nán",
+      "fr": "homme, masculin",
+      "en": "man, male"
+     },
+     "choix": [
+      "田",
+      "男",
+      "力",
+      "女"
+     ],
+     "reponse": 1,
+     "porte": [
+      "男"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s3",
+     "consigne": {
+      "fr": "Que dit ce panneau ?",
+      "en": "What does this sign say?"
+     },
+     "choix": [
+      {
+       "fr": "Route neuve : roulez vite",
+       "en": "New road: drive fast"
+      },
+      {
+       "fr": "Parking à droite",
+       "en": "Car park on the right"
+      },
+      {
+       "fr": "Route abîmée : passez à gauche",
+       "en": "Road damaged: keep left"
+      },
+      {
+       "fr": "Route abîmée : passez à droite",
+       "en": "Road damaged: keep right"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "坏",
+      "右"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "身体",
+      "pinyin": "shēn tǐ",
+      "fr": "corps ; santé",
+      "en": "body; health"
+     },
+     "trou": 1,
+     "choix": [
+      "本",
+      "他",
+      "体",
+      "什"
+     ],
+     "reponse": 2,
+     "porte": [
+      "体"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s4",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "弟弟下午去学中文。",
+      "pinyin": "dì di xià wǔ qù xué zhōng wén",
+      "fr": "Le petit frère va au cours de chinois cet après-midi.",
+      "en": "The little brother goes to his Chinese class this afternoon."
+     },
+     "reponse": true,
+     "porte": [
+      "下",
+      "午",
+      "学",
+      "中",
+      "文"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "小马，今天下午我不去上课了。",
+       "pinyin": "xiǎo mǎ jīn tiān xià wǔ wǒ bù qù shàng kè le",
+       "fr": "Xiao Ma, cet après-midi, je ne vais pas en cours.",
+       "en": "Xiao Ma, I'm not going to class this afternoon."
+      },
+      {
+       "zh": "我身体不太好。",
+       "pinyin": "wǒ shēn tǐ bù tài hǎo",
+       "fr": "Je ne me sens pas très bien.",
+       "en": "I'm not feeling very well."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "小马",
+       "pinyin": "xiǎo mǎ",
+       "fr": "Xiao Ma, le jeune Ma",
+       "en": "Xiao Ma, young Ma"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "billet",
+     "contexte": {
+      "fr": "Un billet",
+      "en": "A ticket"
+     },
+     "lignes": [
+      {
+       "zh": "火车：北京 — 南京",
+       "pinyin": "huǒ chē běi jīng nán jīng",
+       "fr": "Train : Pékin — Nankin",
+       "en": "Train: Beijing — Nanjing"
+      },
+      {
+       "zh": "五月二日上午十时",
+       "pinyin": "wǔ yuè èr rì shàng wǔ shí shí",
+       "fr": "2 mai, dix heures du matin",
+       "en": "2 May, 10 am"
+      },
+      {
+       "zh": "三号车，十八号",
+       "pinyin": "sān hào chē shí bā hào",
+       "fr": "Voiture 3, place 18",
+       "en": "Coach 3, seat 18"
+      },
+      {
+       "zh": "一百四十元",
+       "pinyin": "yī bǎi sì shí yuán",
+       "fr": "140 yuans",
+       "en": "140 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "三号车",
+       "pinyin": "sān hào chē",
+       "fr": "voiture n° 3",
+       "en": "coach no. 3"
+      },
+      {
+       "zh": "十八号",
+       "pinyin": "shí bā hào",
+       "fr": "place n° 18",
+       "en": "seat no. 18"
+      },
+      {
+       "zh": "一百四十元",
+       "pinyin": "yī bǎi sì shí yuán",
+       "fr": "140 yuans",
+       "en": "140 yuan"
+      },
+      {
+       "zh": "二日",
+       "pinyin": "èr rì",
+       "fr": "le 2 (du mois)",
+       "en": "the 2nd (of the month)"
+      }
+     ]
+    },
+    {
+     "id": "s3",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "明天下午四时",
+       "pinyin": "míng tiān xià wǔ sì shí",
+       "fr": "Demain, seize heures",
+       "en": "Tomorrow, 4 pm"
+      },
+      {
+       "zh": "高二（三）班对高三（一）班",
+       "pinyin": "gāo èr sān bān duì gāo sān yī bān",
+       "fr": "La classe 3 de 2e année contre la classe 1 de terminale",
+       "en": "Year 11 class 3 v. Year 12 class 1"
+      },
+      {
+       "zh": "楼前见！",
+       "pinyin": "lóu qián jiàn",
+       "fr": "Rendez-vous devant le bâtiment !",
+       "en": "See you in front of the building!"
+      }
+     ]
+    },
+    {
+     "id": "s4",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne",
+      "en": "A shop sign"
+     },
+     "lignes": [
+      {
+       "zh": "老马花茶",
+       "pinyin": "lǎo mǎ huā chá",
+       "fr": "Thé au jasmin du vieux Ma",
+       "en": "Old Ma's jasmine tea"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "前",
+      "pinyin": "qián",
+      "fr": "devant, avant",
+      "en": "in front, before"
+     },
+     "choix": [
+      {
+       "fr": "derrière",
+       "en": "behind"
+      },
+      {
+       "fr": "à côté",
+       "en": "beside"
+      },
+      {
+       "fr": "devant",
+       "en": "in front"
+      },
+      {
+       "fr": "dessus",
+       "en": "on top"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "前"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi ne va-t-il pas en cours ?",
+      "en": "Why isn't he going to class?"
+     },
+     "choix": [
+      {
+       "fr": "Il part à Pékin",
+       "en": "He is leaving for Beijing"
+      },
+      {
+       "fr": "Il ne se sent pas bien",
+       "en": "He isn't feeling well"
+      },
+      {
+       "fr": "Il n'a pas fait ses devoirs",
+       "en": "He hasn't done his homework"
+      },
+      {
+       "fr": "Il va voir sa mère",
+       "en": "He is going to see his mother"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "身",
+      "体",
+      "不",
+      "好"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "多喝水，明天见！",
+       "pinyin": "duō hē shuǐ míng tiān jiàn",
+       "fr": "Bois beaucoup d'eau, à demain !",
+       "en": "Drink lots of water, see you tomorrow!"
+      },
+      {
+       "zh": "我也是男生。",
+       "pinyin": "wǒ yě shì nán shēng",
+       "fr": "Moi aussi, je suis un garçon.",
+       "en": "I'm a boy too."
+      },
+      {
+       "zh": "今天是十月一日。",
+       "pinyin": "jīn tiān shì shí yuè yī rì",
+       "fr": "Aujourd'hui, c'est le 1er octobre.",
+       "en": "Today is 1 October."
+      },
+      {
+       "zh": "南京比北京小。",
+       "pinyin": "nán jīng bǐ běi jīng xiǎo",
+       "fr": "Nankin est plus petit que Pékin.",
+       "en": "Nanjing is smaller than Beijing."
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "身",
+      "体"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Quel jour part ce train ?",
+      "en": "What day does this train leave?"
+     },
+     "choix": [
+      {
+       "fr": "Le 10 mai",
+       "en": "10 May"
+      },
+      {
+       "fr": "Le 3 mai",
+       "en": "3 May"
+      },
+      {
+       "fr": "Le 5 février",
+       "en": "5 February"
+      },
+      {
+       "fr": "Le 2 mai",
+       "en": "2 May"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "五",
+      "月",
+      "二",
+      "日"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "火车从南京去北京。",
+      "pinyin": "huǒ chē cóng nán jīng qù běi jīng",
+      "fr": "Le train va de Nankin à Pékin.",
+      "en": "The train goes from Nanjing to Beijing."
+     },
+     "reponse": false,
+     "porte": [
+      "北",
+      "京",
+      "南"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le numéro de la voiture.",
+      "en": "Tap the coach number."
+     },
+     "choix": [
+      "北京",
+      "十八号",
+      "三号车",
+      "上午"
+     ],
+     "reponse": 2,
+     "porte": [
+      "三",
+      "号",
+      "车"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "洗",
+      "pinyin": "xǐ",
+      "fr": "laver",
+      "en": "to wash"
+     },
+     "choix": [
+      "汽",
+      "汉",
+      "先",
+      "洗"
+     ],
+     "reponse": 3,
+     "porte": [
+      "洗"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s3",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他们明天下午见。",
+      "pinyin": "tā men míng tiān xià wǔ jiàn",
+      "fr": "Ils se retrouvent demain après-midi.",
+      "en": "They meet tomorrow afternoon."
+     },
+     "reponse": true,
+     "porte": [
+      "明",
+      "天",
+      "下",
+      "午"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "考",
+      "pinyin": "kǎo",
+      "fr": "passer un examen",
+      "en": "to take an exam"
+     },
+     "choix": [
+      "kāo",
+      "káo",
+      "kǎo",
+      "kào"
+     ],
+     "reponse": 2,
+     "porte": [
+      "考"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s4",
+     "consigne": {
+      "fr": "Que vend-on ici ?",
+      "en": "What is sold here?"
+     },
+     "choix": [
+      {
+       "fr": "Des fleurs",
+       "en": "Flowers"
+      },
+      {
+       "fr": "Du thé",
+       "en": "Tea"
+      },
+      {
+       "fr": "Des chevaux",
+       "en": "Horses"
+      },
+      {
+       "fr": "Des nouilles",
+       "en": "Noodles"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "花",
+      "茶"
+     ]
+    }
+   ]
+  }
+ ]
+}
