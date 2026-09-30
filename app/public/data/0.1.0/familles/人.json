@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "人",
@@ -72,8 +72,8 @@
    "lectures": [
     "jiè"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "entre, intermédiaire",
+   "en": "between, to introduce",
    "parts": [
     "人",
     "⿰丿丨"
@@ -83,21 +83,30 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "⿰丿丨": "sens",
+    "人": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 介 par « limite » et le décrit comme un homme, 人, entre deux traits, 八. Aujourd'hui, 人 est en haut, et les deux traits sont devenus un 撇 et un 竖, que la norme appelle 乔字底. Ce qui se tient entre deux, c'est l'intermédiaire : 介绍, c'est présenter.",
+   "origine_en": "The Shuowen jiezi glosses 介 as “boundary” and describes it as a man, 人, between two strokes, 八. Today 人 sits on top, and the two strokes have become a falling stroke and a vertical, which the standard calls 乔字底. What stands between two is the go-between: 介绍 means to introduce.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
    "mots": [],
-   "phrase": null,
+   "phrase": {
+    "hanzi": "天大，月大。",
+    "pinyin": "Tiān dà, yuè dà.",
+    "fr": "Le ciel est grand, la lune aussi.",
+    "en": "The sky is big, and so is the moon.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "从",
@@ -310,8 +319,8 @@
    "lectures": [
     "ná"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "prendre, tenir",
+   "en": "to take, to hold",
    "parts": [
     "人",
     "一",
@@ -325,22 +334,41 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "一": "forme",
+    "人": "forme",
+    "口": "forme",
+    "手": "sens"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 合, écrit 人, 一 et 口, « réunir, fermer ». En bas, 手, la main. La main qui se referme sur quelque chose : 拿 veut dire « prendre ».",
+   "origine_en": "As a memory aid: at the top is 合, written 人, 一 and 口, “to bring together, to close”. At the bottom is 手, the hand. A hand closing around something: 拿 means “to take”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "拿手",
+     "pinyin": "náshǒu",
+     "fr": "être doué pour",
+     "en": "to be good at",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "学生先拿。",
+    "pinyin": "Xuésheng xiān ná.",
+    "fr": "Les élèves se servent d'abord.",
+    "en": "The students take theirs first.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "邻",

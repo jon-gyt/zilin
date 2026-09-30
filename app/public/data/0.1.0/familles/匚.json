@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "匚",
@@ -46,8 +46,8 @@
    "lectures": [
     "yī"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "médecin, médecine, soigner",
+   "en": "doctor, medicine, to treat",
    "parts": [
     "匚",
     "矢"
@@ -58,22 +58,46 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "匚": "forme",
+    "矢": "forme"
+   },
+   "origine_fr": "Le Shuowen jiezi connaît 医, une flèche, 矢, dans un coffre, 匚 : le carquois. Le médecin s'écrivait 醫, avec 酉, l'alcool qui servait aux remèdes. La simplification a pris l'ancien 医 pour écrire 醫 : ni 匚 ni 矢 ne disent plus la médecine.",
+   "origine_en": "The Shuowen jiezi knows 医, an arrow, 矢, in a box, 匚: a quiver. The doctor was written 醫, with 酉, the alcohol used in remedies. Simplification took the old 医 to write 醫: neither 匚 nor 矢 tells you about medicine any more.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "医生",
+     "pinyin": "yīshēng",
+     "fr": "médecin",
+     "en": "doctor",
+     "audio": null
+    },
+    {
+     "hanzi": "医院",
+     "pinyin": "yīyuàn",
+     "fr": "hôpital",
+     "en": "hospital",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "她是医生。",
+    "pinyin": "Tā shì yīshēng.",
+    "fr": "Elle est médecin.",
+    "en": "She is a doctor.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   }
  ]
 }

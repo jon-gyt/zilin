@@ -3,15 +3,15 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "自",
   "pinyin": "zì",
-  "fr": "",
-  "en": "",
-  "origine": "",
-  "etiquette": null
+  "fr": "soi-même, depuis",
+  "en": "self, from",
+  "origine": "Sur les os oraculaires, 自 dessine un nez, vu de face. Le Shuowen jiezi le glose « nez » ; on se désigne en montrant son nez, d'où « soi-même ». Le nez est ensuite passé à 鼻, qui ajoute 畀 pour le son.",
+  "etiquette": "atteste"
  },
  "fiches": [
   {
@@ -20,8 +20,8 @@
    "lectures": [
     "xī"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "souffle, repos, nouvelle",
+   "en": "breath, rest, news",
    "parts": [
     "自",
     "心"
@@ -32,22 +32,46 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "sens",
+   "roles": {
+    "心": "sens",
+    "自": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 息 par « souffle » et l'écrit avec 自, le nez, et 心, le cœur. L'air passe par le nez et vient du cœur, siège de la vie. Du souffle on est passé à la pause pour le reprendre : 休息, c'est se reposer.",
+   "origine_en": "The Shuowen jiezi glosses 息 as “breath” and writes it with 自, the nose, and 心, the heart. Air passes through the nose and comes from the heart, the seat of life. From breath the meaning moved to the pause to catch it: 休息 means to rest.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "休息",
+     "pinyin": "xiūxi",
+     "fr": "se reposer",
+     "en": "to rest",
+     "audio": null
+    },
+    {
+     "hanzi": "气息",
+     "pinyin": "qìxī",
+     "fr": "souffle, haleine",
+     "en": "breath",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我们休息一下。",
+    "pinyin": "Wǒmen xiūxi yīxià.",
+    "fr": "Faisons une pause.",
+    "en": "Let's take a break.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "自",
@@ -55,25 +79,48 @@
    "lectures": [
     "zì"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "soi-même, depuis",
+   "en": "self, from",
    "parts": [],
    "nouveau": [],
    "sources": [],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "自": "sens"
+   },
+   "origine_fr": "Sur les os oraculaires, 自 dessine un nez, vu de face. Le Shuowen jiezi le glose « nez » ; on se désigne en montrant son nez, d'où « soi-même ». Le nez est ensuite passé à 鼻, qui ajoute 畀 pour le son.",
+   "origine_en": "On oracle bones, 自 draws a nose seen from the front. The Shuowen jiezi glosses it as “nose”; people point to their nose to mean themselves, hence “self”. The nose then moved to 鼻, which adds 畀 for the sound.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "自己",
+     "pinyin": "zìjǐ",
+     "fr": "soi-même",
+     "en": "oneself",
+     "audio": null
+    },
+    {
+     "hanzi": "自学",
+     "pinyin": "zìxué",
+     "fr": "apprendre seul",
+     "en": "to teach oneself",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "我自己来。",
+    "pinyin": "Wǒ zìjǐ lái.",
+    "fr": "Je m'en occupe moi-même.",
+    "en": "I'll do it myself.",
+    "audio": null
+   },
    "niveaux": {},
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "鼻",

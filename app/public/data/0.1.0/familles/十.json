@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "十",
@@ -179,8 +179,8 @@
    "lectures": [
     "zhēn"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "vrai, vraiment",
+   "en": "true, really",
    "parts": [
     "十",
     "具"
@@ -191,22 +191,46 @@
    "sources": [
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "具": "forme",
+    "十": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 十 ; en bas, 具, l'objet posé sur sa base. Un objet qu'on compte, qu'on touche, qui est bien là. Ce qui est bien là est vrai : 真 veut dire « vrai, vraiment ».",
+   "origine_en": "As a memory aid: 十 on top, and below it 具, an object set on its base. An object you can count and touch, which is really there. What is really there is true: 真 means “true, really”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "认真",
+     "pinyin": "rènzhēn",
+     "fr": "sérieux, consciencieux",
+     "en": "conscientious",
+     "audio": null
+    },
+    {
+     "hanzi": "真心",
+     "pinyin": "zhēnxīn",
+     "fr": "sincère",
+     "en": "sincere",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "你真好！",
+    "pinyin": "Nǐ zhēn hǎo!",
+    "fr": "Tu es vraiment gentil !",
+    "en": "You're really kind!",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "翰",

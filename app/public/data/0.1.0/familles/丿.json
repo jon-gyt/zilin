@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "丿",
@@ -47,8 +47,8 @@
     "xì",
     "jì"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "lien, département, nouer",
+   "en": "link, department, to tie",
    "parts": [
     "丿",
     "糸"
@@ -60,22 +60,46 @@
     "cjk-decomp",
     "surcharge"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "丿": "forme",
+    "糸": "sens"
+   },
+   "origine_fr": "Le Shuowen jiezi glose 系 par « lier » : le fil, 糸, et 丿 au-dessus. On lit toujours 丿 sur 糸. Du fil qui relie est venu « le lien, le système », puis le département d'une université.",
+   "origine_en": "The Shuowen jiezi glosses 系 as “to bind”: thread, 糸, with 丿 above it. You still read 丿 over 糸. From the thread that connects came “link, system”, and then a university department.",
+   "etiquette": "atteste",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "关系",
+     "pinyin": "guānxi",
+     "fr": "relation",
+     "en": "relationship",
+     "audio": null
+    },
+    {
+     "hanzi": "体系",
+     "pinyin": "tǐxì",
+     "fr": "système",
+     "en": "system",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "没关系。",
+    "pinyin": "Méi guānxi.",
+    "fr": "Ce n'est pas grave.",
+    "en": "It doesn't matter.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "虱",

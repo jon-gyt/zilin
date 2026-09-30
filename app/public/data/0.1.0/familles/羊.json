@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-28 : assemblé par `wenlu export`",
+ "modified": "2026-09-30 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "racine": {
   "c": "羊",
@@ -24,8 +24,8 @@
     "cī",
     "chài"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "manquer, mauvais, différence",
+   "en": "to lack, poor, difference",
    "parts": [
     "羊",
     "工"
@@ -36,22 +36,46 @@
    "sources": [
     "cjk-decomp"
    ],
-   "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "role": "forme",
+   "roles": {
+    "工": "forme",
+    "羊": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, un 羊 sans sa queue, dont le dernier trait descend en biais. Il enveloppe 工, le travail, qu'on lit en bas à droite. Un mouton qui fait le travail, ce n'est pas du beau travail : 差 veut dire « médiocre », ou « il manque ».",
+   "origine_en": "As a memory aid: at the top is a 羊 without its tail, its last stroke sweeping down to the left. It wraps around 工, work, which sits at the lower right. A sheep doing the work does not do it well: 差 means “poor”, or “falling short”.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "出差",
+     "pinyin": "chūchāi",
+     "fr": "partir en déplacement professionnel",
+     "en": "to go on a business trip",
+     "audio": null
+    },
+    {
+     "hanzi": "差别",
+     "pinyin": "chābié",
+     "fr": "différence",
+     "en": "difference",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他明天出差。",
+    "pinyin": "Tā míngtiān chūchāi.",
+    "fr": "Il part en déplacement demain.",
+    "en": "He is going on a business trip tomorrow.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "着",
@@ -62,8 +86,8 @@
     "zhuó",
     "zhāo"
    ],
-   "fr": "",
-   "en": "",
+   "fr": "marque de durée, atteindre",
+   "en": "durative particle, to touch",
    "parts": [
     "羊",
     "目"
@@ -73,21 +97,45 @@
     "surcharge"
    ],
    "role": null,
-   "roles": {},
-   "origine_fr": "",
-   "origine_en": "",
-   "etiquette": null,
+   "roles": {
+    "目": "forme",
+    "羊": "forme"
+   },
+   "origine_fr": "Pour s'en souvenir : en haut, 羊, le mouton, dont le dernier trait descend en biais. Il enveloppe 目, l'œil, en bas à droite. Un œil qui reste fixé sur le troupeau : 着 dit que l'action dure.",
+   "origine_en": "As a memory aid: at the top is 羊, the sheep, its last stroke sweeping down to the left. It wraps around 目, the eye, at the lower right. An eye kept fixed on the flock: 着 says that an action goes on.",
+   "etiquette": "mnemotechnique",
    "memo_fr": null,
    "memo_en": null,
-   "mots": [],
-   "phrase": null,
+   "mots": [
+    {
+     "hanzi": "跟着",
+     "pinyin": "gēnzhe",
+     "fr": "suivre ; aussitôt après",
+     "en": "to follow; right after",
+     "audio": null
+    },
+    {
+     "hanzi": "着火",
+     "pinyin": "zháohuǒ",
+     "fr": "prendre feu",
+     "en": "to catch fire",
+     "audio": null
+    }
+   ],
+   "phrase": {
+    "hanzi": "他看着我。",
+    "pinyin": "Tā kànzhe wǒ.",
+    "fr": "Il me regarde.",
+    "en": "He is looking at me.",
+    "audio": null
+   },
    "niveaux": {
     "hsk": 1
    },
    "traits": [],
    "medianes": [],
    "audio": null,
-   "statut": "sans_fiche"
+   "statut": "relu"
   },
   {
    "c": "羊",
