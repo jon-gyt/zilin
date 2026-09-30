@@ -1,0 +1,439 @@
+{
+ "examen": "yueke-955",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu hsk yueke-955`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "妈妈，我在北京很好，",
+       "pinyin": "mā ma wǒ zài běi jīng hěn hǎo",
+       "fr": "Maman, tout va bien pour moi à Pékin :",
+       "en": "Mum, I'm fine in Beijing:"
+      },
+      {
+       "zh": "很想念你和爸爸。",
+       "pinyin": "hěn xiǎng niàn nǐ hé bà ba",
+       "fr": "papa et toi, vous me manquez beaucoup.",
+       "en": "I miss you and Dad a lot."
+      },
+      {
+       "zh": "这里的秋天很美。",
+       "pinyin": "zhè li de qiū tiān hěn měi",
+       "fr": "L'automne est très beau ici.",
+       "en": "Autumn is beautiful here."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "篮球比赛",
+       "pinyin": "lán qiú bǐ sài",
+       "fr": "Match de basket",
+       "en": "Basketball match"
+      },
+      {
+       "zh": "星期六下午两点",
+       "pinyin": "xīng qī liù xià wǔ liǎng diǎn",
+       "fr": "Samedi, deux heures de l'après-midi",
+       "en": "Saturday, 2 pm"
+      },
+      {
+       "zh": "学校东区体育馆",
+       "pinyin": "xué xiào dōng qū tǐ yù guǎn",
+       "fr": "Gymnase de la zone est de l'école",
+       "en": "School east-wing gym"
+      },
+      {
+       "zh": "欢迎大家来！",
+       "pinyin": "huān yíng dà jiā lái",
+       "fr": "Venez nombreux !",
+       "en": "Everyone welcome!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "东区体育馆",
+       "pinyin": "dōng qū tǐ yù guǎn",
+       "fr": "gymnase de la zone est",
+       "en": "east-wing gym"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que dit l'auteur du message ?",
+      "en": "What does the writer say?"
+     },
+     "choix": [
+      {
+       "fr": "Il rentre demain",
+       "en": "He's coming home tomorrow"
+      },
+      {
+       "fr": "Il est malade",
+       "en": "He's ill"
+      },
+      {
+       "fr": "Ses parents lui manquent",
+       "en": "He misses his parents"
+      },
+      {
+       "fr": "Il n'aime pas Pékin",
+       "en": "He doesn't like Beijing"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "想",
+      "念"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "北京的秋天很好看。",
+      "pinyin": "běi jīng de qiū tiān hěn hǎo kàn",
+      "fr": "L'automne est joli à Pékin.",
+      "en": "Autumn in Beijing is lovely."
+     },
+     "reponse": true,
+     "porte": [
+      "秋",
+      "美"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond sa mère ?",
+      "en": "What does his mother reply?"
+     },
+     "choix": [
+      {
+       "zh": "啤酒在桌子上。",
+       "pinyin": "pí jiǔ zài zhuō zi shàng",
+       "fr": "La bière est sur la table.",
+       "en": "The beer is on the table."
+      },
+      {
+       "zh": "这是我的新裙子。",
+       "pinyin": "zhè shì wǒ de xīn qún zi",
+       "fr": "Voici ma nouvelle jupe.",
+       "en": "This is my new skirt."
+      },
+      {
+       "zh": "这个菜很好吃。",
+       "pinyin": "zhè gè cài hěn hǎo chī",
+       "fr": "Ce plat est très bon.",
+       "en": "This dish is delicious."
+      },
+      {
+       "zh": "我们也很想你！",
+       "pinyin": "wǒ men yě hěn xiǎng nǐ",
+       "fr": "Tu nous manques aussi !",
+       "en": "We miss you too!"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "想",
+      "念"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le lieu du match.",
+      "en": "Tap where the match is held."
+     },
+     "choix": [
+      "篮球",
+      "星期六",
+      "两点",
+      "东区体育馆"
+     ],
+     "reponse": 3,
+     "porte": [
+      "东",
+      "区",
+      "体",
+      "育",
+      "馆"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "胖",
+      "pinyin": "pàng",
+      "fr": "gros",
+      "en": "fat"
+     },
+     "choix": [
+      "脏",
+      "胖",
+      "脚",
+      "腿"
+     ],
+     "reponse": 1,
+     "porte": [
+      "胖"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "小李，下班回来的时候，",
+       "pinyin": "xiǎo lǐ xià bān huí lái de shí hou",
+       "fr": "Xiao Li, en rentrant du travail,",
+       "en": "Xiao Li, on your way home from work,"
+      },
+      {
+       "zh": "帮我买两瓶啤酒，",
+       "pinyin": "bāng wǒ mǎi liǎng píng pí jiǔ",
+       "fr": "achète-moi deux bouteilles de bière,",
+       "en": "buy me two bottles of beer,"
+      },
+      {
+       "zh": "再买一斤苹果。",
+       "pinyin": "zài mǎi yī jīn píng guǒ",
+       "fr": "et une livre de pommes.",
+       "en": "and a pound of apples."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "前面是老桥，",
+       "pinyin": "qián mian shì lǎo qiáo",
+       "fr": "Plus loin, le vieux pont :",
+       "en": "Old bridge ahead:"
+      },
+      {
+       "zh": "大车不能过。",
+       "pinyin": "dà chē bù néng guò",
+       "fr": "interdit aux gros véhicules.",
+       "en": "no large vehicles."
+      },
+      {
+       "zh": "请走东边的新桥。",
+       "pinyin": "qǐng zǒu dōng bian de xīn qiáo",
+       "fr": "Prenez le nouveau pont, à l'est.",
+       "en": "Please use the new bridge to the east."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que faut-il acheter ?",
+      "en": "What needs buying?"
+     },
+     "choix": [
+      {
+       "fr": "Du lait et des pommes",
+       "en": "Milk and apples"
+      },
+      {
+       "fr": "De la bière et du pain",
+       "en": "Beer and bread"
+      },
+      {
+       "fr": "De la bière et des pommes",
+       "en": "Beer and apples"
+      },
+      {
+       "fr": "Du thé et des œufs",
+       "en": "Tea and eggs"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "啤",
+      "酒",
+      "苹",
+      "果"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "他要买三瓶啤酒。",
+      "pinyin": "tā yào mǎi sān píng pí jiǔ",
+      "fr": "Il doit acheter trois bouteilles de bière.",
+      "en": "He has to buy three bottles of beer."
+     },
+     "reponse": false,
+     "porte": [
+      "两",
+      "瓶",
+      "啤"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond Xiao Li ?",
+      "en": "What does Xiao Li reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不会拍照。",
+       "pinyin": "wǒ bù huì pāi zhào",
+       "fr": "Je ne sais pas prendre de photos.",
+       "en": "I can't take photos."
+      },
+      {
+       "zh": "好，我六点回来。",
+       "pinyin": "hǎo wǒ liù diǎn huí lái",
+       "fr": "D'accord, je rentre à six heures.",
+       "en": "OK, I'll be back at six."
+      },
+      {
+       "zh": "这条裙子太贵了。",
+       "pinyin": "zhè tiáo qún zi tài guì le",
+       "fr": "Cette jupe est trop chère.",
+       "en": "This skirt is too expensive."
+      },
+      {
+       "zh": "那是我们的领导。",
+       "pinyin": "nà shì wǒ men de lǐng dǎo",
+       "fr": "C'est notre chef.",
+       "en": "That's our boss."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "帮",
+      "啤",
+      "苹"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Par où doivent passer les gros véhicules ?",
+      "en": "Which way should large vehicles go?"
+     },
+     "choix": [
+      {
+       "fr": "Par le vieux pont",
+       "en": "Over the old bridge"
+      },
+      {
+       "fr": "Par le nouveau pont",
+       "en": "Over the new bridge"
+      },
+      {
+       "fr": "Par la gare",
+       "en": "Past the station"
+      },
+      {
+       "fr": "Par le parc",
+       "en": "Through the park"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "新",
+      "桥",
+      "东"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "What is the tone of this character?"
+     },
+     "objet": {
+      "zh": "美",
+      "pinyin": "měi",
+      "fr": "beau",
+      "en": "beautiful"
+     },
+     "choix": [
+      "mēi",
+      "méi",
+      "měi",
+      "mèi"
+     ],
+     "reponse": 2,
+     "porte": [
+      "美"
+     ]
+    }
+   ]
+  }
+ ]
+}
