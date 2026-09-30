@@ -21,20 +21,33 @@
   "口": "sens",
   "非": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "咖啡",
+   "pinyin": "kāfēi",
+   "fr": "café",
+   "en": "coffee"
+  },
+  {
+   "hanzi": "吗啡",
+   "pinyin": "mǎfēi",
+   "fr": "morphine",
+   "en": "morphine"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这杯咖啡太热了。",
+  "pinyin": "Zhè bēi kāfēi tài rè le.",
+  "fr": "Ce café est trop chaud.",
+  "en": "This coffee is too hot."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6b40af13ef5adef963a6fac49dbd2af438c5e4d2fe55e667968033e7111a5f8d",
-  "essais": 2,
+  "empreinte_invite": "sha256:31809dda9f9b3f72f1ab410afd75bfdb44de2f16deff8fedc2a54d706844aa11",
+  "essais": 3,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
