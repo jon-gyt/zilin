@@ -1,0 +1,1342 @@
+{
+ "niveau": "7-9",
+ "lot": "109",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/109.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:c7badb64512e500f3e8504d921b19b168d19ad73ae5cea64e48b18fa3dd2d310",
+  "contexte": "wenlu dico contexte 7-9 109",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "衍",
+   "genre": "caractere",
+   "hanzi": "衍",
+   "pinyin": "yǎn",
+   "sens": {
+    "glose": "se développer, dériver",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se développer, se répandre, dériver"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4784",
+   "genre": "mot",
+   "hanzi": "衍生",
+   "pinyin": "yǎnshēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "dériver, engendrer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dériver, engendrer, découler de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个问题衍生出了很多新问题。",
+     "pinyin": "Zhège wèntí yǎnshēng chū le hěn duō xīn wèntí.",
+     "fr": "De ce problème en sont nés beaucoup d'autres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "掩",
+   "genre": "caractere",
+   "hanzi": "掩",
+   "pinyin": "yǎn",
+   "sens": {
+    "glose": "couvrir, cacher",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir, cacher ; fermer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4785",
+   "genre": "mot",
+   "hanzi": "掩盖",
+   "pinyin": "yǎngài",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "couvrir, dissimuler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir, dissimuler, camoufler"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他想掩盖自己的错误。",
+     "pinyin": "Tā xiǎng yǎngài zìjǐ de cuòwù.",
+     "fr": "Il essaie de cacher ses fautes.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4786",
+   "genre": "mot",
+   "hanzi": "掩护",
+   "pinyin": "yǎnhù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "couvrir, protéger",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir, protéger (une retraite, une personne)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "你们先走，我来掩护。",
+     "pinyin": "Nǐmen xiān zǒu, wǒ lái yǎnhù.",
+     "fr": "Partez devant, je vous couvre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4787",
+   "genre": "mot",
+   "hanzi": "掩饰",
+   "pinyin": "yǎnshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "dissimuler, masquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "dissimuler, masquer (sentiment, défaut)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她掩饰不住内心的高兴。",
+     "pinyin": "Tā yǎnshì bu zhù nèixīn de gāoxìng.",
+     "fr": "Elle n'arrive pas à cacher sa joie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4788",
+   "genre": "mot",
+   "hanzi": "眼红",
+   "pinyin": "yǎnhóng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "jaloux, envieux",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "jaloux, envieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "看到别人赚钱，他就眼红。",
+     "pinyin": "Kàndào biérén zhuànqián, tā jiù yǎnhóng.",
+     "fr": "Dès qu'il voit quelqu'un gagner de l'argent, il en crève de jalousie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4789",
+   "genre": "mot",
+   "hanzi": "眼界",
+   "pinyin": "yǎnjiè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "horizon, champ de vision",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "horizon, champ de vision, ouverture d'esprit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "旅行可以开阔眼界。",
+     "pinyin": "Lǚxíng kěyǐ kāikuò yǎnjiè.",
+     "fr": "Voyager ouvre l'esprit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4790",
+   "genre": "mot",
+   "hanzi": "眼色",
+   "pinyin": "yǎnsè",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "signe des yeux, clin d'œil",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "signe des yeux, clin d'œil"
+     },
+     {
+      "categorie": "N",
+      "fr": "sens de l'observation, jugeote"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他给我使了个眼色。",
+     "pinyin": "Tā gěi wǒ shǐ le ge yǎnsè.",
+     "fr": "Il m'a fait un signe de l'œil.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4791",
+   "genre": "mot",
+   "hanzi": "眼神",
+   "pinyin": "yǎnshén",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "regard, expression des yeux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "regard, expression des yeux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她的眼神很温柔。",
+     "pinyin": "Tā de yǎnshén hěn wēnróu.",
+     "fr": "Elle a un regard très doux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4792",
+   "genre": "mot",
+   "hanzi": "眼下",
+   "pinyin": "yǎnxià",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pour l'instant, actuellement",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pour l'instant, actuellement, en ce moment"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "眼下最重要的是找工作。",
+     "pinyin": "Yǎnxià zuì zhòngyào de shì zhǎo gōngzuò.",
+     "fr": "Le plus urgent maintenant, c'est de trouver du travail.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4793",
+   "genre": "mot",
+   "hanzi": "演变",
+   "pinyin": "yǎnbiàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "évoluer, se transformer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "évoluer, se transformer peu à peu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "汉字是怎样演变的？",
+     "pinyin": "Hànzì shì zěnyàng yǎnbiàn de?",
+     "fr": "Comment les caractères chinois ont-ils changé au fil du temps ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4794",
+   "genre": "mot",
+   "hanzi": "演播室",
+   "pinyin": "yǎnbōshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "studio (radio, télévision)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "studio (radio, télévision)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "主持人走进了演播室。",
+     "pinyin": "Zhǔchírén zǒujìn le yǎnbōshì.",
+     "fr": "Le présentateur est entré sur le plateau.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4795",
+   "genre": "mot",
+   "hanzi": "演技",
+   "pinyin": "yǎnjì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "jeu d'acteur, talent d'interprète",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "jeu d'acteur, talent d'interprète"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个演员的演技很好。",
+     "pinyin": "Zhège yǎnyuán de yǎnjì hěn hǎo.",
+     "fr": "Cet acteur joue très bien.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4796",
+   "genre": "mot",
+   "hanzi": "演练",
+   "pinyin": "yǎnliàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "s'exercer, faire un exercice",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'exercer, faire un exercice, répéter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校每年都会进行消防演练。",
+     "pinyin": "Xuéxiào měi nián dōu huì jìnxíng xiāofáng yǎnliàn.",
+     "fr": "L'école organise chaque année un exercice d'incendie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4797",
+   "genre": "mot",
+   "hanzi": "演示",
+   "pinyin": "yǎnshì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire une démonstration",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire une démonstration, montrer comment faire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老师给我们演示了一遍。",
+     "pinyin": "Lǎoshī gěi wǒmen yǎnshì le yī biàn.",
+     "fr": "Le professeur nous a montré une fois comment faire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4798",
+   "genre": "mot",
+   "hanzi": "演说",
+   "pinyin": "yǎnshuō",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "discours ; faire un discours",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "discours, allocution"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire un discours, haranguer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他发表了一篇精彩的演说。",
+     "pinyin": "Tā fābiǎo le yī piān jīngcǎi de yǎnshuō.",
+     "fr": "Il a prononcé une brillante allocution.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4799",
+   "genre": "mot",
+   "hanzi": "演习",
+   "pinyin": "yǎnxí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "faire des manœuvres, exercice",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "faire des manœuvres, un exercice (militaire, de secours)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "军队明天要进行演习。",
+     "pinyin": "Jūnduì míngtiān yào jìnxíng yǎnxí.",
+     "fr": "L'armée fait des manœuvres demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4800",
+   "genre": "mot",
+   "hanzi": "演戏",
+   "pinyin": "yǎnxì",
+   "sens": {
+    "glose": "jouer la comédie",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "jouer une pièce, faire l'acteur"
+     },
+     {
+      "categorie": "V",
+      "fr": "faire semblant, jouer la comédie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他从小就喜欢演戏。",
+     "pinyin": "Tā cóngxiǎo jiù xǐhuan yǎnxì.",
+     "fr": "Depuis l'enfance, il adore monter sur les planches.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "你别演戏了！",
+     "pinyin": "Nǐ bié yǎnxì le!",
+     "fr": "Arrête ton cinéma !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4801",
+   "genre": "mot",
+   "hanzi": "演艺圈",
+   "pinyin": "yǎnyìquān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "monde du spectacle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "monde du spectacle, show-business"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她很早就进入了演艺圈。",
+     "pinyin": "Tā hěn zǎo jiù jìnrù le yǎnyìquān.",
+     "fr": "Elle a fait ses débuts d'artiste très jeune.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4802",
+   "genre": "mot",
+   "hanzi": "演绎",
+   "pinyin": "yǎnyì",
+   "categories": [
+    "N",
+    "V"
+   ],
+   "sens": {
+    "glose": "interpréter ; déduction",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "interpréter (un rôle, une chanson), développer"
+     },
+     {
+      "categorie": "N",
+      "fr": "déduction (logique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这首老歌被他演绎得很好。",
+     "pinyin": "Zhè shǒu lǎo gē bèi tā yǎnyì de hěn hǎo.",
+     "fr": "Il a donné une très belle version de cette vieille chanson.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4803",
+   "genre": "mot",
+   "hanzi": "厌烦",
+   "pinyin": "yànfán",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "en avoir assez, être excédé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "en avoir assez, être excédé, s'agacer de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他对这种工作感到厌烦。",
+     "pinyin": "Tā duì zhè zhǒng gōngzuò gǎndào yànfán.",
+     "fr": "Ce genre de travail l'ennuie profondément.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4804",
+   "genre": "mot",
+   "hanzi": "厌倦",
+   "pinyin": "yànjuàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "se lasser de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se lasser de, être las de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我厌倦了城市生活。",
+     "pinyin": "Wǒ yànjuàn le chéngshì shēnghuó.",
+     "fr": "J'en ai assez de la vie en ville.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4806",
+   "genre": "mot",
+   "hanzi": "艳丽",
+   "pinyin": "yànlì",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "éclatant, aux couleurs vives",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "éclatant, aux couleurs vives"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "花园里开满了艳丽的花。",
+     "pinyin": "Huāyuán li kāimǎn le yànlì de huā.",
+     "fr": "Le jardin est plein de fleurs aux couleurs vives.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4808",
+   "genre": "mot",
+   "hanzi": "验收",
+   "pinyin": "yànshōu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "réceptionner après contrôle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "réceptionner après contrôle, recetter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工程已经通过了验收。",
+     "pinyin": "Gōngchéng yǐjīng tōngguò le yànshōu.",
+     "fr": "Les travaux ont été validés à la réception.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4809",
+   "genre": "mot",
+   "hanzi": "验证",
+   "pinyin": "yànzhèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "vérifier, valider",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "vérifier, valider, confirmer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们需要验证这个结论。",
+     "pinyin": "Wǒmen xūyào yànzhèng zhège jiélùn.",
+     "fr": "Il faut encore confirmer cette conclusion.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4810",
+   "genre": "mot",
+   "hanzi": "焰火",
+   "pinyin": "yànhuǒ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "feu d'artifice",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "feu d'artifice"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "晚上有焰火表演。",
+     "pinyin": "Wǎnshang yǒu yànhuǒ biǎoyǎn.",
+     "fr": "Ce soir, il y a un spectacle pyrotechnique.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "燕",
+   "genre": "caractere",
+   "hanzi": "燕",
+   "pinyin": "yàn",
+   "sens": {
+    "glose": "hirondelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "hirondelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4811",
+   "genre": "mot",
+   "hanzi": "燕子",
+   "pinyin": "yànzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "hirondelle",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "hirondelle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "春天燕子飞回来了。",
+     "pinyin": "Chūntiān yànzi fēi huilai le.",
+     "fr": "Au printemps, les hirondelles sont revenues.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "秧",
+   "genre": "caractere",
+   "hanzi": "秧",
+   "pinyin": "yāng",
+   "sens": {
+    "glose": "plant, semis",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plant, semis, jeune pousse (riz)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4812",
+   "genre": "mot",
+   "hanzi": "秧歌",
+   "pinyin": "yāngge",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "yangge (danse populaire)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "yangge, danse populaire du nord de la Chine"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "老人们在广场上跳秧歌。",
+     "pinyin": "Lǎorénmen zài guǎngchǎng shang tiào yāngge.",
+     "fr": "Les personnes âgées dansent sur la place.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4814",
+   "genre": "mot",
+   "hanzi": "阳性",
+   "pinyin": "yángxìng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "positif (test) ; masculin",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "positif (résultat d'analyse)"
+     },
+     {
+      "categorie": "N",
+      "fr": "masculin (grammaire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "检查结果是阳性。",
+     "pinyin": "Jiǎnchá jiéguǒ shì yángxìng.",
+     "fr": "Le test est revenu positif.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "杨",
+   "genre": "caractere",
+   "hanzi": "杨",
+   "pinyin": "yáng",
+   "sens": {
+    "glose": "peuplier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "peuplier ; nom de famille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4815",
+   "genre": "mot",
+   "hanzi": "杨树",
+   "pinyin": "yángshù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "peuplier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "peuplier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "路边种着两排杨树。",
+     "pinyin": "Lùbiān zhòng zhe liǎng pái yángshù.",
+     "fr": "La route est bordée de deux rangées d'arbres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "溢",
+   "genre": "caractere",
+   "hanzi": "溢",
+   "pinyin": "yì",
+   "mots": [
+    "L7-4975"
+   ],
+   "sens": {
+    "glose": "déborder",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déborder, se répandre"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "水从杯子里溢了出来。",
+     "pinyin": "Shuǐ cóng bēizi li yì le chulai.",
+     "fr": "L'eau a débordé du verre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4816",
+   "genre": "mot",
+   "hanzi": "洋溢",
+   "pinyin": "yángyì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "déborder de, respirer (la joie)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "déborder de, respirer (joie, enthousiasme)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的脸上洋溢着幸福。",
+     "pinyin": "Tā de liǎn shang yángyì zhe xìngfú.",
+     "fr": "Son visage rayonne de bonheur.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4817",
+   "genre": "mot",
+   "hanzi": "养活",
+   "pinyin": "yǎnghuo",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "nourrir, faire vivre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "nourrir, faire vivre, entretenir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一个人养活全家。",
+     "pinyin": "Tā yī ge rén yǎnghuo quánjiā.",
+     "fr": "Il fait vivre toute sa famille à lui seul.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4818",
+   "genre": "mot",
+   "hanzi": "养老金",
+   "pinyin": "yǎnglǎojīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "pension de retraite",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "pension de retraite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "爷爷每个月都有养老金。",
+     "pinyin": "Yéye měi ge yuè dōu yǒu yǎnglǎojīn.",
+     "fr": "Grand-père touche sa retraite tous les mois.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4819",
+   "genre": "mot",
+   "hanzi": "养老院",
+   "pinyin": "yǎnglǎoyuàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "maison de retraite",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "maison de retraite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我们去养老院做志愿者。",
+     "pinyin": "Zhōumò wǒmen qù yǎnglǎoyuàn zuò zhìyuànzhě.",
+     "fr": "Le week-end, nous sommes bénévoles auprès des personnes âgées.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4820",
+   "genre": "mot",
+   "hanzi": "养生",
+   "pinyin": "yǎngshēng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "entretenir sa santé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "entretenir sa santé, prendre soin de soi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "现在很多年轻人也开始注意养生。",
+     "pinyin": "Xiànzài hěn duō niánqīngrén yě kāishǐ zhùyì yǎngshēng.",
+     "fr": "Aujourd'hui, beaucoup de jeunes font aussi attention à leur santé.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4821",
+   "genre": "mot",
+   "hanzi": "养殖",
+   "pinyin": "yǎngzhí",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "élever (animaux), aquaculture",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "élever (poissons, animaux), pratiquer l'aquaculture"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在海边养殖海鲜。",
+     "pinyin": "Tā zài hǎibiān yǎngzhí hǎixiān.",
+     "fr": "Il fait de l'élevage de fruits de mer sur la côte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "痒",
+   "genre": "caractere",
+   "hanzi": "痒",
+   "pinyin": "yǎng",
+   "mots": [
+    "L7-4823"
+   ],
+   "sens": {
+    "glose": "qui démange",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "qui démange, qui chatouille"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我的背很痒。",
+     "pinyin": "Wǒ de bèi hěn yǎng.",
+     "fr": "J'ai le dos qui gratte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4824",
+   "genre": "mot",
+   "hanzi": "样本",
+   "pinyin": "yàngběn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "échantillon ; spécimen",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "échantillon (statistique)"
+     },
+     {
+      "categorie": "N",
+      "fr": "spécimen, modèle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们收集了一千个样本。",
+     "pinyin": "Wǒmen shōují le yīqiān ge yàngběn.",
+     "fr": "Nous avons recueilli mille échantillons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4825",
+   "genre": "mot",
+   "hanzi": "样品",
+   "pinyin": "yàngpǐn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "échantillon (de produit)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "échantillon (de produit)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是免费的样品。",
+     "pinyin": "Zhè shì miǎnfèi de yàngpǐn.",
+     "fr": "C'est un échantillon gratuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "妖",
+   "genre": "caractere",
+   "hanzi": "妖",
+   "pinyin": "yāo",
+   "sens": {
+    "glose": "démon ; ensorcelant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "démon, esprit malfaisant"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "ensorcelant, aguicheur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4826",
+   "genre": "mot",
+   "hanzi": "妖怪",
+   "pinyin": "yāoguài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "démon, monstre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "démon, monstre, esprit malfaisant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子们都怕妖怪。",
+     "pinyin": "Háizimen dōu pà yāoguài.",
+     "fr": "Les enfants ont tous peur des monstres.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "窑",
+   "genre": "caractere",
+   "hanzi": "窑",
+   "pinyin": "yáo",
+   "mots": [
+    "L7-4828"
+   ],
+   "sens": {
+    "glose": "four ; habitation troglodyte",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "four (à briques, à céramique)"
+     },
+     {
+      "categorie": "N",
+      "fr": "habitation troglodyte"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "砖是在窑里烧出来的。",
+     "pinyin": "Zhuān shì zài yáo li shāo chulai de.",
+     "fr": "Les briques sont cuites au four.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "谣",
+   "genre": "caractere",
+   "hanzi": "谣",
+   "pinyin": "yáo",
+   "sens": {
+    "glose": "rumeur ; chanson populaire",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rumeur, faux bruit"
+     },
+     {
+      "categorie": "N",
+      "fr": "chanson populaire, ballade"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4829",
+   "genre": "mot",
+   "hanzi": "谣言",
+   "pinyin": "yáoyán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rumeur, faux bruit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rumeur, faux bruit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "不要相信谣言。",
+     "pinyin": "Bùyào xiāngxìn yáoyán.",
+     "fr": "Ne crois pas tout ce qu'on raconte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4830",
+   "genre": "mot",
+   "hanzi": "摇摆",
+   "pinyin": "yáobǎi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "osciller ; hésiter",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "osciller, se balancer"
+     },
+     {
+      "categorie": "V",
+      "fr": "hésiter, être indécis"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他在两个选择之间摇摆不定。",
+     "pinyin": "Tā zài liǎng ge xuǎnzé zhījiān yáobǎi bù dìng.",
+     "fr": "Il hésite entre deux choix.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}

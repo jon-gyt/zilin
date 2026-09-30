@@ -1,0 +1,1299 @@
+{
+ "niveau": "7-9",
+ "lot": "110",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/7-9/110.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:c25a646c2e653d011e2145526b0e4c5d375e499bd83c407f7224e246a2567f3d",
+  "contexte": "wenlu dico contexte 7-9 110",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L7-4831",
+   "genre": "mot",
+   "hanzi": "摇滚",
+   "pinyin": "yáogǔn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "rock (musique)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "rock (musique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他喜欢听摇滚音乐。",
+     "pinyin": "Tā xǐhuan tīng yáogǔn yīnyuè.",
+     "fr": "Il aime écouter du rock.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4832",
+   "genre": "mot",
+   "hanzi": "摇晃",
+   "pinyin": "yáohuang",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "secouer ; vaciller",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "secouer, agiter"
+     },
+     {
+      "categorie": "V",
+      "fr": "vaciller, tanguer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "船在海上不停地摇晃。",
+     "pinyin": "Chuán zài hǎi shang bù tíng de yáohuang.",
+     "fr": "Le bateau tangue sans cesse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4833",
+   "genre": "mot",
+   "hanzi": "摇篮",
+   "pinyin": "yáolán",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "berceau",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "berceau (au propre et au figuré)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "孩子在摇篮里睡着了。",
+     "pinyin": "Háizi zài yáolán li shuìzháo le.",
+     "fr": "Le bébé s'est endormi dans son lit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4834",
+   "genre": "mot",
+   "hanzi": "摇摇欲坠",
+   "pinyin": "yáoyáo-yùzhuì",
+   "sens": {
+    "glose": "branlant, près de s'effondrer",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "branlant, chancelant, près de s'effondrer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这座老房子已经摇摇欲坠了。",
+     "pinyin": "Zhè zuò lǎo fángzi yǐjīng yáoyáo-yùzhuì le.",
+     "fr": "Cette vieille maison menace ruine.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "遥",
+   "genre": "caractere",
+   "hanzi": "遥",
+   "pinyin": "yáo",
+   "sens": {
+    "glose": "lointain",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lointain, éloigné"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4835",
+   "genre": "mot",
+   "hanzi": "遥控",
+   "pinyin": "yáokòng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "télécommander, commander à distance",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "télécommander, commander à distance"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他用手机遥控家里的空调。",
+     "pinyin": "Tā yòng shǒujī yáokòng jiā li de kōngtiáo.",
+     "fr": "Il règle la climatisation de chez lui depuis son téléphone.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4836",
+   "genre": "mot",
+   "hanzi": "遥远",
+   "pinyin": "yáoyuǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "lointain, éloigné",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "lointain, éloigné (lieu, temps)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那是一个遥远的国家。",
+     "pinyin": "Nà shì yī ge yáoyuǎn de guójiā.",
+     "fr": "C'est un pays loin d'ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4837",
+   "genre": "mot",
+   "hanzi": "药材",
+   "pinyin": "yàocái",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "plantes médicinales",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "plantes médicinales, matières médicinales"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里出产很多药材。",
+     "pinyin": "Zhèli chūchǎn hěn duō yàocái.",
+     "fr": "On cultive beaucoup de simples dans la région.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4838",
+   "genre": "mot",
+   "hanzi": "药方",
+   "pinyin": "yàofāng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ordonnance, formule médicinale",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ordonnance, formule médicinale"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "医生给我开了一个药方。",
+     "pinyin": "Yīshēng gěi wǒ kāi le yī ge yàofāng.",
+     "fr": "Le médecin m'a prescrit un traitement.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4839",
+   "genre": "mot",
+   "hanzi": "要不",
+   "pinyin": "yàobù",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "sinon ; ou bien",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "sinon, autrement"
+     },
+     {
+      "categorie": "Conj",
+      "fr": "ou bien, et si"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "快走吧，要不就迟到了。",
+     "pinyin": "Kuài zǒu ba, yàobù jiù chídào le.",
+     "fr": "Dépêchons-nous, on va être en retard.",
+     "statut": "a_relire"
+    },
+    {
+     "zh": "要不我们明天再去？",
+     "pinyin": "Yàobù wǒmen míngtiān zài qù?",
+     "fr": "Et si on y retournait demain ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4840",
+   "genre": "mot",
+   "hanzi": "要不是",
+   "pinyin": "yàobùshì",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "si ce n'était, sans",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "si ce n'était, sans (hypothèse contraire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "要不是你帮我，我就完了。",
+     "pinyin": "Yàobùshì nǐ bāng wǒ, wǒ jiù wán le.",
+     "fr": "Sans ton aide, j'étais perdu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4841",
+   "genre": "mot",
+   "hanzi": "要点",
+   "pinyin": "yàodiǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "points essentiels",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "points essentiels, idées principales"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把文章的要点写下来。",
+     "pinyin": "Qǐng bǎ wénzhāng de yàodiǎn xiě xialai.",
+     "fr": "Notez les idées principales du texte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4842",
+   "genre": "mot",
+   "hanzi": "要害",
+   "pinyin": "yàohài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "point vital, point sensible",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "point vital, point sensible, nœud (d'un problème)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他的话说到了问题的要害。",
+     "pinyin": "Tā de huà shuōdào le wèntí de yàohài.",
+     "fr": "Il a mis le doigt sur le cœur du problème.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4843",
+   "genre": "mot",
+   "hanzi": "要紧",
+   "pinyin": "yàojǐn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "important, urgent ; grave",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "important, urgent"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "grave, sérieux"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事很要紧，你别忘了。",
+     "pinyin": "Zhè jiàn shì hěn yàojǐn, nǐ bié wàng le.",
+     "fr": "C'est important, ne l'oublie pas.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4844",
+   "genre": "mot",
+   "hanzi": "要领",
+   "pinyin": "yàolǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "points essentiels (technique)",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "points essentiels, principes (d'une technique)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他很快就掌握了游泳的要领。",
+     "pinyin": "Tā hěn kuài jiù zhǎngwò le yóuyǒng de yàolǐng.",
+     "fr": "Il a vite compris comment nager.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4845",
+   "genre": "mot",
+   "hanzi": "要命",
+   "pinyin": "yàomìng",
+   "sens": {
+    "glose": "terriblement, à mourir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "à mourir, terriblement (après un adjectif)"
+     },
+     {
+      "categorie": "V",
+      "fr": "coûter la vie, être mortel"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天热得要命。",
+     "pinyin": "Jīntiān rè de yàomìng.",
+     "fr": "Il fait une chaleur à crever aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4846",
+   "genre": "mot",
+   "hanzi": "要强",
+   "pinyin": "yàoqiáng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "ambitieux, qui ne veut pas céder",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "ambitieux, qui refuse d'être en reste"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她是个很要强的女孩儿。",
+     "pinyin": "Tā shì ge hěn yàoqiáng de nǚháir.",
+     "fr": "C'est une fille qui veut toujours être la meilleure.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "钥",
+   "genre": "caractere",
+   "hanzi": "钥",
+   "pinyin": "yào",
+   "sens": {
+    "glose": "clé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "匙",
+   "genre": "caractere",
+   "hanzi": "匙",
+   "pinyin": "shi",
+   "sens": {
+    "glose": "clé ; cuillère",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clé (dans le mot yàoshi)"
+     },
+     {
+      "categorie": "N",
+      "fr": "cuillère",
+      "pinyin": "chí"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4847",
+   "genre": "mot",
+   "hanzi": "钥匙",
+   "pinyin": "yàoshi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "clé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "clé (de serrure)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我找不到钥匙了。",
+     "pinyin": "Wǒ zhǎo bu dào yàoshi le.",
+     "fr": "Je ne retrouve plus mes clés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4848",
+   "genre": "mot",
+   "hanzi": "耀眼",
+   "pinyin": "yàoyǎn",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "éblouissant, aveuglant",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "éblouissant, aveuglant, éclatant"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "阳光很耀眼。",
+     "pinyin": "Yángguāng hěn yàoyǎn.",
+     "fr": "Le soleil éblouit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "椰",
+   "genre": "caractere",
+   "hanzi": "椰",
+   "pinyin": "yē",
+   "sens": {
+    "glose": "cocotier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cocotier, noix de coco"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4849",
+   "genre": "mot",
+   "hanzi": "椰子",
+   "pinyin": "yēzi",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "noix de coco ; cocotier",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "noix de coco ; cocotier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "海南有很多椰子树。",
+     "pinyin": "Hǎinán yǒu hěn duō yēzishù.",
+     "fr": "Il y a beaucoup de cocotiers à Hainan.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4850",
+   "genre": "mot",
+   "hanzi": "也就是说",
+   "pinyin": "yějiùshìshuō",
+   "sens": {
+    "glose": "autrement dit, c'est-à-dire",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "autrement dit, c'est-à-dire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他明天走，也就是说我们今天得准备好。",
+     "pinyin": "Tā míngtiān zǒu, yějiùshìshuō wǒmen jīntiān děi zhǔnbèi hǎo.",
+     "fr": "Il part demain, donc nous devons être prêts aujourd'hui.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4851",
+   "genre": "mot",
+   "hanzi": "野餐",
+   "pinyin": "yěcān",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "pique-niquer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "pique-niquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "周末我们去公园野餐吧。",
+     "pinyin": "Zhōumò wǒmen qù gōngyuán yěcān ba.",
+     "fr": "Ce week-end, allons manger dehors au parc.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "炊",
+   "genre": "caractere",
+   "hanzi": "炊",
+   "pinyin": "chuī",
+   "sens": {
+    "glose": "cuisiner",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cuisiner, faire cuire"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4852",
+   "genre": "mot",
+   "hanzi": "野炊",
+   "pinyin": "yěchuī",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "cuisiner en plein air",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "cuisiner en plein air, faire un feu de camp"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们在河边野炊。",
+     "pinyin": "Wǒmen zài hébiān yěchuī.",
+     "fr": "Nous faisons un barbecue au bord de la rivière.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4853",
+   "genre": "mot",
+   "hanzi": "野蛮",
+   "pinyin": "yěmán",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "barbare, brutal",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "barbare, brutal, sauvage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种行为太野蛮了。",
+     "pinyin": "Zhè zhǒng xíngwéi tài yěmán le.",
+     "fr": "C'est un comportement inacceptable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "兽",
+   "genre": "caractere",
+   "hanzi": "兽",
+   "pinyin": "shòu",
+   "sens": {
+    "glose": "bête, animal",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bête, animal (sauvage)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4854",
+   "genre": "mot",
+   "hanzi": "野兽",
+   "pinyin": "yěshòu",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "bête sauvage, fauve",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "bête sauvage, fauve"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "森林里有很多野兽。",
+     "pinyin": "Sēnlín li yǒu hěn duō yěshòu.",
+     "fr": "La forêt abrite beaucoup d'animaux sauvages.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4855",
+   "genre": "mot",
+   "hanzi": "野外",
+   "pinyin": "yěwài",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "en pleine nature, la campagne",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "la nature, la campagne, le plein air"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他喜欢在野外露营。",
+     "pinyin": "Tā xǐhuan zài yěwài lùyíng.",
+     "fr": "Il aime camper dans la nature.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4856",
+   "genre": "mot",
+   "hanzi": "野心",
+   "pinyin": "yěxīn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "ambition démesurée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "ambition démesurée, visées"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个很有野心的人。",
+     "pinyin": "Tā shì yī ge hěn yǒu yěxīn de rén.",
+     "fr": "C'est un homme aux dents longues.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4857",
+   "genre": "mot",
+   "hanzi": "野营",
+   "pinyin": "yěyíng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "camper, faire du camping",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "camper, faire du camping"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "暑假我们去山里野营。",
+     "pinyin": "Shǔjià wǒmen qù shān li yěyíng.",
+     "fr": "Cet été, nous partons planter la tente en montagne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4859",
+   "genre": "mot",
+   "hanzi": "业绩",
+   "pinyin": "yèjì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "résultats, performances",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "résultats, performances (professionnelles)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他今年的业绩很好。",
+     "pinyin": "Tā jīnnián de yèjì hěn hǎo.",
+     "fr": "Il a fait une très bonne année.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4860",
+   "genre": "mot",
+   "hanzi": "夜班",
+   "pinyin": "yèbān",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "équipe de nuit, service de nuit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "équipe de nuit, service de nuit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "她这个星期上夜班。",
+     "pinyin": "Tā zhège xīngqī shàng yèbān.",
+     "fr": "Cette semaine, elle travaille de nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4861",
+   "genre": "mot",
+   "hanzi": "夜市",
+   "pinyin": "yèshì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "marché de nuit",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "marché de nuit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们晚上去逛夜市吧。",
+     "pinyin": "Wǒmen wǎnshang qù guàng yèshì ba.",
+     "fr": "Allons flâner au marché ce soir.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4862",
+   "genre": "mot",
+   "hanzi": "夜晚",
+   "pinyin": "yèwǎn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "nuit, soirée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "nuit, soirée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "城市的夜晚很美。",
+     "pinyin": "Chéngshì de yèwǎn hěn měi.",
+     "fr": "La ville est belle la nuit.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4863",
+   "genre": "mot",
+   "hanzi": "夜校",
+   "pinyin": "yèxiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cours du soir",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cours du soir, école du soir"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他晚上在夜校学英语。",
+     "pinyin": "Tā wǎnshang zài yèxiào xué Yīngyǔ.",
+     "fr": "Le soir, il prend des cours d'anglais.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4864",
+   "genre": "mot",
+   "hanzi": "夜以继日",
+   "pinyin": "yèyǐjìrì",
+   "sens": {
+    "glose": "jour et nuit, sans relâche",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "jour et nuit, sans relâche"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "工人们夜以继日地工作。",
+     "pinyin": "Gōngrénmen yèyǐjìrì de gōngzuò.",
+     "fr": "Les ouvriers travaillent sans arrêt.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4865",
+   "genre": "mot",
+   "hanzi": "夜总会",
+   "pinyin": "yèzǒnghuì",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "boîte de nuit, cabaret",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "boîte de nuit, cabaret"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这家夜总会很有名。",
+     "pinyin": "Zhè jiā yèzǒnghuì hěn yǒumíng.",
+     "fr": "Ce cabaret est très connu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4866",
+   "genre": "mot",
+   "hanzi": "液晶",
+   "pinyin": "yèjīng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "cristaux liquides, LCD",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "cristaux liquides, écran LCD"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是一台液晶电视。",
+     "pinyin": "Zhè shì yī tái yèjīng diànshì.",
+     "fr": "C'est une télévision à écran plat.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4867",
+   "genre": "mot",
+   "hanzi": "液体",
+   "pinyin": "yètǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "liquide",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "liquide, fluide"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "飞机上不能带太多液体。",
+     "pinyin": "Fēijī shang bù néng dài tài duō yètǐ.",
+     "fr": "En avion, on ne peut pas emporter beaucoup de flacons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4868",
+   "genre": "mot",
+   "hanzi": "一把手",
+   "pinyin": "yībǎshǒu",
+   "sens": {
+    "glose": "numéro un, patron",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "numéro un, premier responsable, patron"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是这个单位的一把手。",
+     "pinyin": "Tā shì zhège dānwèi de yībǎshǒu.",
+     "fr": "C'est lui le grand chef de cet organisme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4869",
+   "genre": "mot",
+   "hanzi": "一线",
+   "pinyin": "yīxiàn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "première ligne ; une lueur",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "première ligne, terrain"
+     },
+     {
+      "categorie": "N",
+      "fr": "un fil, une lueur (d'espoir)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他一直在一线工作。",
+     "pinyin": "Tā yīzhí zài yīxiàn gōngzuò.",
+     "fr": "Il a toujours travaillé sur le terrain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4870",
+   "genre": "mot",
+   "hanzi": "一一",
+   "pinyin": "yīyī",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "un par un, un à un",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/一.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "老师一一回答了我们的问题。",
+     "pinyin": "Lǎoshī yīyī huídá le wǒmen de wèntí.",
+     "fr": "Le professeur a répondu à chacune de nos questions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "伊",
+   "genre": "caractere",
+   "hanzi": "伊",
+   "pinyin": "yī",
+   "sens": {
+    "glose": "il, elle (littéraire)",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "il, elle, lui (littéraire)"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "兰",
+   "genre": "caractere",
+   "hanzi": "兰",
+   "pinyin": "lán",
+   "sens": {
+    "glose": "orchidée",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "orchidée"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L7-4871",
+   "genre": "mot",
+   "hanzi": "伊斯兰教",
+   "pinyin": "Yīsīlánjiào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "islam",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "islam"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "伊斯兰教是世界三大宗教之一。",
+     "pinyin": "Yīsīlánjiào shì shìjiè sān dà zōngjiào zhī yī.",
+     "fr": "C'est l'une des trois grandes religions du monde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4872",
+   "genre": "mot",
+   "hanzi": "衣食住行",
+   "pinyin": "yī-shí-zhù-xíng",
+   "sens": {
+    "glose": "besoins essentiels de la vie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "se vêtir, se nourrir, se loger, se déplacer : les besoins essentiels"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "衣食住行都要花钱。",
+     "pinyin": "Yī-shí-zhù-xíng dōu yào huā qián.",
+     "fr": "Pour vivre, tout coûte de l'argent.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L7-4873",
+   "genre": "mot",
+   "hanzi": "医务",
+   "pinyin": "yīwù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "services médicaux",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "services médicaux, affaires médicales"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学校有一个医务室。",
+     "pinyin": "Xuéxiào yǒu yī ge yīwùshì.",
+     "fr": "L'école a une infirmerie.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
