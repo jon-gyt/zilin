@@ -21,20 +21,33 @@
   "辛": "sens",
   "讠": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "辩论",
+   "pinyin": "biànlùn",
+   "fr": "débat, débattre",
+   "en": "debate, to debate"
+  },
+  {
+   "hanzi": "争辩",
+   "pinyin": "zhēngbiàn",
+   "fr": "argumenter, se disputer",
+   "en": "to argue"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他们两个人在辩论。",
+  "pinyin": "Tāmen liǎng gè rén zài biànlùn.",
+  "fr": "Ils sont tous les deux en plein débat.",
+  "en": "The two of them are debating."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e141ca5c69f679841513fc193f4d8e405d50f98d11987f836402cc500b57b507",
-  "essais": 1,
+  "empreinte_invite": "sha256:2e6d4212d318fe0e9c8625286aa2376a5490fc536022f67869e739057f3418d8",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
