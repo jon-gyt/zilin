@@ -1,0 +1,433 @@
+{
+ "examen": "yueke-1105",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu hsk yueke-1105`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "经理，我妻子病了，",
+       "pinyin": "jīng lǐ wǒ qī zi bìng le",
+       "fr": "Monsieur le directeur, ma femme est malade :",
+       "en": "Sir, my wife is ill:"
+      },
+      {
+       "zh": "今天我要在家照顾她，",
+       "pinyin": "jīn tiān wǒ yào zài jiā zhào gù tā",
+       "fr": "je dois rester à la maison pour m'occuper d'elle",
+       "en": "I have to stay home and look after her today,"
+      },
+      {
+       "zh": "不能去上班了。",
+       "pinyin": "bù néng qù shàng bān le",
+       "fr": "et je ne peux pas venir au travail.",
+       "en": "so I can't come to work."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "enseigne",
+     "contexte": {
+      "fr": "Une enseigne",
+      "en": "A shop sign"
+     },
+     "lignes": [
+      {
+       "zh": "冰箱特价",
+       "pinyin": "bīng xiāng tè jià",
+       "fr": "Réfrigérateurs en promotion",
+       "en": "Fridges on special offer"
+      },
+      {
+       "zh": "原价三千元",
+       "pinyin": "yuán jià sān qiān yuán",
+       "fr": "Prix normal : 3 000 yuans",
+       "en": "Was 3,000 yuan"
+      },
+      {
+       "zh": "现在两千元",
+       "pinyin": "xiàn zài liǎng qiān yuán",
+       "fr": "Maintenant : 2 000 yuans",
+       "en": "Now 2,000 yuan"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "三千元",
+       "pinyin": "sān qiān yuán",
+       "fr": "3 000 yuans",
+       "en": "3,000 yuan"
+      },
+      {
+       "zh": "两千元",
+       "pinyin": "liǎng qiān yuán",
+       "fr": "2 000 yuans",
+       "en": "2,000 yuan"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Pourquoi ne vient-il pas au travail ?",
+      "en": "Why isn't he coming to work?"
+     },
+     "choix": [
+      {
+       "fr": "Il est malade",
+       "en": "He is ill"
+      },
+      {
+       "fr": "Sa femme est malade",
+       "en": "His wife is ill"
+      },
+      {
+       "fr": "Sa voiture est en panne",
+       "en": "His car has broken down"
+      },
+      {
+       "fr": "Il part en voyage",
+       "en": "He is going on a trip"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "妻",
+      "子",
+      "病"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond le directeur ?",
+      "en": "What does the manager reply?"
+     },
+     "choix": [
+      {
+       "zh": "操场在学校后面。",
+       "pinyin": "cāo chǎng zài xué xiào hòu mian",
+       "fr": "Le terrain de sport est derrière l'école.",
+       "en": "The sports ground is behind the school."
+      },
+      {
+       "zh": "我的口袋里没有钱。",
+       "pinyin": "wǒ de kǒu dài lǐ méi yǒu qián",
+       "fr": "Je n'ai pas d'argent dans ma poche.",
+       "en": "I've no money in my pocket."
+      },
+      {
+       "zh": "没关系，你别担心工作。",
+       "pinyin": "méi guān xi nǐ bié dān xīn gōng zuò",
+       "fr": "Pas de souci, ne t'inquiète pas pour le travail.",
+       "en": "That's fine, don't worry about work."
+      },
+      {
+       "zh": "西瓜很甜。",
+       "pinyin": "xī guā hěn tián",
+       "fr": "La pastèque est très sucrée.",
+       "en": "The watermelon is very sweet."
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "妻",
+      "病"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le produit en vente.",
+      "en": "Tap the product on sale."
+     },
+     "choix": [
+      "冰箱",
+      "特价",
+      "原价",
+      "现在"
+     ],
+     "reponse": 0,
+     "porte": [
+      "冰",
+      "箱"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "现在买冰箱，少花一千元。",
+      "pinyin": "xiàn zài mǎi bīng xiāng shǎo huā yī qiān yuán",
+      "fr": "En l'achetant maintenant, on paie 1 000 yuans de moins.",
+      "en": "Buy it now and pay 1,000 yuan less."
+     },
+     "reponse": true,
+     "porte": [
+      "冰",
+      "箱",
+      "千"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "薄",
+      "pinyin": "báo",
+      "fr": "mince",
+      "en": "thin"
+     },
+     "choix": [
+      {
+       "fr": "épais",
+       "en": "thick"
+      },
+      {
+       "fr": "lourd",
+       "en": "heavy"
+      },
+      {
+       "fr": "chaud",
+       "en": "hot"
+      },
+      {
+       "fr": "mince",
+       "en": "thin"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "薄"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "明天有大雨，",
+       "pinyin": "míng tiān yǒu dà yǔ",
+       "fr": "Demain, il va beaucoup pleuvoir :",
+       "en": "Heavy rain tomorrow:"
+      },
+      {
+       "zh": "爬山改到后天，",
+       "pinyin": "pá shān gǎi dào hòu tiān",
+       "fr": "la randonnée passe à après-demain.",
+       "en": "the hike moves to the day after."
+      },
+      {
+       "zh": "早上七点在车站见，",
+       "pinyin": "zǎo shang qī diǎn zài chē zhàn jiàn",
+       "fr": "Rendez-vous à 7 heures du matin à la gare ;",
+       "en": "Meet at 7 am at the station;"
+      },
+      {
+       "zh": "别迟到，记得带伞！",
+       "pinyin": "bié chí dào jì de dài sǎn",
+       "fr": "ne sois pas en retard, et pense au parapluie !",
+       "en": "don't be late, and remember your umbrella!"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "本店今天关闭，",
+       "pinyin": "běn diàn jīn tiān guān bì",
+       "fr": "Notre boutique est fermée aujourd'hui ;",
+       "en": "Our shop is closed today;"
+      },
+      {
+       "zh": "明天上午九点开门。",
+       "pinyin": "míng tiān shàng wǔ jiǔ diǎn kāi mén",
+       "fr": "réouverture demain à 9 heures.",
+       "en": "we reopen tomorrow at 9 am."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que faut-il emporter ?",
+      "en": "What should you take?"
+     },
+     "choix": [
+      {
+       "fr": "Un parapluie",
+       "en": "An umbrella"
+      },
+      {
+       "fr": "Un pique-nique",
+       "en": "A picnic"
+      },
+      {
+       "fr": "Un appareil photo",
+       "en": "A camera"
+      },
+      {
+       "fr": "Une carte",
+       "en": "A map"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "带",
+      "伞"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche ce qu'il ne faut pas faire.",
+      "en": "Tap what you mustn't do."
+     },
+     "choix": [
+      "爬山",
+      "车站",
+      "迟到",
+      "记得"
+     ],
+     "reponse": 2,
+     "porte": [
+      "迟",
+      "到"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son amie ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "她丈夫很高。",
+       "pinyin": "tā zhàng fu hěn gāo",
+       "fr": "Son mari est très grand.",
+       "en": "Her husband is very tall."
+      },
+      {
+       "zh": "这个口袋太小了。",
+       "pinyin": "zhè gè kǒu dài tài xiǎo le",
+       "fr": "Cette poche est trop petite.",
+       "en": "This pocket is too small."
+      },
+      {
+       "zh": "我喜欢学历史。",
+       "pinyin": "wǒ xǐ huan xué lì shǐ",
+       "fr": "J'aime étudier l'histoire.",
+       "en": "I like studying history."
+      },
+      {
+       "zh": "好，我一定早点到。",
+       "pinyin": "hǎo wǒ yī dìng zǎo diǎn dào",
+       "fr": "D'accord, j'arriverai en avance, promis.",
+       "en": "OK, I'll be early, I promise."
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "迟",
+      "到"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "这家店今天开门。",
+      "pinyin": "zhè jiā diàn jīn tiān kāi mén",
+      "fr": "La boutique est ouverte aujourd'hui.",
+      "en": "The shop is open today."
+     },
+     "reponse": false,
+     "porte": [
+      "关",
+      "闭"
+     ]
+    },
+    {
+     "type": "caractere",
+     "consigne": {
+      "fr": "Quel caractère a ce sens ?",
+      "en": "Which character has this meaning?"
+     },
+     "objet": {
+      "zh": "淡",
+      "pinyin": "dàn",
+      "fr": "fade, peu salé",
+      "en": "bland"
+     },
+     "choix": [
+      "谈",
+      "没",
+      "淡",
+      "法"
+     ],
+     "reponse": 2,
+     "porte": [
+      "淡"
+     ]
+    }
+   ]
+  }
+ ]
+}

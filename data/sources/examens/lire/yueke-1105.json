@@ -1,0 +1,416 @@
+{
+ "examen": "yueke-1105",
+ "parcours": "lire",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu lire yueke-1105`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "note",
+     "contexte": {
+      "fr": "Une note",
+      "en": "A note"
+     },
+     "lignes": [
+      {
+       "zh": "外面下雨了，",
+       "pinyin": "wài mian xià yǔ le",
+       "fr": "Il pleut dehors :",
+       "en": "It's raining outside:"
+      },
+      {
+       "zh": "出门别忘了带伞。",
+       "pinyin": "chū mén bié wàng le dài sǎn",
+       "fr": "n'oublie pas ton parapluie en sortant.",
+       "en": "don't forget your umbrella when you go out."
+      },
+      {
+       "zh": "冰箱里有西瓜。",
+       "pinyin": "bīng xiāng lǐ yǒu xī guā",
+       "fr": "Il y a de la pastèque dans le frigo.",
+       "en": "There's watermelon in the fridge."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "上课不要迟到，",
+       "pinyin": "shàng kè bù yào chí dào",
+       "fr": "Ne soyez pas en retard en cours,",
+       "en": "Don't be late for class,"
+      },
+      {
+       "zh": "不要在教室里吃东西，",
+       "pinyin": "bù yào zài jiào shì lǐ chī dōng xi",
+       "fr": "ne mangez pas en classe,",
+       "en": "don't eat in the classroom,"
+      },
+      {
+       "zh": "操场上不能骑车。",
+       "pinyin": "cāo chǎng shàng bù néng qí chē",
+       "fr": "pas de vélo sur le terrain de sport.",
+       "en": "no cycling on the sports ground."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que faut-il prendre en sortant ?",
+      "en": "What should you take when you go out?"
+     },
+     "choix": [
+      {
+       "fr": "Un manteau",
+       "en": "A coat"
+      },
+      {
+       "fr": "Ses clés",
+       "en": "Your keys"
+      },
+      {
+       "fr": "Un parapluie",
+       "en": "An umbrella"
+      },
+      {
+       "fr": "Un chapeau",
+       "en": "A hat"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "带",
+      "伞"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s1",
+     "consigne": {
+      "fr": "Touche l'endroit où il y a quelque chose à manger.",
+      "en": "Tap the place where there's something to eat."
+     },
+     "choix": [
+      "外面",
+      "伞",
+      "冰箱",
+      "西瓜"
+     ],
+     "reponse": 2,
+     "porte": [
+      "冰",
+      "箱"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "可以在操场上骑车。",
+      "pinyin": "kě yǐ zài cāo chǎng shàng qí chē",
+      "fr": "On peut faire du vélo sur le terrain de sport.",
+      "en": "You can cycle on the sports ground."
+     },
+     "reponse": false,
+     "porte": [
+      "操",
+      "场",
+      "骑"
+     ]
+    },
+    {
+     "type": "comprendre",
+     "support": "s2",
+     "consigne": {
+      "fr": "Où se trouve ce panneau ?",
+      "en": "Where is this sign?"
+     },
+     "choix": [
+      {
+       "fr": "Dans une école",
+       "en": "In a school"
+      },
+      {
+       "fr": "Dans un hôpital",
+       "en": "In a hospital"
+      },
+      {
+       "fr": "Dans une gare",
+       "en": "In a station"
+      },
+      {
+       "fr": "Dans un magasin",
+       "en": "In a shop"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "上",
+      "课",
+      "迟",
+      "到"
+     ]
+    },
+    {
+     "type": "sens",
+     "consigne": {
+      "fr": "Que veut dire ce caractère ?",
+      "en": "What does this character mean?"
+     },
+     "objet": {
+      "zh": "笨",
+      "pinyin": "bèn",
+      "fr": "bête",
+      "en": "stupid"
+     },
+     "choix": [
+      {
+       "fr": "gentil",
+       "en": "kind"
+      },
+      {
+       "fr": "bête",
+       "en": "stupid"
+      },
+      {
+       "fr": "rapide",
+       "en": "fast"
+      },
+      {
+       "fr": "paresseux",
+       "en": "lazy"
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "笨"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我下个月大学毕业，",
+       "pinyin": "wǒ xià gè yuè dà xué bì yè",
+       "fr": "Le mois prochain, je finis l'université :",
+       "en": "Next month I graduate from university:"
+      },
+      {
+       "zh": "爸爸妈妈会来北京。",
+       "pinyin": "bà ba mā ma huì lái běi jīng",
+       "fr": "mes parents viennent à Pékin.",
+       "en": "my parents are coming to Beijing."
+      },
+      {
+       "zh": "你那天有时间吗？",
+       "pinyin": "nǐ nà tiān yǒu shí jiān ma",
+       "fr": "Tu es libre ce jour-là ?",
+       "en": "Are you free that day?"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "历史课改时间：",
+       "pinyin": "lì shǐ kè gǎi shí jiān",
+       "fr": "Changement d'horaire du cours d'histoire :",
+       "en": "History class time change:"
+      },
+      {
+       "zh": "星期三下午三点",
+       "pinyin": "xīng qī sān xià wǔ sān diǎn",
+       "fr": "le mercredi, 15 heures,",
+       "en": "Wednesday, 3 pm,"
+      },
+      {
+       "zh": "改到星期四上午十点。",
+       "pinyin": "gǎi dào xīng qī sì shàng wǔ shí diǎn",
+       "fr": "passe au jeudi, 10 heures.",
+       "en": "moves to Thursday, 10 am."
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que se passe-t-il le mois prochain ?",
+      "en": "What is happening next month?"
+     },
+     "choix": [
+      {
+       "fr": "L'auteur se marie",
+       "en": "The writer is getting married"
+      },
+      {
+       "fr": "L'auteur déménage",
+       "en": "The writer is moving house"
+      },
+      {
+       "fr": "L'auteur part en vacances",
+       "en": "The writer is going on holiday"
+      },
+      {
+       "fr": "L'auteur finit ses études",
+       "en": "The writer is graduating"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "毕",
+      "业"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que répond son ami ?",
+      "en": "What does the friend reply?"
+     },
+     "choix": [
+      {
+       "zh": "冰箱坏了。",
+       "pinyin": "bīng xiāng huài le",
+       "fr": "Le frigo est en panne.",
+       "en": "The fridge is broken."
+      },
+      {
+       "zh": "有，我一定去！",
+       "pinyin": "yǒu wǒ yī dìng qù",
+       "fr": "Oui, je viendrai sans faute !",
+       "en": "Yes, I'll be there for sure!"
+      },
+      {
+       "zh": "今天有点冷。",
+       "pinyin": "jīn tiān yǒu diǎn lěng",
+       "fr": "Il fait un peu froid aujourd'hui.",
+       "en": "It's a bit cold today."
+      },
+      {
+       "zh": "我喜欢跳舞。",
+       "pinyin": "wǒ xǐ huan tiào wǔ",
+       "fr": "J'aime danser.",
+       "en": "I like dancing."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "毕",
+      "时",
+      "间"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche le cours qui change.",
+      "en": "Tap the class that is changing."
+     },
+     "choix": [
+      "历史课",
+      "时间",
+      "星期三",
+      "星期四"
+     ],
+     "reponse": 0,
+     "porte": [
+      "历",
+      "史",
+      "课"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s2",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "历史课改到了星期四。",
+      "pinyin": "lì shǐ kè gǎi dào le xīng qī sì",
+      "fr": "Le cours d'histoire passe au jeudi.",
+      "en": "History class moves to Thursday."
+     },
+     "reponse": true,
+     "porte": [
+      "史",
+      "改",
+      "四"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "担心",
+      "pinyin": "dān xīn",
+      "fr": "s'inquiéter",
+      "en": "to worry"
+     },
+     "trou": 0,
+     "choix": [
+      "但",
+      "抱",
+      "担",
+      "把"
+     ],
+     "reponse": 2,
+     "porte": [
+      "担"
+     ]
+    }
+   ]
+  }
+ ]
+}
