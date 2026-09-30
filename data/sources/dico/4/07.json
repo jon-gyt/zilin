@@ -1,0 +1,1384 @@
+{
+ "niveau": "4",
+ "lot": "07",
+ "source": "rédigé pour l'app dans le pipeline wenlu, sans API ; faits lus : liste HSK 3.0 (forme, pinyin, niveau, catégorie), lectures d'Unihan et des surcharges, gloses relues des fiches",
+ "brouillon": "data/sources/dico-brouillons/4/07.json",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30",
+  "empreinte_invite": "sha256:48657b065bf1377130fa267a82c9e8bfb13282d4444c64e536f4267c1dc39a3e",
+  "contexte": "wenlu dico contexte 4 07",
+  "essais": 1,
+  "refus": []
+ },
+ "entrees": [
+  {
+   "id": "L4-0238",
+   "genre": "mot",
+   "hanzi": "分布",
+   "pinyin": "fēnbù",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "être réparti, se répartir",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "être réparti, se répartir, s'étendre sur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这种鸟分布在南方。",
+     "pinyin": "Zhè zhǒng niǎo fēnbù zài nánfāng.",
+     "fr": "On trouve cet oiseau dans le Sud.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0239",
+   "genre": "mot",
+   "hanzi": "分散",
+   "pinyin": "fēnsàn",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "disperser ; dispersé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "disperser, éparpiller ; distraire"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "dispersé, éparpillé"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "手机会分散你的注意力。",
+     "pinyin": "Shǒujī huì fēnsàn nǐ de zhùyìlì.",
+     "fr": "Le portable te déconcentre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0240",
+   "genre": "mot",
+   "hanzi": "分手",
+   "pinyin": "fēnshǒu",
+   "sens": {
+    "glose": "se séparer, rompre",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "se séparer, rompre : couple ; se quitter"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们上个月分手了。",
+     "pinyin": "Tāmen shàng ge yuè fēnshǒu le.",
+     "fr": "Ils ne sont plus ensemble depuis le mois dernier.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0241",
+   "genre": "mot",
+   "hanzi": "分为",
+   "pinyin": "fēnwéi",
+   "sens": {
+    "glose": "diviser en, se diviser en",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "diviser en, se répartir en"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "一年分为四个季节。",
+     "pinyin": "Yī nián fēnwéi sì ge jìjié.",
+     "fr": "L'année compte quatre saisons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "之",
+   "genre": "caractere",
+   "hanzi": "之",
+   "pinyin": "zhī",
+   "mots": [
+    "L7-5339",
+    "L7-5340"
+   ],
+   "sens": {
+    "glose": "de (écrit) ; le, cela (écrit)",
+    "acceptions": [
+     {
+      "categorie": "Aux",
+      "fr": "particule de détermination du chinois écrit : de"
+     },
+     {
+      "categorie": "Pron",
+      "fr": "le, la, cela : pronom complément du chinois écrit"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这是我们之间的事。",
+     "pinyin": "Zhè shì wǒmen zhījiān de shì.",
+     "fr": "Ça ne regarde que nous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0242",
+   "genre": "mot",
+   "hanzi": "分之",
+   "pinyin": "fēn zhī",
+   "sens": {
+    "glose": "fraction : tant sur tant",
+    "acceptions": [
+     {
+      "categorie": "Num",
+      "fr": "exprime une fraction : un tiers, trois quarts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "三分之一的学生是女生。",
+     "pinyin": "Sān fēn zhī yī de xuésheng shì nǚshēng.",
+     "fr": "Un tiers des élèves sont des filles.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "纷",
+   "genre": "caractere",
+   "hanzi": "纷",
+   "pinyin": "fēn",
+   "sens": {
+    "glose": "nombreux et confus",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "nombreux et désordonnés, confus"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0243",
+   "genre": "mot",
+   "hanzi": "纷纷",
+   "pinyin": "fēnfēn",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "l'un après l'autre, en foule",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "l'un après l'autre, en foule, de toutes parts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "下课了，学生们纷纷走出教室。",
+     "pinyin": "Xiàkè le, xuéshengmen fēnfēn zǒuchū jiàoshì.",
+     "fr": "Le cours fini, les élèves quittent la classe en masse.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "奋",
+   "genre": "caractere",
+   "hanzi": "奋",
+   "pinyin": "fèn",
+   "sens": {
+    "glose": "s'élancer, faire effort",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'élancer, faire effort, s'animer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "斗",
+   "genre": "caractere",
+   "hanzi": "斗",
+   "pinyin": "dòu",
+   "mots": [
+    "L7-0932"
+   ],
+   "sens": {
+    "glose": "lutter, se battre ; boisseau",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lutter, se battre"
+     },
+     {
+      "categorie": "N",
+      "fr": "boisseau : mesure de grain",
+      "pinyin": "dǒu"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我们要和困难作斗争。",
+     "pinyin": "Wǒmen yào hé kùnnan zuò dòuzhēng.",
+     "fr": "Il faut se battre contre les difficultés.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0244",
+   "genre": "mot",
+   "hanzi": "奋斗",
+   "pinyin": "fèndòu",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "lutter, se battre (pour un but)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "lutter, se battre pour un but, persévérer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他为了梦想一直在奋斗。",
+     "pinyin": "Tā wèile mèngxiǎng yīzhí zài fèndòu.",
+     "fr": "Il ne cesse de travailler dur pour réaliser son rêve.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0245",
+   "genre": "mot",
+   "hanzi": "风格",
+   "pinyin": "fēnggé",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "style",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "style, manière, caractère"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我喜欢这位画家的风格。",
+     "pinyin": "Wǒ xǐhuan zhè wèi huàjiā de fēnggé.",
+     "fr": "J'aime la manière de ce peintre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0246",
+   "genre": "mot",
+   "hanzi": "风景",
+   "pinyin": "fēngjǐng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "paysage",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "paysage, vue"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这里的风景真美！",
+     "pinyin": "Zhèli de fēngjǐng zhēn měi!",
+     "fr": "Que c'est beau, ici !",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "俗",
+   "genre": "caractere",
+   "hanzi": "俗",
+   "pinyin": "sú",
+   "mots": [
+    "L7-3939"
+   ],
+   "sens": {
+    "glose": "vulgaire, banal ; coutume",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "vulgaire, banal, de mauvais goût"
+     },
+     {
+      "categorie": "N",
+      "fr": "coutume, usage"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件衣服的颜色太俗了。",
+     "pinyin": "Zhè jiàn yīfu de yánsè tài sú le.",
+     "fr": "La couleur de ce vêtement est trop criarde.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0247",
+   "genre": "mot",
+   "hanzi": "风俗",
+   "pinyin": "fēngsú",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "coutumes, mœurs",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "coutumes, mœurs, usages"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "每个地方都有自己的风俗。",
+     "pinyin": "Měi ge dìfang dōu yǒu zìjǐ de fēngsú.",
+     "fr": "Chaque région a ses traditions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0248",
+   "genre": "mot",
+   "hanzi": "封闭",
+   "pinyin": "fēngbì",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "fermer, sceller ; fermé, isolé",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "fermer, sceller, boucler"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "fermé, isolé, replié sur soi"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这条路已经封闭了。",
+     "pinyin": "Zhè tiáo lù yǐjīng fēngbì le.",
+     "fr": "Cette route est interdite à la circulation.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "则",
+   "genre": "caractere",
+   "hanzi": "则",
+   "pinyin": "zé",
+   "mots": [
+    "L7-5216",
+    "L7-5217"
+   ],
+   "sens": {
+    "glose": "alors, en revanche ; article",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "alors, en revanche : langue écrite"
+     },
+     {
+      "categorie": "M",
+      "fr": "classificateur des nouvelles, des articles"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我看到一则新闻。",
+     "pinyin": "Wǒ kàndào yī zé xīnwén.",
+     "fr": "J'ai lu une nouvelle.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0249",
+   "genre": "mot",
+   "hanzi": "否则",
+   "pinyin": "fǒuzé",
+   "categories": [
+    "Conj"
+   ],
+   "sens": {
+    "glose": "sinon, faute de quoi",
+    "acceptions": [
+     {
+      "categorie": "Conj",
+      "fr": "sinon, faute de quoi, autrement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "快点儿，否则就来不及了。",
+     "pinyin": "Kuài diǎnr, fǒuzé jiù láibují le.",
+     "fr": "Dépêche-toi, ou on n'aura pas le temps.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "妇",
+   "genre": "caractere",
+   "hanzi": "妇",
+   "pinyin": "fù",
+   "sens": {
+    "glose": "femme mariée ; épouse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "femme mariée ; épouse"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0250",
+   "genre": "mot",
+   "hanzi": "夫妇",
+   "pinyin": "fūfù",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "époux, couple marié",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "époux, couple marié"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "那对夫妇住在我家楼上。",
+     "pinyin": "Nà duì fūfù zhù zài wǒ jiā lóu shang.",
+     "fr": "Ce couple habite au-dessus de chez nous.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "妻",
+   "genre": "caractere",
+   "hanzi": "妻",
+   "pinyin": "qī",
+   "sens": {
+    "glose": "épouse, femme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "épouse, femme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0251",
+   "genre": "mot",
+   "hanzi": "夫妻",
+   "pinyin": "fūqī",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "mari et femme",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "mari et femme, couple"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们夫妻俩都是老师。",
+     "pinyin": "Tāmen fūqī liǎ dōu shì lǎoshī.",
+     "fr": "Lui et sa femme sont tous deux professeurs.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0252",
+   "genre": "mot",
+   "hanzi": "夫人",
+   "pinyin": "fūren",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "madame ; épouse (terme poli)",
+    "acceptions": [],
+    "statut": "relu",
+    "provenance": {
+     "reprise": "data/sources/fiches/夫.json",
+     "champ": "mots[].fr"
+    }
+   },
+   "exemples": [
+    {
+     "zh": "这位是王夫人。",
+     "pinyin": "Zhè wèi shì Wáng fūren.",
+     "fr": "Je vous présente Mme Wang.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "符",
+   "genre": "caractere",
+   "hanzi": "符",
+   "pinyin": "fú",
+   "sens": {
+    "glose": "signe, symbole ; correspondre",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "signe, symbole ; talisman"
+     },
+     {
+      "categorie": "V",
+      "fr": "correspondre, être conforme"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0253",
+   "genre": "mot",
+   "hanzi": "符号",
+   "pinyin": "fúhào",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "signe, symbole",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "signe, symbole, notation"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个符号是什么意思？",
+     "pinyin": "Zhège fúhào shì shénme yìsi?",
+     "fr": "Que veut dire ce petit dessin ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0254",
+   "genre": "mot",
+   "hanzi": "符合",
+   "pinyin": "fúhé",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "correspondre à, être conforme à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "correspondre à, être conforme à, répondre à"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个结果符合我们的想法。",
+     "pinyin": "Zhège jiéguǒ fúhé wǒmen de xiǎngfǎ.",
+     "fr": "Ce résultat va dans le sens de ce que nous pensions.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0255",
+   "genre": "mot",
+   "hanzi": "付出",
+   "pinyin": "fùchū",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "payer ; consacrer (efforts)",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "payer, débourser ; consacrer, investir des efforts"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "为了这个孩子，她付出了很多。",
+     "pinyin": "Wèile zhège háizi, tā fùchū le hěn duō.",
+     "fr": "Elle a beaucoup donné pour cet enfant.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0256",
+   "genre": "mot",
+   "hanzi": "负担",
+   "pinyin": "fùdān",
+   "categories": [
+    "V",
+    "N"
+   ],
+   "sens": {
+    "glose": "assumer ; charge, fardeau",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "assumer, supporter : frais, travail"
+     },
+     {
+      "categorie": "N",
+      "fr": "charge, fardeau"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "学生的学习负担太重了。",
+     "pinyin": "Xuésheng de xuéxí fùdān tài zhòng le.",
+     "fr": "Les élèves ont trop de travail scolaire.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "附",
+   "genre": "caractere",
+   "hanzi": "附",
+   "pinyin": "fù",
+   "mots": [
+    "L7-1210"
+   ],
+   "sens": {
+    "glose": "joindre, ajouter ; être proche",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "joindre, ajouter ; s'attacher à"
+     },
+     {
+      "categorie": "V",
+      "fr": "être proche de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "信里附了一张照片。",
+     "pinyin": "Xìn li fù le yī zhāng zhàopiàn.",
+     "fr": "Une photo accompagnait la lettre.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0257",
+   "genre": "mot",
+   "hanzi": "附近",
+   "pinyin": "fùjìn",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "alentours, environs ; à côté",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "alentours, environs ; tout près"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "附近有银行吗？",
+     "pinyin": "Fùjìn yǒu yínháng ma?",
+     "fr": "Il y a une banque par ici ?",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0258",
+   "genre": "mot",
+   "hanzi": "复制",
+   "pinyin": "fùzhì",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "copier, reproduire",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "copier, reproduire, dupliquer"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请把这个文件复制一下。",
+     "pinyin": "Qǐng bǎ zhège wénjiàn fùzhì yīxià.",
+     "fr": "Fais une copie de ce fichier, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0259",
+   "genre": "mot",
+   "hanzi": "改善",
+   "pinyin": "gǎishàn",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "améliorer",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "améliorer, rendre meilleur"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这几年我们的生活改善了很多。",
+     "pinyin": "Zhè jǐ nián wǒmen de shēnghuó gǎishàn le hěn duō.",
+     "fr": "Ces dernières années, nous vivons beaucoup mieux.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0260",
+   "genre": "mot",
+   "hanzi": "改正",
+   "pinyin": "gǎizhèng",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "corriger, rectifier",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "corriger, rectifier"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请改正你的错误。",
+     "pinyin": "Qǐng gǎizhèng nǐ de cuòwù.",
+     "fr": "Reprends tes fautes, s'il te plaît.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "盖",
+   "genre": "caractere",
+   "hanzi": "盖",
+   "pinyin": "gài",
+   "mots": [
+    "L4-0261"
+   ],
+   "sens": {
+    "glose": "couvrir ; construire ; couvercle",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "couvrir, recouvrir"
+     },
+     {
+      "categorie": "V",
+      "fr": "construire, bâtir"
+     },
+     {
+      "categorie": "N",
+      "fr": "couvercle"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他们在这里盖了一座新楼。",
+     "pinyin": "Tāmen zài zhèli gài le yī zuò xīn lóu.",
+     "fr": "Ils ont élevé un nouvel immeuble ici.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0262",
+   "genre": "mot",
+   "hanzi": "概括",
+   "pinyin": "gàikuò",
+   "categories": [
+    "V",
+    "Adj"
+   ],
+   "sens": {
+    "glose": "résumer ; succinct",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "résumer, récapituler"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "succinct, général"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "请你概括一下这篇文章。",
+     "pinyin": "Qǐng nǐ gàikuò yīxià zhè piān wénzhāng.",
+     "fr": "Dis en quelques mots ce que raconte ce texte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "趣",
+   "genre": "caractere",
+   "hanzi": "趣",
+   "pinyin": "qù",
+   "sens": {
+    "glose": "intérêt, attrait",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "intérêt, attrait, goût"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": []
+  },
+  {
+   "id": "L4-0263",
+   "genre": "mot",
+   "hanzi": "感兴趣",
+   "pinyin": "gǎn xìngqù",
+   "sens": {
+    "glose": "s'intéresser à",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "s'intéresser à, être intéressé par"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我对中国历史很感兴趣。",
+     "pinyin": "Wǒ duì Zhōngguó lìshǐ hěn gǎn xìngqù.",
+     "fr": "L'histoire de la Chine me passionne.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0264",
+   "genre": "mot",
+   "hanzi": "高潮",
+   "pinyin": "gāocháo",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "point culminant ; marée haute",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "point culminant, apogée"
+     },
+     {
+      "categorie": "N",
+      "fr": "marée haute"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "电影的高潮部分很精彩。",
+     "pinyin": "Diànyǐng de gāocháo bùfen hěn jīngcǎi.",
+     "fr": "Le moment fort du film est formidable.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0265",
+   "genre": "mot",
+   "hanzi": "高价",
+   "pinyin": "gāojià",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "prix élevé",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "prix élevé, prix fort"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他高价买了这张票。",
+     "pinyin": "Tā gāojià mǎi le zhè zhāng piào.",
+     "fr": "Il a payé ce billet très cher.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "尚",
+   "genre": "caractere",
+   "hanzi": "尚",
+   "pinyin": "shàng",
+   "mots": [
+    "L7-3582"
+   ],
+   "sens": {
+    "glose": "encore (écrit)",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "encore, toujours : langue écrite"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这件事尚不清楚。",
+     "pinyin": "Zhè jiàn shì shàng bù qīngchu.",
+     "fr": "Cette affaire n'est pas encore éclaircie.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0266",
+   "genre": "mot",
+   "hanzi": "高尚",
+   "pinyin": "gāoshàng",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "noble, élevé (moralement)",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "noble, élevé moralement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他是一个高尚的人。",
+     "pinyin": "Tā shì yī ge gāoshàng de rén.",
+     "fr": "C'est une belle âme.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0267",
+   "genre": "mot",
+   "hanzi": "高铁",
+   "pinyin": "gāotiě",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "train à grande vitesse",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "train à grande vitesse, TGV"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "坐高铁去上海只要五个小时。",
+     "pinyin": "Zuò gāotiě qù Shànghǎi zhǐ yào wǔ ge xiǎoshí.",
+     "fr": "En train rapide, il ne faut que cinq heures pour aller à Shanghai.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0268",
+   "genre": "mot",
+   "hanzi": "格外",
+   "pinyin": "géwài",
+   "categories": [
+    "Adv"
+   ],
+   "sens": {
+    "glose": "particulièrement, tout spécialement",
+    "acceptions": [
+     {
+      "categorie": "Adv",
+      "fr": "particulièrement, exceptionnellement"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "今天的月亮格外亮。",
+     "pinyin": "Jīntiān de yuèliang géwài liàng.",
+     "fr": "Ce soir, la lune brille plus que d'habitude.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "隔",
+   "genre": "caractere",
+   "hanzi": "隔",
+   "pinyin": "gé",
+   "mots": [
+    "L4-0269"
+   ],
+   "sens": {
+    "glose": "séparer ; à intervalle de",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "séparer, isoler"
+     },
+     {
+      "categorie": "V",
+      "fr": "être à distance de, à intervalle de"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "我家和他家隔着一条河。",
+     "pinyin": "Wǒ jiā hé tā jiā gé zhe yī tiáo hé.",
+     "fr": "Une rivière sépare nos deux maisons.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0270",
+   "genre": "mot",
+   "hanzi": "隔开",
+   "pinyin": "gékāi",
+   "categories": [
+    "V"
+   ],
+   "sens": {
+    "glose": "séparer, isoler",
+    "acceptions": [
+     {
+      "categorie": "V",
+      "fr": "séparer, isoler, cloisonner"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "用一块布把房间隔开。",
+     "pinyin": "Yòng yī kuài bù bǎ fángjiān gékāi.",
+     "fr": "On coupe la pièce en deux avec un tissu.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0271",
+   "genre": "mot",
+   "hanzi": "个别",
+   "pinyin": "gèbié",
+   "categories": [
+    "Adj"
+   ],
+   "sens": {
+    "glose": "individuel ; rare, isolé",
+    "acceptions": [
+     {
+      "categorie": "Adj",
+      "fr": "individuel, particulier"
+     },
+     {
+      "categorie": "Adj",
+      "fr": "rare, isolé, quelques-uns"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "只有个别学生没来。",
+     "pinyin": "Zhǐyǒu gèbié xuésheng méi lái.",
+     "fr": "Il ne manque que deux ou trois élèves.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0272",
+   "genre": "mot",
+   "hanzi": "个体",
+   "pinyin": "gètǐ",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "individu ; indépendant",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "individu"
+     },
+     {
+      "categorie": "N",
+      "fr": "travailleur indépendant, petit commerce"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "他爸爸是个体户。",
+     "pinyin": "Tā bàba shì gètǐhù.",
+     "fr": "Son père est à son compte.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0273",
+   "genre": "mot",
+   "hanzi": "各个",
+   "pinyin": "gègè",
+   "categories": [
+    "Pron",
+    "Adv"
+   ],
+   "sens": {
+    "glose": "chacun, tous les ; un par un",
+    "acceptions": [
+     {
+      "categorie": "Pron",
+      "fr": "chacun des, tous les"
+     },
+     {
+      "categorie": "Adv",
+      "fr": "un par un, séparément"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "各个国家的人都来了。",
+     "pinyin": "Gègè guójiā de rén dōu lái le.",
+     "fr": "Des gens de tous les pays sont venus.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0275",
+   "genre": "mot",
+   "hanzi": "根据",
+   "pinyin": "gēnjù",
+   "categories": [
+    "V",
+    "Prep",
+    "N"
+   ],
+   "sens": {
+    "glose": "selon, d'après ; fondement",
+    "acceptions": [
+     {
+      "categorie": "Prep",
+      "fr": "selon, d'après"
+     },
+     {
+      "categorie": "V",
+      "fr": "se fonder sur"
+     },
+     {
+      "categorie": "N",
+      "fr": "base, fondement, preuve"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "根据天气预报，明天会下雨。",
+     "pinyin": "Gēnjù tiānqì yùbào, míngtiān huì xià yǔ.",
+     "fr": "La météo annonce de la pluie pour demain.",
+     "statut": "a_relire"
+    }
+   ]
+  },
+  {
+   "id": "L4-0276",
+   "genre": "mot",
+   "hanzi": "工程",
+   "pinyin": "gōngchéng",
+   "categories": [
+    "N"
+   ],
+   "sens": {
+    "glose": "travaux, projet ; ingénierie",
+    "acceptions": [
+     {
+      "categorie": "N",
+      "fr": "travaux, chantier, grand projet"
+     },
+     {
+      "categorie": "N",
+      "fr": "ingénierie, génie"
+     }
+    ],
+    "statut": "a_relire"
+   },
+   "exemples": [
+    {
+     "zh": "这个工程明年完成。",
+     "pinyin": "Zhège gōngchéng míngnián wánchéng.",
+     "fr": "Le chantier sera terminé l'an prochain.",
+     "statut": "a_relire"
+    }
+   ]
+  }
+ ]
+}
