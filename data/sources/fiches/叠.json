@@ -23,20 +23,33 @@
   "冖": "forme",
   "且": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "折叠",
+   "pinyin": "zhédié",
+   "fr": "plier",
+   "en": "to fold"
+  },
+  {
+   "hanzi": "重叠",
+   "pinyin": "chóngdié",
+   "fr": "se chevaucher",
+   "en": "to overlap"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她把衣服叠好放进箱子里。",
+  "pinyin": "Tā bǎ yīfu dié hǎo fàng jìn xiāngzi li.",
+  "fr": "Elle plie les vêtements et les range dans la valise.",
+  "en": "She folds the clothes and puts them in the suitcase."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:78bead2183f37a6647922d3c9d167f4e85df6fbf465138bc35a06b04765cfd84",
-  "essais": 1,
+  "empreinte_invite": "sha256:362c128c50054e14be942f5823b94d80eb7d71248bd8f5e2bb9749f047634a60",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

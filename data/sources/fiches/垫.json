@@ -23,20 +23,33 @@
   "丸": "forme",
   "土": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "垫子",
+   "pinyin": "diànzi",
+   "fr": "coussin, tapis",
+   "en": "cushion, mat"
+  },
+  {
+   "hanzi": "床垫",
+   "pinyin": "chuángdiàn",
+   "fr": "matelas",
+   "en": "mattress"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "椅子上有一个软垫子。",
+  "pinyin": "Yǐzi shang yǒu yī gè ruǎn diànzi.",
+  "fr": "Il y a un coussin moelleux sur la chaise.",
+  "en": "There's a soft cushion on the chair."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:68e21e2306b1d34bdb61ad1d65abe1ee9d344764f16a2997663ba84a349dc6ab",
-  "essais": 1,
+  "empreinte_invite": "sha256:bad9ac32f0189419d0dcb84889e4d45888f3b8ae6a1d974beabfbe75d6946209",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -21,20 +21,33 @@
   "火": "sens",
   "屯": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "炖肉",
+   "pinyin": "dùnròu",
+   "fr": "viande mijotée",
+   "en": "stewed meat"
+  },
+  {
+   "hanzi": "清炖",
+   "pinyin": "qīngdùn",
+   "fr": "mijoté au bouillon clair",
+   "en": "stewed in clear broth"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "妈妈在厨房里炖鸡汤。",
+  "pinyin": "Māma zài chúfáng li dùn jītāng.",
+  "fr": "Maman fait mijoter un bouillon de poule dans la cuisine.",
+  "en": "Mum is simmering chicken soup in the kitchen."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:222f1d69390d7fde6f918c57a803981b153b489fcdb289c828065ec516a83d5c",
-  "essais": 1,
+  "empreinte_invite": "sha256:4801397a3b978b667eb98d95061e3e71523791f26fb4a05651544e5f8736646c",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

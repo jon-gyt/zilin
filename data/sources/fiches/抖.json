@@ -21,20 +21,33 @@
   "扌": "sens",
   "斗": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "发抖",
+   "pinyin": "fādǒu",
+   "fr": "trembler",
+   "en": "to tremble, to shiver"
+  },
+  {
+   "hanzi": "颤抖",
+   "pinyin": "chàndǒu",
+   "fr": "trembler, frissonner",
+   "en": "to shake, to quiver"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "他冷得直发抖。",
+  "pinyin": "Tā lěng de zhí fādǒu.",
+  "fr": "Il a si froid qu'il tremble de tout son corps.",
+  "en": "He's shivering with cold."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:14556177535af8d97c8fa09f1ace3d24c5e39922679b9f3131234a2cd0ddf105",
-  "essais": 1,
+  "empreinte_invite": "sha256:04f04d22cd4d6b2b4c563901cc5d097cd58b75ce541827619287c2e88d2bd2b0",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

@@ -23,20 +23,33 @@
   "丰": "forme",
   "寸": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "祷告",
+   "pinyin": "dǎogào",
+   "fr": "prier",
+   "en": "to pray"
+  },
+  {
+   "hanzi": "默祷",
+   "pinyin": "mòdǎo",
+   "fr": "prier en silence",
+   "en": "to pray silently"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "她每天晚上睡觉前都要祷告。",
+  "pinyin": "Tā měitiān wǎnshang shuìjiào qián dōu yào dǎogào.",
+  "fr": "Chaque soir, elle prie avant de dormir.",
+  "en": "Every night she prays before going to sleep."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:640226ab7b065619ae73638decb10ff525d02677859c31f49e64c5837aac6f5b",
-  "essais": 1,
+  "empreinte_invite": "sha256:3ae80990a962dda0b264d43b0c7083bd3ffd928fdd22e062e7c118829e2e9b26",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
