@@ -19,20 +19,33 @@
  "roles": {
   "豆": "forme"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "土豆",
+   "pinyin": "tǔdòu",
+   "fr": "pomme de terre",
+   "en": "potato"
+  },
+  {
+   "hanzi": "豆子",
+   "pinyin": "dòuzi",
+   "fr": "haricot, graine de légumineuse",
+   "en": "bean"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "我喜欢吃土豆。",
+  "pinyin": "Wǒ xǐhuan chī tǔdòu.",
+  "fr": "J'aime les pommes de terre.",
+  "en": "I like potatoes."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5509a128ab60fffec3b8cf77eea0cf1ae511d349001a6c26b906cab5a7d5538d",
-  "essais": 1,
+  "empreinte_invite": "sha256:d54af4658d8a5c75972bf91e84410e18f6a148affd550a121772aacdc60910b4",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

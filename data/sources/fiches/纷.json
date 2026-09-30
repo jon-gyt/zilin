@@ -23,20 +23,33 @@
   "八": "son",
   "刀": "son"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "纷纷",
+   "pinyin": "fēnfēn",
+   "fr": "l'un après l'autre, en foule",
+   "en": "one after another"
+  },
+  {
+   "hanzi": "纷乱",
+   "pinyin": "fēnluàn",
+   "fr": "confus, en désordre",
+   "en": "chaotic, confused"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "学生们纷纷回家了。",
+  "pinyin": "Xuéshengmen fēnfēn huí jiā le.",
+  "fr": "Les élèves sont rentrés chez eux les uns après les autres.",
+  "en": "The students went home one after another."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:973cd549581d0187b72f5c451344c714a38ef936e5353e1eddb55a0eb95c189c",
-  "essais": 1,
+  "empreinte_invite": "sha256:7d8097ed0c212dba4b17c6f5baf2bae218f807d7aaa8d92e9c161611cd09de07",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }

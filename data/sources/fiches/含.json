@@ -21,20 +21,33 @@
   "今": "forme",
   "口": "sens"
  },
- "mots": [],
+ "mots": [
+  {
+   "hanzi": "包含",
+   "pinyin": "bāohán",
+   "fr": "contenir, inclure",
+   "en": "to contain, to include"
+  },
+  {
+   "hanzi": "含有",
+   "pinyin": "hányǒu",
+   "fr": "contenir, renfermer",
+   "en": "to contain"
+  }
+ ],
  "phrase": {
-  "zh": "",
-  "pinyin": "",
-  "fr": "",
-  "en": ""
+  "zh": "这种水果含有很多糖。",
+  "pinyin": "Zhè zhǒng shuǐguǒ hányǒu hěn duō táng.",
+  "fr": "Ce fruit contient beaucoup de sucre.",
+  "en": "This fruit contains a lot of sugar."
  },
  "generation": {
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7d062e3762f6f27ca13c6b326f22588ab03c83beb86a587664a2f7f615fa8289",
-  "essais": 1,
+  "empreinte_invite": "sha256:1fb19829736bf69dd0e9110be6fa9eb099b83bfde819e2f1abfbae3b519634d4",
+  "essais": 2,
   "refus": []
  },
- "statut": "relu"
+ "statut": "a_relire"
 }
