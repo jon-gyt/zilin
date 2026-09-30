@@ -49,10 +49,11 @@
   import type { Choix } from './lib/utiliser';
   import {
     briquesAcquises,
-    contenu,
+    indexOnce,
     leconsPosees,
     nomParcours,
     reglerApercu,
+    reglerChemin,
     toutesLesFamilles,
     type Index,
     type Noeud
@@ -245,6 +246,15 @@
   const ligneExamenClore = $derived.by(() => {
     const e = examenAAnnoncer(p, ctxExamens);
     return e === null ? '' : ligneDeClore(examensDonnees, e);
+  });
+
+  /*
+   * Le chemin ouvert (`content.reglerChemin`, brief §10) : sans Wenlu complet, le chemin
+   * gratuit (le seuil 255 ou le HSK 1) et ce qui est déjà appris ; avec, la suite jusqu'au
+   * HSK 7-9. Il suit les droits du jour et la dernière leçon apprise.
+   */
+  $effect(() => {
+    reglerChemin(wenluComplet(p.droits, acces, p.day), jourDuChemin(p));
   });
 
   /** Prépare la journée de la session, une fois : sans l'index, elle attend. */
@@ -493,6 +503,7 @@
   function remplacer(nouvelle: Progress): void {
     /* Le mode relecture règle l'aperçu avant que le menu ne relise le contenu. */
     reglerApercu(nouvelle.relecture);
+    reglerChemin(wenluComplet(nouvelle.droits, acces, nouvelle.day), jourDuChemin(nouvelle));
     reglerHaptique(nouvelle.haptique);
     reglerVoix(nouvelle.voixReference);
     p = nouvelle;
@@ -521,7 +532,8 @@
    */
   void Promise.all([
     loadProgress(),
-    contenu().catch(() => null),
+    /* L'index entier : la journée se prépare sur les leçons déjà posées, toutes ouvertes. */
+    indexOnce().catch(() => null),
     rythmeOnce().catch(() => SANS_RYTHME),
     examensOnce().catch(() => SANS_EXAMENS),
     toutesLesFamilles().catch(() => null),
@@ -538,6 +550,7 @@
     /* La pile due est recomptée sur les cartes : c'est elle qui ouvre et ferme le rattrapage. */
     const ouvert = setDue(openDay(stored, jour), nombreDues(stored, new Date()), jour);
     reglerApercu(ouvert.relecture);
+    reglerChemin(wenluComplet(ouvert.droits, acces, ouvert.day), jourDuChemin(ouvert));
     reglerHaptique(ouvert.haptique);
     reglerVoix(ouvert.voixReference);
     p = ouvert;

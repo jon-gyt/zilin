@@ -480,8 +480,22 @@ export type IndexJour = {
   non_reconcilie: boolean;
 };
 
-/** Un parcours : sa liste cible et ses jours, dans l'ordre. */
-export type IndexParcours = { liste: string; regle: string; jours: IndexJour[] };
+/** Une étape d'un parcours : sa liste (`seuil-255`, `hsk-2`…) et le dernier jour qui en pose un caractère. */
+export type EtapeChemin = { liste: string; fin: number };
+
+/**
+ * Un parcours : sa liste du chemin gratuit et ses jours, dans l'ordre. `gratuit` : le dernier
+ * jour du chemin gratuit (brief §10) ; au-delà, les leçons sont de Wenlu complet. Absent (un
+ * export d'avant la suite du chemin), tout le parcours est le chemin gratuit. `etapes` : les
+ * listes du parcours, le seuil 255 ou le HSK 1, puis le HSK 2 à 7-9.
+ */
+export type IndexParcours = {
+  liste: string;
+  regle: string;
+  gratuit?: number;
+  etapes?: EtapeChemin[];
+  jours: IndexJour[];
+};
 
 /**
  * `index.json` : la porte d'entrée de l'export versionné (`data/schema.md`).
@@ -627,12 +641,85 @@ export function fichierTraits(i: Index, racine: string): string | null {
 
 /* ---------- la couche d'accès : l'export d'abord, la démonstration en surcouche ---------- */
 
+/* ---------- le chemin ouvert : gratuit ou Wenlu complet ---------- */
+
+/**
+ * Le chemin que l'apprenant parcourt (brief §10, décision du propriétaire du 30 septembre
+ * 2026) : l'export porte les deux chemins jusqu'au bout du HSK 7-9, mais sans Wenlu complet
+ * seul le chemin gratuit s'ouvre, le seuil 255 ou le HSK 1, jusqu'à son jour `gratuit`.
+ * Rien d'acquis ne se ferme : une leçon déjà apprise au-delà (une semaine offerte par un
+ * palier) reste sur le chemin, jusqu'au jour `atteint`, la dernière leçon apprise ; la
+ * suivante attend Wenlu complet. Au bout, le chemin s'arrête comme au bout de l'export :
+ * « fin du chemin gratuit » (`route.boutDuChemin`). Module pur : ni horloge ni stockage.
+ */
+export function cheminOuvert(p: IndexParcours, complet: boolean, atteint: number): IndexParcours {
+  const gratuit = p.gratuit ?? 0;
+  if (complet || gratuit <= 0) return p;
+  const bout = Math.max(gratuit, Math.floor(atteint));
+  if (!p.jours.some((j) => j.jour > bout)) return p;
+  return { ...p, jours: p.jours.filter((j) => j.jour <= bout) };
+}
+
+/** L'index tel que l'apprenant le parcourt : chaque parcours réduit à son chemin ouvert. */
+export function indexOuvert(i: Index, complet: boolean, atteint: number): Index {
+  const parcours: Record<string, IndexParcours> = {};
+  let change = false;
+  for (const [nom, p] of Object.entries(i.parcours)) {
+    parcours[nom] = cheminOuvert(p, complet, atteint);
+    change ||= parcours[nom] !== p;
+  }
+  return change ? { ...i, parcours } : i;
+}
+
+/**
+ * Le dernier jour du chemin gratuit du parcours `nom`, `null` quand l'export ne le dit pas :
+ * tout son chemin est alors gratuit.
+ */
+export function finGratuite(i: Index, nom: string): number | null {
+  const g = i.parcours[nom]?.gratuit ?? 0;
+  return g > 0 ? g : null;
+}
+
+/** Wenlu complet, et la dernière leçon apprise : ce qui ouvre le chemin (`reglerChemin`). */
+let cheminComplet = false;
+let cheminAtteint = 0;
+
+/**
+ * Règle le chemin ouvert : `complet`, Wenlu complet ce jour-là (`droits.wenluComplet`) ;
+ * `atteint`, la dernière leçon apprise (`session.jourDuChemin`). L'app l'appelle à
+ * l'ouverture, puis quand l'un change, comme `reglerApercu`.
+ */
+export function reglerChemin(complet: boolean, atteint: number): void {
+  cheminComplet = complet;
+  cheminAtteint = Math.max(0, Math.floor(atteint));
+}
+
+/** La clé du chemin ouvert : les leçons lues en cache la portent. */
+function cleChemin(): string {
+  return cheminComplet ? 'complet' : `gratuit-${cheminAtteint}`;
+}
+
+const vues = new WeakMap<Index, Map<string, Index>>();
+
 /**
  * L'index de la version courante, chargé une seule fois pour toute la durée de vie de
- * l'app. C'est la porte d'entrée : tout le reste passe par lui.
+ * l'app. C'est la porte d'entrée : tout le reste passe par lui. Ses parcours sont ceux du
+ * chemin ouvert (`indexOuvert`) : sans Wenlu complet, le chemin gratuit, et ce qui est acquis.
  */
-export function contenu(version = VERSION_DONNEES): Promise<Index> {
-  return indexOnce(version);
+export async function contenu(version = VERSION_DONNEES): Promise<Index> {
+  const i = await indexOnce(version);
+  const cle = cleChemin();
+  let parCle = vues.get(i);
+  if (!parCle) {
+    parCle = new Map();
+    vues.set(i, parCle);
+  }
+  let vue = parCle.get(cle);
+  if (!vue) {
+    vue = indexOuvert(i, cheminComplet, cheminAtteint);
+    parCle.set(cle, vue);
+  }
+  return vue;
 }
 
 /** Une famille de l'export, à la demande : une requête par fichier, puis le cache. */
@@ -1798,7 +1885,7 @@ export function lecon(
   version = VERSION_DONNEES
 ): Promise<Lecon> {
   /* L'aperçu entre dans la clé : l'allumer ou l'éteindre relit la leçon. */
-  const cle = `${version}/${choisi ?? ''}/${jour}/${apercuAllume ? 'apercu' : ''}`;
+  const cle = `${version}/${choisi ?? ''}/${jour}/${apercuAllume ? 'apercu' : ''}/${cleChemin()}`;
   let p = lecons.get(cle);
   if (!p) {
     p = (async () => {

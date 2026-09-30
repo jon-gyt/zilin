@@ -286,6 +286,29 @@ def ecarts_perimetre(texte: Texte, parcours: Mapping[str, object]) -> list[str]:
     return ecarts
 
 
+def lectures_admises(ingest: Path | None = None) -> dict[str, tuple[str, ...]] | None:
+    """Les lectures qu'un texte peut donner à un caractère : celles de `cuisine.lectures`
+    (Make Me a Hanzi, `kMandarin`, surcharges) et celles des dictionnaires d'Unihan
+    (`kTGHZ2013`, `kXHC1983`), qui disent toutes celles d'un polyphone : 便宜 pián yi,
+    音乐 yīn yuè. `None` sans `wenlu ingest`.
+    """
+    from .cuisine import lectures as de_la_cuisine
+    from .paths import INGEST
+
+    table = de_la_cuisine(ingest)
+    if table is None:
+        return None
+    chemin = (ingest or INGEST) / "unihan.json"
+    if not chemin.exists():
+        return table
+    etendue = {c: set(v) for c, v in table.items()}
+    for e in json.loads(chemin.read_text(encoding="utf-8"))["caracteres"]:
+        dico = [str(x) for x in e.get("lectures_dico") or ()]
+        if dico:
+            etendue.setdefault(str(e["c"]), set()).update(dico)
+    return {c: tuple(sorted(v)) for c, v in etendue.items()}
+
+
 def ecarts_pinyin(texte: Texte, lectures: Mapping[str, Sequence[str]] | None = None) -> list[str]:
     """Une syllabe par sinogramme, tons du dictionnaire sans sandhi, chacune une lecture."""
     from .pinyin import aligner
@@ -425,7 +448,7 @@ def controles(
 ) -> list[Controle]:
     """Contrôles des trois lignes, pour `wenlu check`. Bloquants, sauf la relecture et la suite."""
     from . import export as export_mod
-    from .cuisine import lectures as charger_lectures
+    charger_lectures = lectures_admises
 
     build = build or BUILD
 
@@ -546,9 +569,246 @@ def controles(
     ]
 
 
+# --------------------------------------------------------------------------- brouillons
+
+#: Les brouillons, un fichier par parcours et par jour : `<parcours>/<jour>.json`. Plusieurs
+#: rédacteurs écrivent en parallèle sans toucher au même fichier ; `importer` les verse dans
+#: `<parcours>.json` et le glossaire, un seul à la fois.
+BROUILLONS = DATA / "sources" / "trois-lignes-brouillons"
+CHAMPS_BROUILLON = ("parcours", "jour", "lignes", "glose", "glossaire")
+
+
+def chemin_brouillon(parcours: str, jour: int, dossier: Path | None = None) -> Path:
+    """`data/sources/trois-lignes-brouillons/<parcours>/<jour>.json`, le jour sur quatre chiffres."""
+    return (dossier or BROUILLONS) / parcours / f"{jour:04d}.json"
+
+
+@dataclass(frozen=True)
+class Brouillon:
+    """Un texte à verser : ses trois lignes, sa glose propre, et ce qu'il ajoute au glossaire."""
+
+    texte: Texte
+    glossaire: Mapping[str, Glose]
+
+
+def lire_brouillon(chemin: Path) -> Brouillon:
+    """Un brouillon, `{parcours, jour, lignes, glose?, glossaire?}` ; refuse ce qui ne se lit pas.
+
+    `glose` : les entrées propres au texte (une autre lecture d'un polyphone, un mot du texte
+    seul), qui passent devant le glossaire. `glossaire` : les entrées nouvelles que le texte
+    apporte au glossaire partagé (un caractère nouveau du jour, un mot qu'il forme).
+    """
+    try:
+        brut = json.loads(chemin.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as erreur:
+        raise TextesInvalides(f"{chemin.name} : JSON illisible, {erreur}") from erreur
+    if not isinstance(brut, dict):
+        raise TextesInvalides(f"{chemin.name} : attendu un objet")
+    inconnues = [k for k in brut if k not in CHAMPS_BROUILLON]
+    if inconnues:
+        raise TextesInvalides(f"{chemin.name} : clé inconnue {', '.join(inconnues)}")
+    parcours = str(brut.get("parcours", ""))
+    if parcours not in PARCOURS:
+        raise TextesInvalides(f"{chemin.name} : parcours {parcours!r}")
+    document = {
+        "parcours": parcours,
+        "generation": {},
+        "relecture": {},
+        "textes": [
+            {
+                "jour": brut.get("jour"),
+                "statut": A_RELIRE,
+                "lignes": brut.get("lignes") or [],
+                "glose": brut.get("glose") or [],
+            }
+        ],
+    }
+    texte = fichier_depuis_json(document, parcours).textes[0]
+    fautes: list[str] = []
+    ajouts: dict[str, Glose] = {}
+    for k, g in enumerate(brut.get("glossaire") or [], start=1):
+        lu = _objet(g, CHAMPS_LIGNE, f"{chemin.name} glossaire {k}", fautes)
+        if lu is None:
+            continue
+        if not all(est_sinogramme(c) for c in lu["zh"]):
+            fautes.append(f"{chemin.name} glossaire {k} : {lu['zh']} n'est pas fait de sinogrammes")
+            continue
+        ajouts[lu["zh"]] = Glose(fr=lu["fr"], pinyin=lu["pinyin"], en=lu["en"])
+    if fautes:
+        raise TextesInvalides(" ; ".join(fautes))
+    return Brouillon(texte=texte, glossaire=ajouts)
+
+
+@dataclass
+class Import:
+    """Ce qu'un import a versé : les jours importés, les refus et leurs raisons, le glossaire ajouté."""
+
+    importes: list[int] = field(default_factory=list)
+    refuses: dict[int, list[str]] = field(default_factory=dict)
+    glossaire: list[str] = field(default_factory=list)
+
+
+def texte_en_json(t: Texte) -> dict[str, object]:
+    """Un texte tel que `<parcours>.json` le garde."""
+    out: dict[str, object] = {
+        "jour": t.jour,
+        "statut": t.statut,
+        "lignes": [{"zh": l.zh, "pinyin": l.pinyin, "fr": l.fr, "en": l.en} for l in t.lignes],
+    }
+    if t.glose:
+        out["glose"] = [{"zh": zh, **g.en_json()} for zh, g in t.glose.items()]
+    return out
+
+
+def importer(
+    parcours: str,
+    *,
+    dossier: Path | None = None,
+    brouillons: Path | None = None,
+    glossaire: Path | None = None,
+    build: Path | None = None,
+    ingest: Path | None = None,
+    jours: Sequence[int] = (),
+    essai: bool = False,
+) -> Import:
+    """Verse les brouillons d'un parcours dans `<parcours>.json`, au statut `a_relire`.
+
+    Chaque brouillon passe les contrôles de `wenlu check` (périmètre, pinyin, glose, forme)
+    avec le glossaire, ses propres ajouts compris ; un refus nomme ses écarts et ne verse
+    rien. Une entrée que le brouillon ajoute au glossaire et que le glossaire porte déjà,
+    à l'identique, est simplement retrouvée ; autrement, c'est un conflit : l'entrée passe
+    dans la `glose` propre du texte, à la main. Un texte relu n'est jamais remplacé ; un texte
+    à relire l'est par un brouillon du même jour. Les statuts restent ceux du fichier : la
+    relecture est une décision à part. `essai` contrôle sans rien écrire : un rédacteur
+    vérifie ses brouillons avant de les rendre.
+    """
+    charger_lectures = lectures_admises
+
+    doc = charger_parcours(parcours, build)
+    chemin_glossaire = glossaire or GLOSSAIRE
+    lexique = charger_glossaire(chemin_glossaire)
+    lectures = charger_lectures(ingest)
+    fichier = charger_textes(parcours, dossier)
+    textes = {t.jour: t for t in fichier.textes}
+    resultat = Import()
+    ajoutes: dict[str, Glose] = {}
+    for chemin in sorted(((brouillons or BROUILLONS) / parcours).glob("*.json")):
+        try:
+            b = lire_brouillon(chemin)
+        except TextesInvalides as erreur:
+            resultat.refuses[int(chemin.stem) if chemin.stem.isdigit() else 0] = [str(erreur)]
+            continue
+        t = b.texte
+        if jours and t.jour not in jours:
+            continue
+        if t.parcours != parcours or chemin.stem != f"{t.jour:04d}":
+            resultat.refuses[t.jour] = [f"{chemin.name} : le fichier doit s'appeler {t.jour:04d}.json dans {parcours}/"]
+            continue
+        deja = textes.get(t.jour)
+        if deja is not None and deja.statut == RELU:
+            resultat.refuses[t.jour] = [f"jour {t.jour} : un texte relu ne se remplace pas"]
+            continue
+        connu = {**lexique, **ajoutes}
+        conflits = [zh for zh, g in b.glossaire.items() if zh in connu and connu[zh] != g]
+        if conflits:
+            resultat.refuses[t.jour] = [
+                f"glossaire : {' '.join(conflits)} déjà glosé autrement, à mettre dans la glose propre du texte"
+            ]
+            continue
+        nouveaux = {zh: g for zh, g in b.glossaire.items() if zh not in connu}
+        fautes = ecarts(t, doc, {**connu, **nouveaux}, lectures) + ecarts_glossaire(nouveaux, lectures)
+        if fautes:
+            resultat.refuses[t.jour] = fautes
+            continue
+        ajoutes.update(nouveaux)
+        textes[t.jour] = t
+        resultat.importes.append(t.jour)
+    if resultat.importes and not essai:
+        generation = dict(fichier.generation) or {"modele": MODELE_MANUEL, "api": API_SESSION}
+        generation.setdefault("modele", MODELE_MANUEL)
+        generation.setdefault("api", API_SESSION)
+        document = {
+            "parcours": parcours,
+            "generation": generation,
+            "relecture": dict(fichier.relecture),
+            "textes": [texte_en_json(textes[j]) for j in sorted(textes)],
+        }
+        chemin_textes(parcours, dossier).write_text(
+            json.dumps(document, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
+        )
+    if ajoutes and not essai:
+        lignes = "".join(f"{zh}\t{g.pinyin}\t{g.fr}\t{g.en}\n" for zh, g in ajoutes.items())
+        texte_glossaire = chemin_glossaire.read_text(encoding="utf-8")
+        if not texte_glossaire.endswith("\n"):
+            texte_glossaire += "\n"
+        chemin_glossaire.write_text(texte_glossaire + lignes, encoding="utf-8")
+    resultat.glossaire = list(ajoutes)
+    return resultat
+
+
+def a_rediger(
+    parcours: str,
+    *,
+    de: int,
+    a: int,
+    lot: int = 1,
+    sur: int = 1,
+    dossier: Path | None = None,
+    brouillons: Path | None = None,
+    build: Path | None = None,
+) -> list[int]:
+    """Les jours du lot `lot` sur `sur`, de `de` à `a`, qui n'ont ni texte ni brouillon.
+
+    Les jours sans texte à écrire (première session, fermeture, rien de posé) n'en sont pas.
+    Les lots sont des tranches contiguës et stables : `sur` rédacteurs se partagent la plage
+    sans jamais écrire le même jour, et leurs brouillons ne se touchent pas.
+    """
+    doc = charger_parcours(parcours, build)
+    ecrits = {t.jour for t in charger_textes(parcours, dossier).textes}
+    ecrits |= {
+        int(p.stem) for p in ((brouillons or BROUILLONS) / parcours).glob("*.json") if p.stem.isdigit()
+    }
+    avec = {j for j, _ in poses_par_jour(doc)}
+    plage = [j for j in range(max(de, PREMIER_JOUR), a + 1) if j in avec]
+    taille = -(-len(plage) // max(1, sur))
+    tranche = plage[(lot - 1) * taille : lot * taille]
+    return [j for j in tranche if j not in ecrits]
+
+
 # --------------------------------------------------------------------------- cli
 
-app = typer.Typer(help="Les trois lignes du pas Utiliser : contexte de rédaction, aperçu.")
+app = typer.Typer(help="Les trois lignes du pas Utiliser : contexte de rédaction, brouillons, aperçu.")
+
+
+@app.command("a-rediger")
+def commande_a_rediger(
+    parcours: str = typer.Argument(..., help="lire ou hsk"),
+    de: int = typer.Option(..., help="Premier jour du chemin de la plage."),
+    a: int = typer.Option(..., help="Dernier jour du chemin de la plage."),
+    lot: int = typer.Option(1, help="Numéro du lot, de 1 à --sur."),
+    sur: int = typer.Option(1, help="Nombre de rédacteurs qui se partagent la plage."),
+) -> None:
+    """Les jours d'un lot qui n'ont ni texte ni brouillon : un rédacteur par lot, sans conflit."""
+    jours = a_rediger(parcours, de=de, a=a, lot=lot, sur=sur)
+    typer.echo(" ".join(str(j) for j in jours) or "aucun")
+
+
+@app.command("importer")
+def commande_importer(
+    parcours: str = typer.Argument(..., help="lire ou hsk"),
+    jour: list[int] = typer.Option([], help="Jours à verser ; tous les brouillons par défaut."),
+    essai: bool = typer.Option(False, help="Contrôler les brouillons sans rien écrire."),
+) -> None:
+    """Verse les brouillons (`trois-lignes-brouillons/<parcours>/<jour>.json`), au statut à relire."""
+    resultat = importer(parcours, jours=jour, essai=essai)
+    verbe = "prêts" if essai else "importés"
+    typer.echo(f"{verbe} : {len(resultat.importes)} ({' '.join(map(str, resultat.importes)) or '—'})")
+    if resultat.glossaire:
+        typer.echo(f"glossaire : {len(resultat.glossaire)} entrées ajoutées ({' '.join(resultat.glossaire)})")
+    for j, fautes in sorted(resultat.refuses.items()):
+        typer.echo(f"refusé, jour {j} : {' ; '.join(fautes)}")
+    if resultat.refuses:
+        raise typer.Exit(code=1)
 
 
 @app.command("contexte")
@@ -563,10 +823,23 @@ def commande_contexte(
         typer.echo(f"{erreur} — lancer `wenlu build` d'abord.", err=True)
         raise typer.Exit(code=1) from erreur
     ecrits = {t.jour: t for t in charger_textes(parcours).textes}
+    lexique = charger_glossaire()
+    from .paths import INGEST
+
+    fichier_listes = INGEST / "listes.json"
+    des_listes = (
+        {c for cs in json.loads(fichier_listes.read_text(encoding="utf-8")).values() for c in cs}
+        if fichier_listes.exists()
+        else None
+    )
     for jour in jours:
         typer.echo(f"== {parcours}, jour {jour} ==")
         typer.echo(f"Nouveaux : {''.join(nouveaux_du_jour(jour, doc)) or '—'}")
-        typer.echo(f"Acquis : {''.join(acquis_au_jour(jour, doc))}")
+        acquis = acquis_au_jour(jour, doc)
+        typer.echo(f"Acquis : {''.join(acquis)}")
+        # Les caractères des listes, pas les composants (氵, 讠), qu'aucun texte n'écrit seuls.
+        sans = [c for c in acquis if c not in lexique and (des_listes is None or c in des_listes)]
+        typer.echo(f"Caractères sans glose au glossaire : {''.join(sans) or '—'}")
         if jour in ecrits:
             for l in ecrits[jour].lignes:
                 typer.echo(f"  {l.zh}\t{l.pinyin}\t{l.fr}")

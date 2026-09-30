@@ -39,7 +39,9 @@
    "memo_en": null,
    "mots": [],
    "phrase": null,
-   "niveaux": {},
+   "niveaux": {
+    "hsk": 7
+   },
    "traits": [],
    "medianes": [],
    "audio": null,
@@ -90,7 +92,8 @@
     "audio": null
    },
    "niveaux": {
-    "seuil": 255
+    "seuil": 255,
+    "hsk": 3
    },
    "traits": [],
    "medianes": [],
@@ -109,13 +112,11 @@
     "父",
     "卩"
    ],
-   "nouveau": [
-    0
-   ],
+   "nouveau": [],
    "sources": [
     "surcharge"
    ],
-   "role": "sens",
+   "role": null,
    "roles": {
     "卩": "forme",
     "父": "sens"
@@ -215,6 +216,40 @@
    "medianes": [],
    "audio": null,
    "statut": "relu"
+  },
+  {
+   "c": "爹",
+   "pinyin": "diē",
+   "lectures": [
+    "diē"
+   ],
+   "fr": "",
+   "en": "",
+   "parts": [
+    "父",
+    "夕",
+    "夕"
+   ],
+   "nouveau": [],
+   "sources": [
+    "cjk-decomp"
+   ],
+   "role": null,
+   "roles": {},
+   "origine_fr": "",
+   "origine_en": "",
+   "etiquette": null,
+   "memo_fr": null,
+   "memo_en": null,
+   "mots": [],
+   "phrase": null,
+   "niveaux": {
+    "hsk": 7
+   },
+   "traits": [],
+   "medianes": [],
+   "audio": null,
+   "statut": "sans_fiche"
   }
  ]
 }

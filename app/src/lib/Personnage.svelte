@@ -24,7 +24,7 @@
   import Tao from './Tao.svelte';
   import { contenu, nomParcours, toutesLesFamilles, type Famille } from './content';
   import { ecransOnce, remplir, SANS_ECRANS, type TextesPersonnage, type TextesRoute } from './ecrans';
-  import { examenOuvert, examensOnce, SANS_EXAMENS, type ExamensDonnees } from './examens';
+  import { cheminDesExamens, examenOuvert, examensOnce, examensPassables, SANS_EXAMENS, type ExamensDonnees } from './examens';
   import { caracteresLus } from './foret';
   import {
     ARTS,
@@ -130,7 +130,7 @@
   /** Sous « Reste le 院试 » : « examen ouvert », ou « dans N j » en jours du chemin. */
   const quandReste = $derived.by(() => {
     if (av.reste.attend !== 'examen' || examenReste === null) return '';
-    const ouvert = examenOuvert(examens.examens, p.examens, lusCompte)?.id === examenReste.id;
+    const ouvert = examenOuvert(examensPassables(examens, cheminDesExamens(p.parcours)), p.examens, lusCompte)?.id === examenReste.id;
     const position = positionDuJour(p);
     const q = quandExamen(
       etapes,

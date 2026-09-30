@@ -11,7 +11,12 @@
  * - ensuite, le rythme gratuit : deux briques par semaine, du lundi au dimanche, trois jours
  *   au moins entre deux. Une brique qu'on n'a pas prise ne s'accumule pas ;
  * - la révision de tout l'acquis reste toujours ouverte, et rien d'acquis ne se perd : ce
- *   module ne ferme rien, il ne dit que quand une brique nouvelle peut entrer.
+ *   module ne ferme rien, il ne dit que quand une brique nouvelle peut entrer ;
+ * - le chemin gratuit est le seuil 255 (chemin Lire) ou le HSK 1 (chemin HSK) ; sa suite,
+ *   jusqu'au HSK 7-9 (décision du 30 septembre 2026), est de Wenlu complet. L'export dit le
+ *   bout du chemin gratuit (`gratuit` de chaque parcours) ; `wenluComplet` décide, et l'app le
+ *   passe à `content.reglerChemin`, qui n'ouvre la suite qu'avec lui (`content.cheminOuvert`).
+ *   Une leçon déjà apprise au-delà, pendant une semaine offerte, reste sur le chemin.
  *
  * Module pur : aucune fonction ne lit l'horloge. La journée (AAAA-MM-JJ) et le jour du
  * chemin (le `jour` de la leçon que la session posera, `session.jourParcours`) sont

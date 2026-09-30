@@ -778,9 +778,9 @@ révision de tout l'acquis reste toujours ouverte ; rien d'acquis ne se perd.
 - **Reste de 7.3** : tout, écran par écran, avec `droits.wenluComplet` : les contes au-delà
   des fables du chemin et des trois du seuil 255 ; les lettres de Que à partir de la
   cinquième ; le message WeChat dans Jouer (le pas Utiliser est fait) ; les devinettes
-  au-delà d'une par jour ; les sept plats de plus ; les formes anciennes ; le chemin
-  au-delà du seuil 255 et du HSK 1 (pas encore exporté) ; iCloud. Une ligne et un lien vers
-  Réglages, sans fenêtre modale.
+  au-delà d'une par jour ; les sept plats de plus ; les formes anciennes ; iCloud. Une ligne
+  et un lien vers Réglages, sans fenêtre modale. Le chemin au-delà du seuil 255 et du HSK 1
+  est fait le 30 septembre (« La suite des chemins », ci-dessous).
 - **Reste de 7.4** : Que remet les cadeaux (`droits.recevoirCadeau` les range : un jour à
   7 jours, la journée suivante ; une semaine à 30 jours, `debut` nul quand elle attend le
   premier jour du rythme gratuit, que `gratuitDepuis` fixe ; une deuxième à 100 jours ;
@@ -945,6 +945,70 @@ Les stories sans relecture humaine, 10.1 à 10.5, d'après l'étude des sources 
   2025 (考试大纲, brief §2) n'est pas étiqueté : les niveaux affichés sont ceux de GF 0025-2021 ;
   le PDF officiel reste à relever depuis le workflow `donnees` (ordre des tables, caractères à
   écrire).
+
+### La suite des chemins, jusqu'au HSK 7-9 (30 septembre)
+
+Décision du propriétaire du 30 septembre 2026 : les deux chemins suivent le HSK 3.0 après
+le seuil 255 ou le HSK 1, jusqu'au bout du HSK 7-9 (brief §7 et §10) ; pas de relecture
+humaine, le coordinateur approuve les textes.
+
+- **Les ordres** : `ordre-lire.tsv` et `ordre-hsk.tsv` prolongés par `wenlu parcours
+  prolonger`, jours figés intacts, fermeture comprise ; une étape par liste
+  (`graphe.ETAPES`), fermée par ses non réconciliés avant la suivante ; `wenlu build` le
+  vérifie (l'étape d'un jour ne redescend jamais). `parcours-<nom>.json` dit `etapes` et
+  `gratuit`, l'index aussi.
+
+  | Étape | Lire : jours | caractères (briques) | HSK : jours | caractères (briques) |
+  |---|---|---|---|---|
+  | seuil 255 / HSK 1 (gratuit) | 1–189 | 355 (188) | 1–219 | 427 (216) |
+  | fin du HSK 1 | 190–230 | 115 (36) | — | — |
+  | HSK 2 | 231–340 | 294 (75) | 220–343 | 327 (81) |
+  | HSK 3 | 341–468 | 286 (35) | 344–475 | 296 (37) |
+  | HSK 4 | 469–606 | 301 (30) | 476–613 | 301 (30) |
+  | HSK 5 | 607–746 | 300 (20) | 614–753 | 300 (20) |
+  | HSK 6 | 747–890 | 293 (7) | 754–897 | 293 (7) |
+  | HSK 7-9 | 891–1 462 | 1 172 (33) | 898–1 469 | 1 172 (33) |
+  | fermetures (non réconciliés) | 9 jours | 16 | 9 jours | 16 |
+
+  Chaque fermeture suit son étape (jours 190, 341–342, 469–470, 747, 891–892 et 1 463 sur
+  le chemin Lire). Après la réconciliation de 44 décompositions (10.9), les ordres ont été
+  repris par `wenlu parcours prolonger --nom lire --jusqua 338` (et `--nom hsk --jusqua
+  220`) : les jours déjà rédigés ne bougent pas, les 44 caractères se posent dans leur
+  étape. Les jours « sans brique » (un ou deux composés, toutes leurs briques déjà
+  posées) deviennent la règle au-delà du HSK 3 : 91 sur 126 au HSK 3, 537 sur 570 au HSK
+  7-9 (chemin Lire).
+- **L'export** : chaque caractère posé a sa fiche dans sa famille (476 familles, 3 190
+  caractères) ; les jeux, les paires et les traits précachés restent au chemin gratuit ; la
+  suite se dessine depuis les lots du dictionnaire. Précache : 13,5 Mio.
+- **L'app** : sans Wenlu complet, le chemin ouvert s'arrête au bout du chemin gratuit
+  (`content.cheminOuvert`, `reglerChemin`, d'après `droits.wenluComplet`), comme au bout de
+  l'ancien export ; une leçon déjà apprise au-delà reste. Un jour sans fiche garde le repli
+  existant (« La fiche de ce caractère n'est pas encore écrite. », pinyin, traits), un jour
+  sans trois lignes relit un texte passé, un examen sans séries ne s'ouvre ni ne s'annonce
+  (Mon chemin et Mon personnage lisent désormais `examensPassables`, comme la session).
+  Capture au jour 250 d'une progression Wenlu complet : menu, Mon chemin, session.
+- **Reste à écrire** (jours nouveaux, par chemin, au 30 septembre) : fiches, 2 421
+  caractères posés sans fiche relue (24 du HSK 1, 46 du HSK 2, 285 du HSK 3, 301 du HSK 4,
+  300 du HSK 5, 293 du HSK 6, 1 172 du HSK 7-9, briques hors liste comprises, par étape du
+  chemin HSK) ; 248 fiches du HSK 2 relues n'ont que l'origine : mots et phrase du jour à
+  écrire, comme les fiches d'origine du HSK 3 à 9 en cours de rédaction, dès que leur
+  brouillon est réimporté avec son `parcours` et son `jour` ; trois lignes, le HSK 2 est
+  rédigé sur les deux chemins (110 jours sur le chemin Lire, 123 sur le chemin HSK, à
+  relire), restent 1 155 jours sur le chemin Lire (190 à 230, puis HSK 3 à 7-9) et 1 119
+  sur le chemin HSK (HSK 3 à 7-9), plus les jours 121 à 189 et 121 à 219 du chemin gratuit ;
+  examens, 29 examens sur le chemin Lire (月课 405 à 1 800, 会试 et 殿试 compris) et 28 sur
+  le chemin HSK (月课 455 à 1 800), deux séries chacun, et les listes du 放榜 du 会试 et du
+  殿试 ; les 16 décompositions non réconciliées (10.9) ; 13 briques muettes et 4 composants
+  sans traits (découpes) ; l'audio (`wenlu audio`) ; les lettres de Que au-delà de la 12e
+  (une par semaine du chemin : environ 196 de plus, à trancher).
+- **Écrire en parallèle** : fiches, un brouillon par caractère (`fiches-brouillons/<c>.json`,
+  `wenlu fiches contexte`, `importer` ; `a-rediger --niveau 3 --lot k --sur n` découpe une
+  liste `hsk-*.txt`, `--parcours auto` lit le jour sur le chemin ; l'origine d'abord, par
+  lots, puis la phrase et les mots, avec l'acquis du jour de la fiche, sur le chemin qu'elle
+  nomme) ; trois lignes, un brouillon par parcours et par jour (`wenlu
+  trois-lignes a-rediger <parcours> --de --a --lot k --sur n`, puis `importer`, un seul à la
+  fois, qui verse aussi le glossaire) ; examens, un fichier par examen et par chemin, la
+  glose nouvelle dans la glose propre du support, `bang.tsv` tenu par un seul rédacteur.
 
 ### Non commencées
 

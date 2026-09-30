@@ -479,3 +479,86 @@ def test_les_feuilles_muettes_sortent_triees(tmp_path: Path) -> None:
     premier = (build_dir / "graphe.json").read_text(encoding="utf-8")
     build(sortie=build_dir, ingest=ingest_dir, depart={})
     assert (build_dir / "graphe.json").read_text(encoding="utf-8") == premier
+
+
+# ------------------------------------------------------------------ étapes et suite
+
+
+def test_les_deux_chemins_suivent_le_hsk_jusqu_au_bout() -> None:
+    """Décision du propriétaire du 30 septembre 2026 : après le seuil 255 ou le HSK 1, le
+    HSK 3.0 niveau par niveau jusqu'au HSK 7-9 ; la première liste est le chemin gratuit."""
+    from wenlu_data.graphe import ETAPES, LISTES_HSK
+
+    assert LISTES_HSK == ("hsk-1", "hsk-2", "hsk-3", "hsk-4", "hsk-5", "hsk-6", "hsk-7-9")
+    assert ETAPES["lire"] == ("seuil-255", *LISTES_HSK)
+    assert ETAPES["hsk"] == LISTES_HSK
+    assert PARCOURS == {"lire": "seuil-255", "hsk": "hsk-1"}
+
+
+def test_une_etape_se_termine_avant_la_suivante() -> None:
+    """林 est de la première liste, 明 de la seconde : 林 d'abord, même si 明 est prêt plus tôt."""
+    p = parcours(graphe(), (), etapes=[("a", ["林"]), ("b", ["明"])])
+    jour_de = {c: j.jour for j in p.jours for c in j.caracteres}
+    assert jour_de["林"] < jour_de["日"] < jour_de["明"]
+    assert [(e.liste, e.fin) for e in p.etapes] == [("a", jour_de["林"]), ("b", jour_de["明"])]
+    assert p.gratuit == jour_de["林"]
+
+
+def test_une_liste_n_apporte_que_ce_qui_n_est_pas_encore_pose() -> None:
+    """Le HSK 1 sur le chemin Lire : ce que le seuil a déjà posé n'y revient pas."""
+    p = parcours(graphe(), (), etapes=[("seuil", ["林", "古"]), ("hsk", ["古", "明"])])
+    poses = [c for j in p.jours for c in j.caracteres]
+    assert poses.count("古") == 1 and "明" in poses
+
+
+def test_chaque_etape_se_ferme_par_ses_non_reconcilies() -> None:
+    """看 est de la première liste : il la ferme, avant la suite, au lieu d'attendre le bout."""
+    p = parcours(graphe(), (), etapes=[("a", ["林", "看"]), ("b", ["明"])])
+    fermes = [j for j in p.jours if j.non_reconcilie]
+    assert [j.composes for j in fermes] == [("看",)]
+    assert fermes[0].jour == p.etapes[0].fin + 1
+    assert p.jours[-1].composes == ("明",)
+
+
+def test_prolonger_garde_les_jours_figes_jour_pour_jour() -> None:
+    """Un ordre prolongé commence par l'ordre figé, jours de fermeture compris, à l'identique."""
+    g = graphe()
+    fige = parcours(g, ["林", "看"]).jours
+    etapes = [("a", ["林", "看"]), ("b", ["明", "古"])]
+    p = parcours(g, (), etapes=etapes, prefixe=fige)
+    assert p.jours[: len(fige)] == fige
+    assert {"明", "古"} <= set(p.caracteres)
+    assert parcours_fige(g, (), p.jours, etapes=etapes).jours == p.jours
+
+
+def test_ordre_fige_refuse_une_etape_commencee_avant_la_fin_de_la_precedente() -> None:
+    """明 (seconde liste) avant 林 (première) : l'étape redescend, l'ordre est refusé."""
+    jours = [Jour(1, "日"), Jour(2, "月", ("明",)), Jour(3, "木", ("林",))]
+    with pytest.raises(OrdreInvalide, match="revient après"):
+        parcours_fige(graphe(), (), jours, etapes=[("a", ["林"]), ("b", ["明"])])
+
+
+def test_un_composant_d_une_liste_plus_loin_peut_venir_plus_tot() -> None:
+    """林 (seconde liste) est un composant de 檪 (première) : posé avant lui, il reste permis."""
+    graphe_ = construire([*CARACTERES, entree("檪", "林", "木")])
+    jours = [Jour(1, "木", ("林", "檪"))]
+    p = parcours_fige(graphe_, (), jours, etapes=[("a", ["檪"]), ("b", ["林"])])
+    assert p.etapes[0].fin == 1 and p.etapes[1].fin == 1
+
+
+def test_le_document_du_parcours_dit_ses_etapes_et_le_bout_du_gratuit(tmp_path: Path) -> None:
+    """`parcours-<nom>.json` : `cible` reste la liste du chemin gratuit ; `etapes` et `gratuit`."""
+    build_dir, ingest_dir = _preparer(tmp_path, CARACTERES, ["林", "古"])
+    (ingest_dir / "listes.json").write_text(
+        json.dumps({"seuil-255": ["林"], "hsk-1": ["林", "古"], "hsk-2": ["明"]}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    build(sortie=build_dir, ingest=ingest_dir, depart={})
+    lire = json.loads((build_dir / "parcours-lire.json").read_text(encoding="utf-8"))
+    assert lire["cible"] == ["林"]
+    assert [e["liste"] for e in lire["etapes"]] == ["seuil-255", "hsk-1", "hsk-2"]
+    assert lire["gratuit"] == lire["etapes"][0]["fin"]
+    hsk = json.loads((build_dir / "parcours-hsk.json").read_text(encoding="utf-8"))
+    assert [e["liste"] for e in hsk["etapes"]] == ["hsk-1", "hsk-2"]
+    absents = next(c for c in controles(sortie=build_dir) if c.nom == "caractères de liste absents du parcours")
+    assert absents.ok
