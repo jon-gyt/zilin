@@ -26,6 +26,7 @@ import {
   citeUnCaractere,
   tonDe,
   premierSens,
+  deuxSens,
   syllabesDuTon,
   question,
   ressemblance,
@@ -1072,5 +1073,14 @@ describe('rien ne souffle la réponse avant qu’on réponde', () => {
     /* Sans traits, le repli ne le dessine pas non plus : la question passe sans être notée. */
     expect(trace).toContain('{#if sansDonnees && !(quiz && cache)}');
     expect(trace).toContain('seul={quiz}');
+  });
+});
+
+describe('la correction courte', () => {
+  it('ne garde que les deux premiers sens, parenthèses respectées', () => {
+    expect(deuxSens('point, un peu, heure')).toBe('point, un peu');
+    expect(deuxSens('réciter ; dos ; porter sur le dos')).toBe('réciter ; dos');
+    expect(deuxSens('pouce (mesure, env. 3 cm), petit')).toBe('pouce (mesure, env. 3 cm), petit');
+    expect(deuxSens('eau')).toBe('eau');
   });
 });
