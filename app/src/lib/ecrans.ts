@@ -140,6 +140,25 @@ export const CLES_DIRE = [
 ] as const;
 
 /**
+ * Les textes de « Dis-le » sur un mot de deux syllabes (story 9.1, 30 septembre 2026), dans
+ * le même bloc `dire` de la source, lus à part : un export d'avant ne les porte pas, et la
+ * question de mot ne se pose pas sans eux (`tons/dire.ts`, `motsLisibles`).
+ */
+export const CLES_DIRE_MOTS = [
+  'enonce-mot',
+  'juste-mot',
+  'autre-mot',
+  'rang-1',
+  'rang-2',
+  'puis',
+  'conseil-5',
+  'sandhi-33',
+  'sandhi-bu',
+  'neutre',
+  'legende-modele-mot'
+] as const;
+
+/**
  * L'image du chemin (décisions du propriétaire du 29 septembre 2026, maquette validée
  * `maquettes/chemin.html`) : Mon chemin 路, la pierre posée, les pavillons de la semaine, les
  * auberges des familles, les rendez-vous de la route devant. Dans l'ordre de la source.
@@ -361,6 +380,7 @@ export type CleRevisions = (typeof CLES_REVISIONS)[number];
 export type ClePersonnage = (typeof CLES_PERSONNAGE)[number];
 export type CleRoute = (typeof CLES_ROUTE)[number];
 export type CleDire = (typeof CLES_DIRE)[number];
+export type CleDireMots = (typeof CLES_DIRE_MOTS)[number];
 export type CleChemin = (typeof CLES_CHEMIN)[number];
 export type CleXing = (typeof CLES_XING)[number];
 export type CleDictionnaire = (typeof CLES_DICTIONNAIRE)[number];
@@ -371,6 +391,7 @@ export type TextesRevisions = Record<CleRevisions, string>;
 export type TextesPersonnage = Record<ClePersonnage, string>;
 export type TextesRoute = Record<CleRoute, string>;
 export type TextesDire = Record<CleDire, string>;
+export type TextesDireMots = Record<CleDireMots, string>;
 export type TextesChemin = Record<CleChemin, string>;
 export type TextesXing = Record<CleXing, string>;
 export type TextesDictionnaire = Record<CleDictionnaire, string>;
@@ -384,6 +405,7 @@ export type Ecrans = {
   personnage: TextesPersonnage;
   route: TextesRoute;
   dire: TextesDire;
+  direMots: TextesDireMots;
   chemin: TextesChemin;
   xing: TextesXing;
   dico: TextesDictionnaire;
@@ -403,6 +425,7 @@ export const SANS_ECRANS: Ecrans = {
   personnage: vides(CLES_PERSONNAGE),
   route: vides(CLES_ROUTE),
   dire: vides(CLES_DIRE),
+  direMots: vides(CLES_DIRE_MOTS),
   chemin: vides(CLES_CHEMIN),
   xing: vides(CLES_XING),
   dico: vides(CLES_DICTIONNAIRE),
@@ -435,6 +458,7 @@ export function lireEcrans(brut: unknown): Ecrans {
     personnage: bloc(o.personnage, CLES_PERSONNAGE),
     route: bloc(o.route, CLES_ROUTE),
     dire: bloc(o.dire, CLES_DIRE),
+    direMots: bloc(o.dire, CLES_DIRE_MOTS),
     chemin: bloc(o.chemin, CLES_CHEMIN),
     xing: bloc(o.xing, CLES_XING),
     dico: bloc(o.dictionnaire, CLES_DICTIONNAIRE),
