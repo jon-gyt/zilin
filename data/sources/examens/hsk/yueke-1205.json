@@ -1,0 +1,397 @@
+{
+ "examen": "yueke-1205",
+ "parcours": "hsk",
+ "generation": {
+  "modele": "rédaction manuelle",
+  "api": "session Claude Code (sans API)",
+  "date": "2026-09-30"
+ },
+ "relecture": {
+  "statut": "a_relire",
+  "note": "rédigé le 30 septembre 2026, à relire par le propriétaire (`wenlu examens apercu`) ; une série passe à `relu` sur sa décision, citée ici"
+ },
+ "series": [
+  {
+   "serie": "A",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "affiche",
+     "contexte": {
+      "fr": "Une affiche",
+      "en": "A poster"
+     },
+     "lignes": [
+      {
+       "zh": "明天有雷雨，",
+       "pinyin": "míng tiān yǒu léi yǔ",
+       "fr": "Demain, orages ;",
+       "en": "Thunderstorms tomorrow;"
+      },
+      {
+       "zh": "气温下降八度，",
+       "pinyin": "qì wēn xià jiàng bā dù",
+       "fr": "les températures baissent de huit degrés :",
+       "en": "temperatures will drop by eight degrees:"
+      },
+      {
+       "zh": "出门请带伞。",
+       "pinyin": "chū mén qǐng dài sǎn",
+       "fr": "prenez un parapluie en sortant.",
+       "en": "take an umbrella when you go out."
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我最近在减肥，",
+       "pinyin": "wǒ zuì jìn zài jiǎn féi",
+       "fr": "En ce moment, j'essaie de maigrir :",
+       "en": "I'm trying to lose weight at the moment:"
+      },
+      {
+       "zh": "每天早上去江边跑步。",
+       "pinyin": "měi tiān zǎo shang qù jiāng biān pǎo bù",
+       "fr": "je vais courir au bord du fleuve tous les matins.",
+       "en": "I go running by the river every morning."
+      },
+      {
+       "zh": "明天你跟我一起去吗？",
+       "pinyin": "míng tiān nǐ gēn wǒ yī qǐ qù ma",
+       "fr": "Tu viens avec moi demain ?",
+       "en": "Will you come with me tomorrow?"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Quel temps fera-t-il demain ?",
+      "en": "What will the weather be like tomorrow?"
+     },
+     "choix": [
+      {
+       "fr": "De la neige",
+       "en": "Snow"
+      },
+      {
+       "fr": "Du grand soleil",
+       "en": "Bright sunshine"
+      },
+      {
+       "fr": "Des orages",
+       "en": "Thunderstorms"
+      },
+      {
+       "fr": "Du brouillard",
+       "en": "Fog"
+      }
+     ],
+     "reponse": 2,
+     "porte": [
+      "雷",
+      "雨"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "明天比今天热。",
+      "pinyin": "míng tiān bǐ jīn tiān rè",
+      "fr": "Demain, il fera plus chaud qu'aujourd'hui.",
+      "en": "Tomorrow will be warmer than today."
+     },
+     "reponse": false,
+     "porte": [
+      "降",
+      "温"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche l'endroit où la personne va courir.",
+      "en": "Tap where the writer goes running."
+     },
+     "choix": [
+      "江边",
+      "最近",
+      "减肥",
+      "跑步"
+     ],
+     "reponse": 0,
+     "porte": [
+      "江",
+      "边"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "他们俩是好朋友。",
+       "pinyin": "tā men liǎ shì hǎo péng you",
+       "fr": "Ces deux-là sont de bons amis.",
+       "en": "Those two are good friends."
+      },
+      {
+       "zh": "我不吃辣的。",
+       "pinyin": "wǒ bù chī là de",
+       "fr": "Je ne mange pas épicé.",
+       "en": "I don't eat spicy food."
+      },
+      {
+       "zh": "邮局在哪儿？",
+       "pinyin": "yóu jú zài nǎ r",
+       "fr": "Où est la poste ?",
+       "en": "Where's the post office?"
+      },
+      {
+       "zh": "好啊，几点出门？",
+       "pinyin": "hǎo a jǐ diǎn chū mén",
+       "fr": "Volontiers, on part à quelle heure ?",
+       "en": "Sure, what time are we leaving?"
+      }
+     ],
+     "reponse": 3,
+     "porte": [
+      "江",
+      "跑"
+     ]
+    },
+    {
+     "type": "ton",
+     "consigne": {
+      "fr": "Quel est le ton de ce caractère ?",
+      "en": "Which tone does this character have?"
+     },
+     "objet": {
+      "zh": "宽",
+      "pinyin": "kuān",
+      "fr": "large",
+      "en": "wide"
+     },
+     "choix": [
+      "kuān",
+      "kuán",
+      "kuǎn",
+      "kuàn"
+     ],
+     "reponse": 0,
+     "porte": [
+      "宽"
+     ]
+    }
+   ]
+  },
+  {
+   "serie": "B",
+   "statut": "a_relire",
+   "supports": [
+    {
+     "id": "s1",
+     "genre": "pancarte",
+     "contexte": {
+      "fr": "Un panneau",
+      "en": "A sign"
+     },
+     "lignes": [
+      {
+       "zh": "开往上海的列车",
+       "pinyin": "kāi wǎng shàng hǎi de liè chē",
+       "fr": "Le train à destination de Shanghai",
+       "en": "The train to Shanghai"
+      },
+      {
+       "zh": "晚点四十分钟",
+       "pinyin": "wǎn diǎn sì shí fēn zhōng",
+       "fr": "a quarante minutes de retard",
+       "en": "is forty minutes late"
+      }
+     ]
+    },
+    {
+     "id": "s2",
+     "genre": "message",
+     "contexte": {
+      "fr": "Un message",
+      "en": "A message"
+     },
+     "lignes": [
+      {
+       "zh": "我们俩好久没见了，",
+       "pinyin": "wǒ men liǎ hǎo jiǔ méi jiàn le",
+       "fr": "Ça fait longtemps qu'on ne s'est pas vus, tous les deux :",
+       "en": "We two haven't seen each other for ages:"
+      },
+      {
+       "zh": "周末来我家聚聚吧！",
+       "pinyin": "zhōu mò lái wǒ jiā jù ju ba",
+       "fr": "viens chez moi ce week-end, qu'on se retrouve !",
+       "en": "come over this weekend so we can catch up!"
+      }
+     ]
+    }
+   ],
+   "questions": [
+    {
+     "type": "comprendre",
+     "support": "s1",
+     "consigne": {
+      "fr": "Que dit ce panneau ?",
+      "en": "What does this sign say?"
+     },
+     "choix": [
+      {
+       "fr": "Le train est en retard",
+       "en": "The train is late"
+      },
+      {
+       "fr": "Le train est annulé",
+       "en": "The train is cancelled"
+      },
+      {
+       "fr": "Le train est complet",
+       "en": "The train is full"
+      },
+      {
+       "fr": "Le train part en avance",
+       "en": "The train leaves early"
+      }
+     ],
+     "reponse": 0,
+     "porte": [
+      "列",
+      "晚",
+      "点"
+     ]
+    },
+    {
+     "type": "vrai_faux",
+     "support": "s1",
+     "consigne": {
+      "fr": "Vrai ou faux ?",
+      "en": "True or false?"
+     },
+     "affirmation": {
+      "zh": "列车开往南京。",
+      "pinyin": "liè chē kāi wǎng nán jīng",
+      "fr": "Le train va à Nankin.",
+      "en": "The train goes to Nanjing."
+     },
+     "reponse": false,
+     "porte": [
+      "列",
+      "往",
+      "上",
+      "海"
+     ]
+    },
+    {
+     "type": "reperer",
+     "support": "s2",
+     "consigne": {
+      "fr": "Touche qui ne s'est pas vu depuis longtemps.",
+      "en": "Tap who hasn't met for a long time."
+     },
+     "choix": [
+      "好久",
+      "周末",
+      "我们俩",
+      "聚聚"
+     ],
+     "reponse": 2,
+     "porte": [
+      "我",
+      "们",
+      "俩"
+     ]
+    },
+    {
+     "type": "replique",
+     "support": "s2",
+     "consigne": {
+      "fr": "Que réponds-tu ?",
+      "en": "What do you reply?"
+     },
+     "choix": [
+      {
+       "zh": "我不会游泳。",
+       "pinyin": "wǒ bù huì yóu yǒng",
+       "fr": "Je ne sais pas nager.",
+       "en": "I can't swim."
+      },
+      {
+       "zh": "好啊，星期六下午怎么样？",
+       "pinyin": "hǎo a xīng qī liù xià wǔ zěn me yàng",
+       "fr": "Avec plaisir ! Samedi après-midi, ça te va ?",
+       "en": "Sure! How about Saturday afternoon?"
+      },
+      {
+       "zh": "这个菜太辣了。",
+       "pinyin": "zhè gè cài tài là le",
+       "fr": "Ce plat est trop épicé.",
+       "en": "This dish is too spicy."
+      },
+      {
+       "zh": "垃圾在门口。",
+       "pinyin": "lā jī zài mén kǒu",
+       "fr": "Les ordures sont devant la porte.",
+       "en": "The rubbish is by the door."
+      }
+     ],
+     "reponse": 1,
+     "porte": [
+      "聚"
+     ]
+    },
+    {
+     "type": "trou",
+     "consigne": {
+      "fr": "Quel caractère manque dans ce mot ?",
+      "en": "Which character is missing from this word?"
+     },
+     "objet": {
+      "zh": "季节",
+      "pinyin": "jì jié",
+      "fr": "saison",
+      "en": "season"
+     },
+     "trou": 0,
+     "choix": [
+      "李",
+      "季",
+      "香",
+      "科"
+     ],
+     "reponse": 1,
+     "porte": [
+      "季"
+     ]
+    }
+   ]
+  }
+ ]
+}
