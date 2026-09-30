@@ -15,6 +15,7 @@ import {
   lireEntreeMot,
   lireIndexDico,
   lireSaisie,
+  origineAffichable,
   sensAffichable,
   acceptionsDEmploi,
   type IndexDico
@@ -269,7 +270,17 @@ describe('les entrées des lots', () => {
       sens: { statut: 'a_relire', glose: 'x' },
       exemples: []
     });
-    expect(e).toMatchObject({ c: '豪', decomposition: null, sens: null, mots: ['L7-0001'] });
+    expect(e).toMatchObject({ c: '豪', decomposition: null, sens: null, mots: ['L7-0001'], origine: null });
+  });
+
+  it('lisent l’origine relue et son étiquette, jamais une origine à relire ni sans étiquette', () => {
+    const relue = { statut: 'relu', etiquette: 'atteste', fr: 'Un. Deux. Trois.', en: 'One.', roles: { 女: 'sens', 子: 'x' } };
+    expect(origineAffichable(relue)).toEqual({ statut: 'relu', etiquette: 'atteste', fr: 'Un. Deux. Trois.', en: 'One.', roles: { 女: 'sens' } });
+    expect(origineAffichable({ ...relue, statut: 'a_relire' })).toBeNull();
+    expect(origineAffichable({ ...relue, etiquette: null })).toBeNull();
+    expect(origineAffichable({ ...relue, etiquette: 'peut-etre' })).toBeNull();
+    expect(origineAffichable({ ...relue, fr: '' })).toBeNull();
+    expect(lireEntreeCaractere({ c: '好', origine: relue })?.origine?.etiquette).toBe('atteste');
   });
 
   it('lisent une entrée de mot, ses variantes, sa lecture pleine et son emploi', () => {

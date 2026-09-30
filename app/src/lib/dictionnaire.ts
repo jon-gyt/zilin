@@ -27,6 +27,7 @@
  * À rang égal : le caractère avant le mot, le niveau HSK croissant, le mot le plus court,
  * puis l'ordre de l'index (celui du pinyin).
  */
+import type { Etiquette, Role } from './content';
 import type { StrokeData } from './glyph';
 import { lireTraits } from './strokes';
 
@@ -426,6 +427,11 @@ export type Acception = { categorie: string; fr: string; pinyin?: string };
 export type Sens = { statut: 'relu'; glose: string; acceptions: Acception[] };
 export type Exemple = { zh: string; pinyin: string; fr: string };
 export type Decomposition = { norme: string; parts: string[]; sources: string[] };
+/**
+ * L'origine d'une fiche relue (story 10.11) : son texte, son étiquette, jamais l'une sans
+ * l'autre, et le rôle de chaque brique quand la fiche décompose comme le dictionnaire.
+ */
+export type OrigineDico = { statut: 'relu'; etiquette: Etiquette; fr: string; en: string; roles: Record<string, Role> };
 
 export type EntreeCaractere = {
   genre: 'caractere';
@@ -441,6 +447,8 @@ export type EntreeCaractere = {
   chemin: Record<string, number>;
   sens: Sens | null;
   exemples: Exemple[];
+  /** L'origine relue, étiquetée ; `null` : « origine à venir ». */
+  origine: OrigineDico | null;
 };
 
 export type FormeMot = { hanzi: string; pinyin: string; syllabes: string[] };
@@ -496,6 +504,28 @@ export function acceptionsDEmploi(sens: { acceptions: Acception[] } | null, mot:
   );
 }
 
+const ETIQUETTES_DICO: readonly string[] = ['atteste', 'mnemotechnique'];
+const ROLES_DICO: readonly string[] = ['son', 'sens', 'forme'];
+
+/**
+ * L'origine qui se montre : relue, avec son texte et son étiquette. Toute autre, même
+ * glissée dans un lot, n'est pas montrée : la fiche dit « origine à venir ». Un rôle
+ * inconnu est écarté.
+ */
+export function origineAffichable(v: unknown): OrigineDico | null {
+  const o = v as Record<string, unknown> | null;
+  if (o === null || typeof o !== 'object' || o.statut !== 'relu') return null;
+  const fr = chaine(o.fr).trim();
+  const etiquette = chaine(o.etiquette);
+  if (fr === '' || !ETIQUETTES_DICO.includes(etiquette)) return null;
+  const roles: Record<string, Role> = {};
+  const bruts = o.roles as Record<string, unknown> | null | undefined;
+  if (bruts && typeof bruts === 'object') {
+    for (const [k, r] of Object.entries(bruts)) if (typeof r === 'string' && ROLES_DICO.includes(r)) roles[k] = r as Role;
+  }
+  return { statut: 'relu', etiquette: etiquette as Etiquette, fr, en: chaine(o.en).trim(), roles };
+}
+
 /** Les phrases d'exemple relues, et elles seules. */
 export function exemplesAffichables(v: unknown): Exemple[] {
   if (!Array.isArray(v)) return [];
@@ -530,7 +560,8 @@ export function lireEntreeCaractere(v: unknown): EntreeCaractere | null {
     mots: chaines(o.mots),
     chemin,
     sens: sensAffichable(o.sens),
-    exemples: exemplesAffichables(o.exemples)
+    exemples: exemplesAffichables(o.exemples),
+    origine: origineAffichable(o.origine)
   };
 }
 
