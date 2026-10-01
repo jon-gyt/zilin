@@ -1,20 +1,71 @@
 """Pinyin des mots et des phrases de fiche : conventions et contrôle des brouillons.
 
 Conventions : tons du dictionnaire, sans sandhi (`yī`, `bù`) ; mot de deux syllabes
-d'un seul tenant (`bùhǎo`) ; ton neutre d'un mot comme CC-CEDICT (`dōngxi`,
-`péngyou`, `duōshao`, `rènshi`). Le dernier test relit tous les brouillons du
-dépôt contre le corpus construit ; sans `wenlu build`, il est sauté.
+d'un seul tenant (`bùhǎo`) ; pinyin d'un mot de la liste HSK 3.0 celui de la liste
+(`kǒudai`, `chūxiě`), CC-CEDICT hors de la liste (`dōngxi`, `péngyou`), avec le ton
+neutre du 现代汉语词典 pour un complément directionnel ou un localisateur final
+(`shāolai`) ; décisions du propriétaire du 1er octobre 2026 (`data/schema.md`). Le
+dernier test relit tous les brouillons du dépôt contre le corpus construit ; sans
+`wenlu build`, il est sauté.
 """
 from __future__ import annotations
 
 import json
+import re
+import unicodedata
+from typing import Iterable, Sequence
 
 import pytest
 
 from conftest import SURCHARGES_REELLES
-from wenlu_data import pinyin, surcharges
+from wenlu_data import mots_hsk, pinyin, surcharges
 from wenlu_data.fiches import BROUILLONS, CorpusAbsent, brouillons_ecrits, charger_corpus, lire_brouillon
 from wenlu_data.paths import INGEST
+
+#: Compléments directionnels composés : après un verbe, leurs deux syllabes au ton neutre
+#: (拿出来 ná chu lai) ; 过来 et 过去 gardent guò (走过去 zǒu guòqu).
+COMPOSES = ("起来", "出来", "进来", "回来", "上来", "下来", "开来", "出去", "进去", "回去", "上去", "下去")
+
+#: Mots de fiche que la liste HSK 3.0 porte dans un autre sens, d'une autre lecture : la
+#: lecture de la fiche reste celle de CC-CEDICT. 一晃 « en un éclair » se lit yīhuǎng ; le
+#: 一晃 de la liste (L7-4885, verbe) est yīhuàng, « secouer une fois ».
+AUTRE_SENS_QUE_LA_LISTE = frozenset({"一晃"})
+
+
+def _neutre(syllabe: str) -> str:
+    return re.sub(r"[0-5]$", "", syllabe) + "5"
+
+
+def lectures_du_xiandai(hanzi: str, entree: str) -> list[str]:
+    """Une entrée numérotée de CC-CEDICT, et ses lectures au ton neutre du 现代汉语词典 :
+    来, 去, 过, 上 ou 里 final (捎来 shāolai, 去过, 桌上), et les deux syllabes d'un
+    complément composé final (拿出来 náchulai)."""
+    syllabes = entree.split()
+    lectures = [entree]
+    if len(syllabes) != len(hanzi) or len(hanzi) < 2:
+        return lectures
+    if hanzi[-1] in "来去过上里":
+        lectures.append(" ".join([*syllabes[:-1], _neutre(syllabes[-1])]))
+    if len(hanzi) >= 3 and hanzi[-2:] in COMPOSES:
+        lectures.append(" ".join([*syllabes[:-2], *map(_neutre, syllabes[-2:])]))
+    return lectures
+
+
+def _cle(texte: str) -> str:
+    return unicodedata.normalize("NFC", texte).replace(" ", "").replace("'", "").lower()
+
+
+def ecarts_mot_de_fiche(hanzi: str, lu: str, entrees: Iterable[str], liste: Sequence[str]) -> list[str]:
+    """`pinyin.ecarts_mot`, la liste HSK 3.0 en premier : un mot de la liste (`liste`, ses
+    pinyin retenus, règle `·` comprise) s'écrit comme elle ; hors de la liste, comme
+    CC-CEDICT ou au ton neutre du 现代汉语词典 (`lectures_du_xiandai`). Les mots de
+    position suivent toujours `MOTS_DE_POSITION`."""
+    if hanzi in pinyin.MOTS_DE_POSITION or not liste or hanzi in AUTRE_SENS_QUE_LA_LISTE:
+        return pinyin.ecarts_mot(hanzi, lu, [v for e in entrees for v in lectures_du_xiandai(hanzi, e)])
+    ecarts = pinyin.ecarts_mot(hanzi, lu, [])
+    if _cle(lu) not in {_cle(p) for p in liste}:
+        ecarts.append(f"{hanzi} : « {lu} », attendu {' ou '.join(sorted(set(liste)))} (liste HSK 3.0)")
+    return ecarts
 
 
 @pytest.mark.parametrize(
@@ -88,6 +139,33 @@ def test_mot_de_position_de_fiche_suit_la_decision_pas_cc_cedict() -> None:
     assert pinyin.ecarts_mot("后面", "hòumian", ["hou4 mian4"]) == []
 
 
+def test_mot_de_la_liste_hsk_suit_la_liste_pas_cc_cedict() -> None:
+    """Décision du propriétaire du 1er octobre 2026 : la liste HSK 3.0 prime (口袋 kǒudai,
+    出血 chūxiě) ; ses mots écrits en deux morceaux (家里 jiā li) s'écrivent d'un tenant."""
+    assert ecarts_mot_de_fiche("口袋", "kǒudai", ["kou3 dai4"], ["kǒudai"]) == []
+    assert ecarts_mot_de_fiche("口袋", "kǒudài", ["kou3 dai4"], ["kǒudai"]) == [
+        "口袋 : « kǒudài », attendu kǒudai (liste HSK 3.0)"
+    ]
+    assert ecarts_mot_de_fiche("出血", "chūxiě", ["chu1 xue4"], ["chūxiě"]) == []
+    assert ecarts_mot_de_fiche("家里", "jiāli", ["jia1 li3"], ["jiā li"]) == []
+    assert ecarts_mot_de_fiche("家里", "jiā li", ["jia1 li3"], ["jiā li"])[0].endswith("attendu d'un seul tenant")
+    # Deux entrées de la liste, deux sens : l'une ou l'autre.
+    assert ecarts_mot_de_fiche("过去", "guòqù", ["guo4 qu4"], ["guòqu", "guòqù"]) == []
+    # Hors de la liste : CC-CEDICT ; un mot de position suit toujours la décision.
+    assert ecarts_mot_de_fiche("丈人", "zhàngrén", ["zhang4 ren2"], []) == []
+    assert ecarts_mot_de_fiche("这里", "zhèli", ["zhe4 li3"], ["zhèli"]) == []
+
+
+def test_hors_liste_le_ton_neutre_du_xiandai_est_admis() -> None:
+    """Complément directionnel ou localisateur final au ton neutre : 捎来 shāolai, 拿出来
+    náchulai ; la lecture pleine de CC-CEDICT reste admise (掠过 lüèguò, 世上 shìshàng)."""
+    assert ecarts_mot_de_fiche("捎来", "shāolai", ["shao1 lai2"], []) == []
+    assert ecarts_mot_de_fiche("捎来", "shāolái", ["shao1 lai2"], []) == []
+    assert ecarts_mot_de_fiche("拿出来", "náchulai", ["na2 chu1 lai2"], []) == []
+    assert ecarts_mot_de_fiche("掠过", "lüèguò", ["lu:e4 guo4"], []) == []
+    assert ecarts_mot_de_fiche("丈人", "zhàngren", ["zhang4 ren2"], []) != []
+
+
 def test_caractere_sans_lecture_connue_ne_s_aligne_pas() -> None:
     assert pinyin.aligner("龍", "lóng", {}) is None
 
@@ -104,12 +182,16 @@ def test_les_brouillons_du_depot_suivent_les_conventions(monkeypatch: pytest.Mon
     for m in json.loads((INGEST / "mots.json").read_text(encoding="utf-8")):
         entrees.setdefault(m["simplifie"], []).append(m["pinyin"])
     lectures = {c: list(v.get("pinyin") or []) for c, v in corpus.caracteres.items()}
+    liste: dict[str, list[str]] = {}
+    for mot in mots_hsk.charger(mots_hsk.LISTE_REELLE):
+        for forme in mot.formes:
+            liste.setdefault(forme.hanzi, []).append(forme.pinyin)
 
     fautes: list[str] = []
     for chemin in brouillons_ecrits(BROUILLONS):
         b = lire_brouillon(chemin)
         for m in b.mots:
-            fautes += pinyin.ecarts_mot(m.hanzi, m.pinyin, entrees.get(m.hanzi, []))
+            fautes += ecarts_mot_de_fiche(m.hanzi, m.pinyin, entrees.get(m.hanzi, []), liste.get(m.hanzi, []))
             if pinyin.aligner(m.hanzi, m.pinyin, lectures) is None:
                 fautes.append(f"{b.c} : mot {m.hanzi} « {m.pinyin} »")
             if m.hanzi in corpus.exclus:
