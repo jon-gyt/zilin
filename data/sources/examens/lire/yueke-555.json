@@ -12,7 +12,8 @@
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
   "date": "2026-09-30",
   "corrections": [
-   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 已 et 经 entrent après le palier : A s1, « 我已经到学校了 » → « 我到学校了 »."
+   "le 30 septembre 2026, acquis des paliers déplacé par les décisions du propriétaire « Réconcilier les 13 » et « Poser les paires ensemble » ; réparé sur « Aller au bout », au plus court, séries laissées relues (décision « Go ») : 已 et 经 entrent après le palier : A s1, « 我已经到学校了 » → « 我到学校了 ».",
+   "le 1er octobre 2026, conventions du 1er octobre (décisions du propriétaire : ton neutre du 现代汉语词典, pinyin de la liste HSK 3.0, étages en anglais à l'américaine ; data/schema.md), le texte relu reste tel quel hors ces points, la série garde son statut : 回来 huí lái → huí lai (A s1 l3) ; 河里 hé lǐ → hé li (A Q2) ; étages en anglais à l'américaine : A s2 l3 « On the first floor of the library » → « On the second floor of the library », B s1 l1 « To borrow books, go to the first floor; » → « To borrow books, go to the second floor; », B s1 l2 « to return them, stay on the ground floor. » → « to return them, stay on the first floor. », B Q1 « To the ground floor » → « To the first floor », B Q1 « To the first floor » → « To the second floor », B Q1 « To the second floor » → « To the third floor », B Q2 « To borrow, you go to the first floor. » → « To borrow, you go to the second floor. »."
   ]
  },
  "series": [
@@ -42,7 +43,7 @@
       },
       {
        "zh": "九点回来。",
-       "pinyin": "jiǔ diǎn huí lái",
+       "pinyin": "jiǔ diǎn huí lai",
        "fr": "je rentre à neuf heures.",
        "en": "I'll be back at nine."
       }
@@ -72,7 +73,7 @@
        "zh": "在图书馆二楼",
        "pinyin": "zài tú shū guǎn èr lóu",
        "fr": "Au premier étage de la bibliothèque",
-       "en": "On the first floor of the library"
+       "en": "On the second floor of the library"
       }
      ]
     }
@@ -131,7 +132,7 @@
       },
       {
        "zh": "河里有鱼。",
-       "pinyin": "hé lǐ yǒu yú",
+       "pinyin": "hé li yǒu yú",
        "fr": "Il y a des poissons dans la rivière.",
        "en": "There are fish in the river."
       },
@@ -242,13 +243,13 @@
        "zh": "借书请到二楼，",
        "pinyin": "jiè shū qǐng dào èr lóu",
        "fr": "Pour emprunter un livre, montez au premier étage ;",
-       "en": "To borrow books, go to the first floor;"
+       "en": "To borrow books, go to the second floor;"
       },
       {
        "zh": "还书请到一楼。",
        "pinyin": "huán shū qǐng dào yī lóu",
        "fr": "pour le rendre, restez au rez-de-chaussée.",
-       "en": "to return them, stay on the ground floor."
+       "en": "to return them, stay on the first floor."
       },
       {
        "zh": "一次能借五本书。",
@@ -292,15 +293,15 @@
      "choix": [
       {
        "fr": "Au rez-de-chaussée",
-       "en": "To the ground floor"
-      },
-      {
-       "fr": "Au premier étage",
        "en": "To the first floor"
       },
       {
-       "fr": "Au deuxième étage",
+       "fr": "Au premier étage",
        "en": "To the second floor"
+      },
+      {
+       "fr": "Au deuxième étage",
+       "en": "To the third floor"
       },
       {
        "fr": "Au sous-sol",
@@ -326,7 +327,7 @@
       "zh": "借书要去二楼。",
       "pinyin": "jiè shū yào qù èr lóu",
       "fr": "Pour emprunter, il faut aller au premier étage.",
-      "en": "To borrow, you go to the first floor."
+      "en": "To borrow, you go to the second floor."
      },
      "reponse": true,
      "porte": [

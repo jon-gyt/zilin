@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 1er octobre 2026, conventions du 1er octobre (décisions du propriétaire : ton neutre du 现代汉语词典, pinyin de la liste HSK 3.0, étages en anglais à l'américaine ; data/schema.md), le texte relu reste tel quel hors ces points, la série garde son statut : 桌子上 zhuō zi shàng → zhuō zi shang (A s2 l1) ; 上 shàng → shang (A s2 glose propre « 上 shang, sur ») ; 回来 huí lái → huí lai (B Q3, B s2 l1) ; 这个 zhè gè → zhè ge (B Q4)."
+  ]
  },
  "series": [
   {
@@ -49,9 +52,17 @@
      "lignes": [
       {
        "zh": "请别坐在桌子上。",
-       "pinyin": "qǐng bié zuò zài zhuō zi shàng",
+       "pinyin": "qǐng bié zuò zài zhuō zi shang",
        "fr": "Prière de ne pas s'asseoir sur les tables.",
        "en": "Please do not sit on the tables."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "上",
+       "pinyin": "shang",
+       "fr": "sur",
+       "en": "on"
       }
      ]
     }
@@ -275,7 +286,7 @@
      "lignes": [
       {
        "zh": "妈妈，我坐火车回来，",
-       "pinyin": "mā ma wǒ zuò huǒ chē huí lái",
+       "pinyin": "mā ma wǒ zuò huǒ chē huí lai",
        "fr": "Maman, je rentre en train :",
        "en": "Mum, I'm coming back by train,"
       },
@@ -348,7 +359,7 @@
      },
      "affirmation": {
       "zh": "他坐飞机回来。",
-      "pinyin": "tā zuò fēi jī huí lái",
+      "pinyin": "tā zuò fēi jī huí lai",
       "fr": "Il rentre en avion.",
       "en": "He is coming back by plane."
      },
@@ -375,7 +386,7 @@
       },
       {
        "zh": "我不会做这个菜。",
-       "pinyin": "wǒ bù huì zuò zhè gè cài",
+       "pinyin": "wǒ bù huì zuò zhè ge cài",
        "fr": "Je ne sais pas faire ce plat.",
        "en": "I can't cook this dish."
       },
