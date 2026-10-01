@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:86cc49a72457effb30541c500f5ad1140ffde881f0fae6c921a453878ca06550",
+  "empreinte_invite": "sha256:277a0e66b894f0b571a74eac44bdc13ff981fef5ef5cb3245e491c3bd1da9fa2",
   "contexte": "wenlu dico contexte 3 15",
   "essais": 1,
   "refus": []
@@ -645,14 +645,21 @@
    "exemples": [
     {
      "zh": "人生不能没有朋友。",
-     "pinyin": "Rénshēng bù néng méiyǒu péngyou.",
+     "pinyin": "Rénshēng bù néng méiyou péngyou.",
      "fr": "On ne peut pas vivre sans amis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Rénshēng bù néng méiyǒu péngyou. » → « Rénshēng bù néng méiyou péngyou. »"
+       }
+      ]
      }
     }
    ]

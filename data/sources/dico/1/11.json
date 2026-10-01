@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:d8f10193434282e7298397380e6b61f4260bb8334a064f7a319590bd5232e505",
+  "empreinte_invite": "sha256:a9a573dc9e56846036e86243fae6421505e5d207fbd21b0bcc0da395e4c8a194",
   "contexte": "wenlu dico contexte 1 11",
   "essais": 1,
   "refus": []
@@ -527,14 +527,21 @@
    "exemples": [
     {
      "zh": "爷爷在院子里看书。",
-     "pinyin": "Yéye zài yuànzi lǐ kàn shū.",
+     "pinyin": "Yéye zài yuànzi li kàn shū.",
      "fr": "Grand-père lit dans la cour.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yéye zài yuànzi lǐ kàn shū. » → « Yéye zài yuànzi li kàn shū. »"
+       }
+      ]
      }
     }
    ]

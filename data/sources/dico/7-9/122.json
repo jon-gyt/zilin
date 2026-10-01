@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:67388519f9d029c12bf2fa2822143601005108cc861594a9f12a09000e7a1abd",
+  "empreinte_invite": "sha256:acefbe6f40271fa8a7605a02a8cff236bce00e24fb051f6e108beedee60105f5",
   "contexte": "wenlu dico contexte 7-9 122",
   "essais": 1,
   "refus": []
@@ -242,14 +242,21 @@
    "exemples": [
     {
      "zh": "因为大雪，很多旅客滞留在机场。",
-     "pinyin": "Yīnwèi dàxuě, hěn duō lǚkè zhìliú zài jīchǎng.",
+     "pinyin": "Yīnwei dàxuě, hěn duō lǚkè zhìliú zài jīchǎng.",
      "fr": "À cause de la neige, beaucoup de voyageurs sont coincés à l'aéroport.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīnwèi dàxuě, hěn duō lǚkè zhìliú zài jīchǎng. » → « Yīnwei dàxuě, hěn duō lǚkè zhìliú zài jīchǎng. »"
+       }
+      ]
      }
     }
    ]
@@ -557,14 +564,21 @@
    "exemples": [
     {
      "zh": "比赛因为下雨中止了。",
-     "pinyin": "Bǐsài yīnwèi xià yǔ zhōngzhǐ le.",
+     "pinyin": "Bǐsài yīnwei xià yǔ zhōngzhǐ le.",
      "fr": "Le match a été arrêté à cause de la pluie.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bǐsài yīnwèi xià yǔ zhōngzhǐ le. » → « Bǐsài yīnwei xià yǔ zhōngzhǐ le. »"
+       }
+      ]
      }
     }
    ]
@@ -819,14 +833,21 @@
    "exemples": [
     {
      "zh": "他终究还是个孩子。",
-     "pinyin": "Tā zhōngjiū hái shì ge háizi.",
+     "pinyin": "Tā zhōngjiū hái shi ge háizi.",
      "fr": "Ce n'est encore qu'un enfant, après tout.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zhōngjiū hái shì ge háizi. » → « Tā zhōngjiū hái shi ge háizi. »"
+       }
+      ]
      }
     }
    ]

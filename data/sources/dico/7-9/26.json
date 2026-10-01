@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ce19d61efdddb1b6b437cb5c0232c6bde296ae2cb3bd4199189d7114775c4302",
+  "empreinte_invite": "sha256:15e6cbb5abc4d7995924d0ea11bb8dccf1c4ca17a91d6063c20ac47c811afd49",
   "contexte": "wenlu dico contexte 7-9 26",
   "essais": 1,
   "refus": []
@@ -279,14 +279,21 @@
    "exemples": [
     {
      "zh": "我对他的做法很反感。",
-     "pinyin": "Wǒ duì tā de zuòfǎ hěn fǎngǎn.",
+     "pinyin": "Wǒ duì tā de zuòfa hěn fǎngǎn.",
      "fr": "Sa façon de faire m'agace profondément.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ duì tā de zuòfǎ hěn fǎngǎn. » → « Wǒ duì tā de zuòfa hěn fǎngǎn. »"
+       }
+      ]
      }
     }
    ]

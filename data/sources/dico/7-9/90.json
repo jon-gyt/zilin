@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:07574d892b49b86a05aeda2acecab9119ef9545b72c6f6f54ea1cdcc338ad047",
+  "empreinte_invite": "sha256:9735f9c4045fd84bab28970fe2c8765fc91a294dabd657b42f490c3fb9839ca9",
   "contexte": "wenlu dico contexte 7-9 90",
   "essais": 1,
   "refus": []
@@ -984,14 +984,21 @@
    "exemples": [
     {
      "zh": "人们从四面八方赶来。",
-     "pinyin": "Rénmen cóng sìmiàn-bāfāng gǎn lái.",
+     "pinyin": "Rénmen cóng sìmiàn-bāfāng gǎn lai.",
      "fr": "Les gens accourent de partout.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Rénmen cóng sìmiàn-bāfāng gǎn lái. » → « Rénmen cóng sìmiàn-bāfāng gǎn lai. »"
+       }
+      ]
      }
     }
    ]

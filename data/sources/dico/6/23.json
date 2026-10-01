@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a3944e7e247cfc34d104a241cb97ea6104bced240e8116c9367b747237499a6b",
+  "empreinte_invite": "sha256:93e9dd9d9e858cbc782ce0771f3edac5afb01c5efae54253541f93479bf0a3b9",
   "contexte": "wenlu dico contexte 6 23",
   "essais": 1,
   "refus": []
@@ -305,14 +305,21 @@
    "exemples": [
     {
      "zh": "因为下雨的缘故，比赛推迟了。",
-     "pinyin": "Yīnwèi xià yǔ de yuángù, bǐsài tuīchí le.",
+     "pinyin": "Yīnwei xià yǔ de yuángù, bǐsài tuīchí le.",
      "fr": "À cause de la pluie, le match a été reporté.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīnwèi xià yǔ de yuángù, bǐsài tuīchí le. » → « Yīnwei xià yǔ de yuángù, bǐsài tuīchí le. »"
+       }
+      ]
      }
     }
    ]
@@ -412,14 +419,21 @@
    "exemples": [
     {
      "zh": "他的成绩远远超过了别人。",
-     "pinyin": "Tā de chéngjì yuǎnyuǎn chāoguò le biérén.",
+     "pinyin": "Tā de chéngjì yuǎnyuǎn chāoguò le biéren.",
      "fr": "Ses résultats dépassent de beaucoup ceux des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de chéngjì yuǎnyuǎn chāoguò le biérén. » → « Tā de chéngjì yuǎnyuǎn chāoguò le biéren. »"
+       }
+      ]
      }
     }
    ]

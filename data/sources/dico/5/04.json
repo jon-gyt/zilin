@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f99e60bf9826aef4648ff452d32fceb2f131d70be45342459747f89533796f44",
+  "empreinte_invite": "sha256:dc9ef339c0239659494671594fcfb3e1d98c710e1cde77543a1a5807ad207e80",
   "contexte": "wenlu dico contexte 5 04",
   "essais": 1,
   "refus": []
@@ -271,14 +271,21 @@
    "exemples": [
     {
      "zh": "他因为打人受到了处分。",
-     "pinyin": "Tā yīnwèi dǎ rén shòudào le chǔfèn.",
+     "pinyin": "Tā yīnwei dǎ rén shòudào le chǔfèn.",
      "fr": "Il a reçu un blâme pour avoir frappé quelqu'un.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi dǎ rén shòudào le chǔfèn. » → « Tā yīnwei dǎ rén shòudào le chǔfèn. »"
+       }
+      ]
      }
     }
    ]
@@ -589,14 +596,21 @@
    "exemples": [
     {
      "zh": "这家公司是他父亲创立的。",
-     "pinyin": "Zhè jiā gōngsī shì tā fùqīn chuànglì de.",
+     "pinyin": "Zhè jiā gōngsī shì tā fùqin chuànglì de.",
      "fr": "C'est son père qui a fondé cette entreprise.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiā gōngsī shì tā fùqīn chuànglì de. » → « Zhè jiā gōngsī shì tā fùqin chuànglì de. »"
+       }
+      ]
      }
     }
    ]
@@ -1111,14 +1125,21 @@
    "exemples": [
     {
      "zh": "他把存款都拿出来买房子了。",
-     "pinyin": "Tā bǎ cúnkuǎn dōu ná chūlai mǎi fángzi le.",
+     "pinyin": "Tā bǎ cúnkuǎn dōu ná chulai mǎi fángzi le.",
      "fr": "Il a retiré toutes ses économies pour acheter une maison.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ cúnkuǎn dōu ná chūlai mǎi fángzi le. » → « Tā bǎ cúnkuǎn dōu ná chulai mǎi fángzi le. »"
+       }
+      ]
      }
     }
    ]
@@ -1545,14 +1566,21 @@
    "exemples": [
     {
      "zh": "你有什么想法，大胆地说吧。",
-     "pinyin": "Nǐ yǒu shénme xiǎngfǎ, dàdǎn de shuō ba.",
+     "pinyin": "Nǐ yǒu shénme xiǎngfa, dàdǎn de shuō ba.",
      "fr": "Si tu as une idée, dis-la sans crainte.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ yǒu shénme xiǎngfǎ, dàdǎn de shuō ba. » → « Nǐ yǒu shénme xiǎngfa, dàdǎn de shuō ba. »"
+       }
+      ]
      }
     }
    ]

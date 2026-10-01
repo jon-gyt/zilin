@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c94b87292f208b83963cdc7d1cc1f632a7d62947329eefa3e1d489a3f38de299",
+  "empreinte_invite": "sha256:bfbca5a9ca85504cb7e16c6c0ad3ef8ca5262e93b08bd480a0a1ae2830f5b09f",
   "contexte": "wenlu dico contexte 5 13",
   "essais": 1,
   "refus": []
@@ -244,14 +244,21 @@
    "exemples": [
     {
      "zh": "这是一个难得的机会。",
-     "pinyin": "Zhè shì yī ge nándé de jīhuì.",
+     "pinyin": "Zhè shì yī ge nándé de jīhui.",
      "fr": "C'est une occasion unique.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè shì yī ge nándé de jīhuì. » → « Zhè shì yī ge nándé de jīhui. »"
+       }
+      ]
      }
     }
    ]
@@ -885,14 +892,21 @@
    "exemples": [
     {
      "zh": "我们是在一次偶然的机会认识的。",
-     "pinyin": "Wǒmen shì zài yī cì ǒurán de jīhuì rènshi de.",
+     "pinyin": "Wǒmen shì zài yī cì ǒurán de jīhui rènshi de.",
      "fr": "Nous nous sommes rencontrés par hasard.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen shì zài yī cì ǒurán de jīhuì rènshi de. » → « Wǒmen shì zài yī cì ǒurán de jīhui rènshi de. »"
+       }
+      ]
      }
     }
    ]
@@ -1684,14 +1698,21 @@
    "exemples": [
     {
      "zh": "你能把这个字拼出来吗？",
-     "pinyin": "Nǐ néng bǎ zhège zì pīn chūlai ma?",
+     "pinyin": "Nǐ néng bǎ zhège zì pīn chulai ma?",
      "fr": "Tu sais épeler ce caractère en pinyin ?",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ néng bǎ zhège zì pīn chūlai ma? » → « Nǐ néng bǎ zhège zì pīn chulai ma? »"
+       }
+      ]
      }
     }
    ]

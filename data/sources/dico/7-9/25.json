@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:26e8f4bfadac4239090b279ad14ff5dac13a5de7acec1c7718fb8565262512c6",
+  "empreinte_invite": "sha256:b6b1618dde0c43afbf8a4d1e63abadd21e1dfc2c9276fdb44dd5f972198d974d",
   "contexte": "wenlu dico contexte 7-9 25",
   "essais": 1,
   "refus": []
@@ -79,14 +79,21 @@
    "exemples": [
     {
      "zh": "他们之间的恩怨已经过去了。",
-     "pinyin": "Tāmen zhījiān de ēnyuàn yǐjīng guòqù le.",
+     "pinyin": "Tāmen zhījiān de ēnyuàn yǐjīng guòqu le.",
      "fr": "Leurs vieilles querelles sont oubliées.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tāmen zhījiān de ēnyuàn yǐjīng guòqù le. » → « Tāmen zhījiān de ēnyuàn yǐjīng guòqu le. »"
+       }
+      ]
      }
     }
    ]
@@ -1789,14 +1796,21 @@
    "exemples": [
     {
      "zh": "这是城里最繁华的街道。",
-     "pinyin": "Zhè shì chéng li zuì fánhuá de jiēdào.",
+     "pinyin": "Zhè shì chéng lǐ zuì fánhuá de jiēdào.",
      "fr": "C'est la rue la plus vivante de la ville.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè shì chéng li zuì fánhuá de jiēdào. » → « Zhè shì chéng lǐ zuì fánhuá de jiēdào. »"
+       }
+      ]
      }
     }
    ]

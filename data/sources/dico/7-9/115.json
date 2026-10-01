@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:79f239796df8f0e861bd215c1c79d96334ca091e334b7311b4fff2b718f7894b",
+  "empreinte_invite": "sha256:22bad98865b458ae400ec5ae3a60388bd633195b314a3c6dce6e204327a7e5f5",
   "contexte": "wenlu dico contexte 7-9 115",
   "essais": 1,
   "refus": []
@@ -615,14 +615,21 @@
    "exemples": [
     {
      "zh": "你的想法太幼稚了。",
-     "pinyin": "Nǐ de xiǎngfǎ tài yòuzhì le.",
+     "pinyin": "Nǐ de xiǎngfa tài yòuzhì le.",
      "fr": "Tu raisonnes comme un enfant.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ de xiǎngfǎ tài yòuzhì le. » → « Nǐ de xiǎngfa tài yòuzhì le. »"
+       }
+      ]
      }
     }
    ]
@@ -1413,14 +1420,21 @@
    "exemples": [
     {
      "zh": "她的想法总是与众不同。",
-     "pinyin": "Tā de xiǎngfǎ zǒngshì yǔzhòng-bùtóng.",
+     "pinyin": "Tā de xiǎngfa zǒngshì yǔzhòng-bùtóng.",
      "fr": "Elle a toujours des idées originales.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de xiǎngfǎ zǒngshì yǔzhòng-bùtóng. » → « Tā de xiǎngfa zǒngshì yǔzhòng-bùtóng. »"
+       }
+      ]
      }
     }
    ]

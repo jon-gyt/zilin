@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8d62a3addf59068dfa2d04d63a9c8e071838b0187c9478e83d46088d194ae311",
+  "empreinte_invite": "sha256:95d3562a02deb02272731150bc148fce880934a07ec22c0eff38a65d7d493799",
   "contexte": "wenlu dico contexte 4 18",
   "essais": 1,
   "refus": []
@@ -1915,14 +1915,21 @@
    "exemples": [
     {
      "zh": "我下楼去买点儿东西。",
-     "pinyin": "Wǒ xià lóu qù mǎi diǎnr dōngxi.",
+     "pinyin": "Wǒ xià lóu qu mǎi diǎnr dōngxi.",
      "fr": "Je descends faire quelques courses.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ xià lóu qù mǎi diǎnr dōngxi. » → « Wǒ xià lóu qu mǎi diǎnr dōngxi. »"
+       }
+      ]
      }
     }
    ]

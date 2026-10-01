@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f9944d85685b85bcaafd6a5903ceb0af3691863c47673e10401d1be67cbfbbad",
+  "empreinte_invite": "sha256:f0f64771bd13f82d3aadd0bfcafebc2259f8fd79d8983f4e8e4993bce1ec4474",
   "contexte": "wenlu dico contexte 7-9 117",
   "essais": 1,
   "refus": []
@@ -518,14 +518,21 @@
    "exemples": [
     {
      "zh": "卡车把货物运送到城里。",
-     "pinyin": "Kǎchē bǎ huòwù yùnsòng dào chéng li.",
+     "pinyin": "Kǎchē bǎ huòwù yùnsòng dào chéng lǐ.",
      "fr": "Les camions livrent les marchandises en ville.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kǎchē bǎ huòwù yùnsòng dào chéng li. » → « Kǎchē bǎ huòwù yùnsòng dào chéng lǐ. »"
+       }
+      ]
      }
     }
    ]
@@ -596,14 +603,21 @@
    "exemples": [
     {
      "zh": "机器运转正常。",
-     "pinyin": "Jīqì yùnzhuǎn zhèngcháng.",
+     "pinyin": "Jīqi yùnzhuǎn zhèngcháng.",
      "fr": "La machine marche bien.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jīqì yùnzhuǎn zhèngcháng. » → « Jīqi yùnzhuǎn zhèngcháng. »"
+       }
+      ]
      }
     }
    ]
@@ -1214,14 +1228,21 @@
    "exemples": [
     {
      "zh": "别人怎么说，我不在意。",
-     "pinyin": "Biérén zěnme shuō, wǒ bù zàiyì.",
+     "pinyin": "Biéren zěnme shuō, wǒ bù zàiyì.",
      "fr": "Ce que disent les autres m'est égal.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Biérén zěnme shuō, wǒ bù zàiyì. » → « Biéren zěnme shuō, wǒ bù zàiyì. »"
+       }
+      ]
      }
     }
    ]
@@ -1411,14 +1432,21 @@
    "exemples": [
     {
      "zh": "这首诗赞美了母亲的爱。",
-     "pinyin": "Zhè shǒu shī zànměi le mǔqīn de ài.",
+     "pinyin": "Zhè shǒu shī zànměi le mǔqin de ài.",
      "fr": "Ce poème chante l'amour maternel.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè shǒu shī zànměi le mǔqīn de ài. » → « Zhè shǒu shī zànměi le mǔqin de ài. »"
+       }
+      ]
      }
     }
    ]
@@ -1525,14 +1553,21 @@
    "exemples": [
     {
      "zh": "我赞同你的看法。",
-     "pinyin": "Wǒ zàntóng nǐ de kànfǎ.",
+     "pinyin": "Wǒ zàntóng nǐ de kànfa.",
      "fr": "Je partage ton avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ zàntóng nǐ de kànfǎ. » → « Wǒ zàntóng nǐ de kànfa. »"
+       }
+      ]
      }
     }
    ]
@@ -1890,14 +1925,21 @@
    "exemples": [
     {
      "zh": "这家公司因为造假被罚了款。",
-     "pinyin": "Zhè jiā gōngsī yīnwèi zàojiǎ bèi fá le kuǎn.",
+     "pinyin": "Zhè jiā gōngsī yīnwei zàojiǎ bèi fá le kuǎn.",
      "fr": "Cette entreprise a été condamnée à une amende pour fraude.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiā gōngsī yīnwèi zàojiǎ bèi fá le kuǎn. » → « Zhè jiā gōngsī yīnwei zàojiǎ bèi fá le kuǎn. »"
+       }
+      ]
      }
     }
    ]

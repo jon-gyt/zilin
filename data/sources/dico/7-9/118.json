@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:51d0083bd03f4af7744bc370abccbe9743257535ba84e4ea4df982879c42bcb1",
+  "empreinte_invite": "sha256:dc286462768b2bc97b38f7b032795f6ab39d07870a177937427e8dddb110b046",
   "contexte": "wenlu dico contexte 7-9 118",
   "essais": 1,
   "refus": []
@@ -189,14 +189,21 @@
    "exemples": [
     {
      "zh": "机器的噪声太大了。",
-     "pinyin": "Jīqì de zàoshēng tài dà le.",
+     "pinyin": "Jīqi de zàoshēng tài dà le.",
      "fr": "La machine fait trop de vacarme.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jīqì de zàoshēng tài dà le. » → « Jīqi de zàoshēng tài dà le. »"
+       }
+      ]
      }
     }
    ]
@@ -267,14 +274,21 @@
    "exemples": [
     {
      "zh": "妈妈没有责备我。",
-     "pinyin": "Māma méiyǒu zébèi wǒ.",
+     "pinyin": "Māma méiyou zébèi wǒ.",
      "fr": "Maman ne m'a pas grondé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Māma méiyǒu zébèi wǒ. » → « Māma méiyou zébèi wǒ. »"
+       }
+      ]
      }
     }
    ]
@@ -678,14 +692,21 @@
    "exemples": [
     {
      "zh": "他因为诈骗被抓了。",
-     "pinyin": "Tā yīnwèi zhàpiàn bèi zhuā le.",
+     "pinyin": "Tā yīnwei zhàpiàn bèi zhuā le.",
      "fr": "Il a été arrêté pour escroquerie.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi zhàpiàn bèi zhuā le. » → « Tā yīnwei zhàpiàn bèi zhuā le. »"
+       }
+      ]
      }
     }
    ]
@@ -721,14 +742,21 @@
    "exemples": [
     {
      "zh": "他们用这台机器榨油。",
-     "pinyin": "Tāmen yòng zhè tái jīqì zhà yóu.",
+     "pinyin": "Tāmen yòng zhè tái jīqi zhà yóu.",
      "fr": "Ils se servent de cette machine pour faire de l'huile.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tāmen yòng zhè tái jīqì zhà yóu. » → « Tāmen yòng zhè tái jīqi zhà yóu. »"
+       }
+      ]
      }
     }
    ]

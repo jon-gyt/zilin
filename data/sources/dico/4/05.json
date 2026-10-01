@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f4b93ea4009e736221be3b43a7d6301ab4fe17452792100f3e549c89f38acc89",
+  "empreinte_invite": "sha256:f3ce55ece8538def9a75ee402b99ae0c0d89a6e1c408ad711aa6e7e7f0c5fc3e",
   "contexte": "wenlu dico contexte 4 05",
   "essais": 1,
   "refus": []
@@ -1936,14 +1936,21 @@
    "exemples": [
     {
      "zh": "他的决心没有动摇。",
-     "pinyin": "Tā de juéxīn méiyǒu dòngyáo.",
+     "pinyin": "Tā de juéxīn méiyou dòngyáo.",
      "fr": "Sa détermination est restée intacte.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de juéxīn méiyǒu dòngyáo. » → « Tā de juéxīn méiyou dòngyáo. »"
+       }
+      ]
      }
     }
    ]

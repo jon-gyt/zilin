@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a032a0db548bdfb6d33fe58e48814e4b109cf4dcf5eb48c2a2a0eebddfe274ec",
+  "empreinte_invite": "sha256:2e907cb9fd0b0255e5d76cee101ebeadbb34d01403964dabe8dc8bdb73446edd",
   "contexte": "wenlu dico contexte 7-9 119",
   "essais": 1,
   "refus": []
@@ -783,14 +783,21 @@
    "exemples": [
     {
      "zh": "她在医院照料生病的母亲。",
-     "pinyin": "Tā zài yīyuàn zhàoliào shēngbìng de mǔqīn.",
+     "pinyin": "Tā zài yīyuàn zhàoliào shēngbìng de mǔqin.",
      "fr": "Elle veille sur sa mère malade à l'hôpital.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zài yīyuàn zhàoliào shēngbìng de mǔqīn. » → « Tā zài yīyuàn zhàoliào shēngbìng de mǔqin. »"
+       }
+      ]
      }
     }
    ]
@@ -970,14 +977,21 @@
    "exemples": [
     {
      "zh": "云遮住了太阳。",
-     "pinyin": "Yún zhē zhù le tàiyáng.",
+     "pinyin": "Yún zhē zhù le tàiyang.",
      "fr": "Les nuages ont caché le soleil.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yún zhē zhù le tàiyáng. » → « Yún zhē zhù le tàiyang. »"
+       }
+      ]
      }
     }
    ]

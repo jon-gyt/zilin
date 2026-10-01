@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9aac105cd37fcfbe5a1395955f537ef8efce96abe67ce63169f87ab1cf4c790e",
+  "empreinte_invite": "sha256:c26b5aac4f5615d26a8c5c37c5432b7cc0220f95da33cf9e99428486a783466b",
   "contexte": "wenlu dico contexte 6 18",
   "essais": 1,
   "refus": []
@@ -1248,14 +1248,21 @@
    "exemples": [
     {
      "zh": "经理认真听取了大家的意见。",
-     "pinyin": "Jīnglǐ rènzhēn tīngqǔ le dàjiā de yìjiàn.",
+     "pinyin": "Jīnglǐ rènzhēn tīngqǔ le dàjiā de yìjian.",
      "fr": "Le directeur a écouté attentivement l'avis de chacun.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jīnglǐ rènzhēn tīngqǔ le dàjiā de yìjiàn. » → « Jīnglǐ rènzhēn tīngqǔ le dàjiā de yìjian. »"
+       }
+      ]
      }
     }
    ]
@@ -1902,14 +1909,21 @@
    "exemples": [
     {
      "zh": "他没有透露自己的名字。",
-     "pinyin": "Tā méiyǒu tòulù zìjǐ de míngzi.",
+     "pinyin": "Tā méiyou tòulù zìjǐ de míngzi.",
      "fr": "Il n'a pas dit son nom.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu tòulù zìjǐ de míngzi. » → « Tā méiyou tòulù zìjǐ de míngzi. »"
+       }
+      ]
      }
     }
    ]

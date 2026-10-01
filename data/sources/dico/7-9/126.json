@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:82956186568847f3db0c25744579220a076e52388c68ba3e3c871b5943b1c3ba",
+  "empreinte_invite": "sha256:518d00aa9914b7bf002d11ca41fb67bba706b59117c20be53a8b95180e3f41db",
   "contexte": "wenlu dico contexte 7-9 126",
   "essais": 1,
   "refus": []
@@ -1197,14 +1197,21 @@
    "exemples": [
     {
      "zh": "欢迎各位尊贵的客人。",
-     "pinyin": "Huānyíng gèwèi zūnguì de kèrén.",
+     "pinyin": "Huānyíng gèwèi zūnguì de kèren.",
      "fr": "Bienvenue à nos invités de marque.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Huānyíng gèwèi zūnguì de kèrén. » → « Huānyíng gèwèi zūnguì de kèren. »"
+       }
+      ]
      }
     }
    ]

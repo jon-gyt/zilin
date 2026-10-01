@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b26c3bee85eeb47bd57a951d882b663cbf32b2e36cd803f4e114a5ca41467778",
+  "empreinte_invite": "sha256:3177be4537dd24067500b62507478c2c063768aec604bcda6b23ddb0b0ff51ba",
   "contexte": "wenlu dico contexte 5 02",
   "essais": 1,
   "refus": []
@@ -1726,14 +1726,21 @@
    "exemples": [
     {
      "zh": "客人们都在厅里等着。",
-     "pinyin": "Kèrénmen dōu zài tīng li děng zhe.",
+     "pinyin": "Kèrenmen dōu zài tīng li děng zhe.",
      "fr": "Les invités attendent tous dans la salle.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kèrénmen dōu zài tīng li děng zhe. » → « Kèrenmen dōu zài tīng li děng zhe. »"
+       }
+      ]
      }
     }
    ]

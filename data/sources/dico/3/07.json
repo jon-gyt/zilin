@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c4b4deebd96da633fe613ebfbad5fc65afffe4a2f3ee29129799c954e37eb863",
+  "empreinte_invite": "sha256:3bd3a3f9a813d50339447e786d59598d0e73e0ff316b2ba1d8bab5f7b5a652ea",
   "contexte": "wenlu dico contexte 3 07",
   "essais": 1,
   "refus": []
@@ -1216,14 +1216,21 @@
    "exemples": [
     {
      "zh": "他在观察天上的星星。",
-     "pinyin": "Tā zài guānchá tiān shang de xīngxing.",
+     "pinyin": "Tā zài guānchá tiān shàng de xīngxing.",
      "fr": "Il regarde attentivement les étoiles.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zài guānchá tiān shang de xīngxing. » → « Tā zài guānchá tiān shàng de xīngxing. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:dcd065d4aab2967bacf53ce21b9ced9721fbe424235aa5b10101b3819a3fac20",
+  "empreinte_invite": "sha256:341348942d73d8798c44aca6c29693924db99368fa10db0a83627322cb725bb9",
   "contexte": "wenlu dico contexte 3 19",
   "essais": 1,
   "refus": []
@@ -331,14 +331,21 @@
    "exemples": [
     {
      "zh": "我身上没有现金。",
-     "pinyin": "Wǒ shēn shang méiyǒu xiànjīn.",
+     "pinyin": "Wǒ shēn shang méiyou xiànjīn.",
      "fr": "Je n'ai pas de liquide sur moi.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ shēn shang méiyǒu xiànjīn. » → « Wǒ shēn shang méiyou xiànjīn. »"
+       }
+      ]
      }
     }
    ]

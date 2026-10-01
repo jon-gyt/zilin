@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9f2062619796573c28d6800001d5171b803aacc60640900ffb34fc31de986c59",
+  "empreinte_invite": "sha256:5b25f0e29063d45ec83af4e43e08054ebf139e7f5e233e0f6ec685b0a3fbabce",
   "contexte": "wenlu dico contexte 5 16",
   "essais": 1,
   "refus": []
@@ -79,14 +79,21 @@
    "exemples": [
     {
      "zh": "他伸出手来和我握手。",
-     "pinyin": "Tā shēn chū shǒu lái hé wǒ wòshǒu.",
+     "pinyin": "Tā shēn chū shǒu lai hé wǒ wòshǒu.",
      "fr": "Il m'a tendu la main pour me saluer.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā shēn chū shǒu lái hé wǒ wòshǒu. » → « Tā shēn chū shǒu lai hé wǒ wòshǒu. »"
+       }
+      ]
      }
     }
    ]
@@ -1186,14 +1193,21 @@
    "exemples": [
     {
      "zh": "他把老师视为自己的父亲。",
-     "pinyin": "Tā bǎ lǎoshī shìwéi zìjǐ de fùqīn.",
+     "pinyin": "Tā bǎ lǎoshī shìwéi zìjǐ de fùqin.",
      "fr": "Il voit en son professeur un père.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ lǎoshī shìwéi zìjǐ de fùqīn. » → « Tā bǎ lǎoshī shìwéi zìjǐ de fùqin. »"
+       }
+      ]
      }
     }
    ]
@@ -1700,14 +1714,21 @@
    "exemples": [
     {
      "zh": "她每天都买新鲜的蔬菜。",
-     "pinyin": "Tā měi tiān dōu mǎi xīnxiān de shūcài.",
+     "pinyin": "Tā měi tiān dōu mǎi xīnxian de shūcài.",
      "fr": "Elle achète des légumes frais tous les jours.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā měi tiān dōu mǎi xīnxiān de shūcài. » → « Tā měi tiān dōu mǎi xīnxian de shūcài. »"
+       }
+      ]
      }
     }
    ]

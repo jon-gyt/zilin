@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5838e1a27701f870068652957f8f788b408d96e72074849800a0d90a8f5d16ee",
+  "empreinte_invite": "sha256:90235e3d4831d1983e8ab9396faadeae2ef3b986f4e51cd8ae693455b3f44236",
   "contexte": "wenlu dico contexte 7-9 55",
   "essais": 1,
   "refus": []
@@ -232,14 +232,21 @@
    "exemples": [
     {
      "zh": "他因为经常迟到被公司开除了。",
-     "pinyin": "Tā yīnwèi jīngcháng chídào bèi gōngsī kāichú le.",
+     "pinyin": "Tā yīnwei jīngcháng chídào bèi gōngsī kāichú le.",
      "fr": "Il a été renvoyé parce qu'il arrivait souvent en retard.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi jīngcháng chídào bèi gōngsī kāichú le. » → « Tā yīnwei jīngcháng chídào bèi gōngsī kāichú le. »"
+       }
+      ]
      }
     }
    ]
@@ -421,14 +428,21 @@
    "exemples": [
     {
      "zh": "这些地都是他们一点点垦出来的。",
-     "pinyin": "Zhèxiē dì dōu shì tāmen yīdiǎndiǎn kěn chūlai de.",
+     "pinyin": "Zhèxiē dì dōu shì tāmen yīdiǎndiǎn kěn chulai de.",
      "fr": "Ces terres, ils les ont défrichées petit à petit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhèxiē dì dōu shì tāmen yīdiǎndiǎn kěn chūlai de. » → « Zhèxiē dì dōu shì tāmen yīdiǎndiǎn kěn chulai de. »"
+       }
+      ]
      }
     }
    ]
@@ -1241,14 +1255,21 @@
    "exemples": [
     {
      "zh": "她在医院看护生病的母亲。",
-     "pinyin": "Tā zài yīyuàn kānhù shēngbìng de mǔqīn.",
+     "pinyin": "Tā zài yīyuàn kānhù shēngbìng de mǔqin.",
      "fr": "Elle veille sur sa mère malade à l'hôpital.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zài yīyuàn kānhù shēngbìng de mǔqīn. » → « Tā zài yīyuàn kānhù shēngbìng de mǔqin. »"
+       }
+      ]
      }
     }
    ]
@@ -1395,14 +1416,21 @@
    "exemples": [
     {
      "zh": "他在台上侃侃而谈。",
-     "pinyin": "Tā zài tái shang kǎnkǎn ér tán.",
+     "pinyin": "Tā zài tái shàng kǎnkǎn ér tán.",
      "fr": "Sur l'estrade, il parle avec aisance.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zài tái shang kǎnkǎn ér tán. » → « Tā zài tái shàng kǎnkǎn ér tán. »"
+       }
+      ]
      }
     }
    ]

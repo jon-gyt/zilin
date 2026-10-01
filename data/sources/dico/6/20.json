@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:37010ae00fb803eb45da6b43e2b7d2014d98ac898bf4b5444c1045769912492b",
+  "empreinte_invite": "sha256:de6e2f9d57780587b55d632677677160604ea5e5f051fbc64875ac76b59061f2",
   "contexte": "wenlu dico contexte 6 20",
   "essais": 1,
   "refus": []
@@ -494,14 +494,21 @@
    "exemples": [
     {
      "zh": "饭前要洗手，因为手上有很多细菌。",
-     "pinyin": "Fàn qián yào xǐ shǒu, yīnwèi shǒu shang yǒu hěn duō xìjūn.",
+     "pinyin": "Fàn qián yào xǐ shǒu, yīnwei shǒu shang yǒu hěn duō xìjūn.",
      "fr": "Lave-toi les mains avant de manger : elles sont pleines de germes.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Fàn qián yào xǐ shǒu, yīnwèi shǒu shang yǒu hěn duō xìjūn. » → « Fàn qián yào xǐ shǒu, yīnwei shǒu shang yǒu hěn duō xìjūn. »"
+       }
+      ]
      }
     }
    ]
@@ -1823,14 +1830,21 @@
    "exemples": [
     {
      "zh": "他仰着头看天上的星星。",
-     "pinyin": "Tā yǎng zhe tóu kàn tiān shang de xīngxing.",
+     "pinyin": "Tā yǎng zhe tóu kàn tiān shàng de xīngxing.",
      "fr": "Il regarde les étoiles, la tête levée.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yǎng zhe tóu kàn tiān shang de xīngxing. » → « Tā yǎng zhe tóu kàn tiān shàng de xīngxing. »"
+       }
+      ]
      }
     }
    ]

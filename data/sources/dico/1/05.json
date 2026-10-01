@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:8be6f92b65b8b01ea9113d43cae7a4acdde2fc63c5455a592c1f20df8679f887",
+  "empreinte_invite": "sha256:d505b7a89e1e35721778b62eb8f7f2b9dd155a622640a84960ebcc2620e07aff",
   "contexte": "wenlu dico contexte 1 05",
   "essais": 1,
   "refus": []
@@ -1201,14 +1201,21 @@
    "exemples": [
     {
      "zh": "房间里有人吗？",
-     "pinyin": "Fángjiān lǐ yǒu rén ma?",
+     "pinyin": "Fángjiān li yǒu rén ma?",
      "fr": "Il y a quelqu'un dans la pièce ?",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Fángjiān lǐ yǒu rén ma? » → « Fángjiān li yǒu rén ma? »"
+       }
+      ]
      }
     }
    ]

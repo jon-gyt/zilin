@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:84f66cb3cd7e2db2b83314a2458536aabb46be6433d67d8e158e998d29836b93",
+  "empreinte_invite": "sha256:afb51d6409f2abf7ae77b79fb2247c4701e7e582c36e2bbcd7b65a8f22a53711",
   "contexte": "wenlu dico contexte 7-9 47",
   "essais": 1,
   "refus": []
@@ -1835,14 +1835,21 @@
    "exemples": [
     {
      "zh": "他对别人很仁慈。",
-     "pinyin": "Tā duì biérén hěn réncí.",
+     "pinyin": "Tā duì biéren hěn réncí.",
      "fr": "Il est très bon envers les autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā duì biérén hěn réncí. » → « Tā duì biéren hěn réncí. »"
+       }
+      ]
      }
     }
    ]
@@ -1871,14 +1878,21 @@
    "exemples": [
     {
      "zh": "这个问题见仁见智，没有标准答案。",
-     "pinyin": "Zhège wèntí jiànrén-jiànzhì, méiyǒu biāozhǔn dá'àn.",
+     "pinyin": "Zhège wèntí jiànrén-jiànzhì, méiyou biāozhǔn dá'àn.",
      "fr": "Sur cette question, les avis divergent ; il n'y a pas de bonne réponse.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège wèntí jiànrén-jiànzhì, méiyǒu biāozhǔn dá'àn. » → « Zhège wèntí jiànrén-jiànzhì, méiyou biāozhǔn dá'àn. »"
+       }
+      ]
      }
     }
    ]

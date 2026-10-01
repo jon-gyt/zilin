@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6132d6f00fa77a6acee3942ae874627dedd17506b68c2fe947fb4fb9c10a2083",
+  "empreinte_invite": "sha256:0fc2d778e47796e586bb4ef1e10c4a9ed864efff5daaf93c5c18f0e8310eae2c",
   "contexte": "wenlu dico contexte 7-9 50",
   "essais": 1,
   "refus": []
@@ -937,14 +937,21 @@
    "exemples": [
     {
      "zh": "他把西瓜剖成两半。",
-     "pinyin": "Tā bǎ xīguā pōu chéng liǎng bàn.",
+     "pinyin": "Tā bǎ xīgua pōu chéng liǎng bàn.",
      "fr": "Il a fendu la pastèque en deux.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ xīguā pōu chéng liǎng bàn. » → « Tā bǎ xīgua pōu chéng liǎng bàn. »"
+       }
+      ]
      }
     }
    ]

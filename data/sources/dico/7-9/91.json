@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fb939ab50445d552420f4fca753b5cbab35d76b478d06a7d9365d1e8e2f8d75c",
+  "empreinte_invite": "sha256:9c23e8e502d73ea3d0feaa6c943a00857c3c8e1003d25c6dc20d3ddf4fbe9f35",
   "contexte": "wenlu dico contexte 7-9 91",
   "essais": 1,
   "refus": []
@@ -419,14 +419,21 @@
    "exemples": [
     {
      "zh": "他总是算计别人。",
-     "pinyin": "Tā zǒngshì suànji biérén.",
+     "pinyin": "Tā zǒngshì suànji biéren.",
      "fr": "Il cherche toujours à rouler les autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒngshì suànji biérén. » → « Tā zǒngshì suànji biéren. »"
+       }
+      ]
      }
     }
    ]

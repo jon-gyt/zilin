@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9cd40bd2df22b55208f6d4c9018cca2d8e78d8fb56f8d9e44448a8219d679488",
+  "empreinte_invite": "sha256:fd8466bb5129babf268ac434ce15e3be0667328e00ec2c7c47ccf61454c42cd3",
   "contexte": "wenlu dico contexte 7-9 81",
   "essais": 1,
   "refus": []
@@ -1308,14 +1308,21 @@
    "exemples": [
     {
      "zh": "城里发生了骚乱。",
-     "pinyin": "Chéng li fāshēng le sāoluàn.",
+     "pinyin": "Chéng lǐ fāshēng le sāoluàn.",
      "fr": "Des émeutes ont éclaté en ville.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Chéng li fāshēng le sāoluàn. » → « Chéng lǐ fāshēng le sāoluàn. »"
+       }
+      ]
      }
     }
    ]

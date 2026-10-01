@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:492329b83b31d017f891416eb8ff8da4c4dc57841abd3b0206136ae1c9c3757e",
+  "empreinte_invite": "sha256:f5b711f323fbac07e309394295406af64e7d363e021865b8e0278d2c7c1a2280",
   "contexte": "wenlu dico contexte 7-9 41",
   "essais": 1,
   "refus": []
@@ -1037,14 +1037,21 @@
    "exemples": [
     {
      "zh": "这个价钱买这么多，很划算。",
-     "pinyin": "Zhège jiàqián mǎi zhème duō, hěn huásuàn.",
+     "pinyin": "Zhège jiàqian mǎi zhème duō, hěn huásuàn.",
      "fr": "Autant pour ce prix-là, c'est une bonne affaire.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège jiàqián mǎi zhème duō, hěn huásuàn. » → « Zhège jiàqian mǎi zhème duō, hěn huásuàn. »"
+       }
+      ]
      }
     }
    ]

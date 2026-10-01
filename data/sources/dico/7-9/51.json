@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3bde82716187a7b59087b5b5eb44773c4d11030c3ebd70df79ddd6735b01f731",
+  "empreinte_invite": "sha256:42461c615e5e5ed9ddf94ff01d910e65665950bf360a03037b178eaeb137fc98",
   "contexte": "wenlu dico contexte 7-9 51",
   "essais": 1,
   "refus": []
@@ -1596,14 +1596,21 @@
    "exemples": [
     {
      "zh": "孩子惊奇地看着天上的飞机。",
-     "pinyin": "Háizi jīngqí de kàn zhe tiān shang de fēijī.",
+     "pinyin": "Háizi jīngqí de kàn zhe tiān shàng de fēijī.",
      "fr": "L'enfant regarde l'avion dans le ciel avec émerveillement.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Háizi jīngqí de kàn zhe tiān shang de fēijī. » → « Háizi jīngqí de kàn zhe tiān shàng de fēijī. »"
+       }
+      ]
      }
     }
    ]

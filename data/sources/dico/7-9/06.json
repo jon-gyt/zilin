@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:db63c4065a85d8bb02f46f44772d1349845980fdbf49fb8a71c9dd5f28ba799c",
+  "empreinte_invite": "sha256:f729c618e421ff6adea836d6c3cd8f091f97bb4eca447c732dad18e76585003b",
   "contexte": "wenlu dico contexte 7-9 06",
   "essais": 1,
   "refus": []
@@ -157,14 +157,21 @@
    "exemples": [
     {
      "zh": "他把自己的想法表述得很清楚。",
-     "pinyin": "Tā bǎ zìjǐ de xiǎngfǎ biǎoshù de hěn qīngchu.",
+     "pinyin": "Tā bǎ zìjǐ de xiǎngfa biǎoshù de hěn qīngchu.",
      "fr": "Il a présenté ses idées avec clarté.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ zìjǐ de xiǎngfǎ biǎoshù de hěn qīngchu. » → « Tā bǎ zìjǐ de xiǎngfa biǎoshù de hěn qīngchu. »"
+       }
+      ]
      }
     }
    ]
@@ -232,14 +239,21 @@
    "exemples": [
     {
      "zh": "这件事他还没有表态。",
-     "pinyin": "Zhè jiàn shì tā hái méiyǒu biǎotài.",
+     "pinyin": "Zhè jiàn shì tā hái méiyou biǎotài.",
      "fr": "Il n'a pas encore donné son avis sur cette affaire.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiàn shì tā hái méiyǒu biǎotài. » → « Zhè jiàn shì tā hái méiyou biǎotài. »"
+       }
+      ]
      }
     }
    ]

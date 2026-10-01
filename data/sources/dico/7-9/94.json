@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:67caddc329ab633983dfe3e9a0efb5dd5a9433368b395640b812cb3411c93401",
+  "empreinte_invite": "sha256:bfaadbf590939879dbe6a8933fcf6b444a0218163e711191655f9934127e82f3",
   "contexte": "wenlu dico contexte 7-9 94",
   "essais": 1,
   "refus": []
@@ -196,14 +196,21 @@
    "exemples": [
     {
      "zh": "工程师正在调试新机器。",
-     "pinyin": "Gōngchéngshī zhèngzài tiáoshì xīn jīqì.",
+     "pinyin": "Gōngchéngshī zhèngzài tiáoshì xīn jīqi.",
      "fr": "L'ingénieur fait les derniers réglages de la nouvelle machine.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Gōngchéngshī zhèngzài tiáoshì xīn jīqì. » → « Gōngchéngshī zhèngzài tiáoshì xīn jīqi. »"
+       }
+      ]
      }
     }
    ]

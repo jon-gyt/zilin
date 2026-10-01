@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:02b506547644b9129dbe49bcb88710cb1695c24b44b7ad6220cca79a64c01497",
+  "empreinte_invite": "sha256:9f38ed6d7e4f096e35cd7c83730c8c8d975d6498de2db4e33c5c5b79af0462e5",
   "contexte": "wenlu dico contexte 3 17",
   "essais": 1,
   "refus": []
@@ -313,14 +313,21 @@
    "exemples": [
     {
      "zh": "在这里我没有熟人。",
-     "pinyin": "Zài zhèli wǒ méiyǒu shúrén.",
+     "pinyin": "Zài zhèli wǒ méiyou shúrén.",
      "fr": "Je ne connais personne ici.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zài zhèli wǒ méiyǒu shúrén. » → « Zài zhèli wǒ méiyou shúrén. »"
+       }
+      ]
      }
     }
    ]
@@ -1801,14 +1808,21 @@
    "exemples": [
     {
      "zh": "我同意你的看法。",
-     "pinyin": "Wǒ tóngyì nǐ de kànfǎ.",
+     "pinyin": "Wǒ tóngyì nǐ de kànfa.",
      "fr": "Je partage ton avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ tóngyì nǐ de kànfǎ. » → « Wǒ tóngyì nǐ de kànfa. »"
+       }
+      ]
      }
     }
    ]

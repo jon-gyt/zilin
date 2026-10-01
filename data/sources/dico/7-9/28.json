@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cb9e6b753514997a9bd7e7dba3cac10638c4974d593d71c7ba8d05ad9a507905",
+  "empreinte_invite": "sha256:bb1883bf3716bbc1937e48e9acb89a090cb1ce77b239681d3c733bd2619ca40f",
   "contexte": "wenlu dico contexte 7-9 28",
   "essais": 1,
   "refus": []
@@ -86,14 +86,21 @@
    "exemples": [
     {
      "zh": "经理吩咐我把文件送过去。",
-     "pinyin": "Jīnglǐ fēnfu wǒ bǎ wénjiàn sòng guoqu.",
+     "pinyin": "Jīnglǐ fēnfu wǒ bǎ wénjiàn sòng guòqu.",
      "fr": "Le directeur m'a chargé de porter le dossier.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jīnglǐ fēnfu wǒ bǎ wénjiàn sòng guoqu. » → « Jīnglǐ fēnfu wǒ bǎ wénjiàn sòng guòqu. »"
+       }
+      ]
      }
     }
    ]

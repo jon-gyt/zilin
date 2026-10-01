@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a1adcfa22ede714655d2aa41f34a54af37a5365678d19a4347294afe109f128e",
+  "empreinte_invite": "sha256:0114850fab5ef39499d940681320610ff90c798c2678b0315a9b2750e2e57200",
   "contexte": "wenlu dico contexte 7-9 87",
   "essais": 1,
   "refus": []
@@ -227,14 +227,21 @@
    "exemples": [
     {
      "zh": "他想用钱收买证人。",
-     "pinyin": "Tā xiǎng yòng qián shōumǎi zhèngrén.",
+     "pinyin": "Tā xiǎng yòng qián shōumǎi zhèngren.",
      "fr": "Il veut acheter le silence du témoin.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā xiǎng yòng qián shōumǎi zhèngrén. » → « Tā xiǎng yòng qián shōumǎi zhèngren. »"
+       }
+      ]
      }
     }
    ]
@@ -1377,14 +1384,21 @@
    "exemples": [
     {
      "zh": "警察正在调查受害人的身份。",
-     "pinyin": "Jǐngchá zhèngzài diàochá shòuhàirén de shēnfèn.",
+     "pinyin": "Jǐngchá zhèngzài diàochá shòuhàirén de shēnfen.",
      "fr": "La police cherche à savoir qui a été agressé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jǐngchá zhèngzài diàochá shòuhàirén de shēnfèn. » → « Jǐngchá zhèngzài diàochá shòuhàirén de shēnfen. »"
+       }
+      ]
      }
     }
    ]
@@ -1413,14 +1427,21 @@
    "exemples": [
     {
      "zh": "那个官员因为受贿被抓了。",
-     "pinyin": "Nàge guānyuán yīnwèi shòuhuì bèi zhuā le.",
+     "pinyin": "Nàge guānyuán yīnwei shòuhuì bèi zhuā le.",
      "fr": "Ce fonctionnaire a été arrêté pour corruption.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nàge guānyuán yīnwèi shòuhuì bèi zhuā le. » → « Nàge guānyuán yīnwei shòuhuì bèi zhuā le. »"
+       }
+      ]
      }
     }
    ]

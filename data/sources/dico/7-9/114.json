@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c0ae29f6056ef421026fdeeccae410f891f14692b218ac4bc8555c02e5f3d588",
+  "empreinte_invite": "sha256:292c1b6484d20e5d2ab2238c272fa0be2cea292d391f463a8d50deddde6a3280",
   "contexte": "wenlu dico contexte 7-9 114",
   "essais": 1,
   "refus": []
@@ -416,14 +416,21 @@
    "exemples": [
     {
      "zh": "没有什么是永恒的。",
-     "pinyin": "Méiyǒu shénme shì yǒnghéng de.",
+     "pinyin": "Méiyou shénme shì yǒnghéng de.",
      "fr": "Rien ne dure toujours.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu shénme shì yǒnghéng de. » → « Méiyou shénme shì yǒnghéng de. »"
+       }
+      ]
      }
     }
    ]

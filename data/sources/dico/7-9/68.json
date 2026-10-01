@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:648bf810da24580e0424b86140b1870bd3325b1a567ea14847258a6af7ce85ef",
+  "empreinte_invite": "sha256:bc46977ebfd6070fee7a4eba1c2fe83d2920188eec6f3965c827a50f7ada80f3",
   "contexte": "wenlu dico contexte 7-9 68",
   "essais": 1,
   "refus": []
@@ -743,14 +743,21 @@
    "exemples": [
     {
      "zh": "人生最大的快乐莫过于帮助别人。",
-     "pinyin": "Rénshēng zuì dà de kuàilè mòguòyú bāngzhù biérén.",
+     "pinyin": "Rénshēng zuì dà de kuàilè mòguòyú bāngzhù biéren.",
      "fr": "Le plus grand bonheur dans la vie, c'est d'aider les autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Rénshēng zuì dà de kuàilè mòguòyú bāngzhù biérén. » → « Rénshēng zuì dà de kuàilè mòguòyú bāngzhù biéren. »"
+       }
+      ]
      }
     }
    ]
@@ -818,14 +825,21 @@
    "exemples": [
     {
      "zh": "他对别人的痛苦很漠然。",
-     "pinyin": "Tā duì biérén de tòngkǔ hěn mòrán.",
+     "pinyin": "Tā duì biéren de tòngkǔ hěn mòrán.",
      "fr": "La souffrance des autres le laisse de marbre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā duì biérén de tòngkǔ hěn mòrán. » → « Tā duì biéren de tòngkǔ hěn mòrán. »"
+       }
+      ]
      }
     }
    ]

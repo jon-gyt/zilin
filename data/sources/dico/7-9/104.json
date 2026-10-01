@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:82ff116cdc88bd2f6410084e42506527fb2d1c5b8a58a9c4c59a5b88f6ebed4d",
+  "empreinte_invite": "sha256:12f0180d9c1461b4ee6d25b42b0ad4e5839472fcba9cadfcf4a4baf7f2b91b52",
   "contexte": "wenlu dico contexte 7-9 104",
   "essais": 1,
   "refus": []
@@ -961,14 +961,21 @@
    "exemples": [
     {
      "zh": "大家都效仿他的做法。",
-     "pinyin": "Dàjiā dōu xiàofǎng tā de zuòfǎ.",
+     "pinyin": "Dàjiā dōu xiàofǎng tā de zuòfa.",
      "fr": "Tout le monde fait comme lui.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Dàjiā dōu xiàofǎng tā de zuòfǎ. » → « Dàjiā dōu xiàofǎng tā de zuòfa. »"
+       }
+      ]
      }
     }
    ]
@@ -1695,14 +1702,21 @@
    "exemples": [
     {
      "zh": "他拿了别人的钱，还心安理得。",
-     "pinyin": "Tā ná le biérén de qián, hái xīn'ān-lǐdé.",
+     "pinyin": "Tā ná le biéren de qián, hái xīn'ān-lǐdé.",
      "fr": "Il a pris l'argent des autres et n'en éprouve aucun remords.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā ná le biérén de qián, hái xīn'ān-lǐdé. » → « Tā ná le biéren de qián, hái xīn'ān-lǐdé. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3b8ebf9c24c496ea06a3c7b0a1cf7e5ebf6283e269654c0ed2814a6f5c42f988",
+  "empreinte_invite": "sha256:b408626841cb8fc750f8752db8241eeef9055dc6fb350898bfaacecb61410c09",
   "contexte": "wenlu dico contexte 6 25",
   "essais": 1,
   "refus": []
@@ -813,14 +813,21 @@
    "exemples": [
     {
      "zh": "他因为走私被抓了。",
-     "pinyin": "Tā yīnwèi zǒusī bèi zhuā le.",
+     "pinyin": "Tā yīnwei zǒusī bèi zhuā le.",
      "fr": "Il a été arrêté pour trafic.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi zǒusī bèi zhuā le. » → « Tā yīnwei zǒusī bèi zhuā le. »"
+       }
+      ]
      }
     }
    ]
@@ -1083,14 +1090,21 @@
    "exemples": [
     {
      "zh": "小猫钻到床底下去了。",
-     "pinyin": "Xiǎo māo zuān dào chuáng dǐxia qù le.",
+     "pinyin": "Xiǎo māo zuān dào chuáng dǐxia qu le.",
      "fr": "Le chaton s'est faufilé sous le lit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xiǎo māo zuān dào chuáng dǐxia qù le. » → « Xiǎo māo zuān dào chuáng dǐxia qu le. »"
+       }
+      ]
      }
     }
    ]
@@ -1223,14 +1237,21 @@
    "exemples": [
     {
      "zh": "战争带来了很多罪恶。",
-     "pinyin": "Zhànzhēng dàilái le hěn duō zuì'è.",
+     "pinyin": "Zhànzhēng dàilai le hěn duō zuì'è.",
      "fr": "La guerre a entraîné bien des atrocités.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhànzhēng dàilái le hěn duō zuì'è. » → « Zhànzhēng dàilai le hěn duō zuì'è. »"
+       }
+      ]
      }
     }
    ]

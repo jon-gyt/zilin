@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:df493d002f82bca37bcffa3fb1051fe38a7e0da424e6e21fa533af71335c2799",
+  "empreinte_invite": "sha256:ff8990dbef00a389274ba38614960c6c676c9a772a56cdf1871649f40b0c5589",
   "contexte": "wenlu dico contexte 5 21",
   "essais": 1,
   "refus": []
@@ -1281,14 +1281,21 @@
    "exemples": [
     {
      "zh": "我们的友谊会一直保持下去。",
-     "pinyin": "Wǒmen de yǒuyì huì yīzhí bǎochí xiàqu.",
+     "pinyin": "Wǒmen de yǒuyì huì yīzhí bǎochí xiaqu.",
      "fr": "Nous resterons amis pour toujours.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen de yǒuyì huì yīzhí bǎochí xiàqu. » → « Wǒmen de yǒuyì huì yīzhí bǎochí xiaqu. »"
+       }
+      ]
      }
     }
    ]
@@ -1851,14 +1858,21 @@
    "exemples": [
     {
      "zh": "这台机器的原理很简单。",
-     "pinyin": "Zhè tái jīqì de yuánlǐ hěn jiǎndān.",
+     "pinyin": "Zhè tái jīqi de yuánlǐ hěn jiǎndān.",
      "fr": "Cette machine fonctionne de façon très simple.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè tái jīqì de yuánlǐ hěn jiǎndān. » → « Zhè tái jīqi de yuánlǐ hěn jiǎndān. »"
+       }
+      ]
      }
     }
    ]

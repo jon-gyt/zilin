@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d8df53f443a24dbcfef363c389a6993089d47fb5e980e37d9a97a99b1ca382b9",
+  "empreinte_invite": "sha256:9e7413dddcc73c229f0354324798d07c02b97012b652997e0505fe942d93ad76",
   "contexte": "wenlu dico contexte 7-9 23",
   "essais": 1,
   "refus": []
@@ -321,14 +321,21 @@
    "exemples": [
     {
      "zh": "我们开车在城里兜了一圈。",
-     "pinyin": "Wǒmen kāichē zài chéng li dōu le yī quān.",
+     "pinyin": "Wǒmen kāichē zài chéng lǐ dōu le yī quān.",
      "fr": "Nous avons fait un tour en voiture dans la ville.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen kāichē zài chéng li dōu le yī quān. » → « Wǒmen kāichē zài chéng lǐ dōu le yī quān. »"
+       }
+      ]
      }
     }
    ]
@@ -864,14 +871,21 @@
    "exemples": [
     {
      "zh": "他一直独身，没有结婚。",
-     "pinyin": "Tā yīzhí dúshēn, méiyǒu jiéhūn.",
+     "pinyin": "Tā yīzhí dúshēn, méiyou jiéhūn.",
      "fr": "Il ne s'est jamais marié.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīzhí dúshēn, méiyǒu jiéhūn. » → « Tā yīzhí dúshēn, méiyou jiéhūn. »"
+       }
+      ]
      }
     }
    ]
@@ -1110,14 +1124,21 @@
    "exemples": [
     {
      "zh": "他妒忌别人的成功。",
-     "pinyin": "Tā dùjì biérén de chénggōng.",
+     "pinyin": "Tā dùjì biéren de chénggōng.",
      "fr": "Le succès des autres le rend jaloux.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā dùjì biérén de chénggōng. » → « Tā dùjì biéren de chénggōng. »"
+       }
+      ]
      }
     }
    ]
@@ -1149,14 +1170,21 @@
    "exemples": [
     {
      "zh": "我们打算去海边度假。",
-     "pinyin": "Wǒmen dǎsuàn qù hǎibiān dùjià.",
+     "pinyin": "Wǒmen dǎsuan qù hǎibiān dùjià.",
      "fr": "Nous comptons partir à la mer cet été.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen dǎsuàn qù hǎibiān dùjià. » → « Wǒmen dǎsuan qù hǎibiān dùjià. »"
+       }
+      ]
      }
     }
    ]

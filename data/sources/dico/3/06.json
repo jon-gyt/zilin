@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:36053f9ca6b974e006fc1afdeb338571d16efa9815e7e0b239b7c0442caaf065",
+  "empreinte_invite": "sha256:5ebb80d6abce2542da085a853fa54bb421cf4b378f4c3f6e5c6228a984a43e23",
   "contexte": "wenlu dico contexte 3 06",
   "essais": 1,
   "refus": []
@@ -773,14 +773,21 @@
    "exemples": [
     {
      "zh": "我对这个没有什么概念。",
-     "pinyin": "Wǒ duì zhège méiyǒu shénme gàiniàn.",
+     "pinyin": "Wǒ duì zhège méiyou shénme gàiniàn.",
      "fr": "Je n'en ai aucune idée.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ duì zhège méiyǒu shénme gàiniàn. » → « Wǒ duì zhège méiyou shénme gàiniàn. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7b4a920bbf73d6acf611ee69ad6964b1a58b14256409e7172f64a7fc0d4a89cb",
+  "empreinte_invite": "sha256:9fe8639cce8a3cffc253620b3bf48876f947609e9db5b77d1e2608ba38cf482f",
   "contexte": "wenlu dico contexte 4 21",
   "essais": 1,
   "refus": []
@@ -173,14 +173,21 @@
    "exemples": [
     {
      "zh": "太阳下山了，影子变长了。",
-     "pinyin": "Tàiyáng xià shān le, yǐngzi biàn cháng le.",
+     "pinyin": "Tàiyang xià shān le, yǐngzi biàn cháng le.",
      "fr": "Le soleil se couche, les ombres s'allongent.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tàiyáng xià shān le, yǐngzi biàn cháng le. » → « Tàiyang xià shān le, yǐngzi biàn cháng le. »"
+       }
+      ]
      }
     }
    ]
@@ -877,14 +884,21 @@
    "exemples": [
     {
      "zh": "没有人能预测未来。",
-     "pinyin": "Méiyǒu rén néng yùcè wèilái.",
+     "pinyin": "Méiyou rén néng yùcè wèilái.",
      "fr": "Personne ne sait de quoi demain sera fait.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu rén néng yùcè wèilái. » → « Méiyou rén néng yùcè wèilái. »"
+       }
+      ]
      }
     }
    ]
@@ -1562,14 +1576,21 @@
    "exemples": [
     {
      "zh": "问题在于我们没有时间。",
-     "pinyin": "Wèntí zàiyú wǒmen méiyǒu shíjiān.",
+     "pinyin": "Wèntí zàiyú wǒmen méiyou shíjiān.",
      "fr": "Le problème, c'est que nous n'avons pas le temps.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wèntí zàiyú wǒmen méiyǒu shíjiān. » → « Wèntí zàiyú wǒmen méiyou shíjiān. »"
+       }
+      ]
      }
     }
    ]
@@ -1601,14 +1622,21 @@
    "exemples": [
     {
      "zh": "我赞成你的看法。",
-     "pinyin": "Wǒ zànchéng nǐ de kànfǎ.",
+     "pinyin": "Wǒ zànchéng nǐ de kànfa.",
      "fr": "Je partage ton avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ zànchéng nǐ de kànfǎ. » → « Wǒ zànchéng nǐ de kànfa. »"
+       }
+      ]
      }
     }
    ]
@@ -1879,14 +1907,21 @@
    "exemples": [
     {
      "zh": "没有人喜欢战争。",
-     "pinyin": "Méiyǒu rén xǐhuan zhànzhēng.",
+     "pinyin": "Méiyou rén xǐhuan zhànzhēng.",
      "fr": "Personne n'aime les conflits armés.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu rén xǐhuan zhànzhēng. » → « Méiyou rén xǐhuan zhànzhēng. »"
+       }
+      ]
      }
     }
    ]

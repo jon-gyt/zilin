@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5d7345213438a19bb013f5ebbc7da5df7b2560405e30e91216ac4853b4b24876",
+  "empreinte_invite": "sha256:863f7347ca8535bab6bfb7b89b64a67a8df951cb75807395984c796aca0d2827",
   "contexte": "wenlu dico contexte 7-9 58",
   "essais": 1,
   "refus": []
@@ -115,14 +115,21 @@
    "exemples": [
     {
      "zh": "他总是向别人夸耀自己的成绩。",
-     "pinyin": "Tā zǒngshì xiàng biérén kuāyào zìjǐ de chéngjì.",
+     "pinyin": "Tā zǒngshì xiàng biéren kuāyào zìjǐ de chéngjì.",
      "fr": "Il ne cesse de se vanter de ses résultats.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒngshì xiàng biérén kuāyào zìjǐ de chéngjì. » → « Tā zǒngshì xiàng biéren kuāyào zìjǐ de chéngjì. »"
+       }
+      ]
      }
     }
    ]
@@ -510,14 +517,21 @@
    "exemples": [
     {
      "zh": "我们要学会宽容别人的错误。",
-     "pinyin": "Wǒmen yào xuéhuì kuānróng biérén de cuòwù.",
+     "pinyin": "Wǒmen yào xuéhuì kuānróng biéren de cuòwù.",
      "fr": "Il faut apprendre à pardonner les erreurs des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen yào xuéhuì kuānróng biérén de cuòwù. » → « Wǒmen yào xuéhuì kuānróng biéren de cuòwù. »"
+       }
+      ]
      }
     }
    ]
@@ -938,14 +952,21 @@
    "exemples": [
     {
      "zh": "他因为旷课被老师批评了。",
-     "pinyin": "Tā yīnwèi kuàngkè bèi lǎoshī pīpíng le.",
+     "pinyin": "Tā yīnwei kuàngkè bèi lǎoshī pīpíng le.",
      "fr": "Il s'est fait réprimander pour avoir séché les cours.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi kuàngkè bèi lǎoshī pīpíng le. » → « Tā yīnwei kuàngkè bèi lǎoshī pīpíng le. »"
+       }
+      ]
      }
     }
    ]
@@ -1059,14 +1080,21 @@
    "exemples": [
     {
      "zh": "请把正确答案用框框起来。",
-     "pinyin": "Qǐng bǎ zhèngquè dá'àn yòng kuàng kuàng qǐlai.",
+     "pinyin": "Qǐng bǎ zhèngquè dá'àn yòng kuàng kuàng qilai.",
      "fr": "Encadrez la bonne réponse.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Qǐng bǎ zhèngquè dá'àn yòng kuàng kuàng qǐlai. » → « Qǐng bǎ zhèngquè dá'àn yòng kuàng kuàng qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -1295,14 +1323,21 @@
    "exemples": [
     {
      "zh": "他把旧报纸捆起来了。",
-     "pinyin": "Tā bǎ jiù bàozhǐ kǔn qǐlai le.",
+     "pinyin": "Tā bǎ jiù bàozhǐ kǔn qilai le.",
      "fr": "Il a ficelé les vieux journaux.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ jiù bàozhǐ kǔn qǐlai le. » → « Tā bǎ jiù bàozhǐ kǔn qilai le. »"
+       }
+      ]
      }
     },
     {

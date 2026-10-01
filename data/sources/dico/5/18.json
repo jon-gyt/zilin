@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:95959f31e4ca6c16497c65ea19de1c51378dd41e02a9f15a524ba2c1aaa80bf9",
+  "empreinte_invite": "sha256:3d76593e251787a0ca7e96ce77af4db4a580bb87d2b92c614b16d71fb95d02b7",
   "contexte": "wenlu dico contexte 5 18",
   "essais": 1,
   "refus": []
@@ -1380,14 +1380,21 @@
    "exemples": [
     {
      "zh": "她觉得很委屈，哭了起来。",
-     "pinyin": "Tā juéde hěn wěiqu, kū le qǐlai.",
+     "pinyin": "Tā juéde hěn wěiqu, kū le qilai.",
      "fr": "Se sentant traitée injustement, elle s'est mise à pleurer.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā juéde hěn wěiqu, kū le qǐlai. » → « Tā juéde hěn wěiqu, kū le qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -1744,14 +1751,21 @@
    "exemples": [
     {
      "zh": "他因为贪污被抓了。",
-     "pinyin": "Tā yīnwèi tānwū bèi zhuā le.",
+     "pinyin": "Tā yīnwei tānwū bèi zhuā le.",
      "fr": "Il a été arrêté pour corruption.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi tānwū bèi zhuā le. » → « Tā yīnwei tānwū bèi zhuā le. »"
+       }
+      ]
      }
     }
    ]
@@ -1902,14 +1916,21 @@
    "exemples": [
     {
      "zh": "我也很想去，无奈没有时间。",
-     "pinyin": "Wǒ yě hěn xiǎng qù, wúnài méiyǒu shíjiān.",
+     "pinyin": "Wǒ yě hěn xiǎng qù, wúnài méiyou shíjiān.",
      "fr": "J'aimerais bien y aller aussi, mais je n'ai pas le temps.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ yě hěn xiǎng qù, wúnài méiyǒu shíjiān. » → « Wǒ yě hěn xiǎng qù, wúnài méiyou shíjiān. »"
+       }
+      ]
      }
     }
    ]

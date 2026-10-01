@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:e708725ea693d8063853d65c0c826ed63333b60092741abbe5da2af2c5b708e7",
+  "empreinte_invite": "sha256:8e00871bf1c85071ba52f39e91e44b7924d2ddbc124904a18c20f76c9d119194",
   "contexte": "wenlu dico contexte 2 01",
   "essais": 1,
   "refus": []
@@ -1509,14 +1509,21 @@
    "exemples": [
     {
      "zh": "我的笔记本在书包里。",
-     "pinyin": "Wǒ de bǐjìběn zài shūbāo lǐ.",
+     "pinyin": "Wǒ de bǐjìběn zài shūbāo li.",
      "fr": "Mon carnet est dans mon cartable.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ de bǐjìběn zài shūbāo lǐ. » → « Wǒ de bǐjìběn zài shūbāo li. »"
+       }
+      ]
      }
     }
    ]

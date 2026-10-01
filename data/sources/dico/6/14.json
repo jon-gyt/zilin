@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ad7e7e8bfd6fb44bcbe0ed4c85cc840bb11aac22830b560d808bc873e9489d96",
+  "empreinte_invite": "sha256:00da810eed1a5ae1f37ab7aea10add1af6116cb0dbb0c3b0965c40f89b409c4c",
   "contexte": "wenlu dico contexte 6 14",
   "essais": 1,
   "refus": []
@@ -118,14 +118,21 @@
    "exemples": [
     {
      "zh": "钢笔没有墨水了。",
-     "pinyin": "Gāngbǐ méiyǒu mòshuǐ le.",
+     "pinyin": "Gāngbǐ méiyou mòshuǐ le.",
      "fr": "Le stylo est vide.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Gāngbǐ méiyǒu mòshuǐ le. » → « Gāngbǐ méiyou mòshuǐ le. »"
+       }
+      ]
      }
     }
    ]
@@ -1025,14 +1032,21 @@
    "exemples": [
     {
      "zh": "经理陪同客人参观了工厂。",
-     "pinyin": "Jīnglǐ péitóng kèrén cānguān le gōngchǎng.",
+     "pinyin": "Jīnglǐ péitóng kèren cānguān le gōngchǎng.",
      "fr": "Le directeur a fait visiter l'usine aux clients.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jīnglǐ péitóng kèrén cānguān le gōngchǎng. » → « Jīnglǐ péitóng kèren cānguān le gōngchǎng. »"
+       }
+      ]
      }
     }
    ]

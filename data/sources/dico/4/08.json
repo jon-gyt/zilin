@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8b62d3158bbd629a232a42407a9b7ac9864abe201e13440d0748165d5a9b7df6",
+  "empreinte_invite": "sha256:b46d611ea7d16b0a35ad132fdb6de94b4cc2ed3539a5b0e7ae266cf9e138b38e",
   "contexte": "wenlu dico contexte 4 08",
   "essais": 1,
   "refus": []
@@ -474,14 +474,21 @@
    "exemples": [
     {
      "zh": "他没有固定的工作。",
-     "pinyin": "Tā méiyǒu gùdìng de gōngzuò.",
+     "pinyin": "Tā méiyou gùdìng de gōngzuò.",
      "fr": "Il n'a pas d'emploi stable.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu gùdìng de gōngzuò. » → « Tā méiyou gùdìng de gōngzuò. »"
+       }
+      ]
      }
     }
    ]
@@ -1384,14 +1391,21 @@
    "exemples": [
     {
      "zh": "寒假你打算做什么？",
-     "pinyin": "Hánjià nǐ dǎsuàn zuò shénme?",
+     "pinyin": "Hánjià nǐ dǎsuan zuò shénme?",
      "fr": "Qu'est-ce que tu comptes faire pendant les congés de janvier ?",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Hánjià nǐ dǎsuàn zuò shénme? » → « Hánjià nǐ dǎsuan zuò shénme? »"
+       }
+      ]
      }
     }
    ]

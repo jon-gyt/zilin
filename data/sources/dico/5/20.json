@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3c033f56a6f9cc0d359d1ec97faae73329269f6693712bc7a4a4da18fda1a7ee",
+  "empreinte_invite": "sha256:cf8c3adfbb3ba8efc2d0cfa41ce9b5dabedab072b1af4b376dee3daeede1dcdd",
   "contexte": "wenlu dico contexte 5 20",
   "essais": 1,
   "refus": []
@@ -400,14 +400,21 @@
    "exemples": [
     {
      "zh": "他很虚心地听大家的意见。",
-     "pinyin": "Tā hěn xūxīn de tīng dàjiā de yìjiàn.",
+     "pinyin": "Tā hěn xūxīn de tīng dàjiā de yìjian.",
      "fr": "Il écoute humblement l'avis de chacun.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā hěn xūxīn de tīng dàjiā de yìjiàn. » → « Tā hěn xūxīn de tīng dàjiā de yìjian. »"
+       }
+      ]
      }
     }
    ]
@@ -439,14 +446,21 @@
    "exemples": [
     {
      "zh": "没有许可，不能进入。",
-     "pinyin": "Méiyǒu xǔkě, bù néng jìnrù.",
+     "pinyin": "Méiyou xǔkě, bù néng jìnrù.",
      "fr": "Entrée interdite sans autorisation.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu xǔkě, bù néng jìnrù. » → « Méiyou xǔkě, bù néng jìnrù. »"
+       }
+      ]
      }
     }
    ]

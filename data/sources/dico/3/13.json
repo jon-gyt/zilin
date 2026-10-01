@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c2d9a0c6ef483d3b4d40d54696ad88d60c2038a8be0ee8e86feb8f7d622ba94d",
+  "empreinte_invite": "sha256:119d6437e3a99b68748b9fa616144f40fa18b44c3e79ad30d74bbd9a44101dbb",
   "contexte": "wenlu dico contexte 3 13",
   "essais": 1,
   "refus": []
@@ -661,14 +661,21 @@
    "exemples": [
     {
      "zh": "目前我还没有工作。",
-     "pinyin": "Mùqián wǒ hái méiyǒu gōngzuò.",
+     "pinyin": "Mùqián wǒ hái méiyou gōngzuò.",
      "fr": "Pour l'instant, je n'ai pas encore de travail.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Mùqián wǒ hái méiyǒu gōngzuò. » → « Mùqián wǒ hái méiyou gōngzuò. »"
+       }
+      ]
      }
     }
    ]
@@ -817,14 +824,21 @@
    "exemples": [
     {
      "zh": "难道你不知道吗？",
-     "pinyin": "Nándào nǐ bù zhīdào ma?",
+     "pinyin": "Nándào nǐ bù zhīdao ma?",
      "fr": "Ne me dis pas que tu n'étais pas au courant !",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nándào nǐ bù zhīdào ma? » → « Nándào nǐ bù zhīdao ma? »"
+       }
+      ]
      }
     }
    ]

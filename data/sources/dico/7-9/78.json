@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:97b1a34818d3485f5fbfbb94023dfed5aff6feb5b7eb7e5907183ae7908948fd",
+  "empreinte_invite": "sha256:678a6d6af27fc4ebbe23e4e4b10a9696e574c3f13b1a92a7c5ea73ed3b72dc75",
   "contexte": "wenlu dico contexte 7-9 78",
   "essais": 1,
   "refus": []
@@ -413,14 +413,21 @@
    "exemples": [
     {
      "zh": "他给每位客人都发了请帖。",
-     "pinyin": "Tā gěi měi wèi kèrén dōu fā le qǐngtiě.",
+     "pinyin": "Tā gěi měi wèi kèren dōu fā le qǐngtiě.",
      "fr": "Il a envoyé une carte à chaque convive.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā gěi měi wèi kèrén dōu fā le qǐngtiě. » → « Tā gěi měi wèi kèren dōu fā le qǐngtiě. »"
+       }
+      ]
      }
     }
    ]
@@ -1694,14 +1701,21 @@
    "exemples": [
     {
      "zh": "没有人知道他的去向。",
-     "pinyin": "Méiyou rén zhīdào tā de qùxiàng.",
+     "pinyin": "Méiyou rén zhīdao tā de qùxiàng.",
      "fr": "Personne ne sait où il est parti.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyou rén zhīdào tā de qùxiàng. » → « Méiyou rén zhīdao tā de qùxiàng. »"
+       }
+      ]
      }
     }
    ]

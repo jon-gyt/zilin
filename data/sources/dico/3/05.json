@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8f7c61f75b618dcadb0270fc7a98ad798835ccb360ae0b3bb8c55f3d3d410ad2",
+  "empreinte_invite": "sha256:88a7f84ce664f53875212418d6f8cb1910571e756cc91815f3af1949ee05bbbb",
   "contexte": "wenlu dico contexte 3 05",
   "essais": 1,
   "refus": []
@@ -612,14 +612,21 @@
    "exemples": [
     {
      "zh": "开会的时候他没有发言。",
-     "pinyin": "Kāihuì de shíhou tā méiyǒu fāyán.",
+     "pinyin": "Kāihuì de shíhou tā méiyou fāyán.",
      "fr": "Il n'a rien dit pendant la réunion.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kāihuì de shíhou tā méiyǒu fāyán. » → « Kāihuì de shíhou tā méiyou fāyán. »"
+       }
+      ]
      }
     }
    ]
@@ -857,14 +864,21 @@
    "exemples": [
     {
      "zh": "听到这个消息，他没有反应。",
-     "pinyin": "Tīng dào zhège xiāoxi, tā méiyǒu fǎnyìng.",
+     "pinyin": "Tīng dào zhège xiāoxi, tā méiyou fǎnyìng.",
      "fr": "En apprenant la nouvelle, il n'a rien dit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tīng dào zhège xiāoxi, tā méiyǒu fǎnyìng. » → « Tīng dào zhège xiāoxi, tā méiyou fǎnyìng. »"
+       }
+      ]
      }
     }
    ]

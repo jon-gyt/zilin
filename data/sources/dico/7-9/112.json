@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:356c5383500437c3e694182dd2ee20fd8d15d3e8cc890ca9c2c6245e63ba7bd1",
+  "empreinte_invite": "sha256:78fef959096f7683306db1b9625831041414f11bf3d7d8cfc6c457077a5982d6",
   "contexte": "wenlu dico contexte 7-9 112",
   "essais": 1,
   "refus": []
@@ -1311,14 +1311,21 @@
    "exemples": [
     {
      "zh": "你这个想法太异想天开了。",
-     "pinyin": "Nǐ zhège xiǎngfǎ tài yìxiǎng-tiānkāi le.",
+     "pinyin": "Nǐ zhège xiǎngfa tài yìxiǎng-tiānkāi le.",
      "fr": "Ton idée est complètement irréaliste.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ zhège xiǎngfǎ tài yìxiǎng-tiānkāi le. » → « Nǐ zhège xiǎngfa tài yìxiǎng-tiānkāi le. »"
+       }
+      ]
      }
     }
    ]
@@ -1394,14 +1401,21 @@
    "exemples": [
     {
      "zh": "对这个决定，大家没有异议。",
-     "pinyin": "Duì zhège juédìng, dàjiā méiyǒu yìyì.",
+     "pinyin": "Duì zhège juédìng, dàjiā méiyou yìyì.",
      "fr": "Personne n'a contesté cette décision.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Duì zhège juédìng, dàjiā méiyǒu yìyì. » → « Duì zhège juédìng, dàjiā méiyou yìyì. »"
+       }
+      ]
      }
     }
    ]

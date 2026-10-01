@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d865263f15f9a7ff2272f163e851aa530d7075d3dc777fd2c1f5928519aff094",
+  "empreinte_invite": "sha256:8836f3e3d8048ca17c34fe9661747fe2f311de8ec61485fe45436f0065f2d05c",
   "contexte": "wenlu dico contexte 7-9 97",
   "essais": 1,
   "refus": []
@@ -971,14 +971,21 @@
    "exemples": [
     {
      "zh": "世界上没有万能的药。",
-     "pinyin": "Shìjiè shang méiyǒu wànnéng de yào.",
+     "pinyin": "Shìjiè shang méiyou wànnéng de yào.",
      "fr": "Il n'existe pas de remède à tout.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Shìjiè shang méiyǒu wànnéng de yào. » → « Shìjiè shang méiyou wànnéng de yào. »"
+       }
+      ]
      }
     }
    ]
@@ -1265,14 +1272,21 @@
    "exemples": [
     {
      "zh": "这家银行在城里有很多网点。",
-     "pinyin": "Zhè jiā yínháng zài chéng li yǒu hěn duō wǎngdiǎn.",
+     "pinyin": "Zhè jiā yínháng zài chéng lǐ yǒu hěn duō wǎngdiǎn.",
      "fr": "Cette banque a de nombreuses agences en ville.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiā yínháng zài chéng li yǒu hěn duō wǎngdiǎn. » → « Zhè jiā yínháng zài chéng lǐ yǒu hěn duō wǎngdiǎn. »"
+       }
+      ]
      }
     }
    ]
@@ -1421,14 +1435,21 @@
    "exemples": [
     {
      "zh": "他已经没有往日的热情了。",
-     "pinyin": "Tā yǐjīng méiyǒu wǎngrì de rèqíng le.",
+     "pinyin": "Tā yǐjīng méiyou wǎngrì de rèqíng le.",
      "fr": "Il n'a plus l'enthousiasme d'antan.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yǐjīng méiyǒu wǎngrì de rèqíng le. » → « Tā yǐjīng méiyou wǎngrì de rèqíng le. »"
+       }
+      ]
      }
     }
    ]

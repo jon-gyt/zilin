@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f9e6ee5c58403567156f0c729da4867d4971f2b83c2b8672f49ef52e121fa709",
+  "empreinte_invite": "sha256:4d6d1df475717914bbe97616071e882719d80eed78efa4a46b29a99a50b190dd",
   "contexte": "wenlu dico contexte 4 06",
   "essais": 1,
   "refus": []
@@ -164,14 +164,21 @@
    "exemples": [
     {
      "zh": "他的想法很独特。",
-     "pinyin": "Tā de xiǎngfǎ hěn dútè.",
+     "pinyin": "Tā de xiǎngfa hěn dútè.",
      "fr": "Il a des idées bien à lui.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de xiǎngfǎ hěn dútè. » → « Tā de xiǎngfa hěn dútè. »"
+       }
+      ]
      }
     }
    ]
@@ -612,14 +619,21 @@
    "exemples": [
     {
      "zh": "对于这个问题，我没有意见。",
-     "pinyin": "Duìyú zhège wèntí, wǒ méiyǒu yìjiàn.",
+     "pinyin": "Duìyú zhège wèntí, wǒ méiyou yìjian.",
      "fr": "Sur cette question, je n'ai pas d'avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Duìyú zhège wèntí, wǒ méiyǒu yìjiàn. » → « Duìyú zhège wèntí, wǒ méiyou yìjian. »"
+       }
+      ]
      }
     }
    ]

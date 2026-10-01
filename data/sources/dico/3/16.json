@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a51b78e1f3b097395c53eccc816f15f4e189f534729242de04199e4a8564db5a",
+  "empreinte_invite": "sha256:63eadcd00ac267751882470979f45b87276efff8d8809850b2d5e92971288ac4",
   "contexte": "wenlu dico contexte 3 16",
   "essais": 1,
   "refus": []
@@ -260,14 +260,21 @@
    "exemples": [
     {
      "zh": "没有水，人不能生存。",
-     "pinyin": "Méiyǒu shuǐ, rén bù néng shēngcún.",
+     "pinyin": "Méiyou shuǐ, rén bù néng shēngcún.",
      "fr": "Sans eau, l'homme ne peut pas vivre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu shuǐ, rén bù néng shēngcún. » → « Méiyou shuǐ, rén bù néng shēngcún. »"
+       }
+      ]
      }
     }
    ]
@@ -1385,14 +1392,21 @@
    "exemples": [
     {
      "zh": "这个事件很多人都知道。",
-     "pinyin": "Zhège shìjiàn hěn duō rén dōu zhīdào.",
+     "pinyin": "Zhège shìjiàn hěn duō rén dōu zhīdao.",
      "fr": "Beaucoup de gens sont au courant de cette affaire.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège shìjiàn hěn duō rén dōu zhīdào. » → « Zhège shìjiàn hěn duō rén dōu zhīdao. »"
+       }
+      ]
      }
     }
    ]
@@ -1460,14 +1474,21 @@
    "exemples": [
     {
      "zh": "事实上，他早就知道了。",
-     "pinyin": "Shìshíshang, tā zǎo jiù zhīdào le.",
+     "pinyin": "Shìshíshang, tā zǎo jiù zhīdao le.",
      "fr": "En vérité, il le savait depuis longtemps.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Shìshíshang, tā zǎo jiù zhīdào le. » → « Shìshíshang, tā zǎo jiù zhīdao le. »"
+       }
+      ]
      }
     }
    ]

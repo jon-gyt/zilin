@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ba3a63c182a826417a55ac04956fe6ca46d002de9a8a3b9d3d99a33e35458004",
+  "empreinte_invite": "sha256:42edb7dc684fda9a9b6bebb2462b5b7eb37ddafd1aa6f093dbced909d528bad3",
   "contexte": "wenlu dico contexte 7-9 56",
   "essais": 1,
   "refus": []
@@ -550,14 +550,21 @@
    "exemples": [
     {
      "zh": "最可悲的是他自己还不知道。",
-     "pinyin": "Zuì kěbēi de shì tā zìjǐ hái bù zhīdào.",
+     "pinyin": "Zuì kěbēi de shì tā zìjǐ hái bù zhīdao.",
      "fr": "Le plus triste, c'est qu'il ne s'en rend même pas compte.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zuì kěbēi de shì tā zìjǐ hái bù zhīdào. » → « Zuì kěbēi de shì tā zìjǐ hái bù zhīdao. »"
+       }
+      ]
      }
     }
    ]
@@ -822,14 +829,21 @@
    "exemples": [
     {
      "zh": "诚实是一种可贵的品质。",
-     "pinyin": "Chéngshí shì yī zhǒng kěguì de pǐnzhì.",
+     "pinyin": "Chéngshi shì yī zhǒng kěguì de pǐnzhì.",
      "fr": "L'honnêteté est une qualité précieuse.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Chéngshí shì yī zhǒng kěguì de pǐnzhì. » → « Chéngshi shì yī zhǒng kěguì de pǐnzhì. »"
+       }
+      ]
      }
     }
    ]
@@ -1007,14 +1021,21 @@
    "exemples": [
     {
      "zh": "他的想法太可笑了。",
-     "pinyin": "Tā de xiǎngfǎ tài kěxiào le.",
+     "pinyin": "Tā de xiǎngfa tài kěxiào le.",
      "fr": "Son idée est grotesque.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de xiǎngfǎ tài kěxiào le. » → « Tā de xiǎngfa tài kěxiào le. »"
+       }
+      ]
      }
     }
    ]
@@ -1325,14 +1346,21 @@
    "exemples": [
     {
      "zh": "她没有刻意打扮，却很好看。",
-     "pinyin": "Tā méiyǒu kèyì dǎban, què hěn hǎokàn.",
+     "pinyin": "Tā méiyou kèyì dǎban, què hěn hǎokàn.",
      "fr": "Elle ne s'est pas particulièrement apprêtée, et pourtant elle est ravissante.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu kèyì dǎban, què hěn hǎokàn. » → « Tā méiyou kèyì dǎban, què hěn hǎokàn. »"
+       }
+      ]
      }
     }
    ]
@@ -1592,14 +1620,21 @@
    "exemples": [
     {
      "zh": "他恳求老师再给他一次机会。",
-     "pinyin": "Tā kěnqiú lǎoshī zài gěi tā yī cì jīhuì.",
+     "pinyin": "Tā kěnqiú lǎoshī zài gěi tā yī cì jīhui.",
      "fr": "Il a supplié le professeur de lui laisser une dernière chance.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā kěnqiú lǎoshī zài gěi tā yī cì jīhuì. » → « Tā kěnqiú lǎoshī zài gěi tā yī cì jīhui. »"
+       }
+      ]
      }
     }
    ]
@@ -1851,14 +1886,21 @@
    "exemples": [
     {
      "zh": "光空想是没有用的，要去做。",
-     "pinyin": "Guāng kōngxiǎng shì méiyǒu yòng de, yào qù zuò.",
+     "pinyin": "Guāng kōngxiǎng shì méiyou yòng de, yào qù zuò.",
      "fr": "Rêver ne sert à rien, il faut agir.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Guāng kōngxiǎng shì méiyǒu yòng de, yào qù zuò. » → « Guāng kōngxiǎng shì méiyou yòng de, yào qù zuò. »"
+       }
+      ]
      }
     }
    ]

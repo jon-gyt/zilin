@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4284498484c98fc96795b43db50c98f72cbc62e22f09c90116ac8da7ecf3f041",
+  "empreinte_invite": "sha256:5703977eba50682e099e2ca6f2f4e20b330404079c885aab9ff4d48bc76ea886",
   "contexte": "wenlu dico contexte 7-9 111",
   "essais": 1,
   "refus": []
@@ -418,14 +418,21 @@
    "exemples": [
     {
      "zh": "一晃十年过去了。",
-     "pinyin": "Yīhuàng shí nián guòqù le.",
+     "pinyin": "Yīhuàng shí nián guòqu le.",
      "fr": "Dix ans ont filé sans qu'on s'en rende compte.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīhuàng shí nián guòqù le. » → « Yīhuàng shí nián guòqu le. »"
+       }
+      ]
      }
     }
    ]
@@ -985,14 +992,21 @@
    "exemples": [
     {
      "zh": "这只小狗被主人遗弃了。",
-     "pinyin": "Zhè zhī xiǎogǒu bèi zhǔrén yíqì le.",
+     "pinyin": "Zhè zhī xiǎogǒu bèi zhǔren yíqì le.",
      "fr": "Ce chiot a été abandonné par son maître.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè zhī xiǎogǒu bèi zhǔrén yíqì le. » → « Zhè zhī xiǎogǒu bèi zhǔren yíqì le. »"
+       }
+      ]
      }
     }
    ]
@@ -1482,14 +1496,21 @@
    "exemples": [
     {
      "zh": "他没有听医生的话，以致病情加重。",
-     "pinyin": "Tā méiyǒu tīng yīshēng de huà, yǐzhì bìngqíng jiāzhòng.",
+     "pinyin": "Tā méiyou tīng yīshēng de huà, yǐzhì bìngqíng jiāzhòng.",
      "fr": "Il n'a pas écouté le médecin et son état s'est aggravé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu tīng yīshēng de huà, yǐzhì bìngqíng jiāzhòng. » → « Tā méiyou tīng yīshēng de huà, yǐzhì bìngqíng jiāzhòng. »"
+       }
+      ]
      }
     }
    ]
@@ -1636,14 +1657,21 @@
    "exemples": [
     {
      "zh": "世界上没有一成不变的东西。",
-     "pinyin": "Shìjiè shang méiyǒu yīchéng-bùbiàn de dōngxi.",
+     "pinyin": "Shìjiè shang méiyou yīchéng-bùbiàn de dōngxi.",
      "fr": "Rien au monde ne reste éternellement pareil.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Shìjiè shang méiyǒu yīchéng-bùbiàn de dōngxi. » → « Shìjiè shang méiyou yīchéng-bùbiàn de dōngxi. »"
+       }
+      ]
      }
     }
    ]

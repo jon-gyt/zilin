@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:16aef3c3ea7813b29f2e352e6e0e3becaba6eb7ffd9b2eeafb35173e5574b2d4",
+  "empreinte_invite": "sha256:1934c4355f2487904b1dc47f3059dad5aa8d51fc7ae78ab955e39eee4a6675bd",
   "contexte": "wenlu dico contexte 5 08",
   "essais": 1,
   "refus": []
@@ -293,14 +293,21 @@
    "exemples": [
     {
      "zh": "球滚到桌子下面去了。",
-     "pinyin": "Qiú gǔn dào zhuōzi xiàmian qù le.",
+     "pinyin": "Qiú gǔn dào zhuōzi xiàmian qu le.",
      "fr": "Le ballon a roulé sous la table.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Qiú gǔn dào zhuōzi xiàmian qù le. » → « Qiú gǔn dào zhuōzi xiàmian qu le. »"
+       }
+      ]
      }
     }
    ]
@@ -450,14 +457,21 @@
    "exemples": [
     {
      "zh": "他因为过度工作病倒了。",
-     "pinyin": "Tā yīnwèi guòdù gōngzuò bìngdǎo le.",
+     "pinyin": "Tā yīnwei guòdù gōngzuò bìngdǎo le.",
      "fr": "Il est tombé malade à force de trop travailler.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi guòdù gōngzuò bìngdǎo le. » → « Tā yīnwei guòdù gōngzuò bìngdǎo le. »"
+       }
+      ]
      }
     }
    ]
@@ -1044,14 +1058,21 @@
    "exemples": [
     {
      "zh": "他很悔恨当时没有听父母的话。",
-     "pinyin": "Tā hěn huǐhèn dāngshí méiyǒu tīng fùmǔ de huà.",
+     "pinyin": "Tā hěn huǐhèn dāngshí méiyou tīng fùmǔ de huà.",
      "fr": "Il s'en veut amèrement de ne pas avoir écouté ses parents.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā hěn huǐhèn dāngshí méiyǒu tīng fùmǔ de huà. » → « Tā hěn huǐhèn dāngshí méiyou tīng fùmǔ de huà. »"
+       }
+      ]
      }
     }
    ]
@@ -1556,14 +1577,21 @@
    "exemples": [
     {
      "zh": "他慌忙跑了出去。",
-     "pinyin": "Tā huāngmáng pǎo le chūqu.",
+     "pinyin": "Tā huāngmáng pǎo le chuqu.",
      "fr": "Il est sorti en courant, affolé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā huāngmáng pǎo le chūqu. » → « Tā huāngmáng pǎo le chuqu. »"
+       }
+      ]
      }
     }
    ]

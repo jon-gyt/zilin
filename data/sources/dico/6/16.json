@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:742583d53b40ba2760124b3fb64f34cc33ae111cceec430e8d5a5a23fc281304",
+  "empreinte_invite": "sha256:6cb58c38049aaf8e0ea24682e11e0d9a2e0563d56e83c0d10708d7c98aaa2edb",
   "contexte": "wenlu dico contexte 6 16",
   "essais": 1,
   "refus": []
@@ -467,14 +467,21 @@
    "exemples": [
     {
      "zh": "我很认同你的看法。",
-     "pinyin": "Wǒ hěn rèntóng nǐ de kànfǎ.",
+     "pinyin": "Wǒ hěn rèntóng nǐ de kànfa.",
      "fr": "Je partage tout à fait ton avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ hěn rèntóng nǐ de kànfǎ. » → « Wǒ hěn rèntóng nǐ de kànfa. »"
+       }
+      ]
      }
     }
    ]
@@ -1236,14 +1243,21 @@
    "exemples": [
     {
      "zh": "这次事故没有人员伤亡。",
-     "pinyin": "Zhè cì shìgù méiyǒu rényuán shāngwáng.",
+     "pinyin": "Zhè cì shìgù méiyou rényuán shāngwáng.",
      "fr": "Cet accident n'a fait aucune victime.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè cì shìgù méiyǒu rényuán shāngwáng. » → « Zhè cì shìgù méiyou rényuán shāngwáng. »"
+       }
+      ]
      }
     }
    ]

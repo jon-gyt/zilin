@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3421e9859daa638d859e757ed5573e49815d89c1c093e2df7c6b9fc108fb742e",
+  "empreinte_invite": "sha256:b38c895f388703445e4ede267d83dc66c76ad3501c3966077c689d124bf16fb3",
   "contexte": "wenlu dico contexte 7-9 77",
   "essais": 1,
   "refus": []
@@ -223,14 +223,21 @@
    "exemples": [
     {
      "zh": "这种做法侵害了消费者的利益。",
-     "pinyin": "Zhè zhǒng zuòfǎ qīnhài le xiāofèizhě de lìyì.",
+     "pinyin": "Zhè zhǒng zuòfa qīnhài le xiāofèizhě de lìyì.",
      "fr": "Cette pratique fait du tort aux consommateurs.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè zhǒng zuòfǎ qīnhài le xiāofèizhě de lìyì. » → « Zhè zhǒng zuòfa qīnhài le xiāofèizhě de lìyì. »"
+       }
+      ]
      }
     }
    ]
@@ -301,14 +308,21 @@
    "exemples": [
     {
      "zh": "未经允许使用别人的照片是侵权。",
-     "pinyin": "Wèi jīng yǔnxǔ shǐyòng biérén de zhàopiàn shì qīnquán.",
+     "pinyin": "Wèi jīng yǔnxǔ shǐyòng biéren de zhàopiàn shì qīnquán.",
      "fr": "Utiliser la photo de quelqu'un sans permission est illégal.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wèi jīng yǔnxǔ shǐyòng biérén de zhàopiàn shì qīnquán. » → « Wèi jīng yǔnxǔ shǐyòng biéren de zhàopiàn shì qīnquán. »"
+       }
+      ]
      }
     }
    ]

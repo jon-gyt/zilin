@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0f8f24c39379c8f913af4499e409e4834ecc0f4de5952787ea4e54aa084c4feb",
+  "empreinte_invite": "sha256:c6467f16da9ff3cb2217c550af5cfbd001141c09d7fe51f58d9761755421860d",
   "contexte": "wenlu dico contexte 4 19",
   "essais": 1,
   "refus": []
@@ -428,14 +428,21 @@
    "exemples": [
     {
      "zh": "他们的看法正好相反。",
-     "pinyin": "Tāmen de kànfǎ zhènghǎo xiāngfǎn.",
+     "pinyin": "Tāmen de kànfa zhènghǎo xiāngfǎn.",
      "fr": "Leurs avis sont diamétralement opposés.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tāmen de kànfǎ zhènghǎo xiāngfǎn. » → « Tāmen de kànfa zhènghǎo xiāngfǎn. »"
+       }
+      ]
      }
     }
    ]
@@ -543,14 +550,21 @@
    "exemples": [
     {
      "zh": "我无法想象没有手机的生活。",
-     "pinyin": "Wǒ wúfǎ xiǎngxiàng méiyǒu shǒujī de shēnghuó.",
+     "pinyin": "Wǒ wúfǎ xiǎngxiàng méiyou shǒujī de shēnghuó.",
      "fr": "Je ne peux pas concevoir la vie sans téléphone.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ wúfǎ xiǎngxiàng méiyǒu shǒujī de shēnghuó. » → « Wǒ wúfǎ xiǎngxiàng méiyou shǒujī de shēnghuó. »"
+       }
+      ]
      }
     }
    ]
@@ -1202,14 +1216,21 @@
    "exemples": [
     {
      "zh": "我不知道怎么形容这种感觉。",
-     "pinyin": "Wǒ bù zhīdào zěnme xíngróng zhè zhǒng gǎnjué.",
+     "pinyin": "Wǒ bù zhīdao zěnme xíngróng zhè zhǒng gǎnjué.",
      "fr": "Je ne sais pas comment exprimer ce que je ressens.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ bù zhīdào zěnme xíngróng zhè zhǒng gǎnjué. » → « Wǒ bù zhīdao zěnme xíngróng zhè zhǒng gǎnjué. »"
+       }
+      ]
      }
     }
    ]
@@ -1593,14 +1614,21 @@
    "exemples": [
     {
      "zh": "你没有别的选择。",
-     "pinyin": "Nǐ méiyǒu bié de xuǎnzé.",
+     "pinyin": "Nǐ méiyou bié de xuǎnzé.",
      "fr": "Tu ne peux pas faire autrement.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ méiyǒu bié de xuǎnzé. » → « Nǐ méiyou bié de xuǎnzé. »"
+       }
+      ]
      }
     }
    ]

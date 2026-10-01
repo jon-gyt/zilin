@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:04dbffb546fa535bb61f3796e0691a9179e8876e922cf65cecd8546efb903a19",
+  "empreinte_invite": "sha256:184dd331a797caf7716f1d67b48c470f03237963ec08fd14c2be05979ae5c58c",
   "contexte": "wenlu dico contexte 7-9 71",
   "essais": 1,
   "refus": []
@@ -1231,14 +1231,21 @@
    "exemples": [
     {
      "zh": "别人有困难，我们不能旁观。",
-     "pinyin": "Biérén yǒu kùnnan, wǒmen bù néng pángguān.",
+     "pinyin": "Biéren yǒu kùnnan, wǒmen bù néng pángguān.",
      "fr": "Quand d'autres sont en difficulté, on ne peut pas rester les bras croisés.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Biérén yǒu kùnnan, wǒmen bù néng pángguān. » → « Biéren yǒu kùnnan, wǒmen bù néng pángguān. »"
+       }
+      ]
      }
     }
    ]

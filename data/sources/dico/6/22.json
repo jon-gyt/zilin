@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3d992a9cc2472e4b8eab07ebf2571659516c612db015de1e2b3c6fe07dea957f",
+  "empreinte_invite": "sha256:6462c7a1e828f54f7b31f0fefc25fe7fdcd9942d37a681185885bde680c101da",
   "contexte": "wenlu dico contexte 6 22",
   "essais": 1,
   "refus": []
@@ -868,14 +868,21 @@
    "exemples": [
     {
      "zh": "他把真实的想法隐藏了起来。",
-     "pinyin": "Tā bǎ zhēnshí de xiǎngfa yǐncáng le qǐlai.",
+     "pinyin": "Tā bǎ zhēnshí de xiǎngfa yǐncáng le qilai.",
      "fr": "Il a gardé pour lui ce qu'il pensait vraiment.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ zhēnshí de xiǎngfa yǐncáng le qǐlai. » → « Tā bǎ zhēnshí de xiǎngfa yǐncáng le qilai. »"
+       }
+      ]
      }
     }
    ]

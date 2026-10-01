@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3dd40a2b48e3b7aa3f8bb41c43288b5c35e70e0dde34bf80716f42adf5b44fda",
+  "empreinte_invite": "sha256:5f401f80d784be5d715322ce7163be67d57d3c224ca6ae47a70bd5cd51d1f427",
   "contexte": "wenlu dico contexte 5 05",
   "essais": 1,
   "refus": []
@@ -889,14 +889,21 @@
    "exemples": [
     {
      "zh": "这种做法不道德。",
-     "pinyin": "Zhè zhǒng zuòfǎ bù dàodé.",
+     "pinyin": "Zhè zhǒng zuòfa bù dàodé.",
      "fr": "Agir ainsi est immoral.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè zhǒng zuòfǎ bù dàodé. » → « Zhè zhǒng zuòfa bù dàodé. »"
+       }
+      ]
      }
     }
    ]
@@ -1975,14 +1982,21 @@
    "exemples": [
     {
      "zh": "他们两个人的意见完全对立。",
-     "pinyin": "Tāmen liǎng ge rén de yìjiàn wánquán duìlì.",
+     "pinyin": "Tāmen liǎng ge rén de yìjian wánquán duìlì.",
      "fr": "Leurs deux avis sont diamétralement opposés.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tāmen liǎng ge rén de yìjiàn wánquán duìlì. » → « Tāmen liǎng ge rén de yìjian wánquán duìlì. »"
+       }
+      ]
      }
     }
    ]
@@ -2014,14 +2028,21 @@
    "exemples": [
     {
      "zh": "这个词在法语里没有对应的说法。",
-     "pinyin": "Zhège cí zài Fǎyǔ li méiyǒu duìyìng de shuōfǎ.",
+     "pinyin": "Zhège cí zài Fǎyǔ li méiyou duìyìng de shuōfǎ.",
      "fr": "Ce mot n'a pas d'équivalent en français.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège cí zài Fǎyǔ li méiyǒu duìyìng de shuōfǎ. » → « Zhège cí zài Fǎyǔ li méiyou duìyìng de shuōfǎ. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:156dddb3a39e1e861c18bde89e20ce5d2e6bc102687e69320c6c1a32be234044",
+  "empreinte_invite": "sha256:8e65d3adc7f7d15a88173fe9411cf4aab0ef1d5ad73c00f284fe1cf07c5db943",
   "contexte": "wenlu dico contexte 5 15",
   "essais": 1,
   "refus": []
@@ -1114,14 +1114,21 @@
    "exemples": [
     {
      "zh": "他对别人很冷漠。",
-     "pinyin": "Tā duì biérén hěn lěngmò.",
+     "pinyin": "Tā duì biéren hěn lěngmò.",
      "fr": "Il est très distant avec les autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā duì biérén hěn lěngmò. » → « Tā duì biéren hěn lěngmò. »"
+       }
+      ]
      }
     }
    ]
@@ -1196,14 +1203,21 @@
    "exemples": [
     {
      "zh": "你真傻，这都不知道。",
-     "pinyin": "Nǐ zhēn shǎ, zhè dōu bù zhīdào.",
+     "pinyin": "Nǐ zhēn shǎ, zhè dōu bù zhīdao.",
      "fr": "Que tu es bête, tu ne sais même pas ça.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ zhēn shǎ, zhè dōu bù zhīdào. » → « Nǐ zhēn shǎ, zhè dōu bù zhīdao. »"
+       }
+      ]
      }
     }
    ]

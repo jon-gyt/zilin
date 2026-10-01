@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3583e798f0187a5db2f341fd7fb31b020a5c9710fa02df59fbb58e82560dbe46",
+  "empreinte_invite": "sha256:31ed325307e33073c4a07d84147c2a26cef14ce13cd21608e26834c506f69099",
   "contexte": "wenlu dico contexte 3 21",
   "essais": 1,
   "refus": []
@@ -1518,14 +1518,21 @@
    "exemples": [
     {
      "zh": "没有车了，我们只好走回家。",
-     "pinyin": "Méiyǒu chē le, wǒmen zhǐhǎo zǒu huí jiā.",
+     "pinyin": "Méiyou chē le, wǒmen zhǐhǎo zǒu huí jiā.",
      "fr": "Il n'y avait plus de bus, on a dû rentrer à pied.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu chē le, wǒmen zhǐhǎo zǒu huí jiā. » → « Méiyou chē le, wǒmen zhǐhǎo zǒu huí jiā. »"
+       }
+      ]
      }
     }
    ]

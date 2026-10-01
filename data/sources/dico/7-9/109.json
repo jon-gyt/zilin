@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c7badb64512e500f3e8504d921b19b168d19ad73ae5cea64e48b18fa3dd2d310",
+  "empreinte_invite": "sha256:1e0223d1996c31dce06c793988da2d70e20155e129c32352088c70d05c650000",
   "contexte": "wenlu dico contexte 7-9 109",
   "essais": 1,
   "refus": []
@@ -242,14 +242,21 @@
    "exemples": [
     {
      "zh": "看到别人赚钱，他就眼红。",
-     "pinyin": "Kàndào biérén zhuànqián, tā jiù yǎnhóng.",
+     "pinyin": "Kàndào biéren zhuànqián, tā jiù yǎnhóng.",
      "fr": "Dès qu'il voit quelqu'un gagner de l'argent, il en crève de jalousie.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kàndào biérén zhuànqián, tā jiù yǎnhóng. » → « Kàndào biéren zhuànqián, tā jiù yǎnhóng. »"
+       }
+      ]
      }
     }
    ]

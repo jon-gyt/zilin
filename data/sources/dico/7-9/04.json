@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:49c2092965c50ca97360195bc51e45c0f133561717e043c24d8d231744306bb4",
+  "empreinte_invite": "sha256:81cb4369af78bbed039ba9caa3976ba2ebed67528f075676883f8a9cb5329dc0",
   "contexte": "wenlu dico contexte 7-9 04",
   "essais": 1,
   "refus": []
@@ -885,14 +885,21 @@
    "exemples": [
     {
      "zh": "保护孩子是母亲的本能。",
-     "pinyin": "Bǎohù háizi shì mǔqīn de běnnéng.",
+     "pinyin": "Bǎohù háizi shì mǔqin de běnnéng.",
      "fr": "Protéger son enfant est instinctif chez une mère.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bǎohù háizi shì mǔqīn de běnnéng. » → « Bǎohù háizi shì mǔqin de běnnéng. »"
+       }
+      ]
      }
     }
    ]
@@ -928,14 +935,21 @@
    "exemples": [
     {
      "zh": "他没有做生意的本钱。",
-     "pinyin": "Tā méiyǒu zuò shēngyi de běnqián.",
+     "pinyin": "Tā méiyou zuò shēngyi de běnqián.",
      "fr": "Il n'a pas de quoi se lancer dans les affaires.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu zuò shēngyi de běnqián. » → « Tā méiyou zuò shēngyi de běnqián. »"
+       }
+      ]
      }
     }
    ]
@@ -1459,14 +1473,21 @@
    "exemples": [
     {
      "zh": "没有人逼迫你做这件事。",
-     "pinyin": "Méiyǒu rén bīpò nǐ zuò zhè jiàn shì.",
+     "pinyin": "Méiyou rén bīpò nǐ zuò zhè jiàn shì.",
      "fr": "Personne ne t'oblige à faire ça.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu rén bīpò nǐ zuò zhè jiàn shì. » → « Méiyou rén bīpò nǐ zuò zhè jiàn shì. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:599dacaefc826e5a6bea6289a4ed123c0bce0a0c236b027db41463dbee7ca4e7",
+  "empreinte_invite": "sha256:78443d70937d7f3dec2b593752f1d06e89866f9863191087f3b3b7fc7c76991f",
   "contexte": "wenlu dico contexte 7-9 89",
   "essais": 1,
   "refus": []
@@ -1177,14 +1177,21 @@
    "exemples": [
     {
      "zh": "她总是顺从父母的意见。",
-     "pinyin": "Tā zǒngshì shùncóng fùmǔ de yìjiàn.",
+     "pinyin": "Tā zǒngshì shùncóng fùmǔ de yìjian.",
      "fr": "Elle se range toujours à l'avis de ses parents.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒngshì shùncóng fùmǔ de yìjiàn. » → « Tā zǒngshì shùncóng fùmǔ de yìjian. »"
+       }
+      ]
      }
     }
    ]

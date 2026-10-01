@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:348412597201e677bf8413d8b99a859644a1e06e661a0af0845dc1f5dd61df31",
+  "empreinte_invite": "sha256:eb4385d9fc2898e23bc016342d890acb5bfbba9932b749456e1876f13daecca9",
   "contexte": "wenlu dico contexte 4 14",
   "essais": 1,
   "refus": []
@@ -157,14 +157,21 @@
    "exemples": [
     {
      "zh": "你的看法太片面了。",
-     "pinyin": "Nǐ de kànfǎ tài piànmiàn le.",
+     "pinyin": "Nǐ de kànfa tài piànmiàn le.",
      "fr": "Ton point de vue ne voit qu'un côté des choses.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ de kànfǎ tài piànmiàn le. » → « Nǐ de kànfa tài piànmiàn le. »"
+       }
+      ]
      }
     }
    ]
@@ -1057,14 +1064,21 @@
    "exemples": [
     {
      "zh": "车里没有汽油了。",
-     "pinyin": "Chē li méiyǒu qìyóu le.",
+     "pinyin": "Chē li méiyou qìyóu le.",
      "fr": "Le réservoir est vide.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Chē li méiyǒu qìyóu le. » → « Chē li méiyou qìyóu le. »"
+       }
+      ]
      }
     }
    ]
@@ -1853,14 +1867,21 @@
    "exemples": [
     {
      "zh": "你没有权这样做。",
-     "pinyin": "Nǐ méiyǒu quán zhèyàng zuò.",
+     "pinyin": "Nǐ méiyou quán zhèyàng zuò.",
      "fr": "Ce n'est pas à toi d'en décider.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ méiyǒu quán zhèyàng zuò. » → « Nǐ méiyou quán zhèyàng zuò. »"
+       }
+      ]
      }
     }
    ]

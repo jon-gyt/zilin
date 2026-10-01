@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7d743f0037c71d71035ab1cde6559937c8f5f547f57222be8cc35e0555365af9",
+  "empreinte_invite": "sha256:03011384044f248f69f2f1efc9e5fcde7d6782cea6c2a70cda4a8bd8237ed2c6",
   "contexte": "wenlu dico contexte 6 01",
   "essais": 1,
   "refus": []
@@ -85,14 +85,21 @@
    "exemples": [
     {
      "zh": "我的座位挨着窗户。",
-     "pinyin": "Wǒ de zuòwèi āizhe chuānghu.",
+     "pinyin": "Wǒ de zuòwei āizhe chuānghu.",
      "fr": "Ma place est juste près de la fenêtre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ de zuòwèi āizhe chuānghu. » → « Wǒ de zuòwei āizhe chuānghu. »"
+       }
+      ]
      }
     }
    ]
@@ -965,14 +972,21 @@
    "exemples": [
     {
      "zh": "他的问题终于暴露出来了。",
-     "pinyin": "Tā de wèntí zhōngyú bàolù chūlai le.",
+     "pinyin": "Tā de wèntí zhōngyú bàolù chulai le.",
      "fr": "Ses problèmes ont fini par apparaître au grand jour.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de wèntí zhōngyú bàolù chūlai le. » → « Tā de wèntí zhōngyú bàolù chulai le. »"
+       }
+      ]
      }
     }
    ]
@@ -1406,14 +1420,21 @@
    "exemples": [
     {
      "zh": "他一下车就奔医院去了。",
-     "pinyin": "Tā yī xià chē jiù bèn yīyuàn qù le.",
+     "pinyin": "Tā yī xià chē jiù bèn yīyuàn qu le.",
      "fr": "À peine descendu de voiture, il a filé à l'hôpital.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yī xià chē jiù bèn yīyuàn qù le. » → « Tā yī xià chē jiù bèn yīyuàn qu le. »"
+       }
+      ]
      }
     }
    ]
@@ -1676,14 +1697,21 @@
    "exemples": [
     {
      "zh": "没有人逼你，是你自己要来的。",
-     "pinyin": "Méiyǒu rén bī nǐ, shì nǐ zìjǐ yào lái de.",
+     "pinyin": "Méiyou rén bī nǐ, shì nǐ zìjǐ yào lái de.",
      "fr": "Personne ne t'y a obligé, c'est toi qui as voulu venir.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu rén bī nǐ, shì nǐ zìjǐ yào lái de. » → « Méiyou rén bī nǐ, shì nǐ zìjǐ yào lái de. »"
+       }
+      ]
      }
     }
    ]

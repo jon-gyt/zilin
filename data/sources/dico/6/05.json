@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e83c8b7b767014edd28ecc071a4228ba43e39845cf6d95a2a73e56839d7299d6",
+  "empreinte_invite": "sha256:71aacc5b724110de5d6810e3e65cd41bc4f02bd2fc69d0b9a328f6e70d6269be",
   "contexte": "wenlu dico contexte 6 05",
   "essais": 1,
   "refus": []
@@ -1098,14 +1098,21 @@
    "exemples": [
     {
      "zh": "学生的档案都在这里。",
-     "pinyin": "Xuéshēng de dàng'àn dōu zài zhèli.",
+     "pinyin": "Xuésheng de dàng'àn dōu zài zhèli.",
      "fr": "Les dossiers des élèves sont tous rangés ici.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xuéshēng de dàng'àn dōu zài zhèli. » → « Xuésheng de dàng'àn dōu zài zhèli. »"
+       }
+      ]
      }
     }
    ]
@@ -1137,14 +1144,21 @@
    "exemples": [
     {
      "zh": "这个岛上没有人住。",
-     "pinyin": "Zhège dǎo shang méiyǒu rén zhù.",
+     "pinyin": "Zhège dǎo shang méiyou rén zhù.",
      "fr": "Personne n'habite sur cette île.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège dǎo shang méiyǒu rén zhù. » → « Zhège dǎo shang méiyou rén zhù. »"
+       }
+      ]
      }
     }
    ]

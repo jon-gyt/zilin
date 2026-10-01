@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f33e3c795f67877b319c5238cefc9db92b0a14a6ea98f31f2a2b381c8246efe3",
+  "empreinte_invite": "sha256:5c2e654479782cfb5fa50ebc7fc490ee0c3a803ac134c171aface56fba972515",
   "contexte": "wenlu dico contexte 7-9 86",
   "essais": 1,
   "refus": []
@@ -315,14 +315,21 @@
    "exemples": [
     {
      "zh": "他总喜欢使唤别人。",
-     "pinyin": "Tā zǒng xǐhuan shǐhuan biérén.",
+     "pinyin": "Tā zǒng xǐhuan shǐhuan biéren.",
      "fr": "Il aime bien mener les autres à la baguette.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒng xǐhuan shǐhuan biérén. » → « Tā zǒng xǐhuan shǐhuan biéren. »"
+       }
+      ]
      }
     }
    ]
@@ -1106,14 +1113,21 @@
    "exemples": [
     {
      "zh": "她在医院侍候生病的母亲。",
-     "pinyin": "Tā zài yīyuàn shìhòu shēngbìng de mǔqīn.",
+     "pinyin": "Tā zài yīyuàn shìhòu shēngbìng de mǔqin.",
      "fr": "Elle veille sur sa mère malade à l'hôpital.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zài yīyuàn shìhòu shēngbìng de mǔqīn. » → « Tā zài yīyuàn shìhòu shēngbìng de mǔqin. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3c6dd331380cea7c490a953d34534e835e47c091ea183c92dabb678ebcc60b20",
+  "empreinte_invite": "sha256:db891de57a123f3951c65352edfda9cbc9806b2b9d76884a6f0407e2bd34725a",
   "contexte": "wenlu dico contexte 7-9 01",
   "essais": 1,
   "refus": []
@@ -325,14 +325,21 @@
    "exemples": [
     {
      "zh": "他的父亲死于癌症。",
-     "pinyin": "Tā de fùqīn sǐ yú áizhèng.",
+     "pinyin": "Tā de fùqin sǐ yú áizhèng.",
      "fr": "Son père est mort d'un cancer.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de fùqīn sǐ yú áizhèng. » → « Tā de fùqin sǐ yú áizhèng. »"
+       }
+      ]
      }
     }
    ]
@@ -1028,14 +1035,21 @@
    "exemples": [
     {
      "zh": "按一下这个按键，机器就开了。",
-     "pinyin": "Àn yīxià zhège ànjiàn, jīqì jiù kāi le.",
+     "pinyin": "Àn yīxià zhège ànjiàn, jīqi jiù kāi le.",
      "fr": "Appuie ici et la machine démarre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Àn yīxià zhège ànjiàn, jīqì jiù kāi le. » → « Àn yīxià zhège ànjiàn, jīqi jiù kāi le. »"
+       }
+      ]
      }
     }
    ]

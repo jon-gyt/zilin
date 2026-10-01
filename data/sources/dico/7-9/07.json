@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:668cea8b1927b227227ada8bb3f05b452e8930b08d3f6db3b4e301d6d0a04170",
+  "empreinte_invite": "sha256:35407d54faec9f9df8cae7a448e68a863e5c858e5d4e30bf21180b1068dbd3b7",
   "contexte": "wenlu dico contexte 7-9 07",
   "essais": 1,
   "refus": []
@@ -1142,14 +1142,21 @@
    "exemples": [
     {
      "zh": "他不辞而别，谁也不知道他去哪儿了。",
-     "pinyin": "Tā bùcí'érbié, shéi yě bù zhīdào tā qù nǎr le.",
+     "pinyin": "Tā bùcí'érbié, shéi yě bù zhīdao tā qù nǎr le.",
      "fr": "Il est parti sans un mot, personne ne sait où.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bùcí'érbié, shéi yě bù zhīdào tā qù nǎr le. » → « Tā bùcí'érbié, shéi yě bù zhīdao tā qù nǎr le. »"
+       }
+      ]
      }
     }
    ]

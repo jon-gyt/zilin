@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:864e0ab71f00993517f13a2f9c5c745feea4eb0035e0fd9cf6261ae0f97f8e3c",
+  "empreinte_invite": "sha256:0a91853d0d12cb8cecdc434938418ef7d70de4ef258f8884fce1cfd45c904109",
   "contexte": "wenlu dico contexte 7-9 125",
   "essais": 1,
   "refus": []
@@ -452,14 +452,21 @@
    "exemples": [
     {
      "zh": "他因为个子矮而很自卑。",
-     "pinyin": "Tā yīnwèi gèzi ǎi ér hěn zìbēi.",
+     "pinyin": "Tā yīnwei gèzi ǎi ér hěn zìbēi.",
      "fr": "Il souffre d'être petit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi gèzi ǎi ér hěn zìbēi. » → « Tā yīnwei gèzi ǎi ér hěn zìbēi. »"
+       }
+      ]
      }
     }
    ]
@@ -1181,14 +1188,21 @@
    "exemples": [
     {
      "zh": "他总是自以为是，不听别人的意见。",
-     "pinyin": "Tā zǒngshì zìyǐwéishì, bù tīng biérén de yìjiàn.",
+     "pinyin": "Tā zǒngshì zìyǐwéishì, bù tīng biéren de yìjian.",
      "fr": "Il croit toujours tout savoir et n'écoute personne.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒngshì zìyǐwéishì, bù tīng biérén de yìjiàn. » → « Tā zǒngshì zìyǐwéishì, bù tīng biéren de yìjian. »"
+       }
+      ]
      }
     }
    ]
@@ -1217,14 +1231,21 @@
    "exemples": [
     {
      "zh": "鸟儿在天上自由自在地飞。",
-     "pinyin": "Niǎor zài tiān shang zìyóu-zìzài de fēi.",
+     "pinyin": "Niǎor zài tiān shàng zìyóu-zìzài de fēi.",
      "fr": "Les oiseaux volent en toute liberté dans le ciel.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Niǎor zài tiān shang zìyóu-zìzài de fēi. » → « Niǎor zài tiān shàng zìyóu-zìzài de fēi. »"
+       }
+      ]
      }
     }
    ]

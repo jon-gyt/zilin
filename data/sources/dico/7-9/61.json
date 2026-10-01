@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9033b09ac7720248984c9327efe82b890bbe7a3caff050ec1cb420c1bc2b3e8b",
+  "empreinte_invite": "sha256:8bf716fc91b74cca23b8ccbdf92fcdffdca7515015441b6395d3b260f3f988b9",
   "contexte": "wenlu dico contexte 7-9 61",
   "essais": 1,
   "refus": []
@@ -517,14 +517,21 @@
    "exemples": [
     {
      "zh": "老人很怜惜这个没有父母的孩子。",
-     "pinyin": "Lǎorén hěn liánxī zhège méiyǒu fùmǔ de háizi.",
+     "pinyin": "Lǎorén hěn liánxī zhège méiyou fùmǔ de háizi.",
      "fr": "Le vieil homme éprouve beaucoup de tendresse pour cet orphelin.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Lǎorén hěn liánxī zhège méiyǒu fùmǔ de háizi. » → « Lǎorén hěn liánxī zhège méiyou fùmǔ de háizi. »"
+       }
+      ]
      }
     }
    ]
@@ -556,14 +563,21 @@
    "exemples": [
     {
      "zh": "她拉开帘子，阳光照了进来。",
-     "pinyin": "Tā lā kāi liánzi, yángguāng zhào le jìnlai.",
+     "pinyin": "Tā lā kāi liánzi, yángguāng zhào le jinlai.",
      "fr": "Elle a tiré le rideau et le soleil est entré.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā lā kāi liánzi, yángguāng zhào le jìnlai. » → « Tā lā kāi liánzi, yángguāng zhào le jinlai. »"
+       }
+      ]
      }
     }
    ]

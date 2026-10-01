@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7ce36cb34ab39b0d54a6ebd967e3002abf155c0e2dd57638d610e740ee991eea",
+  "empreinte_invite": "sha256:72ffd9d9665eba6520b4d1a10288acc8978b7c9c53cbafd738341a4e8fd98d26",
   "contexte": "wenlu dico contexte 7-9 124",
   "essais": 1,
   "refus": []
@@ -363,14 +363,21 @@
    "exemples": [
     {
      "zh": "会场气氛很庄严。",
-     "pinyin": "Huìchǎng qìfēn hěn zhuāngyán.",
+     "pinyin": "Huìchǎng qìfen hěn zhuāngyán.",
      "fr": "L'atmosphère de la salle est empreinte de gravité.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Huìchǎng qìfēn hěn zhuāngyán. » → « Huìchǎng qìfen hěn zhuāngyán. »"
+       }
+      ]
      }
     }
    ]
@@ -1552,14 +1559,21 @@
    "exemples": [
     {
      "zh": "这笔钱还没有着落。",
-     "pinyin": "Zhè bǐ qián hái méiyǒu zhuóluò.",
+     "pinyin": "Zhè bǐ qián hái méiyou zhuóluò.",
      "fr": "On ne sait pas encore d'où viendra cet argent.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè bǐ qián hái méiyǒu zhuóluò. » → « Zhè bǐ qián hái méiyou zhuóluò. »"
+       }
+      ]
      }
     }
    ]

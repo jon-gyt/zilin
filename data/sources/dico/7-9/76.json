@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:33efd434876540b9709fb673eb04e19922cfbf51a436fa0d256a78f381b9a472",
+  "empreinte_invite": "sha256:658b70352c8a7b110cd21dd80c200b420634721c0a139b18ee082c8da459cd5d",
   "contexte": "wenlu dico contexte 7-9 76",
   "essais": 1,
   "refus": []
@@ -1093,14 +1093,21 @@
    "exemples": [
     {
      "zh": "不要把你的想法强加给别人。",
-     "pinyin": "Bùyào bǎ nǐ de xiǎngfǎ qiángjiā gěi biérén.",
+     "pinyin": "Bùyào bǎ nǐ de xiǎngfa qiángjiā gěi biéren.",
      "fr": "Ne force pas les autres à penser comme toi.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bùyào bǎ nǐ de xiǎngfǎ qiángjiā gěi biérén. » → « Bùyào bǎ nǐ de xiǎngfa qiángjiā gěi biéren. »"
+       }
+      ]
      }
     }
    ]

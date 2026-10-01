@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:33fe22670b76812abd9202fcb164953e3a6e83e4a20c5e7ebc04b78bb9e7c46f",
+  "empreinte_invite": "sha256:deed307888f59b923d0b87a6f025c60b465384197db9ccea9760a97113626395",
   "contexte": "wenlu dico contexte 5 22",
   "essais": 1,
   "refus": []
@@ -353,14 +353,21 @@
    "exemples": [
     {
      "zh": "战争给人们带来了巨大的灾难。",
-     "pinyin": "Zhànzhēng gěi rénmen dàilái le jùdà de zāinàn.",
+     "pinyin": "Zhànzhēng gěi rénmen dàilai le jùdà de zāinàn.",
      "fr": "La guerre a apporté d'immenses malheurs.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhànzhēng gěi rénmen dàilái le jùdà de zāinàn. » → « Zhànzhēng gěi rénmen dàilai le jùdà de zāinàn. »"
+       }
+      ]
      }
     }
    ]
@@ -666,14 +673,21 @@
    "exemples": [
     {
      "zh": "因为下雨，比赛暂停了。",
-     "pinyin": "Yīnwèi xià yǔ, bǐsài zàntíng le.",
+     "pinyin": "Yīnwei xià yǔ, bǐsài zàntíng le.",
      "fr": "À cause de la pluie, le match a été arrêté.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīnwèi xià yǔ, bǐsài zàntíng le. » → « Yīnwei xià yǔ, bǐsài zàntíng le. »"
+       }
+      ]
      }
     }
    ]
@@ -1734,14 +1748,21 @@
    "exemples": [
     {
      "zh": "大家都想知道事情的真相。",
-     "pinyin": "Dàjiā dōu xiǎng zhīdào shìqing de zhēnxiàng.",
+     "pinyin": "Dàjiā dōu xiǎng zhīdao shìqing de zhēnxiàng.",
      "fr": "Tout le monde veut savoir ce qui s'est vraiment passé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Dàjiā dōu xiǎng zhīdào shìqing de zhēnxiàng. » → « Dàjiā dōu xiǎng zhīdao shìqing de zhēnxiàng. »"
+       }
+      ]
      }
     }
    ]

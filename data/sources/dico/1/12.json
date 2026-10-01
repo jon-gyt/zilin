@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:31b5646e391800b0d585963ca1e5ae91b2cf472dfbe4fd7ea970e854236f1b04",
+  "empreinte_invite": "sha256:1a0dc9bae4a59ef487a9bfed47da1166e37120d0efd22a329d4a602614c5ef18",
   "contexte": "wenlu dico contexte 1 12",
   "essais": 1,
   "refus": []
@@ -207,14 +207,21 @@
    "exemples": [
     {
      "zh": "请到这边来。",
-     "pinyin": "Qǐng dào zhèbiān lái.",
+     "pinyin": "Qǐng dào zhèbiān lai.",
      "fr": "Venez par là, s'il vous plaît.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Qǐng dào zhèbiān lái. » → « Qǐng dào zhèbiān lai. »"
+       }
+      ]
      }
     }
    ]
@@ -624,14 +631,21 @@
    "exemples": [
     {
      "zh": "书里有很多知识。",
-     "pinyin": "Shū lǐ yǒu hěn duō zhīshi.",
+     "pinyin": "Shū li yǒu hěn duō zhīshi.",
      "fr": "On apprend beaucoup dans les livres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Shū lǐ yǒu hěn duō zhīshi. » → « Shū li yǒu hěn duō zhīshi. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2e9129b96cd44ebd1c2ab0a20cbcfdabd648e16872874a37550786051f389149",
+  "empreinte_invite": "sha256:728afd4aeb680602d881016fe605d1d0b365c0f2329b3a7fea0891d0fdd0b043",
   "contexte": "wenlu dico contexte 4 04",
   "essais": 1,
   "refus": []
@@ -118,14 +118,21 @@
    "exemples": [
     {
      "zh": "风从窗子吹进来。",
-     "pinyin": "Fēng cóng chuāngzi chuī jìnlai.",
+     "pinyin": "Fēng cóng chuāngzi chuī jinlai.",
      "fr": "Le vent entre par la fenêtre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Fēng cóng chuāngzi chuī jìnlai. » → « Fēng cóng chuāngzi chuī jinlai. »"
+       }
+      ]
      }
     }
    ]
@@ -735,14 +742,21 @@
    "exemples": [
     {
      "zh": "这件事促使他改变了想法。",
-     "pinyin": "Zhè jiàn shì cùshǐ tā gǎibiàn le xiǎngfǎ.",
+     "pinyin": "Zhè jiàn shì cùshǐ tā gǎibiàn le xiǎngfa.",
      "fr": "Cet événement l'a fait changer d'avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiàn shì cùshǐ tā gǎibiàn le xiǎngfǎ. » → « Zhè jiàn shì cùshǐ tā gǎibiàn le xiǎngfa. »"
+       }
+      ]
      }
     }
    ]

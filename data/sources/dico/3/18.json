@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3f99773e99960b80e9c75d35d553dc8ff24803ab8cb5da91b8f9f4cbda58ef96",
+  "empreinte_invite": "sha256:582c5e96f5c4e6b6aaa717b09afdc2f9ef209c3e56ba2a062f4092c8ef585c79",
   "contexte": "wenlu dico contexte 3 18",
   "essais": 1,
   "refus": []
@@ -367,14 +367,21 @@
    "exemples": [
     {
      "zh": "他推开门走了进来。",
-     "pinyin": "Tā tuīkāi mén zǒu le jìnlai.",
+     "pinyin": "Tā tuīkāi mén zǒu le jinlai.",
      "fr": "Il a poussé la porte et il est entré.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā tuīkāi mén zǒu le jìnlai. » → « Tā tuīkāi mén zǒu le jinlai. »"
+       }
+      ]
      }
     }
    ]
@@ -643,14 +650,21 @@
    "exemples": [
     {
      "zh": "这个世界上没有完美的人。",
-     "pinyin": "Zhège shìjiè shang méiyǒu wánměi de rén.",
+     "pinyin": "Zhège shìjiè shang méiyou wánměi de rén.",
      "fr": "Personne n'est sans défaut en ce monde.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège shìjiè shang méiyǒu wánměi de rén. » → « Zhège shìjiè shang méiyou wánměi de rén. »"
+       }
+      ]
      }
     }
    ]
@@ -1599,14 +1613,21 @@
    "exemples": [
     {
      "zh": "屋子里没有人。",
-     "pinyin": "Wūzi li méiyǒu rén.",
+     "pinyin": "Wūzi li méiyou rén.",
      "fr": "Il n'y a personne dans la pièce.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wūzi li méiyǒu rén. » → « Wūzi li méiyou rén. »"
+       }
+      ]
      }
     }
    ]

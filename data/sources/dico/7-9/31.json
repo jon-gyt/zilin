@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:fcfa700234cde7aad9605f666a15c33f88121a17ccdd18a6aefadbaf494a9fc7",
+  "empreinte_invite": "sha256:7c2f8997176b64525649c8b1513c159664037b59048f8e987c4ea49e741a84d6",
   "contexte": "wenlu dico contexte 7-9 31",
   "essais": 1,
   "refus": []
@@ -200,14 +200,21 @@
    "exemples": [
     {
      "zh": "敢情你早就知道了！",
-     "pinyin": "Gǎnqing nǐ zǎo jiù zhīdào le!",
+     "pinyin": "Gǎnqing nǐ zǎo jiù zhīdao le!",
      "fr": "Ah, tu le savais déjà !",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Gǎnqing nǐ zǎo jiù zhīdào le! » → « Gǎnqing nǐ zǎo jiù zhīdao le! »"
+       }
+      ]
      }
     }
    ]
@@ -1381,14 +1388,21 @@
    "exemples": [
     {
      "zh": "高山上的空气很新鲜。",
-     "pinyin": "Gāoshān shang de kōngqì hěn xīnxiān.",
+     "pinyin": "Gāoshān shang de kōngqì hěn xīnxian.",
      "fr": "En altitude, l'air est très pur.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Gāoshān shang de kōngqì hěn xīnxiān. » → « Gāoshān shang de kōngqì hěn xīnxian. »"
+       }
+      ]
      }
     }
    ]
@@ -1820,14 +1834,21 @@
    "exemples": [
     {
      "zh": "父亲告诫我不要乱花钱。",
-     "pinyin": "Fùqīn gàojiè wǒ bùyào luàn huā qián.",
+     "pinyin": "Fùqin gàojiè wǒ bùyào luàn huā qián.",
      "fr": "Mon père m'a dit de ne pas jeter l'argent par les fenêtres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Fùqīn gàojiè wǒ bùyào luàn huā qián. » → « Fùqin gàojiè wǒ bùyào luàn huā qián. »"
+       }
+      ]
      }
     }
    ]

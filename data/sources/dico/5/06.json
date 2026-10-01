@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:18275f7131fde9819c7d29c69d5f068449f391fa5fa67ee3df62be6d57e29ef9",
+  "empreinte_invite": "sha256:e6442522919b9b36a980fe27f70d457f918f359561298c6b698f44d34c33bc75",
   "contexte": "wenlu dico contexte 5 06",
   "essais": 1,
   "refus": []
@@ -915,14 +915,21 @@
    "exemples": [
     {
      "zh": "不管多难，他都没有放弃。",
-     "pinyin": "Bùguǎn duō nán, tā dōu méiyǒu fàngqì.",
+     "pinyin": "Bùguǎn duō nán, tā dōu méiyou fàngqì.",
      "fr": "Si difficile que ce soit, il n'a jamais baissé les bras.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bùguǎn duō nán, tā dōu méiyǒu fàngqì. » → « Bùguǎn duō nán, tā dōu méiyou fàngqì. »"
+       }
+      ]
      }
     }
    ]

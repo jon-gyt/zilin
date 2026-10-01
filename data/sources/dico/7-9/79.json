@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:18740c105098e2a159b9f6100897821cb2f8c6aef1fa4463279834c868e3ec3f",
+  "empreinte_invite": "sha256:1faa11b0674bf7e27372c09fe8d00269599383bc52507e87115b17a1e0dd44a9",
   "contexte": "wenlu dico contexte 7-9 79",
   "essais": 1,
   "refus": []
@@ -1510,14 +1510,21 @@
    "exemples": [
     {
      "zh": "妈妈端来一碗热腾腾的面条。",
-     "pinyin": "Māma duān lái yī wǎn rèténgténg de miàntiáo.",
+     "pinyin": "Māma duān lai yī wǎn rèténgténg de miàntiáo.",
      "fr": "Maman apporte un bol de nouilles bien chaudes.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Māma duān lái yī wǎn rèténgténg de miàntiáo. » → « Māma duān lai yī wǎn rèténgténg de miàntiáo. »"
+       }
+      ]
      }
     }
    ]
