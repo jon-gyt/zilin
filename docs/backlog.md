@@ -1027,8 +1027,17 @@ humaine, le coordinateur approuve les textes.
   fois, qui verse aussi le glossaire) ; examens, un fichier par examen et par chemin, la
   glose nouvelle dans la glose propre du support, `bang.tsv` tenu par un seul rédacteur.
 
-### Non commencées
+### Non commencées (mis à jour le 1er octobre 2026)
 
-2c.1, 2c.2, 6.2, 6.4, et dans 6.3 iCloud et le widget ; dans l'épic 7, 7.3 et 7.4. Dans
-l'épic 8, les séries au-delà du 月课 de 150. Dans l'épic 9, 9.2 à 9.6. Dans l'épic 10, 10.9 et
-10.11 ; 10.6 et 10.7 couvrent tout le HSK 1 à 9, une vraie relecture reste à faire.
+- **Sans le propriétaire** : le reste de 7.3 (ce qui est de Wenlu complet, écran par
+  écran, une ligne et un lien vers Réglages) et de 7.4 (Que remet les cadeaux des paliers ;
+  `serie.ts` suit encore l'ancienne règle), décrits plus haut ; dans 9.1, la règle « après
+  une question « Le ton » réussie » ; 9.2 (la conversation sur l'appareil).
+- **Avec le propriétaire** : 6.1 jusqu'au TestFlight, 6.2 (StoreKit), 6.4 (fiche App
+  Store), dans 6.3 iCloud et le widget ; 9.3 à 9.6 (le relais et l'abonnement) ; l'essai
+  sur un vrai iPhone ; le workflow `donnees` pour les licences des voix du continent.
+- **Contenu** : tout est écrit jusqu'au bout des deux chemins (fiches, trois lignes,
+  examens jusqu'à 1800, dictionnaire HSK 1 à 9), approuvé sans relecture ligne à ligne et
+  tracé ; une contre-relecture automatique a lieu le 1er octobre, une vraie relecture
+  reste à faire. Restent hors chemin 敢, 展, 丧 (lecture de la norme à vérifier sur le
+  fac-similé). 2c.1 et 2c.2 sont faites (contes relus, exportés et lus dans l'app).
