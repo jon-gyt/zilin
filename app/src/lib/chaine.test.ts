@@ -15,6 +15,7 @@ import {
   ENONCE_AUTRE_CHAINE,
   ENONCE_CHAINE,
   MAILLONS_MAX,
+  MOTS_MANCHE_NEUVE,
   PROPOSITIONS_CHAINE,
   SECONDES_PAR_MOT,
   chaineDeMots,
@@ -448,5 +449,22 @@ describe('la chaîne de mots sur le parcours Lire (export servi)', () => {
   it('se tait sans acquis réel : la démonstration ne fait lire aucun mot', () => {
     const corpus = corpusDeJeu({ fiches: familles.flatMap((f) => f.fiches), familles, paires, traits, cartes: [] });
     expect(JEUX.chaine.preparer(corpus, G)).toBeNull();
+  });
+});
+
+describe('une autre manche', () => {
+  const avecVus = (vus: string[]): CorpusJeux => ({ ...C, chaine: { mots: MOTS, acquis: ACQUIS, vus } });
+  const mots = (ts: Tour[]) => ts.map((t) => t.maillon);
+
+  it('écarte les mots déjà posés depuis l’ouverture, quand il en reste assez', () => {
+    const premiere = mots(toursChaine(C, G));
+    const seconde = mots(toursChaine(avecVus(premiere as string[]), '2026-09-30/chaine/1'));
+    expect(seconde.length).toBeGreaterThanOrEqual(MOTS_MANCHE_NEUVE);
+    expect(seconde.filter((w) => premiere.includes(w))).toEqual([]);
+  });
+
+  it('reprend tous les mots quand les écarter ne laisse pas de manche', () => {
+    const tous = MOTS.map((m) => m.hanzi);
+    expect(toursChaine(avecVus(tous), G).length).toBe(toursChaine(C, G).length);
   });
 });
