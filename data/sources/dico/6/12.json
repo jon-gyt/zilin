@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ce727d8d9b8f9e7a62227a011d6ed66a1d4a30088a8dc6fa0366a5c2ac2ef8b5",
+  "empreinte_invite": "sha256:0f804b5fe5da64ff06d29bab190d2d48f37fa1ed2d9adc55fb26ceb67b9a6cb1",
   "contexte": "wenlu dico contexte 6 12",
   "essais": 1,
   "refus": []
@@ -1121,14 +1121,21 @@
    "exemples": [
     {
      "zh": "他一步跨过了小河。",
-     "pinyin": "Tā yī bù kuà guo le xiǎo hé.",
+     "pinyin": "Tā yī bù kuà guò le xiǎo hé.",
      "fr": "D'une enjambée, il a passé le ruisseau.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yī bù kuà guo le xiǎo hé. » → « Tā yī bù kuà guò le xiǎo hé. »"
+       }
+      ]
      }
     }
    ]
