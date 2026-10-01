@@ -257,6 +257,8 @@
   let preparee = '';
   /** Les mots de l'éclair déjà posés depuis l'ouverture de l'écran. Non réactif, comme `preparee`. */
   let vusEclair: string[] = [];
+  /** Les mots de la chaîne déjà posés depuis l'ouverture de l'écran. */
+  let vusChaine: string[] = [];
   let m = $state<Manche | null>(null);
 
   /* l'état d'un tour : ce qui est pris, le chrono, le flash, la correction */
@@ -390,10 +392,18 @@
     if (preparee === cle) return;
     preparee = cle;
     /* L'éclair écarte les mots devinés depuis l'ouverture et ceux déjà posés. */
-    const source = id === 'eclair' ? corpusDeManche(corpus, p.motsDevines, vusEclair) : corpus;
+    const source =
+      id === 'eclair'
+        ? corpusDeManche(corpus, p.motsDevines, vusEclair)
+        : id === 'chaine' && corpus.chaine
+          ? { ...corpus, chaine: { ...corpus.chaine, vus: vusChaine } }
+          : corpus;
     const manche = JEUX[id].preparer(source, cle);
     if (id === 'eclair') {
       vusEclair = [...vusEclair, ...(manche?.tours ?? []).flatMap((t) => (t.mot ? [t.mot] : []))];
+    }
+    if (id === 'chaine') {
+      vusChaine = [...vusChaine, ...(manche?.tours ?? []).flatMap((t) => (t.maillon ? [t.maillon] : []))];
     }
     m = manche;
     serie = 0;

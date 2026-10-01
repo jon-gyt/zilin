@@ -48,6 +48,9 @@ export const MAILLONS_MAX = (3 * 60) / SECONDES_PAR_MOT;
 /** Le budget de la recherche : de quoi explorer l'acquis d'un parcours entier, sans attendre. */
 const BUDGET_CHAINE = 4_000;
 
+/** Une manche qui écarte les mots déjà vus doit en garder au moins autant, sinon on les reprend. */
+export const MOTS_MANCHE_NEUVE = 3;
+
 /** Ce qu'on demande : le sens du mot, comme au dictionnaire éclair. */
 export const ENONCE_CHAINE = 'Que veut dire ce mot ?';
 
@@ -79,6 +82,12 @@ export type MotsDeChaine = {
   mots: readonly MotChaine[];
   /** L'acquis réel : les cartes au seuil de stabilité. Jamais l'acquis de démonstration. */
   acquis: readonly string[];
+  /**
+   * Les mots déjà posés depuis l'ouverture de l'écran : une autre manche les écarte, tant
+   * qu'il reste de quoi faire une chaîne sans eux. Sans cela, en début de chemin, la
+   * chaîne la plus longue est toujours la même, quelle que soit la graine.
+   */
+  vus?: readonly string[];
 };
 
 /** Les sources de la chaîne : les fiches (surcouchées d'abord), les familles, les cartes. */
@@ -327,9 +336,13 @@ export function chaineDeMots(
  * permet (`chaineDeMots`) ; quand elle s'arrête avant que la manche soit pleine, une autre
  * repart de mots qui n'ont pas encore servi, tant qu'il reste la place de deux mots.
  */
-export function chainesDeMots(corpus: CorpusJeux, graine: string): string[][] {
+export function chainesDeMots(
+  corpus: CorpusJeux,
+  graine: string,
+  ecartes: readonly string[] = []
+): string[][] {
   const out: string[][] = [];
-  const servis = new Set<string>();
+  const servis = new Set<string>(ecartes);
   let n = 0;
   while (MAILLONS_MAX - n >= 2) {
     const suite = chaineDeMots(corpus, out.length === 0 ? graine : `${graine}/${out.length}`, servis);
@@ -398,7 +411,10 @@ function leurresDuMot(
 export function toursChaine(corpus: CorpusJeux, graine: string): Tour[] {
   const pool = motsPossibles(corpus);
   const parMot = new Map(pool.map((m) => [m.hanzi, m]));
-  const chaines = chainesDeMots(corpus, graine);
+  /* Les mots déjà posés dans la visite s'écartent, sauf s'il ne reste alors pas de quoi
+     faire une manche : mieux vaut reposer une chaîne que n'en poser aucune. */
+  const neuves = chainesDeMots(corpus, graine, corpus.chaine?.vus ?? []);
+  const chaines = neuves.flat().length >= MOTS_MANCHE_NEUVE ? neuves : chainesDeMots(corpus, graine);
   const dansLaManche = new Set(chaines.flat());
   const tours: Tour[] = [];
   const poses: string[] = [];
