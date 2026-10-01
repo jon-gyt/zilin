@@ -52,6 +52,77 @@
      1470
     ]
    }
+  ],
+  "corrections": [
+   {
+    "date": "2026-10-01",
+    "par": "contre-relecture",
+    "decision": "« ok pour tes 2 propositions » (1er octobre 2026) : contre-relecture des textes approuvés sans relecture ligne à ligne",
+    "objet": "hsk, jours 736 à 1470 : un pinyin, une traduction, et des gloses propres là où le découpage le plus long faussait le sens touché",
+    "jours": [
+     852,
+     1014,
+     1033,
+     1169,
+     1264,
+     1308,
+     1320,
+     1322,
+     1348,
+     1430,
+     1466,
+     1469
+    ]
+   },
+   {
+    "date": "2026-10-01",
+    "par": "contre-relecture",
+    "parcours": "hsk",
+    "jours": [
+     91,
+     95,
+     151,
+     192,
+     211,
+     221,
+     302,
+     310,
+     319,
+     322,
+     339,
+     403,
+     417,
+     426,
+     516,
+     523,
+     556,
+     557,
+     568,
+     597,
+     614,
+     622,
+     632,
+     633,
+     636,
+     639,
+     648,
+     651,
+     654,
+     664,
+     672,
+     673,
+     679,
+     711,
+     715,
+     717,
+     725,
+     727,
+     729,
+     730,
+     735
+    ],
+    "objet": "contre-relecture des jours 1 à 735 : polyphones lus à tort (长得 zhǎng au jour 319, 倒下 dǎo au jour 614, 一场大雪 cháng au jour 633) ; glose propre là où le découpage du lecteur ou le glossaire donnait un sens faux dans le contexte (面 nouilles, 一会, 你的话, 最好玩, 不过时, 说好几遍…). Statut inchangé. Brouillons des jours 426, 453 et 455 réalignés sur le texte relu (一场比赛, 一场表演 : chǎng)."
+   }
   ]
  },
  "textes": [
@@ -2172,6 +2243,12 @@
      "pinyin": "hǎo yòng",
      "fr": "pratique, commode",
      "en": "handy, easy to use"
+    },
+    {
+     "zh": "用手机",
+     "pinyin": "yòng shǒu jī",
+     "fr": "se servir du téléphone",
+     "en": "to use one's phone"
     }
    ]
   },
@@ -2268,6 +2345,14 @@
      "pinyin": "dì di wǒ yě yǒu bái yī",
      "fr": "Mon petit frère : « Moi aussi, j'ai des habits blancs ! »",
      "en": "My little brother: “I've got white clothes too!”"
+    }
+   ],
+   "glose": [
+    {
+     "zh": "不过时",
+     "pinyin": "bù guò shí",
+     "fr": "pas démodé",
+     "en": "not out of fashion"
     }
    ]
   },
@@ -3613,6 +3698,14 @@
      "fr": "Daming dit : « Non, Internet, c'est le plus amusant ! »",
      "en": "Daming says: \"No, going online is the most fun!\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "最好玩",
+     "pinyin": "zuì hǎo wán",
+     "fr": "le plus amusant",
+     "en": "the most fun"
+    }
    ]
   },
   {
@@ -4597,6 +4690,14 @@
      "fr": "Il dit : « La cuisine chinoise, c'est vraiment bon ! »",
      "en": "He says: \"Chinese food is really delicious!\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "nouilles",
+     "en": "noodles"
+    }
    ]
   },
   {
@@ -5053,6 +5154,14 @@
      "fr": "Grand-mère dit : « À midi, nouilles aux œufs ! »",
      "en": "Grandma says: \"Egg noodles for lunch!\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "nouilles",
+     "en": "noodles"
+    }
    ]
   },
   {
@@ -5244,6 +5353,20 @@
      "pinyin": "wǒ tīng le nǐ de huà hěn ān xīn",
      "fr": "En entendant tes mots, je suis rassuré.",
      "en": "Hearing what you said, I feel reassured."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "你的话",
+     "pinyin": "nǐ de huà",
+     "fr": "tes paroles, ce que tu dis",
+     "en": "your words, what you say"
+    },
+    {
+     "zh": "门",
+     "pinyin": "mén",
+     "fr": "(classificateur des langues, des matières)",
+     "en": "(measure word for languages, subjects)"
     }
    ]
   },
@@ -7189,6 +7312,14 @@
      "fr": "J'ai fait le calcul : cinquante yuans en tout.",
      "en": "I worked it out: fifty yuan in all."
     }
+   ],
+   "glose": [
+    {
+     "zh": "算了一下",
+     "pinyin": "suàn le yī xià",
+     "fr": "avoir fait le calcul",
+     "en": "to have worked it out"
+    }
    ]
   },
   {
@@ -7380,6 +7511,14 @@
      "pinyin": "zhè ge cài tǐng hǎo chī de",
      "fr": "Ce plat est plutôt bon.",
      "en": "This dish is pretty tasty."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "挺好吃",
+     "pinyin": "tǐng hǎo chī",
+     "fr": "plutôt bon (à manger)",
+     "en": "pretty tasty"
     }
    ]
   },
@@ -7587,7 +7726,7 @@
     },
     {
      "zh": "你长得很像你妈妈。",
-     "pinyin": "nǐ cháng de hěn xiàng nǐ mā ma",
+     "pinyin": "nǐ zhǎng de hěn xiàng nǐ mā ma",
      "fr": "Tu ressembles beaucoup à ta mère.",
      "en": "You look a lot like your mother."
     },
@@ -7596,6 +7735,14 @@
      "pinyin": "wǒ mǎi le xīn xié",
      "fr": "J'ai acheté des chaussures neuves.",
      "en": "I bought new shoes."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "长得",
+     "pinyin": "zhǎng de",
+     "fr": "avoir l'air, ressembler",
+     "en": "to look (like)"
     }
    ]
   },
@@ -7668,6 +7815,14 @@
      "pinyin": "tā shì yī ge hěn hǎo de xuǎn shǒu",
      "fr": "C'est un très bon concurrent.",
      "en": "He's a very good competitor."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "很好的",
+     "pinyin": "hěn hǎo de",
+     "fr": "très bon",
+     "en": "very good"
     }
    ]
   },
@@ -8084,6 +8239,12 @@
      "pinyin": "zhī",
      "fr": "(classificateur des animaux)",
      "en": "(measure word for animals)"
+    },
+    {
+     "zh": "看报纸",
+     "pinyin": "kàn bào zhǐ",
+     "fr": "lire le journal",
+     "en": "to read the newspaper"
     }
    ]
   },
@@ -9621,6 +9782,14 @@
      "fr": "Elle me demande même ce que j'ai mangé.",
      "en": "She even asks what I've eaten."
     }
+   ],
+   "glose": [
+    {
+     "zh": "用手机",
+     "pinyin": "yòng shǒu jī",
+     "fr": "se servir du téléphone",
+     "en": "to use one's phone"
+    }
    ]
   },
   {
@@ -9965,6 +10134,14 @@
      "fr": "À la maison, maman me reproche d'en avoir trop acheté.",
      "en": "At home, Mom told me off for buying too many."
     }
+   ],
+   "glose": [
+    {
+     "zh": "最好吃",
+     "pinyin": "zuì hǎo chī",
+     "fr": "le meilleur (au goût)",
+     "en": "the tastiest"
+    }
    ]
   },
   {
@@ -10180,6 +10357,14 @@
      "pinyin": "dà jiā dōu lái gěi wǒ men jiā yóu",
      "fr": "Tout le monde vient nous encourager.",
      "en": "Everyone comes to cheer us on."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "对",
+     "pinyin": "duì",
+     "fr": "contre (dans un match)",
+     "en": "against, versus"
     }
    ]
   },
@@ -12357,6 +12542,14 @@
      "fr": "Je chuchote : « Qu'elle est mignonne. »",
      "en": "I whisper: \"She's so cute.\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "开得",
+     "pinyin": "kāi de",
+     "fr": "rouler, conduire (de telle façon)",
+     "en": "to drive (in a way)"
+    }
    ]
   },
   {
@@ -12524,6 +12717,14 @@
      "pinyin": "tiān jiàn jiàn hēi le jiāng biān de dēng dōu liàng le",
      "fr": "La nuit tombe peu à peu, les lumières s'allument au bord du fleuve.",
      "en": "It gradually gets dark, and the lights along the river come on."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "开着",
+     "pinyin": "kāi zhe",
+     "fr": "avancer, être en marche",
+     "en": "to be moving, under way"
     }
    ]
   },
@@ -13333,6 +13534,14 @@
      "fr": "Il dit que l'eau de source est bien meilleure que l'eau minérale.",
      "en": "He says spring water tastes much better than mineral water."
     }
+   ],
+   "glose": [
+    {
+     "zh": "一口",
+     "pinyin": "yī kǒu",
+     "fr": "un, une (classificateur des puits, des sources)",
+     "en": "one (measure word for wells, springs)"
+    }
    ]
   },
   {
@@ -13356,6 +13565,14 @@
      "pinyin": "tài yang yī zhí hěn hǎo sǎn bái dài le",
      "fr": "Il a fait beau tout le temps : parapluie pour rien.",
      "en": "The sun shone all day; I carried the umbrella for nothing."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "白",
+     "pinyin": "bái",
+     "fr": "pour rien, en vain ; blanc",
+     "en": "in vain, for nothing; white"
     }
    ]
   },
@@ -13628,6 +13845,14 @@
      "pinyin": "jīn tiān tā zì jǐ shuā le yá duì zhe jìng zi shuō wǒ zhēn shuài",
      "fr": "Aujourd'hui il s'est brossé les dents tout seul et dit au miroir : « Que je suis beau ! »",
      "en": "Today he brushed his teeth by himself and told the mirror: \"I'm so handsome!\""
+    }
+   ],
+   "glose": [
+    {
+     "zh": "说好几遍",
+     "pinyin": "shuō hǎo jǐ biàn",
+     "fr": "dire plusieurs fois",
+     "en": "to say several times"
     }
    ]
   },
@@ -14341,6 +14566,14 @@
      "fr": "Moi aussi, je ne suis entré que pour voir le chat.",
      "en": "I went in just to see the cat too."
     }
+   ],
+   "glose": [
+    {
+     "zh": "店门口",
+     "pinyin": "diàn mén kǒu",
+     "fr": "devant la boutique",
+     "en": "outside the shop"
+    }
    ]
   },
   {
@@ -14755,7 +14988,7 @@
     },
     {
      "zh": "一棵倒下的大树阻碍了交通。",
-     "pinyin": "yī kē dào xià de dà shù zǔ ài le jiāo tōng",
+     "pinyin": "yī kē dǎo xià de dà shù zǔ ài le jiāo tōng",
      "fr": "Un grand arbre tombé bloque la circulation.",
      "en": "A fallen tree is blocking the traffic."
     },
@@ -14764,6 +14997,14 @@
      "pinyin": "dà jiā zhǐ hǎo zuò xiǎo chuán dào duì àn qù",
      "fr": "Tout le monde doit prendre une barque pour passer sur l'autre rive.",
      "en": "Everyone has to take a small boat to the other bank."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "倒下",
+     "pinyin": "dǎo xià",
+     "fr": "tomber, s'abattre",
+     "en": "to fall down"
     }
    ]
   },
@@ -14956,6 +15197,14 @@
      "pinyin": "zuì hòu hái shì bà ba bāng tā zhuāng hǎo de",
      "fr": "Finalement, c'est papa qui l'a aidé à le remonter.",
      "en": "In the end, it was Dad who helped him put it back together."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "装好",
+     "pinyin": "zhuāng hǎo",
+     "fr": "remonter, finir d'assembler",
+     "en": "to put back together"
     }
    ]
   },
@@ -15212,6 +15461,12 @@
      "pinyin": "de",
      "fr": "(particule adverbiale)",
      "en": "(adverbial particle)"
+    },
+    {
+     "zh": "开着",
+     "pinyin": "kāi zhe",
+     "fr": "allumé (une lampe)",
+     "en": "switched on (a light)"
     }
    ]
   },
@@ -15221,7 +15476,7 @@
    "lignes": [
     {
      "zh": "元旦那天，下了一场大雪。",
-     "pinyin": "yuán dàn nà tiān xià le yī chǎng dà xuě",
+     "pinyin": "yuán dàn nà tiān xià le yī cháng dà xuě",
      "fr": "Le jour de l'An, il est tombé beaucoup de neige.",
      "en": "On New Year's Day there was a heavy snowfall."
     },
@@ -15236,6 +15491,14 @@
      "pinyin": "kě shì yī dàn tiān hēi qì wēn jiù jiàng de hěn kuài",
      "fr": "Mais dès que la nuit tombe, la température chute très vite.",
      "en": "But once it gets dark, the temperature drops fast."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "场",
+     "pinyin": "cháng",
+     "fr": "(classificateur : une averse, une chute de neige)",
+     "en": "(measure word for a spell of rain or snow)"
     }
    ]
   },
@@ -15308,6 +15571,14 @@
      "pinyin": "dǎo yóu shuō bié mō zhè zhǒng huā yǒu dú",
      "fr": "Le guide dit : « N'y touchez pas, cette fleur est toxique. »",
      "en": "The guide says: \"Don't touch, this flower is poisonous.\""
+    }
+   ],
+   "glose": [
+    {
+     "zh": "开着",
+     "pinyin": "kāi zhe",
+     "fr": "en fleur, fleurir",
+     "en": "in bloom, blooming"
     }
    ]
   },
@@ -15396,6 +15667,12 @@
      "pinyin": "mén hòu mian",
      "fr": "derrière la porte",
      "en": "behind the door"
+    },
+    {
+     "zh": "一会",
+     "pinyin": "yī huì",
+     "fr": "un moment",
+     "en": "a moment"
     }
    ]
   },
@@ -15613,6 +15890,14 @@
      "fr": "« D'accord, alors on commande sans toi. »",
      "en": "\"OK, then we'll order first.\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "点菜",
+     "pinyin": "diǎn cài",
+     "fr": "commander (au restaurant)",
+     "en": "to order (food)"
+    }
    ]
   },
   {
@@ -15684,6 +15969,14 @@
      "pinyin": "chī wán le měi ge rén dōu chū le yī shēn hàn",
      "fr": "À la fin, tout le monde est en sueur.",
      "en": "By the end, everyone is covered in sweat."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "边吃边聊",
+     "pinyin": "biān chī biān liáo",
+     "fr": "bavarder en mangeant",
+     "en": "to chat while eating"
     }
    ]
   },
@@ -15764,6 +16057,12 @@
      "pinyin": "zhī",
      "fr": "(classificateur des animaux)",
      "en": "(measure word for animals)"
+    },
+    {
+     "zh": "又好气又好笑",
+     "pinyin": "yòu hǎo qì yòu hǎo xiào",
+     "fr": "à la fois fâché et amusé",
+     "en": "annoyed and amused at once"
     }
    ]
   },
@@ -16005,6 +16304,14 @@
      "fr": "Les enfants courent dans l'herbe tout l'après-midi.",
      "en": "The children run on the grass all afternoon."
     }
+   ],
+   "glose": [
+    {
+     "zh": "一下午",
+     "pinyin": "yī xià wǔ",
+     "fr": "tout l'après-midi",
+     "en": "the whole afternoon"
+    }
    ]
   },
   {
@@ -16211,6 +16518,14 @@
      "fr": "Heureusement, un collègue m'en a prêté un.",
      "en": "Luckily a colleague lent me one."
     }
+   ],
+   "glose": [
+    {
+     "zh": "一把",
+     "pinyin": "yī bǎ",
+     "fr": "un, une (classificateur des objets à manche : parapluie…)",
+     "en": "one (measure word for objects with a handle: umbrella…)"
+    }
    ]
   },
   {
@@ -16234,6 +16549,14 @@
      "pinyin": "huí lái de shí hou wǒ de xié dōu zǒu làn le",
      "fr": "Au retour, mes chaussures étaient usées à force de marcher.",
      "en": "By the time we got back, I had worn out my shoes walking."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "小吃",
+     "pinyin": "xiǎo chī",
+     "fr": "en-cas, petits plats",
+     "en": "snacks"
     }
    ]
   },
@@ -16386,6 +16709,14 @@
      "pinyin": "kě shì tā men zǎo jiù tīng bù jiàn le",
      "fr": "Mais ils sont déjà trop loin pour l'entendre.",
      "en": "But they're already out of earshot."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "听不见",
+     "pinyin": "tīng bù jiàn",
+     "fr": "ne pas entendre",
+     "en": "cannot hear"
     }
    ]
   },
@@ -17195,6 +17526,14 @@
      "fr": "« D'accord, je vais acheter les tomates, toi, bats les œufs. »",
      "en": "\"OK, I'll go buy the tomatoes, you beat the eggs.\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "nouilles",
+     "en": "noodles"
+    }
    ]
   },
   {
@@ -17299,6 +17638,14 @@
      "fr": "Et au bout du compte, on descend manger des nouilles ensemble.",
      "en": "In the end we all go downstairs for noodles together."
     }
+   ],
+   "glose": [
+    {
+     "zh": "面",
+     "pinyin": "miàn",
+     "fr": "nouilles",
+     "en": "noodles"
+    }
    ]
   },
   {
@@ -17346,6 +17693,14 @@
      "pinyin": "mén dāng rán shì suǒ hǎo de",
      "fr": "Bien sûr, la porte était fermée.",
      "en": "Of course, the door was locked."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "锁好",
+     "pinyin": "suǒ hǎo",
+     "fr": "bien fermé à clé",
+     "en": "locked"
     }
    ]
   },
@@ -17547,6 +17902,14 @@
      "fr": "Au bout d'un moment, il dit : « Merci d'être venu me consoler. »",
      "en": "After a while he says: \"Thanks for coming to comfort me.\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "一会",
+     "pinyin": "yī huì",
+     "fr": "un moment",
+     "en": "a moment"
+    }
    ]
   },
   {
@@ -17594,6 +17957,14 @@
      "pinyin": "zhēn kě xī nà jiā xiǎo miàn guǎn yě bù jiàn le",
      "fr": "Dommage : le petit restaurant de nouilles a disparu lui aussi.",
      "en": "What a pity, the little noodle shop has gone too."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "面馆",
+     "pinyin": "miàn guǎn",
+     "fr": "restaurant de nouilles",
+     "en": "noodle shop"
     }
    ]
   },
@@ -17643,6 +18014,14 @@
      "fr": "Elle dit : « C'est plus utile que tout. »",
      "en": "She says: \"This is more useful than anything.\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "说明",
+     "pinyin": "shuō míng",
+     "fr": "explication, mode d'emploi",
+     "en": "explanation, instructions"
+    }
    ]
   },
   {
@@ -17666,6 +18045,14 @@
      "pinyin": "shān fēng chuī lái zhēn shì yī zhǒng xiǎng shòu",
      "fr": "Le vent de la montagne souffle : un vrai bonheur.",
      "en": "The mountain breeze blows; it's a real pleasure."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "一会",
+     "pinyin": "yī huì",
+     "fr": "un moment",
+     "en": "a moment"
     }
    ]
   },
@@ -17802,6 +18189,12 @@
      "pinyin": "zhī",
      "fr": "(classificateur des animaux)",
      "en": "(measure word for animals)"
+    },
+    {
+     "zh": "点",
+     "pinyin": "diǎn",
+     "fr": "commander (un plat) ; point, heure",
+     "en": "to order (a dish); point, o'clock"
     }
    ]
   },
@@ -20650,6 +21043,14 @@
      "pinyin": "tā men zǎo shang wǔ diǎn jiù qǐ chuáng le",
      "fr": "Ils se lèvent dès cinq heures du matin.",
      "en": "They get up at five in the morning."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "练功夫",
+     "pinyin": "liàn gōng fū",
+     "fr": "pratiquer le kung-fu",
+     "en": "to practise kung fu"
     }
    ]
   },
@@ -24668,7 +25069,7 @@
     {
      "zh": "第二天早上，新衣服就放在床头了。",
      "pinyin": "dì èr tiān zǎo shang xīn yī fu jiù fàng zài chuáng tóu le",
-     "fr": "Le lendemain matin, les habits neufs attendent au pied du lit.",
+     "fr": "Le lendemain matin, les habits neufs attendent à la tête du lit.",
      "en": "The next morning the new clothes are by the bed."
     }
    ]
@@ -25142,6 +25543,14 @@
      "pinyin": "mā ma shuō jīn tiān wǎn shang gěi nǐ zuò hǎo chī de",
      "fr": "Maman dit : « Ce soir, je te fais quelque chose de bon. »",
      "en": "Mom says: \"Tonight I'll make you something delicious.\""
+    }
+   ],
+   "glose": [
+    {
+     "zh": "做好吃的",
+     "pinyin": "zuò hǎo chī de",
+     "fr": "préparer quelque chose de bon",
+     "en": "to make something tasty"
     }
    ]
   },
@@ -28557,6 +28966,14 @@
      "fr": "Maman dit : « En fait, tu as plutôt bien réussi, pourquoi le cacher ? »",
      "en": "Mom says: \"Actually you did pretty well, why hide it?\""
     }
+   ],
+   "glose": [
+    {
+     "zh": "蛮好",
+     "pinyin": "mán hǎo",
+     "fr": "plutôt bien",
+     "en": "pretty well"
+    }
    ]
   },
   {
@@ -30983,6 +31400,14 @@
      "fr": "Le week-end, il m'emmène voir les requins à l'aquarium.",
      "en": "At the weekend, he takes me to see the sharks at the aquarium."
     }
+   ],
+   "glose": [
+    {
+     "zh": "二十楼",
+     "pinyin": "èr shí lóu",
+     "fr": "vingtième étage",
+     "en": "twentieth floor"
+    }
    ]
   },
   {
@@ -32047,7 +32472,7 @@
    "lignes": [
     {
      "zh": "锅里的水沸腾了，可以下面条了。",
-     "pinyin": "guō lǐ de shuǐ fèi téng le kě yǐ xià mian tiáo le",
+     "pinyin": "guō lǐ de shuǐ fèi téng le kě yǐ xià miàn tiáo le",
      "fr": "L'eau bout dans la marmite, on peut mettre les nouilles.",
      "en": "The water in the pot is boiling; the noodles can go in."
     },
@@ -32062,6 +32487,14 @@
      "pinyin": "tā zhē teng le yī ge wǎn shang cái bǎ diàn nǎo xiū hǎo",
      "fr": "Il s'est démené toute la soirée avant de réparer l'ordinateur.",
      "en": "He struggled all evening before he fixed the computer."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "下面条",
+     "pinyin": "xià miàn tiáo",
+     "fr": "mettre les nouilles à cuire",
+     "en": "to put the noodles in"
     }
    ]
   },
@@ -32359,6 +32792,14 @@
      "fr": "Il a déformé mes propos.",
      "en": "He twisted my words."
     }
+   ],
+   "glose": [
+    {
+     "zh": "我的话",
+     "pinyin": "wǒ de huà",
+     "fr": "mes paroles",
+     "en": "my words"
+    }
    ]
   },
   {
@@ -32406,6 +32847,14 @@
      "pinyin": "tā xiàn zài shì diàn yǐng jiè de dà wàn r",
      "fr": "C'est maintenant une grande vedette du cinéma.",
      "en": "He is now a big name in the film world."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "她的话",
+     "pinyin": "tā de huà",
+     "fr": "ses paroles",
+     "en": "her words"
     }
    ]
   },
@@ -33054,6 +33503,14 @@
      "pinyin": "dà jiā dōu hěn xiàn mù tā yǒu zhè me hǎo de nǎi nai",
      "fr": "Tout le monde lui envie une si bonne grand-mère.",
      "en": "Everyone envies him for having such a good grandma."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "这么好",
+     "pinyin": "zhè me hǎo",
+     "fr": "si bon, si bien",
+     "en": "so good"
     }
    ]
   },
@@ -35117,6 +35574,14 @@
      "fr": "Au bord de la route, quelqu'un vend des jus fraîchement pressés.",
      "en": "Someone by the road sells freshly squeezed juice."
     }
+   ],
+   "glose": [
+    {
+     "zh": "开不过去",
+     "pinyin": "kāi bù guò qù",
+     "fr": "ne pas pouvoir passer (en voiture)",
+     "en": "can't drive through"
+    }
    ]
   },
   {
@@ -36005,6 +36470,14 @@
      "fr": "Ce plat a vraiment bon goût.",
      "en": "This dish tastes really good."
     }
+   ],
+   "glose": [
+    {
+     "zh": "下周一",
+     "pinyin": "xià zhōu yī",
+     "fr": "lundi prochain",
+     "en": "next Monday"
+    }
    ]
   },
   {
@@ -36084,6 +36557,14 @@
      "pinyin": "tā zuò de cài dà jiā dōu shuō hǎo chī",
      "fr": "Tout le monde trouve ses plats délicieux.",
      "en": "Everyone says her cooking is delicious."
+    }
+   ],
+   "glose": [
+    {
+     "zh": "都说",
+     "pinyin": "dōu shuō",
+     "fr": "tous disent",
+     "en": "all say"
     }
    ]
   },

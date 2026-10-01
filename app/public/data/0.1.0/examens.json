@@ -3,7 +3,7 @@
  "license": "propriétaire",
  "source": "examens 科举 et 月课 : liste, mises en situation et questions rédigées pour l'app, sans API, dans le pipeline wenlu (`data/sources/examens/`)",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-09-30 : assemblé par `wenlu export`",
+ "modified": "2026-10-01 : assemblé par `wenlu export`",
  "reussite": {
   "justes": 4,
   "sur": 5
@@ -2875,6 +2875,12 @@
           "pinyin": "míng tiān zhōng wǔ zài jiàn miàn hǎo bu hǎo",
           "fr": "On se voit plutôt demain midi, d'accord ?",
           "en": "Shall we meet tomorrow at noon instead?"
+         },
+         {
+          "zh": "明明",
+          "pinyin": "míng míng",
+          "fr": "Mingming",
+          "en": "Mingming"
          }
         ]
        },
@@ -4307,6 +4313,12 @@
           "pinyin": "hòu tiān jiàn",
           "fr": "À après-demain !",
           "en": "See you the day after tomorrow!"
+         },
+         {
+          "zh": "小李",
+          "pinyin": "xiǎo lǐ",
+          "fr": "Xiao Li",
+          "en": "Xiao Li"
          }
         ]
        }
@@ -7191,7 +7203,7 @@
          {
           "zh": "下雨了，车开不快。",
           "pinyin": "xià yǔ le chē kāi bu kuài",
-          "fr": "Il pleut, la voiture n'avance pas.",
+          "fr": "Il pleut, on ne peut pas rouler vite.",
           "en": "It's raining, the car can't go fast."
          },
          {
@@ -32565,7 +32577,7 @@
          },
          {
           "zh": "放在桌子上了。你先尝尝，",
-          "pinyin": "fàng zài zhuō zi shàng le nǐ xiān cháng cháng",
+          "pinyin": "fàng zài zhuō zi shàng le nǐ xiān cháng chang",
           "fr": "elles sont sur la table. Goûte-les d'abord,",
           "en": "they're on the table. Have a taste first,"
          },
@@ -33008,7 +33020,7 @@
         "en": "to taste"
        },
        "尝尝": {
-        "pinyin": "cháng cháng",
+        "pinyin": "cháng chang",
         "fr": "goûter un peu",
         "en": "to have a taste"
        },
@@ -33683,7 +33695,7 @@
          },
          {
           "zh": "明天我去找找。",
-          "pinyin": "míng tiān wǒ qù zhǎo zhǎo",
+          "pinyin": "míng tiān wǒ qù zhǎo zhao",
           "fr": "Demain j'irai voir.",
           "en": "I'll go and look tomorrow."
          }
@@ -34065,7 +34077,7 @@
         "en": "to look for"
        },
        "找找": {
-        "pinyin": "zhǎo zhǎo",
+        "pinyin": "zhǎo zhao",
         "fr": "chercher un peu",
         "en": "to have a look for"
        },
@@ -34189,7 +34201,7 @@
          {
           "zh": "放在你桌子上了。",
           "pinyin": "fàng zài nǐ zhuō zi shàng le",
-          "fr": "je l'ai posée sur ton bureau.",
+          "fr": "je l'ai posé sur ton bureau.",
           "en": "I've put it on your desk."
          }
         ]
@@ -36484,7 +36496,7 @@
          },
          {
           "zh": "他会弹钢琴。",
-          "pinyin": "tā huì dàn gāng qín",
+          "pinyin": "tā huì tán gāng qín",
           "fr": "Il sait jouer du piano.",
           "en": "He can play the piano."
          },
@@ -36719,7 +36731,7 @@
         "en": "to bring"
        },
        "弹": {
-        "pinyin": "dàn",
+        "pinyin": "tán",
         "fr": "jouer (d'un instrument)",
         "en": "to play (an instrument)"
        },
@@ -37375,7 +37387,7 @@
          },
          {
           "zh": "请看好自己的东西。",
-          "pinyin": "qǐng kàn hǎo zì jǐ de dōng xi",
+          "pinyin": "qǐng kān hǎo zì jǐ de dōng xi",
           "fr": "surveillez vos affaires.",
           "en": "keep an eye on your belongings."
          }
@@ -37569,7 +37581,7 @@
         "choix": [
          {
           "zh": "我的钢笔呢？",
-          "pinyin": "wǒ de gāng bǐ né",
+          "pinyin": "wǒ de gāng bǐ ne",
           "fr": "Où est mon stylo ?",
           "en": "Where's my pen?"
          },
@@ -37743,7 +37755,7 @@
         "en": "(suggestion)"
        },
        "呢": {
-        "pinyin": "né",
+        "pinyin": "ne",
         "fr": "(et… ?)",
         "en": "(question particle)"
        },
@@ -37818,7 +37830,7 @@
         "en": "(possessive particle)"
        },
        "看好": {
-        "pinyin": "kàn hǎo",
+        "pinyin": "kān hǎo",
         "fr": "surveiller",
         "en": "to keep an eye on"
        },
@@ -45220,6 +45232,12 @@
           "pinyin": "wǒ zhōng wǔ bù chū mén le",
           "fr": "Finalement, je ne sors pas à midi.",
           "en": "I won't go out at noon after all."
+         },
+         {
+          "zh": "小明",
+          "pinyin": "xiǎo míng",
+          "fr": "Xiaoming",
+          "en": "Xiaoming"
          }
         ]
        },
@@ -45324,7 +45342,9 @@
          "午",
          "不",
          "出",
-         "门"
+         "门",
+         "小",
+         "明"
         ]
        },
        {
@@ -45359,7 +45379,9 @@
          "午",
          "不",
          "出",
-         "门"
+         "门",
+         "小",
+         "明"
         ]
        },
        {
@@ -45453,8 +45475,9 @@
          "不",
          "出",
          "门",
-         "好",
+         "小",
          "明",
+         "好",
          "再",
          "去",
          "毛",
@@ -45802,6 +45825,11 @@
         "fr": "étudier",
         "en": "to study"
        },
+       "小明": {
+        "pinyin": "xiǎo míng",
+        "fr": "Xiaoming (prénom)",
+        "en": "Xiaoming (first name)"
+       },
        "左": {
         "pinyin": "zuǒ",
         "fr": "à gauche",
@@ -45985,6 +46013,12 @@
           "pinyin": "xià wǔ sì shí dà xué mén kǒu děng wǒ",
           "fr": "À 16 heures, attends-moi devant l'université !",
           "en": "Wait for me at the university gate at 4 pm!"
+         },
+         {
+          "zh": "小明",
+          "pinyin": "xiǎo míng",
+          "fr": "Xiaoming",
+          "en": "Xiaoming"
          }
         ]
        }
@@ -46111,7 +46145,9 @@
          "学",
          "门",
          "口",
-         "等"
+         "等",
+         "小",
+         "明"
         ]
        },
        {
@@ -60574,8 +60610,8 @@
        },
        "借": {
         "pinyin": "jiè",
-        "fr": "prêter",
-        "en": "to lend"
+        "fr": "emprunter",
+        "en": "to borrow"
        },
        "八十块": {
         "pinyin": "bā shí kuài",
@@ -75045,7 +75081,7 @@
          },
          {
           "zh": "你猜猜奶奶给你做什么好吃的？",
-          "pinyin": "nǐ cāi cāi nǎi nai gěi nǐ zuò shén me hǎo chī de",
+          "pinyin": "nǐ cāi cai nǎi nai gěi nǐ zuò shén me hǎo chī de",
           "fr": "Devine ce que Mamie va te préparer de bon ?",
           "en": "Guess what yummy thing Grandma will make you?"
          }
@@ -75495,7 +75531,7 @@
         "en": "to guess"
        },
        "猜猜": {
-        "pinyin": "cāi cāi",
+        "pinyin": "cāi cai",
         "fr": "deviner un peu",
         "en": "to have a guess"
        },
@@ -78076,7 +78112,7 @@
          },
          {
           "zh": "好看吗？快让我瞧瞧！",
-          "pinyin": "hǎo kàn ma kuài ràng wǒ qiáo qiáo",
+          "pinyin": "hǎo kàn ma kuài ràng wǒ qiáo qiao",
           "fr": "C'est joli ? Montre-moi vite !",
           "en": "Does it look nice? Quick, let me see!"
          },
@@ -78304,7 +78340,7 @@
         "en": "(possessive particle)"
        },
        "瞧瞧": {
-        "pinyin": "qiáo qiáo",
+        "pinyin": "qiáo qiao",
         "fr": "jeter un œil",
         "en": "to have a look"
        },
@@ -79492,7 +79528,7 @@
          },
          {
           "zh": "吃什么都吐。",
-          "pinyin": "chī shén me dōu tǔ",
+          "pinyin": "chī shén me dōu tù",
           "fr": "je vomis tout ce que je mange.",
           "en": "I throw up whatever I eat."
          },
@@ -79681,7 +79717,7 @@
          },
          {
           "zh": "这件衣服很便宜。",
-          "pinyin": "zhè jiàn yī fu hěn biàn yí",
+          "pinyin": "zhè jiàn yī fu hěn pián yi",
           "fr": "Ce vêtement n'est pas cher.",
           "en": "These clothes are cheap."
          }
@@ -79835,7 +79871,7 @@
         "en": "you"
        },
        "便宜": {
-        "pinyin": "biàn yí",
+        "pinyin": "pián yi",
         "fr": "bon marché",
         "en": "cheap"
        },
@@ -79875,7 +79911,7 @@
         "en": "to eat"
        },
        "吐": {
-        "pinyin": "tǔ",
+        "pinyin": "tù",
         "fr": "vomir",
         "en": "to vomit"
        },
