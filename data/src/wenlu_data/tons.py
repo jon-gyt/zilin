@@ -55,7 +55,8 @@ URL_JEU = "https://data.gov.tw/dataset/5961"
 #: L'attribution exigée par l'OGDL 1.0 (§3.2 et son annexe) : le jeu, puis les deux phrases
 #: de l'annexe, en chinois et en anglais, et l'adresse de la licence.
 ATTRIBUTION = (
-    f"Syllabes du mandarin, deux voix, jeu de données 5961 de data.gov.tw ({URL_JEU})."
+    "數位發展部 (ministère du Numérique de Taïwan), 2015 : CNS11643中文標準交換碼全字庫 (全字庫),"
+    f" fichiers sonores (全字庫聲音檔), jeu de données 5961 de data.gov.tw ({URL_JEU})."
     " 此開放資料依政府資料開放授權條款 (Open Government Data License) 進行公眾釋出，"
     "使用者於遵守本條款各項規定之前提下，得利用之。"
     " The Open Data is made available to the public under the Open Government Data License,"

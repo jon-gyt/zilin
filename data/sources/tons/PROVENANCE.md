@@ -51,15 +51,22 @@ SHA-256 de cette liste (`ls | sort | xargs sha256sum | sha256sum`).
 - Attribution, d'après l'annexe de la licence (écrite par `wenlu export` dans `tons.json`
   et dans `LICENCES.md`, que la page des licences du site reprend) :
 
-  > Syllabes du mandarin, deux voix, jeu de données 5961 de data.gov.tw
+  > 數位發展部 (ministère du Numérique de Taïwan), 2015 : CNS11643中文標準交換碼全字庫
+  > (全字庫), fichiers sonores (全字庫聲音檔), jeu de données 5961 de data.gov.tw
   > (https://data.gov.tw/dataset/5961). 此開放資料依政府資料開放授權條款 (Open Government
   > Data License) 進行公眾釋出，使用者於遵守本條款各項規定之前提下，得利用之。 The Open Data
   > is made available to the public under the Open Government Data License, User can make
   > use of it when complying to the condition and obligation of its terms. Open Government
   > Data License : https://data.gov.tw/license
 
-  Le premier alinéa de l'annexe (le fournisseur, l'année, le nom exact du jeu et sa
-  version) se complète quand la page du jeu aura été lue.
+  Le premier alinéa de l'annexe (le fournisseur, l'année, le nom exact du jeu) vient de la
+  fiche du jeu, lue le 1er octobre 2026 par l'étape `tons` du workflow `donnees`
+  (`https://data.gov.tw/api/v2/rest/dataset/5961`, SHA-256
+  `1a9c8b497707cf744fbeebe814e4e4165e058006c6aefb2274c5878a541866ac`) : titre
+  « CNS11643中文標準交換碼全字庫(簡稱全字庫) », fournisseur 數位發展部, publié le
+  2015-01-31, modifié le 2026-08-10 ; la ressource « 全字庫聲音檔 » (`Voice.zip`) est celle
+  des syllabes ; licence au choix « 政府資料開放授權條款-第一版 » (retenue) ou OFL 1.1
+  (pour les polices).
 - Aucun son n'est embarqué : seuls les poids appris en dérivent.
 
 ### Contours paramétriques
