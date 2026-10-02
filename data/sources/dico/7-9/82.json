@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:61a16418b6992d386a8f6021f369a094df74211f493e4c1b369284a26475afea",
+  "empreinte_invite": "sha256:7c5d1965aec26a9c158a31d2fc18f9b3c9c6d79cd3cbf2f237b8b898643aa99c",
   "contexte": "wenlu dico contexte 7-9 82",
   "essais": 1,
   "refus": []
@@ -795,14 +795,21 @@
    "exemples": [
     {
      "zh": "天上的星星在闪烁。",
-     "pinyin": "Tiān shang de xīngxing zài shǎnshuò.",
+     "pinyin": "Tiān shàng de xīngxing zài shǎnshuò.",
      "fr": "Les étoiles brillent dans le ciel.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tiān shang de xīngxing zài shǎnshuò. » → « Tiān shàng de xīngxing zài shǎnshuò. »"
+       }
+      ]
      }
     }
    ]

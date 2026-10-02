@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:94c35c7a8b96514f53e0c2eef2d0392714926a42c52ff334f8f5747a959cc084",
+  "empreinte_invite": "sha256:9af8797af2a3665f2781827938dfe3f4ba804005b825ed233ab56bc72e853611",
   "contexte": "wenlu dico contexte 7-9 88",
   "essais": 1,
   "refus": []
@@ -1551,14 +1551,21 @@
    "exemples": [
     {
      "zh": "他看起来比以前衰老了很多。",
-     "pinyin": "Tā kàn qǐlai bǐ yǐqián shuāilǎo le hěn duō.",
+     "pinyin": "Tā kàn qilai bǐ yǐqián shuāilǎo le hěn duō.",
      "fr": "Il a pris un sacré coup de vieux.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā kàn qǐlai bǐ yǐqián shuāilǎo le hěn duō. » → « Tā kàn qilai bǐ yǐqián shuāilǎo le hěn duō. »"
+       }
+      ]
      }
     }
    ]

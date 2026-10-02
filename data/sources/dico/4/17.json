@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8d66cdcf6846df0682a10c00ad998caeecdb9d2435fb654e1128ffb8bc00c799",
+  "empreinte_invite": "sha256:d4a591e6db784c4bd1d5105931a556c5d46111cd105a24ac553a9c19e88d56b0",
   "contexte": "wenlu dico contexte 4 17",
   "essais": 1,
   "refus": []
@@ -383,14 +383,21 @@
    "exemples": [
     {
      "zh": "他们在网上征求大家的意见。",
-     "pinyin": "Tāmen zài wǎng shang zhēngqiú dàjiā de yìjiàn.",
+     "pinyin": "Tāmen zài wǎng shang zhēngqiú dàjiā de yìjian.",
      "fr": "Ils demandent l'avis de tous en ligne.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tāmen zài wǎng shang zhēngqiú dàjiā de yìjiàn. » → « Tāmen zài wǎng shang zhēngqiú dàjiā de yìjian. »"
+       }
+      ]
      }
     }
    ]
@@ -653,14 +660,21 @@
    "exemples": [
     {
      "zh": "机器不能完全替代人。",
-     "pinyin": "Jīqì bù néng wánquán tìdài rén.",
+     "pinyin": "Jīqi bù néng wánquán tìdài rén.",
      "fr": "Les machines ne peuvent pas entièrement prendre la place des hommes.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jīqì bù néng wánquán tìdài rén. » → « Jīqi bù néng wánquán tìdài rén. »"
+       }
+      ]
      }
     }
    ]
@@ -1283,14 +1297,21 @@
    "exemples": [
     {
      "zh": "我们要统一意见。",
-     "pinyin": "Wǒmen yào tǒngyī yìjiàn.",
+     "pinyin": "Wǒmen yào tǒngyī yìjian.",
      "fr": "Il faut qu'on se mette d'accord.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen yào tǒngyī yìjiàn. » → « Wǒmen yào tǒngyī yìjian. »"
+       }
+      ]
      }
     }
    ]

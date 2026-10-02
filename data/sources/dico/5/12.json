@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2fd641c106ae19f8172180cbfce0022eb8e0817bbacb1c1fe8cb003ffea6c30b",
+  "empreinte_invite": "sha256:bba7bca43eebdc426d4dc2ce4d29a1be85a1ffc4c772e439be3722e67854b360",
   "contexte": "wenlu dico contexte 5 12",
   "essais": 1,
   "refus": []
@@ -606,14 +606,21 @@
    "exemples": [
     {
      "zh": "你的话没有逻辑。",
-     "pinyin": "Nǐ de huà méiyǒu luóji.",
+     "pinyin": "Nǐ de huà méiyou luóji.",
      "fr": "Ce que tu dis ne tient pas debout.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ de huà méiyǒu luóji. » → « Nǐ de huà méiyou luóji. »"
+       }
+      ]
      }
     }
    ]
@@ -727,14 +734,21 @@
    "exemples": [
     {
      "zh": "他因为迟到被老板骂了。",
-     "pinyin": "Tā yīnwèi chídào bèi lǎobǎn mà le.",
+     "pinyin": "Tā yīnwei chídào bèi lǎobǎn mà le.",
      "fr": "Il s'est fait gronder par son patron parce qu'il était en retard.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi chídào bèi lǎobǎn mà le. » → « Tā yīnwei chídào bèi lǎobǎn mà le. »"
+       }
+      ]
      }
     }
    ]
@@ -1545,14 +1559,21 @@
    "exemples": [
     {
      "zh": "他明明知道，却说不知道。",
-     "pinyin": "Tā míngmíng zhīdào, què shuō bù zhīdào.",
+     "pinyin": "Tā míngmíng zhīdao, què shuō bù zhīdao.",
      "fr": "Il le sait très bien, mais il dit qu'il ne sait pas.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā míngmíng zhīdào, què shuō bù zhīdào. » → « Tā míngmíng zhīdao, què shuō bù zhīdao. »"
+       }
+      ]
      }
     }
    ]

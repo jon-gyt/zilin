@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3df1a3aacfcf1b7387e68ffa211e446b8f3ea5d9c126d32a6790cf7cd06d1316",
+  "empreinte_invite": "sha256:ecf1847a443ff567d6759297dd909d4174575a4db27de4cd0e286ec408ed0a19",
   "contexte": "wenlu dico contexte 7-9 30",
   "essais": 1,
   "refus": []
@@ -84,14 +84,21 @@
    "exemples": [
     {
      "zh": "他总是附和老板的意见。",
-     "pinyin": "Tā zǒngshì fùhè lǎobǎn de yìjiàn.",
+     "pinyin": "Tā zǒngshì fùhè lǎobǎn de yìjian.",
      "fr": "Il est toujours de l'avis du patron.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒngshì fùhè lǎobǎn de yìjiàn. » → « Tā zǒngshì fùhè lǎobǎn de yìjian. »"
+       }
+      ]
      }
     }
    ]

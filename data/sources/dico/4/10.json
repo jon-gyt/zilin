@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e44e66d09ca0e9fca5cc7bfd3472b86e4f5dbd2669464288ef88a49738468114",
+  "empreinte_invite": "sha256:8986fd37e0fce71c92326bbe6e52786ee0fb1aeb525e47c17c7bcf1eee83de0c",
   "contexte": "wenlu dico contexte 4 10",
   "essais": 1,
   "refus": []
@@ -1324,14 +1324,21 @@
    "exemples": [
     {
      "zh": "我们还没有得出结论。",
-     "pinyin": "Wǒmen hái méiyǒu déchū jiélùn.",
+     "pinyin": "Wǒmen hái méiyou déchū jiélùn.",
      "fr": "Nous n'avons pas encore tranché.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen hái méiyǒu déchū jiélùn. » → « Wǒmen hái méiyou déchū jiélùn. »"
+       }
+      ]
      }
     }
    ]
@@ -1810,14 +1817,21 @@
    "exemples": [
     {
      "zh": "他竟不知道这件事。",
-     "pinyin": "Tā jìng bù zhīdào zhè jiàn shì.",
+     "pinyin": "Tā jìng bù zhīdao zhè jiàn shì.",
      "fr": "Figure-toi qu'il n'en savait rien.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā jìng bù zhīdào zhè jiàn shì. » → « Tā jìng bù zhīdao zhè jiàn shì. »"
+       }
+      ]
      }
     }
    ]

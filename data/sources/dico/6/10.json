@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:953a406fcc85d4e1a113179ea4b3d4d62236000d79ef1f2dc4fa3c181ad22048",
+  "empreinte_invite": "sha256:1e33090ec098940dfd02b5afef98e15db50ec99970f5f9c938c789ee7cdf3f1a",
   "contexte": "wenlu dico contexte 6 10",
   "essais": 1,
   "refus": []
@@ -79,14 +79,21 @@
    "exemples": [
     {
      "zh": "他没有回应我们的问题。",
-     "pinyin": "Tā méiyǒu huíyìng wǒmen de wèntí.",
+     "pinyin": "Tā méiyou huíyìng wǒmen de wèntí.",
      "fr": "Il n'a pas donné suite à nos questions.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu huíyìng wǒmen de wèntí. » → « Tā méiyou huíyìng wǒmen de wèntí. »"
+       }
+      ]
      }
     }
    ]
@@ -161,14 +168,21 @@
    "exemples": [
     {
      "zh": "总理会见了外国客人。",
-     "pinyin": "Zǒnglǐ huìjiàn le wàiguó kèrén.",
+     "pinyin": "Zǒnglǐ huìjiàn le wàiguó kèren.",
      "fr": "Le Premier ministre a reçu des visiteurs étrangers.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zǒnglǐ huìjiàn le wàiguó kèrén. » → « Zǒnglǐ huìjiàn le wàiguó kèren. »"
+       }
+      ]
      }
     }
    ]
@@ -1342,14 +1356,21 @@
    "exemples": [
     {
      "zh": "今天的节目请来了一位嘉宾。",
-     "pinyin": "Jīntiān de jiémù qǐng lái le yī wèi jiābīn.",
+     "pinyin": "Jīntiān de jiémù qǐng lai le yī wèi jiābīn.",
      "fr": "L'émission d'aujourd'hui reçoit une personnalité.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jīntiān de jiémù qǐng lái le yī wèi jiābīn. » → « Jīntiān de jiémù qǐng lai le yī wèi jiābīn. »"
+       }
+      ]
      }
     }
    ]

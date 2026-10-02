@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:43e4d94a927148c33e689f5403a68e992589df6bf3d468d41f279804fe935517",
+  "empreinte_invite": "sha256:3debe0c10044d6bfcb36f712ffc020d520dd55c5d912610d19aa0ee2e3f5697e",
   "contexte": "wenlu dico contexte 7-9 29",
   "essais": 1,
   "refus": []
@@ -1030,14 +1030,21 @@
    "exemples": [
     {
      "zh": "有这么孝顺的孩子，你真有福气。",
-     "pinyin": "Yǒu zhème xiàoshùn de háizi, nǐ zhēn yǒu fúqi.",
+     "pinyin": "Yǒu zhème xiàoshun de háizi, nǐ zhēn yǒu fúqi.",
      "fr": "Avec des enfants aussi attentionnés, tu es gâté par la vie.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yǒu zhème xiàoshùn de háizi, nǐ zhēn yǒu fúqi. » → « Yǒu zhème xiàoshun de háizi, nǐ zhēn yǒu fúqi. »"
+       }
+      ]
      }
     }
    ]

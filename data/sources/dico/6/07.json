@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:d7651030cd659766ca7c109f5d17765d97dc16d2fab82b969dd2ee37c16105dc",
+  "empreinte_invite": "sha256:b570fbb41c8336f3e6c58cfce743340d55abd3ba44f9c6691a1df09ca4124583",
   "contexte": "wenlu dico contexte 6 07",
   "essais": 1,
   "refus": []
@@ -120,14 +120,21 @@
    "exemples": [
     {
      "zh": "他因为犯罪被抓了。",
-     "pinyin": "Tā yīnwèi fànzuì bèi zhuā le.",
+     "pinyin": "Tā yīnwei fànzuì bèi zhuā le.",
      "fr": "Il a été arrêté pour un délit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi fànzuì bèi zhuā le. » → « Tā yīnwei fànzuì bèi zhuā le. »"
+       }
+      ]
      }
     }
    ]
@@ -1455,14 +1462,21 @@
    "exemples": [
     {
      "zh": "看到老师来了，他赶忙站起来。",
-     "pinyin": "Kàndào lǎoshī lái le, tā gǎnmáng zhàn qǐlai.",
+     "pinyin": "Kàndào lǎoshī lái le, tā gǎnmáng zhàn qilai.",
      "fr": "Voyant arriver le professeur, il s'est vite levé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kàndào lǎoshī lái le, tā gǎnmáng zhàn qǐlai. » → « Kàndào lǎoshī lái le, tā gǎnmáng zhàn qilai. »"
+       }
+      ]
      }
     }
    ]

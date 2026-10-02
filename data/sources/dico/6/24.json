@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3b8ac5325b7d4f9ffd569381861001ba1a3d8efd0d3b24fcbbe446f239d34612",
+  "empreinte_invite": "sha256:3c65c450e3551a2d6507da1b89fa9d089f815b246ef3f8ad641854b8888d9c6a",
   "contexte": "wenlu dico contexte 6 24",
   "essais": 1,
   "refus": []
@@ -620,14 +620,21 @@
    "exemples": [
     {
      "zh": "没有车了，我们只得走回家。",
-     "pinyin": "Méiyǒu chē le, wǒmen zhǐdé zǒu huí jiā.",
+     "pinyin": "Méiyou chē le, wǒmen zhǐdé zǒu huí jiā.",
      "fr": "Il n'y avait plus de bus, nous avons dû rentrer à pied.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu chē le, wǒmen zhǐdé zǒu huí jiā. » → « Méiyou chē le, wǒmen zhǐdé zǒu huí jiā. »"
+       }
+      ]
      }
     }
    ]
@@ -659,14 +666,21 @@
    "exemples": [
     {
      "zh": "他只顾玩手机，不理别人。",
-     "pinyin": "Tā zhǐgù wán shǒujī, bù lǐ biérén.",
+     "pinyin": "Tā zhǐgù wán shǒujī, bù lǐ biéren.",
      "fr": "Il ne fait que jouer sur son portable sans prêter attention aux autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zhǐgù wán shǒujī, bù lǐ biérén. » → « Tā zhǐgù wán shǒujī, bù lǐ biéren. »"
+       }
+      ]
      }
     }
    ]
@@ -851,14 +865,21 @@
    "exemples": [
     {
      "zh": "孩子指着天上的飞机大叫。",
-     "pinyin": "Háizi zhǐzhe tiān shang de fēijī dà jiào.",
+     "pinyin": "Háizi zhǐzhe tiān shàng de fēijī dà jiào.",
      "fr": "L'enfant crie en pointant l'avion dans le ciel.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Háizi zhǐzhe tiān shang de fēijī dà jiào. » → « Háizi zhǐzhe tiān shàng de fēijī dà jiào. »"
+       }
+      ]
      }
     }
    ]
@@ -1597,14 +1618,21 @@
    "exemples": [
     {
      "zh": "这种看法是社会的主流。",
-     "pinyin": "Zhè zhǒng kànfǎ shì shèhuì de zhǔliú.",
+     "pinyin": "Zhè zhǒng kànfa shì shèhuì de zhǔliú.",
      "fr": "C'est l'opinion la plus répandue dans la société.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè zhǒng kànfǎ shì shèhuì de zhǔliú. » → « Zhè zhǒng kànfa shì shèhuì de zhǔliú. »"
+       }
+      ]
      }
     }
    ]

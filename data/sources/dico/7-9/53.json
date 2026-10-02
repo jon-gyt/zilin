@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ea4c566b54333bda66042410c6e4509a9aea596f1857bb472de7598db84e4cb4",
+  "empreinte_invite": "sha256:7824d19c4cbc1124ba16ee70ff616cc8fb9b7e713c6a4379c97e6b7a811a451f",
   "contexte": "wenlu dico contexte 7-9 53",
   "essais": 1,
   "refus": []
@@ -517,14 +517,21 @@
    "exemples": [
     {
      "zh": "客人可以在二楼就餐。",
-     "pinyin": "Kèrén kěyǐ zài èr lóu jiùcān.",
+     "pinyin": "Kèren kěyǐ zài èr lóu jiùcān.",
      "fr": "Les clients peuvent manger au premier étage.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kèrén kěyǐ zài èr lóu jiùcān. » → « Kèren kěyǐ zài èr lóu jiùcān. »"
+       }
+      ]
      }
     }
    ]
@@ -964,14 +971,21 @@
    "exemples": [
     {
      "zh": "他因为打架被拘留了十天。",
-     "pinyin": "Tā yīnwèi dǎjià bèi jūliú le shí tiān.",
+     "pinyin": "Tā yīnwei dǎjià bèi jūliú le shí tiān.",
      "fr": "Il a été placé en détention dix jours pour une bagarre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi dǎjià bèi jūliú le shí tiān. » → « Tā yīnwei dǎjià bèi jūliú le shí tiān. »"
+       }
+      ]
      }
     }
    ]
@@ -1545,14 +1559,21 @@
    "exemples": [
     {
      "zh": "别沮丧，下次还有机会。",
-     "pinyin": "Bié jǔsàng, xià cì hái yǒu jīhuì.",
+     "pinyin": "Bié jǔsàng, xià cì hái yǒu jīhui.",
      "fr": "Ne te laisse pas abattre, tu auras une autre chance.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bié jǔsàng, xià cì hái yǒu jīhuì. » → « Bié jǔsàng, xià cì hái yǒu jīhui. »"
+       }
+      ]
      }
     }
    ]

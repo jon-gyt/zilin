@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:fc5c5b2391684bcad3842cbe034fa77a134e3bfe670dd306c61fd122d2558b48",
+  "empreinte_invite": "sha256:f44fc27cf046785ab04af7dfa2592220980c5d6907f2052576cbca945e5f73f5",
   "contexte": "wenlu dico contexte 2 02",
   "essais": 1,
   "refus": []
@@ -345,14 +345,21 @@
    "exemples": [
     {
      "zh": "杯子里的水满了。",
-     "pinyin": "Bēizi lǐ de shuǐ mǎn le.",
+     "pinyin": "Bēizi li de shuǐ mǎn le.",
      "fr": "Le verre est rempli à ras bord.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bēizi lǐ de shuǐ mǎn le. » → « Bēizi li de shuǐ mǎn le. »"
+       }
+      ]
      }
     }
    ]

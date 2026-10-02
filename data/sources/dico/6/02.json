@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:728592b4de8bd6da115012d6f46ea7e645c3fa9d0f8e8bf4aa3d6cc8ddafb3db",
+  "empreinte_invite": "sha256:eb1836774ddc044622ea1614d058bdedcc2832e2ae1281021fd213394e595125",
   "contexte": "wenlu dico contexte 6 02",
   "essais": 1,
   "refus": []
@@ -305,7 +305,7 @@
     {
      "zh": "他的病房在三楼。",
      "pinyin": "Tā de bìngfáng zài sān lóu.",
-     "fr": "Sa chambre est au troisième étage de l'hôpital.",
+     "fr": "Sa chambre est au deuxième étage de l'hôpital.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
@@ -570,14 +570,21 @@
    "exemples": [
     {
      "zh": "给您带来不便，非常抱歉。",
-     "pinyin": "Gěi nín dàilái bùbiàn, fēicháng bàoqiàn.",
+     "pinyin": "Gěi nín dàilai bùbiàn, fēicháng bàoqiàn.",
      "fr": "Veuillez nous excuser pour le dérangement.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Gěi nín dàilái bùbiàn, fēicháng bàoqiàn. » → « Gěi nín dàilai bùbiàn, fēicháng bàoqiàn. »"
+       }
+      ]
      }
     }
    ]
@@ -999,14 +1006,21 @@
    "exemples": [
     {
      "zh": "听到这个消息，她不禁哭了起来。",
-     "pinyin": "Tīngdào zhège xiāoxi, tā bùjīn kū le qǐlai.",
+     "pinyin": "Tīngdào zhège xiāoxi, tā bùjīn kū le qilai.",
      "fr": "En apprenant la nouvelle, elle s'est mise à pleurer.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tīngdào zhège xiāoxi, tā bùjīn kū le qǐlai. » → « Tīngdào zhège xiāoxi, tā bùjīn kū le qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -1228,14 +1242,21 @@
    "exemples": [
     {
      "zh": "天上布满了星星。",
-     "pinyin": "Tiān shang bùmǎn le xīngxing.",
+     "pinyin": "Tiān shàng bùmǎn le xīngxing.",
      "fr": "Le ciel est plein d'étoiles.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tiān shang bùmǎn le xīngxing. » → « Tiān shàng bùmǎn le xīngxing. »"
+       }
+      ]
      }
     }
    ]
@@ -1860,14 +1881,21 @@
    "exemples": [
     {
      "zh": "这台机器用电脑操纵。",
-     "pinyin": "Zhè tái jīqì yòng diànnǎo cāozòng.",
+     "pinyin": "Zhè tái jīqi yòng diànnǎo cāozòng.",
      "fr": "Cette machine est pilotée par ordinateur.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè tái jīqì yòng diànnǎo cāozòng. » → « Zhè tái jīqi yòng diànnǎo cāozòng. »"
+       }
+      ]
      }
     }
    ]

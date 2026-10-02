@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bb5813c275049847cc14bed2e93b399c1a1ea11e846cc1147394bd30daefbe70",
+  "empreinte_invite": "sha256:ca72f4b0d534b6c3174d1f09beb00984d826663ca58b11962c047c348d3b2ea5",
   "contexte": "wenlu dico contexte 6 08",
   "essais": 1,
   "refus": []
@@ -654,14 +654,21 @@
    "exemples": [
     {
      "zh": "你不应该攻击别人。",
-     "pinyin": "Nǐ bù yīnggāi gōngjī biérén.",
+     "pinyin": "Nǐ bù yīnggāi gōngjī biéren.",
      "fr": "Tu ne devrais pas t'en prendre aux autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ bù yīnggāi gōngjī biérén. » → « Nǐ bù yīnggāi gōngjī biéren. »"
+       }
+      ]
      }
     }
    ]
@@ -1580,14 +1587,21 @@
    "exemples": [
     {
      "zh": "太阳的光辉照着大地。",
-     "pinyin": "Tàiyáng de guānghuī zhào zhe dàdì.",
+     "pinyin": "Tàiyang de guānghuī zhào zhe dàdì.",
      "fr": "Le soleil éclaire la terre de ses rayons.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tàiyáng de guānghuī zhào zhe dàdì. » → « Tàiyang de guānghuī zhào zhe dàdì. »"
+       }
+      ]
      }
     }
    ]
@@ -1849,14 +1863,21 @@
    "exemples": [
     {
      "zh": "大家站起来唱国歌。",
-     "pinyin": "Dàjiā zhàn qǐlai chàng guógē.",
+     "pinyin": "Dàjiā zhàn qilai chàng guógē.",
      "fr": "Tout le monde s'est levé pour chanter l'hymne.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Dàjiā zhàn qǐlai chàng guógē. » → « Dàjiā zhàn qilai chàng guógē. »"
+       }
+      ]
      }
     }
    ]

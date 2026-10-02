@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6c344b37de775094a8f6ce425d6c1afc71c8e53bf555d45bd662d3c6acb3c2f9",
+  "empreinte_invite": "sha256:ee7056dc6485912f0df3afb2eb63129a15f3ae8063454212e848f58c0d7d66ff",
   "contexte": "wenlu dico contexte 7-9 42",
   "essais": 1,
   "refus": []
@@ -616,14 +616,21 @@
    "exemples": [
     {
      "zh": "进球以后，观众都欢呼起来。",
-     "pinyin": "Jìn qiú yǐhòu, guānzhòng dōu huānhū qǐlai.",
+     "pinyin": "Jìn qiú yǐhòu, guānzhòng dōu huānhū qilai.",
      "fr": "Après le but, le public a explosé de joie.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jìn qiú yǐhòu, guānzhòng dōu huānhū qǐlai. » → « Jìn qiú yǐhòu, guānzhòng dōu huānhū qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -1494,14 +1501,21 @@
    "exemples": [
     {
      "zh": "这个故事听起来很荒诞。",
-     "pinyin": "Zhège gùshi tīng qǐlai hěn huāngdàn.",
+     "pinyin": "Zhège gùshi tīng qilai hěn huāngdàn.",
      "fr": "Cette histoire paraît invraisemblable.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège gùshi tīng qǐlai hěn huāngdàn. » → « Zhège gùshi tīng qilai hěn huāngdàn. »"
+       }
+      ]
      }
     }
    ]
@@ -1573,14 +1587,21 @@
    "exemples": [
     {
      "zh": "你的看法很荒谬。",
-     "pinyin": "Nǐ de kànfǎ hěn huāngmiù.",
+     "pinyin": "Nǐ de kànfa hěn huāngmiù.",
      "fr": "Ton point de vue ne tient pas debout.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ de kànfǎ hěn huāngmiù. » → « Nǐ de kànfa hěn huāngmiù. »"
+       }
+      ]
      }
     }
    ]
@@ -1690,14 +1711,21 @@
    "exemples": [
     {
      "zh": "他慌张地跑了出去。",
-     "pinyin": "Tā huāngzhang de pǎo le chūqu.",
+     "pinyin": "Tā huāngzhang de pǎo le chuqu.",
      "fr": "Il est sorti en courant, tout affolé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā huāngzhang de pǎo le chūqu. » → « Tā huāngzhang de pǎo le chuqu. »"
+       }
+      ]
      }
     }
    ]

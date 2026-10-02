@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bd578017bf33e1a4fab99369db558d9921c77f23dbbf1ca498fae34d4b67a664",
+  "empreinte_invite": "sha256:9b4c0e50e6a230489dbca3b5262e91098e09998b8e73ea7f3d9c47884777d113",
   "contexte": "wenlu dico contexte 6 11",
   "essais": 1,
   "refus": []
@@ -876,14 +876,21 @@
    "exemples": [
     {
      "zh": "我们可以借鉴别人的经验。",
-     "pinyin": "Wǒmen kěyǐ jièjiàn biérén de jīngyàn.",
+     "pinyin": "Wǒmen kěyǐ jièjiàn biéren de jīngyàn.",
      "fr": "Nous pouvons profiter de l'expérience des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen kěyǐ jièjiàn biérén de jīngyàn. » → « Wǒmen kěyǐ jièjiàn biéren de jīngyàn. »"
+       }
+      ]
      }
     }
    ]

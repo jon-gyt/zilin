@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:dbbbf2eed0a3e27403565eabdf4931a3736b2047d2260e01f086d8b0592a0e57",
+  "empreinte_invite": "sha256:30a392f5ad4662ac02c149400bfca581de2f0e6c8ac3db75656df36a717cbf93",
   "contexte": "wenlu dico contexte 7-9 03",
   "essais": 1,
   "refus": []
@@ -266,14 +266,21 @@
    "exemples": [
     {
      "zh": "我们要学会包容别人的缺点。",
-     "pinyin": "Wǒmen yào xuéhuì bāoróng biérén de quēdiǎn.",
+     "pinyin": "Wǒmen yào xuéhuì bāoróng biéren de quēdiǎn.",
      "fr": "Il faut apprendre à accepter les défauts des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen yào xuéhuì bāoróng biérén de quēdiǎn. » → « Wǒmen yào xuéhuì bāoróng biéren de quēdiǎn. »"
+       }
+      ]
      }
     }
    ]
@@ -1120,14 +1127,21 @@
    "exemples": [
     {
      "zh": "他一心想为父亲报仇。",
-     "pinyin": "Tā yīxīn xiǎng wèi fùqīn bàochóu.",
+     "pinyin": "Tā yīxīn xiǎng wèi fùqin bàochóu.",
      "fr": "Il ne pense qu'à venger son père.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīxīn xiǎng wèi fùqīn bàochóu. » → « Tā yīxīn xiǎng wèi fùqin bàochóu. »"
+       }
+      ]
      }
     }
    ]
@@ -1257,14 +1271,21 @@
    "exemples": [
     {
      "zh": "他怕别人报复他。",
-     "pinyin": "Tā pà biérén bàofu tā.",
+     "pinyin": "Tā pà biéren bàofu tā.",
      "fr": "Il craint qu'on lui rende la pareille.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā pà biérén bàofu tā. » → « Tā pà biéren bàofu tā. »"
+       }
+      ]
      }
     }
    ]

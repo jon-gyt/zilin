@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:62fc92db8588210864cb01fd1905c1e11f1b89550d940d0ecb7e247ded582036",
+  "empreinte_invite": "sha256:6143c12e730a35e35f0a033267c94ef6054e6e13f20c9719b15828389c674f1c",
   "contexte": "wenlu dico contexte 7-9 45",
   "essais": 1,
   "refus": []
@@ -619,14 +619,21 @@
    "exemples": [
     {
      "zh": "只有极少数人知道这件事。",
-     "pinyin": "Zhǐyǒu jí shǎoshù rén zhīdào zhè jiàn shì.",
+     "pinyin": "Zhǐyǒu jí shǎoshù rén zhīdao zhè jiàn shì.",
      "fr": "Seules de très rares personnes sont au courant.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhǐyǒu jí shǎoshù rén zhīdào zhè jiàn shì. » → « Zhǐyǒu jí shǎoshù rén zhīdao zhè jiàn shì. »"
+       }
+      ]
      }
     }
    ]
@@ -1401,14 +1408,21 @@
    "exemples": [
     {
      "zh": "别人成功了，他就很嫉妒。",
-     "pinyin": "Biérén chénggōng le, tā jiù hěn jídù.",
+     "pinyin": "Biéren chénggōng le, tā jiù hěn jídù.",
      "fr": "Il ne supporte pas que les autres réussissent.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Biérén chénggōng le, tā jiù hěn jídù. » → « Biéren chénggōng le, tā jiù hěn jídù. »"
+       }
+      ]
      }
     }
    ]

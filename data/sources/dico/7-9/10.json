@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:86dc472b9629fd20e0d7911faab89c748c26f8bfcc0ed6f4ff81e66f29c2bb25",
+  "empreinte_invite": "sha256:cb0b6c5aa2bd76febe2089153faa0f8f2ef344d5e86b772be6941a34b04e0ffb",
   "contexte": "wenlu dico contexte 7-9 10",
   "essais": 1,
   "refus": []
@@ -960,14 +960,21 @@
    "exemples": [
     {
      "zh": "他有常人没有的耐心。",
-     "pinyin": "Tā yǒu chángrén méiyǒu de nàixīn.",
+     "pinyin": "Tā yǒu chángrén méiyou de nàixīn.",
      "fr": "Il a une patience hors du commun.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yǒu chángrén méiyǒu de nàixīn. » → « Tā yǒu chángrén méiyou de nàixīn. »"
+       }
+      ]
      }
     }
    ]
@@ -1455,14 +1462,21 @@
    "exemples": [
     {
      "zh": "他的论文是抄袭别人的。",
-     "pinyin": "Tā de lùnwén shì chāoxí biérén de.",
+     "pinyin": "Tā de lùnwén shì chāoxí biéren de.",
      "fr": "Il a recopié le mémoire de quelqu'un d'autre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de lùnwén shì chāoxí biérén de. » → « Tā de lùnwén shì chāoxí biéren de. »"
+       }
+      ]
      }
     }
    ]
@@ -1633,14 +1647,21 @@
    "exemples": [
     {
      "zh": "他的想法很超前。",
-     "pinyin": "Tā de xiǎngfǎ hěn chāoqián.",
+     "pinyin": "Tā de xiǎngfa hěn chāoqián.",
      "fr": "Ses idées ont une longueur d'avance.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de xiǎngfǎ hěn chāoqián. » → « Tā de xiǎngfa hěn chāoqián. »"
+       }
+      ]
      }
     }
    ]
@@ -1672,14 +1693,21 @@
    "exemples": [
     {
      "zh": "他因为超速被罚了款。",
-     "pinyin": "Tā yīnwèi chāosù bèi fá le kuǎn.",
+     "pinyin": "Tā yīnwei chāosù bèi fá le kuǎn.",
      "fr": "Il a eu une amende pour avoir roulé trop vite.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi chāosù bèi fá le kuǎn. » → « Tā yīnwei chāosù bèi fá le kuǎn. »"
+       }
+      ]
      }
     }
    ]
@@ -1809,14 +1837,21 @@
    "exemples": [
     {
      "zh": "他总是嘲弄别人。",
-     "pinyin": "Tā zǒngshì cháonòng biérén.",
+     "pinyin": "Tā zǒngshì cháonòng biéren.",
      "fr": "Il se moque toujours des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒngshì cháonòng biérén. » → « Tā zǒngshì cháonòng biéren. »"
+       }
+      ]
      }
     }
    ]

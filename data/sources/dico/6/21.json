@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:dd5cb9a7cd6efc81ffe5359bd66dcc12f84caa0cd02ff73fe1c5eada5aed3d72",
+  "empreinte_invite": "sha256:af7221d099270ad14e8b3c5719b7d9d6bcaf6e9f6168826e737430deee3b7f17",
   "contexte": "wenlu dico contexte 6 21",
   "essais": 1,
   "refus": []
@@ -440,14 +440,21 @@
    "exemples": [
     {
      "zh": "地球绕着太阳旋转。",
-     "pinyin": "Dìqiú rào zhe tàiyáng xuánzhuǎn.",
+     "pinyin": "Dìqiú rào zhe tàiyang xuánzhuǎn.",
      "fr": "La Terre tourne autour du Soleil.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Dìqiú rào zhe tàiyáng xuánzhuǎn. » → « Dìqiú rào zhe tàiyang xuánzhuǎn. »"
+       }
+      ]
      }
     }
    ]
@@ -1855,14 +1862,21 @@
    "exemples": [
     {
      "zh": "这是他一贯的做法。",
-     "pinyin": "Zhè shì tā yīguàn de zuòfǎ.",
+     "pinyin": "Zhè shì tā yīguàn de zuòfa.",
      "fr": "C'est sa manière de faire depuis toujours.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè shì tā yīguàn de zuòfǎ. » → « Zhè shì tā yīguàn de zuòfa. »"
+       }
+      ]
      }
     }
    ]

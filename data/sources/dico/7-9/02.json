@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:632c697eac9ec13e1e7b559ad001034693a9e03a1c5b98d456376467d856d401",
+  "empreinte_invite": "sha256:81998e134543c756c748bd4f4db13c5cf97b1019b839ee416ba69c1345e9acbe",
   "contexte": "wenlu dico contexte 7-9 02",
   "essais": 1,
   "refus": []
@@ -67,14 +67,21 @@
    "exemples": [
     {
      "zh": "他怕别人抓住他的把柄。",
-     "pinyin": "Tā pà biérén zhuāzhù tā de bǎbǐng.",
+     "pinyin": "Tā pà biéren zhuāzhù tā de bǎbǐng.",
      "fr": "Il a peur qu'on ait prise sur lui.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā pà biérén zhuāzhù tā de bǎbǐng. » → « Tā pà biéren zhuāzhù tā de bǎbǐng. »"
+       }
+      ]
      }
     }
    ]
@@ -387,14 +394,21 @@
    "exemples": [
     {
      "zh": "他霸占了别人的土地。",
-     "pinyin": "Tā bàzhàn le biérén de tǔdì.",
+     "pinyin": "Tā bàzhàn le biéren de tǔdì.",
      "fr": "Il s'est approprié la terre d'autrui.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bàzhàn le biérén de tǔdì. » → « Tā bàzhàn le biéren de tǔdì. »"
+       }
+      ]
      }
     }
    ]

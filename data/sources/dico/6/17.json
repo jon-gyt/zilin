@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b0c7f7570dcead9f372a6f0ebb142155eff01e2e07f13691d53582ae5641983e",
+  "empreinte_invite": "sha256:121733c33bb79ff68d77a46491df607c70764c6b3ecfc659eaa4e78ae5c89a17",
   "contexte": "wenlu dico contexte 6 17",
   "essais": 1,
   "refus": []
@@ -452,14 +452,21 @@
    "exemples": [
     {
      "zh": "现在正是吃西瓜的时节。",
-     "pinyin": "Xiànzài zhèng shì chī xīguā de shíjié.",
+     "pinyin": "Xiànzài zhèng shì chī xīgua de shíjié.",
      "fr": "C'est la pleine saison des pastèques.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xiànzài zhèng shì chī xīguā de shíjié. » → « Xiànzài zhèng shì chī xīgua de shíjié. »"
+       }
+      ]
      }
     }
    ]
@@ -605,14 +612,21 @@
    "exemples": [
     {
      "zh": "奶奶小时候没机会识字。",
-     "pinyin": "Nǎinai xiǎoshíhou méi jīhuì shízì.",
+     "pinyin": "Nǎinai xiǎoshíhou méi jīhui shízì.",
      "fr": "Enfant, grand-mère n'a pas eu la chance d'apprendre à lire.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǎinai xiǎoshíhou méi jīhuì shízì. » → « Nǎinai xiǎoshíhou méi jīhui shízì. »"
+       }
+      ]
      }
     }
    ]
@@ -742,14 +756,21 @@
    "exemples": [
     {
      "zh": "他这几天没有食欲。",
-     "pinyin": "Tā zhè jǐ tiān méiyǒu shíyù.",
+     "pinyin": "Tā zhè jǐ tiān méiyou shíyù.",
      "fr": "Ces jours-ci, il n'a pas envie de manger.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zhè jǐ tiān méiyǒu shíyù. » → « Tā zhè jǐ tiān méiyou shíyù. »"
+       }
+      ]
      }
     }
    ]

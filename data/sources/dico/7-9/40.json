@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f4939d62ce0ea4df0d8112fde23d7fe7581e4aac1841f4cfe738983d29a8f23f",
+  "empreinte_invite": "sha256:070fe44475c8a91f6f8f77d24c5705ab13d98654fcddb5004425db6c6bdf8428",
   "contexte": "wenlu dico contexte 7-9 40",
   "essais": 1,
   "refus": []
@@ -209,14 +209,21 @@
    "exemples": [
     {
      "zh": "他把狗轰了出去。",
-     "pinyin": "Tā bǎ gǒu hōng le chūqu.",
+     "pinyin": "Tā bǎ gǒu hōng le chuqu.",
      "fr": "Il a chassé le chien dehors.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ gǒu hōng le chūqu. » → « Tā bǎ gǒu hōng le chuqu. »"
+       }
+      ]
      }
     }
    ]
@@ -805,14 +812,21 @@
    "exemples": [
     {
      "zh": "看到别人赚钱，他就红眼了。",
-     "pinyin": "Kàndào biérén zhuànqián, tā jiù hóngyǎn le.",
+     "pinyin": "Kàndào biéren zhuànqián, tā jiù hóngyǎn le.",
      "fr": "Il devient envieux dès qu'il voit les autres gagner de l'argent.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kàndào biérén zhuànqián, tā jiù hóngyǎn le. » → « Kàndào biéren zhuànqián, tā jiù hóngyǎn le. »"
+       }
+      ]
      }
     }
    ]
@@ -1269,14 +1283,21 @@
    "exemples": [
     {
      "zh": "有了父母帮忙，他没有了后顾之忧。",
-     "pinyin": "Yǒu le fùmǔ bāngmáng, tā méiyǒu le hòugùzhīyōu.",
+     "pinyin": "Yǒu le fùmǔ bāngmáng, tā méiyou le hòugùzhīyōu.",
      "fr": "Grâce à l'aide de ses parents, il n'a plus à s'inquiéter pour la maison.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yǒu le fùmǔ bāngmáng, tā méiyǒu le hòugùzhīyōu. » → « Yǒu le fùmǔ bāngmáng, tā méiyou le hòugùzhīyōu. »"
+       }
+      ]
      }
     }
    ]
@@ -1386,14 +1407,21 @@
    "exemples": [
     {
      "zh": "他的故事被后人传了下来。",
-     "pinyin": "Tā de gùshi bèi hòurén chuán le xiàlai.",
+     "pinyin": "Tā de gùshi bèi hòurén chuán le xialai.",
      "fr": "Son histoire a été transmise par ceux qui sont venus après.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de gùshi bèi hòurén chuán le xiàlai. » → « Tā de gùshi bèi hòurén chuán le xialai. »"
+       }
+      ]
      }
     }
    ]

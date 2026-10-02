@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1bd970ea6f28db72c0f1bbdf9e6e48db88a9db6913ac3cb24e692d79c9dedeba",
+  "empreinte_invite": "sha256:741bc28888f998705922096e3cadfba99542feead2b3bbc113f761d7dde90562",
   "contexte": "wenlu dico contexte 7-9 46",
   "essais": 1,
   "refus": []
@@ -237,14 +237,21 @@
    "exemples": [
     {
      "zh": "他先是沉默，继而大笑起来。",
-     "pinyin": "Tā xiān shì chénmò, jì'ér dàxiào qǐlai.",
+     "pinyin": "Tā xiān shì chénmò, jì'ér dàxiào qilai.",
      "fr": "Il est d'abord resté silencieux, puis a éclaté de rire.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā xiān shì chénmò, jì'ér dàxiào qǐlai. » → « Tā xiān shì chénmò, jì'ér dàxiào qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -1767,14 +1774,21 @@
    "exemples": [
     {
      "zh": "他当了经理以后，一点儿架子也没有。",
-     "pinyin": "Tā dāng le jīnglǐ yǐhòu, yīdiǎnr jiàzi yě méiyǒu.",
+     "pinyin": "Tā dāng le jīnglǐ yǐhòu, yīdiǎnr jiàzi yě méiyou.",
      "fr": "Devenu directeur, il est resté tout simple.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā dāng le jīnglǐ yǐhòu, yīdiǎnr jiàzi yě méiyǒu. » → « Tā dāng le jīnglǐ yǐhòu, yīdiǎnr jiàzi yě méiyou. »"
+       }
+      ]
      }
     }
    ]
@@ -1849,14 +1863,21 @@
    "exemples": [
     {
      "zh": "母亲为女儿准备了很多嫁妆。",
-     "pinyin": "Mǔqīn wèi nǚ'ér zhǔnbèi le hěn duō jiàzhuang.",
+     "pinyin": "Mǔqin wèi nǚ'ér zhǔnbèi le hěn duō jiàzhuang.",
      "fr": "La mère a préparé un riche trousseau pour sa fille.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Mǔqīn wèi nǚ'ér zhǔnbèi le hěn duō jiàzhuang. » → « Mǔqin wèi nǚ'ér zhǔnbèi le hěn duō jiàzhuang. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1fc12c41b63f925d52a9429ae745ec2331d617256bc1d7a906ce6137a6396d9b",
+  "empreinte_invite": "sha256:55c18909b9d67594f37c2caf8208da974b6667cb2bf6c44544922d1ff00145f6",
   "contexte": "wenlu dico contexte 7-9 102",
   "essais": 1,
   "refus": []
@@ -801,14 +801,21 @@
    "exemples": [
     {
      "zh": "这种事以前没有先例。",
-     "pinyin": "Zhè zhǒng shì yǐqián méiyǒu xiānlì.",
+     "pinyin": "Zhè zhǒng shì yǐqián méiyou xiānlì.",
      "fr": "Cela ne s'était encore jamais vu.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè zhǒng shì yǐqián méiyǒu xiānlì. » → « Zhè zhǒng shì yǐqián méiyou xiānlì. »"
+       }
+      ]
      }
     }
    ]

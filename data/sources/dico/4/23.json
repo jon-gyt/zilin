@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c81945970ee175792dc92769f6ab34b6ab8f58e4f9cee6ddf6b677ec59832360",
+  "empreinte_invite": "sha256:c17b7d4ab45952ac50734586ee72bb308420f2e1bcffac8b817f03d33f0310f3",
   "contexte": "wenlu dico contexte 4 23",
   "essais": 1,
   "refus": []
@@ -427,14 +427,21 @@
    "exemples": [
     {
      "zh": "我们要综合大家的意见。",
-     "pinyin": "Wǒmen yào zōnghé dàjiā de yìjiàn.",
+     "pinyin": "Wǒmen yào zōnghé dàjiā de yìjian.",
      "fr": "Il faut faire la synthèse des avis de chacun.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen yào zōnghé dàjiā de yìjiàn. » → « Wǒmen yào zōnghé dàjiā de yìjian. »"
+       }
+      ]
      }
     }
    ]
@@ -645,14 +652,21 @@
    "exemples": [
     {
      "zh": "没有人能阻止他。",
-     "pinyin": "Méiyǒu rén néng zǔzhǐ tā.",
+     "pinyin": "Méiyou rén néng zǔzhǐ tā.",
      "fr": "Rien ne peut le retenir.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu rén néng zǔzhǐ tā. » → « Méiyou rén néng zǔzhǐ tā. »"
+       }
+      ]
      }
     }
    ]

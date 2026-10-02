@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a0a76b7db275fe4e33dbf7776db7943d3e8fcc07662c592c13e537f1df3ee645",
+  "empreinte_invite": "sha256:dad2c03d651953adff06db59375909d2b8b2b25f5e6d3dbca9660445f20b0576",
   "contexte": "wenlu dico contexte 6 06",
   "essais": 1,
   "refus": []
@@ -531,14 +531,21 @@
    "exemples": [
     {
      "zh": "服务员端来了两碗面。",
-     "pinyin": "Fúwùyuán duān lái le liǎng wǎn miàn.",
+     "pinyin": "Fúwùyuán duān lai le liǎng wǎn miàn.",
      "fr": "Le serveur a apporté deux bols de nouilles.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Fúwùyuán duān lái le liǎng wǎn miàn. » → « Fúwùyuán duān lai le liǎng wǎn miàn. »"
+       }
+      ]
      }
     }
    ]
@@ -1813,14 +1820,21 @@
    "exemples": [
     {
      "zh": "他没有回答，而是反问了我一个问题。",
-     "pinyin": "Tā méiyǒu huídá, ér shì fǎnwèn le wǒ yī ge wèntí.",
+     "pinyin": "Tā méiyou huídá, ér shì fǎnwèn le wǒ yī ge wèntí.",
      "fr": "Au lieu de répondre, il m'a retourné la question.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu huídá, ér shì fǎnwèn le wǒ yī ge wèntí. » → « Tā méiyou huídá, ér shì fǎnwèn le wǒ yī ge wèntí. »"
+       }
+      ]
      }
     }
    ]

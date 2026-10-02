@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:eef2992aa18892371c0e38082953fa6df34d6383f9c32162fd9fe26e8db36d49",
+  "empreinte_invite": "sha256:f867ec06e4d193693bf9bf6e75ecfc72d817573c7d24af8a2ff4ca4d0dea34bd",
   "contexte": "wenlu dico contexte 3 12",
   "essais": 1,
   "refus": []
@@ -401,14 +401,21 @@
    "exemples": [
     {
      "zh": "听到电话，他连忙跑过去。",
-     "pinyin": "Tīng dào diànhuà, tā liánmáng pǎo guoqu.",
+     "pinyin": "Tīng dào diànhuà, tā liánmáng pǎo guòqu.",
      "fr": "En entendant le téléphone, il s'est précipité.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tīng dào diànhuà, tā liánmáng pǎo guoqu. » → « Tīng dào diànhuà, tā liánmáng pǎo guòqu. »"
+       }
+      ]
      }
     }
    ]
@@ -1321,14 +1328,21 @@
    "exemples": [
     {
      "zh": "太阳落山了。",
-     "pinyin": "Tàiyáng luò shān le.",
+     "pinyin": "Tàiyang luò shān le.",
      "fr": "Le soleil s'est couché.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tàiyáng luò shān le. » → « Tàiyang luò shān le. »"
+       }
+      ]
      }
     },
     {

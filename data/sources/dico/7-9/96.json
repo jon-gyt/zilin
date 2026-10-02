@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:aba3c5d414f0efd9d1504d8ee2fb32dd79d4b5049b884fc99f2b9d80dbad090b",
+  "empreinte_invite": "sha256:bd45faa744f9d826df4f5c38a2be0f16282f84f598bbbff8a7d82fcab2455921",
   "contexte": "wenlu dico contexte 7-9 96",
   "essais": 1,
   "refus": []
@@ -673,14 +673,21 @@
    "exemples": [
     {
      "zh": "他因为家里穷，只好退学了。",
-     "pinyin": "Tā yīnwèi jiā li qióng, zhǐhǎo tuìxué le.",
+     "pinyin": "Tā yīnwei jiā li qióng, zhǐhǎo tuìxué le.",
      "fr": "Sa famille étant pauvre, il a dû arrêter l'école.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi jiā li qióng, zhǐhǎo tuìxué le. » → « Tā yīnwei jiā li qióng, zhǐhǎo tuìxué le. »"
+       }
+      ]
      }
     }
    ]
@@ -1575,14 +1582,21 @@
    "exemples": [
     {
      "zh": "你别总是挖苦别人。",
-     "pinyin": "Nǐ bié zǒngshì wāku biérén.",
+     "pinyin": "Nǐ bié zǒngshì wāku biéren.",
      "fr": "Arrête de toujours te moquer des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ bié zǒngshì wāku biérén. » → « Nǐ bié zǒngshì wāku biéren. »"
+       }
+      ]
      }
     }
    ]

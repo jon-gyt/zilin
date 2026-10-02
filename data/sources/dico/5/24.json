@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c0c24eb670d7c0c2f72d30fe30f7ffdfb7d002e73068c48eb3367d1d573efa6c",
+  "empreinte_invite": "sha256:3f791bf9508513cce29dad3bb66799e626797ad13d47ec50c0e71fce77772204",
   "contexte": "wenlu dico contexte 5 24",
   "essais": 1,
   "refus": []
@@ -275,14 +275,21 @@
    "exemples": [
     {
      "zh": "他发明了一种新机器，还申请了专利。",
-     "pinyin": "Tā fāmíng le yī zhǒng xīn jīqì, hái shēnqǐng le zhuānlì.",
+     "pinyin": "Tā fāmíng le yī zhǒng xīn jīqi, hái shēnqǐng le zhuānlì.",
      "fr": "Il a inventé une nouvelle machine et l'a fait protéger.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā fāmíng le yī zhǒng xīn jīqì, hái shēnqǐng le zhuānlì. » → « Tā fāmíng le yī zhǒng xīn jīqi, hái shēnqǐng le zhuānlì. »"
+       }
+      ]
      }
     }
    ]
@@ -479,14 +486,21 @@
    "exemples": [
     {
      "zh": "她喜欢戴漂亮的首饰。",
-     "pinyin": "Tā xǐhuan dài piàoliang de shǒushì.",
+     "pinyin": "Tā xǐhuan dài piàoliang de shǒushi.",
      "fr": "Elle aime porter de beaux bijoux.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā xǐhuan dài piàoliang de shǒushì. » → « Tā xǐhuan dài piàoliang de shǒushi. »"
+       }
+      ]
      }
     }
    ]
@@ -1501,14 +1515,21 @@
    "exemples": [
     {
      "zh": "我们要尊重别人的意见。",
-     "pinyin": "Wǒmen yào zūnzhòng biérén de yìjiàn.",
+     "pinyin": "Wǒmen yào zūnzhòng biéren de yìjian.",
      "fr": "Il faut tenir compte de l'avis des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen yào zūnzhòng biérén de yìjiàn. » → « Wǒmen yào zūnzhòng biéren de yìjian. »"
+       }
+      ]
      }
     }
    ]

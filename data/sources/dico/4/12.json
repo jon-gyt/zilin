@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c4d46fad9ff24811576aab7e09611404cec6178aa05f4a22c10659401ba2b8e0",
+  "empreinte_invite": "sha256:196f61263331d5e2a78e32b278efea3acb258ba8a27cfa12d44d781c38401b5c",
   "contexte": "wenlu dico contexte 4 12",
   "essais": 1,
   "refus": []
@@ -223,14 +223,21 @@
    "exemples": [
     {
      "zh": "读书给我带来很多乐趣。",
-     "pinyin": "Dú shū gěi wǒ dàilái hěn duō lèqù.",
+     "pinyin": "Dú shū gěi wǒ dàilai hěn duō lèqù.",
      "fr": "La lecture me procure beaucoup de bonheur.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Dú shū gěi wǒ dàilái hěn duō lèqù. » → « Dú shū gěi wǒ dàilai hěn duō lèqù. »"
+       }
+      ]
      }
     }
    ]
@@ -1466,14 +1473,21 @@
    "exemples": [
     {
      "zh": "客人陆续到了。",
-     "pinyin": "Kèrén lùxù dào le.",
+     "pinyin": "Kèren lùxù dào le.",
      "fr": "Les invités arrivent petit à petit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kèrén lùxù dào le. » → « Kèren lùxù dào le. »"
+       }
+      ]
      }
     }
    ]

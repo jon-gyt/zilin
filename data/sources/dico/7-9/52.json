@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1ac06e2e319d194863e10e903cf33b2519d521150915c5f4c84d441696c42af3",
+  "empreinte_invite": "sha256:c3c5cf21f57576c1558cb8ba6004750b46f426d297bb57cc4942bb6e52119fb7",
   "contexte": "wenlu dico contexte 7-9 52",
   "essais": 1,
   "refus": []
@@ -1464,14 +1464,21 @@
    "exemples": [
     {
      "zh": "新郎新娘向客人敬酒。",
-     "pinyin": "Xīnláng xīnniáng xiàng kèrén jìngjiǔ.",
+     "pinyin": "Xīnláng xīnniáng xiàng kèren jìngjiǔ.",
      "fr": "Les mariés trinquent avec leurs invités.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xīnláng xīnniáng xiàng kèrén jìngjiǔ. » → « Xīnláng xīnniáng xiàng kèren jìngjiǔ. »"
+       }
+      ]
      }
     }
    ]
@@ -1540,14 +1547,21 @@
    "exemples": [
     {
      "zh": "我真佩服你的勇气。",
-     "pinyin": "Wǒ zhēn pèifú nǐ de yǒngqì.",
+     "pinyin": "Wǒ zhēn pèifu nǐ de yǒngqì.",
      "fr": "J'admire vraiment ton courage.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ zhēn pèifú nǐ de yǒngqì. » → « Wǒ zhēn pèifu nǐ de yǒngqì. »"
+       }
+      ]
      }
     }
    ]

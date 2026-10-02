@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8d343a58444da809e3b83552f8ccad1fbaef904ee91bfe82abf2d4bd1b45d2d5",
+  "empreinte_invite": "sha256:29392ee1ba8d5cbfe43de3f61d30abb0b7c85be91f8c6748147df10ccf5ef770",
   "contexte": "wenlu dico contexte 7-9 113",
   "essais": 1,
   "refus": []
@@ -237,14 +237,21 @@
    "exemples": [
     {
      "zh": "服务员对客人很殷勤。",
-     "pinyin": "Fúwùyuán duì kèrén hěn yīnqín.",
+     "pinyin": "Fúwùyuán duì kèren hěn yīnqín.",
      "fr": "Le serveur est aux petits soins pour les clients.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Fúwùyuán duì kèrén hěn yīnqín. » → « Fúwùyuán duì kèren hěn yīnqín. »"
+       }
+      ]
      }
     }
    ]
@@ -1486,14 +1493,21 @@
    "exemples": [
     {
      "zh": "他总是迎合别人的意见。",
-     "pinyin": "Tā zǒngshì yínghé biérén de yìjiàn.",
+     "pinyin": "Tā zǒngshì yínghé biéren de yìjian.",
      "fr": "Il dit toujours amen à tout le monde.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zǒngshì yínghé biérén de yìjiàn. » → « Tā zǒngshì yínghé biéren de yìjian. »"
+       }
+      ]
      }
     }
    ]
@@ -1740,14 +1754,21 @@
    "exemples": [
     {
      "zh": "这场比赛没有赢家。",
-     "pinyin": "Zhè chǎng bǐsài méiyǒu yíngjiā.",
+     "pinyin": "Zhè chǎng bǐsài méiyou yíngjiā.",
      "fr": "Ce match n'a pas fait de vainqueur.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè chǎng bǐsài méiyǒu yíngjiā. » → « Zhè chǎng bǐsài méiyou yíngjiā. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:30a4fb626f260652b7766cda8b835757f4deb40b0113a7d08feb72ae6422bfdc",
+  "empreinte_invite": "sha256:33a2e74e539f7f26339685dd326f98c5714dddc38d015062e1bec21918094f7b",
   "contexte": "wenlu dico contexte 7-9 11",
   "essais": 1,
   "refus": []
@@ -40,14 +40,21 @@
    "exemples": [
     {
      "zh": "不要嘲笑别人的错误。",
-     "pinyin": "Bùyào cháoxiào biérén de cuòwù.",
+     "pinyin": "Bùyào cháoxiào biéren de cuòwù.",
      "fr": "Il ne faut pas rire des erreurs des autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bùyào cháoxiào biérén de cuòwù. » → « Bùyào cháoxiào biéren de cuòwù. »"
+       }
+      ]
      }
     }
    ]
@@ -909,14 +916,21 @@
    "exemples": [
     {
      "zh": "会上的气氛很沉闷。",
-     "pinyin": "Huì shang de qìfēn hěn chénmèn.",
+     "pinyin": "Huì shang de qìfen hěn chénmèn.",
      "fr": "L'ambiance de la réunion était pesante.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Huì shang de qìfēn hěn chénmèn. » → « Huì shang de qìfen hěn chénmèn. »"
+       }
+      ]
      }
     }
    ]

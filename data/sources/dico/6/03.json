@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:783800af6a4598e5b7b5d3dd4c450a1eec2ca449d0d5c0de10d41b328b0f61a9",
+  "empreinte_invite": "sha256:72f1f42c109148894ef1f6534ee289d60ec1cc4f8c3721018a547be33fcc2949",
   "contexte": "wenlu dico contexte 6 03",
   "essais": 1,
   "refus": []
@@ -83,14 +83,21 @@
    "exemples": [
     {
      "zh": "他侧着身子走了进来。",
-     "pinyin": "Tā cè zhe shēnzi zǒu le jìnlai.",
+     "pinyin": "Tā cè zhe shēnzi zǒu le jinlai.",
      "fr": "Il est entré en se faufilant de biais.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā cè zhe shēnzi zǒu le jìnlai. » → « Tā cè zhe shēnzi zǒu le jinlai. »"
+       }
+      ]
      }
     }
    ]

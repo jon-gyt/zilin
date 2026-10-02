@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:371c6da110ad0a69ecc7170e8ea0444d4e76dd0847b82fcb50984b2eed60f9c3",
+  "empreinte_invite": "sha256:2aefad6bc21e0ed9d6fa531ec2343654a57deebf5004cfb93f785ebef76acc3d",
   "contexte": "wenlu dico contexte 7-9 116",
   "essais": 1,
   "refus": []
@@ -1123,14 +1123,21 @@
    "exemples": [
     {
      "zh": "这个人物的原型是作者的父亲。",
-     "pinyin": "Zhège rénwù de yuánxíng shì zuòzhě de fùqīn.",
+     "pinyin": "Zhège rénwù de yuánxíng shì zuòzhě de fùqin.",
      "fr": "Ce personnage est inspiré du père de l'auteur.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège rénwù de yuánxíng shì zuòzhě de fùqīn. » → « Zhège rénwù de yuánxíng shì zuòzhě de fùqin. »"
+       }
+      ]
      }
     }
    ]
@@ -1584,14 +1591,21 @@
    "exemples": [
     {
      "zh": "他心里对父亲有怨恨。",
-     "pinyin": "Tā xīnli duì fùqīn yǒu yuànhèn.",
+     "pinyin": "Tā xīnli duì fùqin yǒu yuànhèn.",
      "fr": "Il garde de la rancœur envers son père.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā xīnli duì fùqīn yǒu yuànhèn. » → « Tā xīnli duì fùqin yǒu yuànhèn. »"
+       }
+      ]
      }
     }
    ]
@@ -1662,14 +1676,21 @@
    "exemples": [
     {
      "zh": "他工作很辛苦，但从来没有怨言。",
-     "pinyin": "Tā gōngzuò hěn xīnkǔ, dàn cónglái méiyǒu yuànyán.",
+     "pinyin": "Tā gōngzuò hěn xīnkǔ, dàn cónglái méiyou yuànyán.",
      "fr": "Son travail est dur, mais il ne se plaint jamais.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā gōngzuò hěn xīnkǔ, dàn cónglái méiyǒu yuànyán. » → « Tā gōngzuò hěn xīnkǔ, dàn cónglái méiyou yuànyán. »"
+       }
+      ]
      }
     }
    ]

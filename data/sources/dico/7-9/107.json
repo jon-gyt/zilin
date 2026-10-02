@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:64ef34417e39d7f80151a1f74e9a6ad0da9351947536d78ae7e5b57dcdf16b4a",
+  "empreinte_invite": "sha256:bb8eb7675584a5189c1fc71d505f7046e6333cf7a444b6099be8cffa70e46240",
   "contexte": "wenlu dico contexte 7-9 107",
   "essais": 1,
   "refus": []
@@ -63,14 +63,21 @@
    "exemples": [
     {
      "zh": "他因为酗酒丢了工作。",
-     "pinyin": "Tā yīnwèi xùjiǔ diū le gōngzuò.",
+     "pinyin": "Tā yīnwei xùjiǔ diū le gōngzuò.",
      "fr": "L'alcool lui a coûté son travail.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi xùjiǔ diū le gōngzuò. » → « Tā yīnwei xùjiǔ diū le gōngzuò. »"
+       }
+      ]
      }
     }
    ]
@@ -1412,14 +1419,21 @@
    "exemples": [
     {
      "zh": "他因为生病中断了学业。",
-     "pinyin": "Tā yīnwèi shēngbìng zhōngduàn le xuéyè.",
+     "pinyin": "Tā yīnwei shēngbìng zhōngduàn le xuéyè.",
      "fr": "La maladie l'a obligé à interrompre ses études.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi shēngbìng zhōngduàn le xuéyè. » → « Tā yīnwei shēngbìng zhōngduàn le xuéyè. »"
+       }
+      ]
      }
     }
    ]
@@ -1748,14 +1762,21 @@
    "exemples": [
     {
      "zh": "他们之间没有血缘关系。",
-     "pinyin": "Tāmen zhījiān méiyǒu xuèyuán guānxi.",
+     "pinyin": "Tāmen zhījiān méiyou xuèyuán guānxi.",
      "fr": "Ils ne sont pas parents.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tāmen zhījiān méiyǒu xuèyuán guānxi. » → « Tāmen zhījiān méiyou xuèyuán guānxi. »"
+       }
+      ]
      }
     }
    ]

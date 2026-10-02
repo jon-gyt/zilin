@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:283b66de569b57822a126d361c90930bc336ddcd4008fe27cd72662b7bbf431e",
+  "empreinte_invite": "sha256:36b8caa9321c15b422263e9d965cdf2b6f23e7434d8121cb86f259d91c8ff7f5",
   "contexte": "wenlu dico contexte 7-9 67",
   "essais": 1,
   "refus": []
@@ -1262,14 +1262,21 @@
    "exemples": [
     {
      "zh": "政府要听取民众的意见。",
-     "pinyin": "Zhèngfǔ yào tīngqǔ mínzhòng de yìjiàn.",
+     "pinyin": "Zhèngfǔ yào tīngqǔ mínzhòng de yìjian.",
      "fr": "Le gouvernement doit écouter l'avis des citoyens.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhèngfǔ yào tīngqǔ mínzhòng de yìjiàn. » → « Zhèngfǔ yào tīngqǔ mínzhòng de yìjian. »"
+       }
+      ]
      }
     }
    ]

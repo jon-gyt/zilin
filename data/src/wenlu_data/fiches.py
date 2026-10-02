@@ -1703,9 +1703,12 @@ et dans le doute. Sous « mnémotechnique », décrire ce que l'on voit dans la 
 jamais prétendre dire ce que le caractère a voulu dire autrefois.
 - mots : au plus {MOTS_PAR_FICHE}, pris dans les mots candidats, écrits à l'identique, \
 sans doublon ; pinyin avec les tons du dictionnaire (sans sandhi : yī, bù), d'un seul \
-tenant, ton neutre comme CC-CEDICT, sauf les mots de position (后面 hòumian, 这里 zhèli, \
-旁边 pángbiān, 那边 nàbiān) ; traductions fr et en rédigées soi-même, jamais \
-reprises d'un dictionnaire.
+tenant ; celui de la liste HSK 3.0 pour un mot de la liste (口袋 kǒudai, 出血 chūxiě), \
+de CC-CEDICT hors de la liste ; ton neutre du 现代汉语词典 (complément directionnel : \
+捎来 shāolai, 拿出来 ná chu lai ; 上 et 里 localisateurs : 桌上 zhuō shang ; 过 \
+particule : 去过 qùguo) ; les mots de position suivent leur décision (后面 hòumian, \
+这里 zhèli, 旁边 pángbiān, 那边 nàbiān) ; traductions fr et en rédigées soi-même, \
+jamais reprises d'un dictionnaire.
 - phrase.zh : les seuls caractères acquis ce jour-là, et la ponctuation \
 {PONCTUATION_CHINOISE} ; ni chiffre ni lettre.
 Écarts, signalés à la relecture :

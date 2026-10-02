@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:811f0a6977eb5aa7f107b07fdde188434cfd91bccfc127702316f88b3a433f49",
+  "empreinte_invite": "sha256:330b8a4c154a5967dfed54ddca5b90be204a9e2b134fb6c98556671161995815",
   "contexte": "wenlu dico contexte 7-9 105",
   "essais": 1,
   "refus": []
@@ -236,14 +236,21 @@
    "exemples": [
     {
      "zh": "我没有心思看电视。",
-     "pinyin": "Wǒ méiyǒu xīnsi kàn diànshì.",
+     "pinyin": "Wǒ méiyou xīnsi kàn diànshì.",
      "fr": "Je n'ai pas la tête à regarder la télé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ méiyǒu xīnsi kàn diànshì. » → « Wǒ méiyou xīnsi kàn diànshì. »"
+       }
+      ]
      }
     }
    ]
@@ -1073,14 +1080,21 @@
    "exemples": [
     {
      "zh": "我开车还是个新手。",
-     "pinyin": "Wǒ kāichē hái shì ge xīnshǒu.",
+     "pinyin": "Wǒ kāichē hái shi ge xīnshǒu.",
      "fr": "Je viens d'avoir mon permis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ kāichē hái shì ge xīnshǒu. » → « Wǒ kāichē hái shi ge xīnshǒu. »"
+       }
+      ]
      }
     }
    ]
@@ -1112,14 +1126,21 @@
    "exemples": [
     {
      "zh": "他的想法很新颖。",
-     "pinyin": "Tā de xiǎngfǎ hěn xīnyǐng.",
+     "pinyin": "Tā de xiǎngfa hěn xīnyǐng.",
      "fr": "Il a des idées neuves.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de xiǎngfǎ hěn xīnyǐng. » → « Tā de xiǎngfa hěn xīnyǐng. »"
+       }
+      ]
      }
     }
    ]

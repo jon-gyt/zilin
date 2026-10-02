@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9c5c65bd5f5af645dcc6361322dbffdc650f7b0d23acbe09edea8aeef7ed6971",
+  "empreinte_invite": "sha256:1718fb6b083f53720614390544d8af454fb46c83d0f855e461197d51fc921197",
   "contexte": "wenlu dico contexte 6 15",
   "essais": 1,
   "refus": []
@@ -996,14 +996,21 @@
    "exemples": [
     {
      "zh": "不能侵犯别人的权利。",
-     "pinyin": "Bù néng qīnfàn biérén de quánlì.",
+     "pinyin": "Bù néng qīnfàn biéren de quánlì.",
      "fr": "Il ne faut pas bafouer les droits d'autrui.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bù néng qīnfàn biérén de quánlì. » → « Bù néng qīnfàn biéren de quánlì. »"
+       }
+      ]
      }
     }
    ]
@@ -1145,14 +1152,21 @@
    "exemples": [
     {
      "zh": "我倾向于同意他的看法。",
-     "pinyin": "Wǒ qīngxiàng yú tóngyì tā de kànfǎ.",
+     "pinyin": "Wǒ qīngxiàng yú tóngyì tā de kànfa.",
      "fr": "J'aurais plutôt tendance à être de son avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ qīngxiàng yú tóngyì tā de kànfǎ. » → « Wǒ qīngxiàng yú tóngyì tā de kànfa. »"
+       }
+      ]
      }
     }
    ]
@@ -1800,14 +1814,21 @@
    "exemples": [
     {
      "zh": "他没有权力做这个决定。",
-     "pinyin": "Tā méiyǒu quánlì zuò zhège juédìng.",
+     "pinyin": "Tā méiyou quánlì zuò zhège juédìng.",
      "fr": "Il n'a pas le droit de prendre cette décision.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu quánlì zuò zhège juédìng. » → « Tā méiyou quánlì zuò zhège juédìng. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8e49e20a40674609741a6906bc429586f9f6339527713cea22be877210609261",
+  "empreinte_invite": "sha256:931ef99245c08833456049df13dbd09683a942ed4de357f79fe1aa0dba782199",
   "contexte": "wenlu dico contexte 7-9 27",
   "essais": 1,
   "refus": []
@@ -255,14 +255,21 @@
    "exemples": [
     {
      "zh": "他因为非法入境被抓了。",
-     "pinyin": "Tā yīnwèi fēifǎ rùjìng bèi zhuā le.",
+     "pinyin": "Tā yīnwei fēifǎ rùjìng bèi zhuā le.",
      "fr": "Il a été arrêté pour être entré clandestinement dans le pays.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi fēifǎ rùjìng bèi zhuā le. » → « Tā yīnwei fēifǎ rùjìng bèi zhuā le. »"
+       }
+      ]
      }
     }
    ]
@@ -644,14 +651,21 @@
    "exemples": [
     {
      "zh": "他在网上诽谤别人。",
-     "pinyin": "Tā zài wǎng shang fěibàng biérén.",
+     "pinyin": "Tā zài wǎng shang fěibàng biéren.",
      "fr": "Il répand des mensonges sur les autres en ligne.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zài wǎng shang fěibàng biérén. » → « Tā zài wǎng shang fěibàng biéren. »"
+       }
+      ]
      }
     }
    ]
@@ -1497,14 +1511,21 @@
    "exemples": [
     {
      "zh": "他分明知道，却说不知道。",
-     "pinyin": "Tā fēnmíng zhīdào, què shuō bù zhīdào.",
+     "pinyin": "Tā fēnmíng zhīdao, què shuō bù zhīdao.",
      "fr": "Il le sait très bien, mais il prétend le contraire.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā fēnmíng zhīdào, què shuō bù zhīdào. » → « Tā fēnmíng zhīdao, què shuō bù zhīdao. »"
+       }
+      ]
      }
     }
    ]

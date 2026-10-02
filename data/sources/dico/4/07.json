@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:48657b065bf1377130fa267a82c9e8bfb13282d4444c64e536f4267c1dc39a3e",
+  "empreinte_invite": "sha256:a49af21edd0da7c812c6d60db841414945cf2f8ed4fa87f2dffe512c377f6c66",
   "contexte": "wenlu dico contexte 4 07",
   "essais": 1,
   "refus": []
@@ -753,14 +753,21 @@
    "exemples": [
     {
      "zh": "那对夫妇住在我家楼上。",
-     "pinyin": "Nà duì fūfù zhù zài wǒ jiā lóu shang.",
+     "pinyin": "Nà duì fūfù zhù zài wǒ jiā lóu shàng.",
      "fr": "Ce couple habite au-dessus de chez nous.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nà duì fūfù zhù zài wǒ jiā lóu shang. » → « Nà duì fūfù zhù zài wǒ jiā lóu shàng. »"
+       }
+      ]
      }
     }
    ]
@@ -952,14 +959,21 @@
    "exemples": [
     {
      "zh": "这个结果符合我们的想法。",
-     "pinyin": "Zhège jiéguǒ fúhé wǒmen de xiǎngfǎ.",
+     "pinyin": "Zhège jiéguǒ fúhé wǒmen de xiǎngfa.",
      "fr": "Ce résultat va dans le sens de ce que nous pensions.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège jiéguǒ fúhé wǒmen de xiǎngfǎ. » → « Zhège jiéguǒ fúhé wǒmen de xiǎngfa. »"
+       }
+      ]
      }
     }
    ]

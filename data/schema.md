@@ -1411,6 +1411,31 @@ Quatre points de code portent deux composants distincts de la norme : ⺈, 丁, 
   fréquence avec leur point de code, cycles, apport de cjk-decomp, et état des
   listes prioritaires (seuil 255, HSK 1).
 
+### Le ton neutre, le pinyin des mots et les étages, dans tout le contenu
+
+Décisions du propriétaire du 1er octobre 2026, après la contre-relecture (« Celle du
+现代汉语词典 », « La liste HSK 3.0 », « Américain : second floor »). Elles valent pour tout
+texte rédigé : mots et phrases des fiches, trois lignes et leur glossaire, examens et leur
+glossaire, lettres, contes, WeChat, phrases du dictionnaire.
+
+- **Ton neutre : la notation du 现代汉语词典.** Une syllabe qu'il pointe (`·`) s'écrit au
+  ton neutre, comme la règle `·` ci-dessus. En particulier :
+  - 过 particule d'aspect (去过, 吃过) : `guo` ; 过 verbe ou complément de résultat
+    (过来, 走过去) garde `guò` quand le dictionnaire ne le pointe pas ;
+  - 上 et 里 localisateurs après un nom (桌上, 家里, 心里) : `shang`, `li` ; les mots de
+    position restent tranchés comme ci-dessous ;
+  - compléments directionnels après un verbe : 来 et 去 au ton neutre (出来 chū lai,
+    回去 huí qu, 起来 qǐ lai) ; dans un complément composé, ses deux syllabes
+    (拿出来 ná chu lai, 站起来 zhàn qi lai, 走进去 zǒu jin qu) ;
+  - les particules (了, 着, 的, 地, 得, 吗, 呢, 吧, 啊), les suffixes (子, 头 de 木头,
+    们) et les redoublements (看看, 尝尝, 妈妈) au ton neutre, comme aujourd'hui.
+- **Pinyin d'un mot de la liste HSK 3.0 : celui de la liste** (colonne `Pinyin`
+  d'ivankra, avec la règle `·`) prime sur CC-CEDICT quand ils diffèrent (口袋 kǒudai,
+  出血 chūxiě) ; CC-CEDICT ne sert que pour un mot hors de la liste.
+- **Les étages en anglais suivent l'usage américain**, qui compte comme le chinois :
+  一楼 « first floor », 二楼 « second floor » ; le français garde « rez-de-chaussée »,
+  « premier étage ».
+
 ### Surcharges des sources, versionnées
 
 Les fichiers téléchargés ne se corrigent jamais sur place. Une erreur relevée se

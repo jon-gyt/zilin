@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:562a8be9c72e625aac83e9446c29479101fe13428c2f3fb0b51d0013f8880fb0",
+  "empreinte_invite": "sha256:142df1df016c5b18698656dbf0cd7e67755f7012940af85c19178296c1507d8d",
   "contexte": "wenlu dico contexte 2 07",
   "essais": 1,
   "refus": []
@@ -228,14 +228,21 @@
    "exemples": [
     {
      "zh": "他到门口来迎我们。",
-     "pinyin": "Tā dào ménkǒu lái yíng wǒmen.",
+     "pinyin": "Tā dào ménkǒu lai yíng wǒmen.",
      "fr": "Il est venu nous accueillir à la porte.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā dào ménkǒu lái yíng wǒmen. » → « Tā dào ménkǒu lai yíng wǒmen. »"
+       }
+      ]
      }
     }
    ]

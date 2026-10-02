@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:34d0232cbd8ab0c13e6710d03569d4585ca6aa1765f81a22e703c315e95895a2",
+  "empreinte_invite": "sha256:f56854305c189de62a011554fb4247bd22a5a59c6bf68f09680c67fb13b8bb12",
   "contexte": "wenlu dico contexte 4 02",
   "essais": 1,
   "refus": []
@@ -1209,14 +1209,21 @@
    "exemples": [
     {
      "zh": "这件事与我没有关系。",
-     "pinyin": "Zhè jiàn shì yǔ wǒ méiyǒu guānxi.",
+     "pinyin": "Zhè jiàn shì yǔ wǒ méiyou guānxi.",
      "fr": "Cette affaire ne me concerne pas.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiàn shì yǔ wǒ méiyǒu guānxi. » → « Zhè jiàn shì yǔ wǒ méiyou guānxi. »"
+       }
+      ]
      }
     }
    ]
@@ -1353,14 +1360,21 @@
    "exemples": [
     {
      "zh": "这台机器很容易操作。",
-     "pinyin": "Zhè tái jīqì hěn róngyì cāozuò.",
+     "pinyin": "Zhè tái jīqi hěn róngyì cāozuò.",
      "fr": "Cette machine est très simple à utiliser.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè tái jīqì hěn róngyì cāozuò. » → « Zhè tái jīqi hěn róngyì cāozuò. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:22471fe878d9310d2991d3759a537457c9fdbe84b06cd5f2327fecd499f88b7b",
+  "empreinte_invite": "sha256:f47b3e712dc85c17d68eb7a25b388503faa0e021f1c71fd526fddc131c3875b1",
   "contexte": "wenlu dico contexte 5 10",
   "essais": 1,
   "refus": []
@@ -820,14 +820,21 @@
    "exemples": [
     {
      "zh": "人是从猴子进化来的吗？",
-     "pinyin": "Rén shì cóng hóuzi jìnhuà lái de ma?",
+     "pinyin": "Rén shì cóng hóuzi jìnhuà lai de ma?",
      "fr": "L'homme descend-il du singe ?",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Rén shì cóng hóuzi jìnhuà lái de ma? » → « Rén shì cóng hóuzi jìnhuà lai de ma? »"
+       }
+      ]
      }
     }
    ]

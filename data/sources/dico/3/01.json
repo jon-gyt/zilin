@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:ccf2977fb192c855e416bfa0f618b4df18c017ea42ffe610679011ae57f6461f",
+  "empreinte_invite": "sha256:500b73b93b858dd988d47d30b7252a93a0b1096c6bda9be328241c0b3ad6c9a4",
   "contexte": "wenlu dico contexte 3 01",
   "essais": 1,
   "refus": []
@@ -372,26 +372,40 @@
    "exemples": [
     {
      "zh": "这次考试我没有把握。",
-     "pinyin": "Zhè cì kǎoshì wǒ méiyǒu bǎwò.",
+     "pinyin": "Zhè cì kǎoshì wǒ méiyou bǎwò.",
      "fr": "Je ne suis pas sûr de réussir cet examen.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè cì kǎoshì wǒ méiyǒu bǎwò. » → « Zhè cì kǎoshì wǒ méiyou bǎwò. »"
+       }
+      ]
      }
     },
     {
      "zh": "你要把握这个机会。",
-     "pinyin": "Nǐ yào bǎwò zhège jīhuì.",
+     "pinyin": "Nǐ yào bǎwò zhège jīhui.",
      "fr": "Il faut que tu saisisses cette chance.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ yào bǎwò zhège jīhuì. » → « Nǐ yào bǎwò zhège jīhui. »"
+       }
+      ]
      }
     }
    ]
@@ -1837,14 +1851,21 @@
    "exemples": [
     {
      "zh": "没有必要再说了。",
-     "pinyin": "Méiyǒu bìyào zài shuō le.",
+     "pinyin": "Méiyou bìyào zài shuō le.",
      "fr": "Inutile d'en dire plus.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Méiyǒu bìyào zài shuō le. » → « Méiyou bìyào zài shuō le. »"
+       }
+      ]
      }
     }
    ]
@@ -2015,14 +2036,21 @@
    "exemples": [
     {
      "zh": "请把重要的地方标出来。",
-     "pinyin": "Qǐng bǎ zhòngyào de dìfang biāo chūlai.",
+     "pinyin": "Qǐng bǎ zhòngyào de dìfang biāo chulai.",
      "fr": "Marque les passages importants, s'il te plaît.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Qǐng bǎ zhòngyào de dìfang biāo chūlai. » → « Qǐng bǎ zhòngyào de dìfang biāo chulai. »"
+       }
+      ]
      }
     }
    ]

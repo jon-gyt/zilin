@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e366df4a168be9ca54f9e69e6e20afb3d45bbe8e02b6340716263fdb570d33b0",
+  "empreinte_invite": "sha256:21e505b38d5d0cbb2d7f3c4654aee601984aaf21c3b285be450758db693d7dea",
   "contexte": "wenlu dico contexte 7-9 60",
   "essais": 1,
   "refus": []
@@ -363,14 +363,21 @@
    "exemples": [
     {
      "zh": "把肉放进冰箱冷冻起来。",
-     "pinyin": "Bǎ ròu fàng jìn bīngxiāng lěngdòng qǐlai.",
+     "pinyin": "Bǎ ròu fàng jìn bīngxiāng lěngdòng qilai.",
      "fr": "Mets la viande au congélateur.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bǎ ròu fàng jìn bīngxiāng lěngdòng qǐlai. » → « Bǎ ròu fàng jìn bīngxiāng lěngdòng qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -721,14 +728,21 @@
    "exemples": [
     {
      "zh": "这个价钱太离谱儿了。",
-     "pinyin": "Zhège jiàqián tài lípǔr le.",
+     "pinyin": "Zhège jiàqian tài lípǔr le.",
      "fr": "Ce prix est complètement délirant.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège jiàqián tài lípǔr le. » → « Zhège jiàqian tài lípǔr le. »"
+       }
+      ]
      }
     }
    ]

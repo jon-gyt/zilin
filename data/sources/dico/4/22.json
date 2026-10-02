@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:1dae2244e447fd7aa5cf257056183d603017431cb9e8c60ec43832fdbde1d9df",
+  "empreinte_invite": "sha256:a8ab6f074039371254974a9cc68c2a38bc1aa366c3c6aefd93b9bcb7bf3bbb9a",
   "contexte": "wenlu dico contexte 4 22",
   "essais": 1,
   "refus": []
@@ -490,14 +490,21 @@
    "exemples": [
     {
      "zh": "我想征求一下你的意见。",
-     "pinyin": "Wǒ xiǎng zhēngqiú yīxià nǐ de yìjiàn.",
+     "pinyin": "Wǒ xiǎng zhēngqiú yīxià nǐ de yìjian.",
      "fr": "J'aimerais savoir ce que tu en penses.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ xiǎng zhēngqiú yīxià nǐ de yìjiàn. » → « Wǒ xiǎng zhēngqiú yīxià nǐ de yìjian. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:50518ed6953149c14adc6045b56cc0f48c03fe4ecd0a4652bc4463a8acec9ab3",
+  "empreinte_invite": "sha256:b4a85ca0a56b79a96999157887f1875060f25b774870c2275bc427a36eac391b",
   "contexte": "wenlu dico contexte 7-9 85",
   "essais": 1,
   "refus": []
@@ -973,14 +973,21 @@
    "exemples": [
     {
      "zh": "这所学校的师资力量很强。",
-     "pinyin": "Zhè suǒ xuéxiào de shīzī lìliàng hěn qiáng.",
+     "pinyin": "Zhè suǒ xuéxiào de shīzī lìliang hěn qiáng.",
      "fr": "Cette école dispose d'excellents professeurs.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè suǒ xuéxiào de shīzī lìliàng hěn qiáng. » → « Zhè suǒ xuéxiào de shīzī lìliang hěn qiáng. »"
+       }
+      ]
      }
     }
    ]

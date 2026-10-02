@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f2a5e3ba0baeb0c9de2b5ffcee7e7a2c53a09ebcde384088df471e055360d8c9",
+  "empreinte_invite": "sha256:e9a1c2ee938bceb7c63b5900cba0d2e0034a708b20fc00b9779ae8dc820be0b4",
   "contexte": "wenlu dico contexte 6 09",
   "essais": 1,
   "refus": []
@@ -761,14 +761,21 @@
    "exemples": [
     {
      "zh": "她笑起来好似一朵花。",
-     "pinyin": "Tā xiào qǐlai hǎosì yī duǒ huā.",
+     "pinyin": "Tā xiào qilai hǎosì yī duǒ huā.",
      "fr": "Quand elle sourit, on dirait une fleur.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā xiào qǐlai hǎosì yī duǒ huā. » → « Tā xiào qilai hǎosì yī duǒ huā. »"
+       }
+      ]
      }
     }
    ]

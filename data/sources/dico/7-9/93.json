@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5f84368fe0c376928442b1912705585902040738e9faff3f9ce688ce71968195",
+  "empreinte_invite": "sha256:2bad155c2a762609534683fc46b6b85f9eb8873f50506f5141024a3681b30b7f",
   "contexte": "wenlu dico contexte 7-9 93",
   "essais": 1,
   "refus": []
@@ -242,14 +242,21 @@
    "exemples": [
     {
      "zh": "把坏的苹果剔除出去。",
-     "pinyin": "Bǎ huài de píngguǒ tīchú chūqu.",
+     "pinyin": "Bǎ huài de píngguǒ tīchú chuqu.",
      "fr": "Retire les pommes abîmées.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bǎ huài de píngguǒ tīchú chūqu. » → « Bǎ huài de píngguǒ tīchú chuqu. »"
+       }
+      ]
      }
     }
    ]

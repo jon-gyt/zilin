@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:27bf301dc54e62a91c085bb95b9e6e0459b44ce439a1182ce43a4ed5caf91c46",
+  "empreinte_invite": "sha256:e433d290b0d03a2d6fd838bc5646190f134a57ed1aa504fab7e8b5add7eb1f3a",
   "contexte": "wenlu dico contexte 7-9 09",
   "essais": 1,
   "refus": []
@@ -809,14 +809,21 @@
    "exemples": [
     {
      "zh": "这台机器可以用手机操控。",
-     "pinyin": "Zhè tái jīqì kěyǐ yòng shǒujī cāokòng.",
+     "pinyin": "Zhè tái jīqi kěyǐ yòng shǒujī cāokòng.",
      "fr": "On peut commander cette machine depuis son téléphone.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè tái jīqì kěyǐ yòng shǒujī cāokòng. » → « Zhè tái jīqi kěyǐ yòng shǒujī cāokòng. »"
+       }
+      ]
      }
     }
    ]
@@ -848,14 +855,21 @@
    "exemples": [
     {
      "zh": "母亲为这个家操劳了一辈子。",
-     "pinyin": "Mǔqīn wèi zhège jiā cāoláo le yībèizi.",
+     "pinyin": "Mǔqin wèi zhège jiā cāoláo le yībèizi.",
      "fr": "Ma mère a trimé toute sa vie pour la famille.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Mǔqīn wèi zhège jiā cāoláo le yībèizi. » → « Mǔqin wèi zhège jiā cāoláo le yībèizi. »"
+       }
+      ]
      }
     }
    ]
@@ -1609,14 +1623,21 @@
    "exemples": [
     {
      "zh": "事故原因还没有查明。",
-     "pinyin": "Shìgù yuányīn hái méiyǒu chámíng.",
+     "pinyin": "Shìgù yuányīn hái méiyou chámíng.",
      "fr": "Les causes de l'accident ne sont pas encore connues.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Shìgù yuányīn hái méiyǒu chámíng. » → « Shìgù yuányīn hái méiyou chámíng. »"
+       }
+      ]
      }
     }
    ]
@@ -1687,14 +1708,21 @@
    "exemples": [
     {
      "zh": "他没有察觉到有人在后面。",
-     "pinyin": "Tā méiyǒu chájué dào yǒu rén zài hòumian.",
+     "pinyin": "Tā méiyou chájué dào yǒu rén zài hòumian.",
      "fr": "Il ne s'est pas rendu compte qu'on le suivait.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu chájué dào yǒu rén zài hòumian. » → « Tā méiyou chájué dào yǒu rén zài hòumian. »"
+       }
+      ]
      }
     }
    ]

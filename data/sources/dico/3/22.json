@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:85edc7356aff10f0c3b4bcc44aa3c1fc9c8f9762ab399b57540428b9998ec2d8",
+  "empreinte_invite": "sha256:cf63ee300aca4076f8b0e48511791ff5f2c9f29d039efafccc7e0efdd8c7d400",
   "contexte": "wenlu dico contexte 3 22",
   "essais": 1,
   "refus": []
@@ -712,14 +712,21 @@
    "exemples": [
     {
      "zh": "你要抓住这个机会。",
-     "pinyin": "Nǐ yào zhuāzhù zhège jīhuì.",
+     "pinyin": "Nǐ yào zhuāzhù zhège jīhui.",
      "fr": "Ne laisse pas passer cette occasion.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ yào zhuāzhù zhège jīhuì. » → « Nǐ yào zhuāzhù zhège jīhui. »"
+       }
+      ]
      }
     }
    ]
@@ -1147,14 +1154,21 @@
    "exemples": [
     {
      "zh": "你没有资格参加比赛。",
-     "pinyin": "Nǐ méiyǒu zīgé cānjiā bǐsài.",
+     "pinyin": "Nǐ méiyou zīgé cānjiā bǐsài.",
      "fr": "Tu ne remplis pas les conditions pour participer au concours.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ méiyǒu zīgé cānjiā bǐsài. » → « Nǐ méiyou zīgé cānjiā bǐsài. »"
+       }
+      ]
      }
     }
    ]

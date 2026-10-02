@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:49d636822816f7e26ace0b985e2e4dc5df6d12bee9ce4c77832be075a5fd8187",
+  "empreinte_invite": "sha256:152aec27a172eae66f4e368310762044dac2423f35c4796c639ea7c89efc2b02",
   "contexte": "wenlu dico contexte 7-9 123",
   "essais": 1,
   "refus": []
@@ -1904,14 +1904,21 @@
    "exemples": [
     {
      "zh": "转眼一年又过去了。",
-     "pinyin": "Zhuǎnyǎn yī nián yòu guòqù le.",
+     "pinyin": "Zhuǎnyǎn yī nián yòu guòqu le.",
      "fr": "Et voilà encore une année de passée.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhuǎnyǎn yī nián yòu guòqù le. » → « Zhuǎnyǎn yī nián yòu guòqu le. »"
+       }
+      ]
      }
     }
    ]

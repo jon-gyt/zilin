@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0595197ceda466b8ba959345838448dc9a9b9cc4f78c1bc51679e3b52585df9d",
+  "empreinte_invite": "sha256:00fff01c56ae31d745b4c1710bd4e986867de7d5c3bb12720036f8e4c77b1e22",
   "contexte": "wenlu dico contexte 7-9 98",
   "essais": 1,
   "refus": []
@@ -426,14 +426,21 @@
    "exemples": [
     {
      "zh": "他因为违章停车被罚了款。",
-     "pinyin": "Tā yīnwèi wéizhāng tíngchē bèi fá le kuǎn.",
+     "pinyin": "Tā yīnwei wéizhāng tíngchē bèi fá le kuǎn.",
      "fr": "Il a eu une amende pour stationnement interdit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi wéizhāng tíngchē bèi fá le kuǎn. » → « Tā yīnwei wéizhāng tíngchē bèi fá le kuǎn. »"
+       }
+      ]
      }
     }
    ]
@@ -1223,14 +1230,21 @@
    "exemples": [
     {
      "zh": "这件事能不能成功还是个未知数。",
-     "pinyin": "Zhè jiàn shì néng bu néng chénggōng hái shì ge wèizhīshù.",
+     "pinyin": "Zhè jiàn shì néng bu néng chénggōng hái shi ge wèizhīshù.",
      "fr": "On ne sait pas encore si cela réussira.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiàn shì néng bu néng chénggōng hái shì ge wèizhīshù. » → « Zhè jiàn shì néng bu néng chénggōng hái shi ge wèizhīshù. »"
+       }
+      ]
      }
     }
    ]
@@ -1406,14 +1420,21 @@
    "exemples": [
     {
      "zh": "面对危险，他没有畏缩。",
-     "pinyin": "Miànduì wēixiǎn, tā méiyǒu wèisuō.",
+     "pinyin": "Miànduì wēixiǎn, tā méiyou wèisuō.",
      "fr": "Face au danger, il n'a pas reculé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Miànduì wēixiǎn, tā méiyǒu wèisuō. » → « Miànduì wēixiǎn, tā méiyou wèisuō. »"
+       }
+      ]
      }
     }
    ]
@@ -1449,14 +1470,21 @@
    "exemples": [
     {
      "zh": "我今天没有胃口。",
-     "pinyin": "Wǒ jīntiān méiyǒu wèikǒu.",
+     "pinyin": "Wǒ jīntiān méiyou wèikǒu.",
      "fr": "Je n'ai pas faim aujourd'hui.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ jīntiān méiyǒu wèikǒu. » → « Wǒ jīntiān méiyou wèikǒu. »"
+       }
+      ]
      }
     }
    ]

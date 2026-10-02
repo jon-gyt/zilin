@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Go » (30 septembre 2026) : tout affiché sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 1er octobre 2026, conventions du 1er octobre (décisions du propriétaire : ton neutre du 现代汉语词典, pinyin de la liste HSK 3.0, étages en anglais à l'américaine ; data/schema.md), le texte relu reste tel quel hors ces points, la série garde son statut : 草地上 cǎo dì shàng → cǎo dì shang (A s2 l2) ; 这个 zhè gè → zhè ge (A Q3, B Q4) ; 上 shàng → shang (A s2 glose propre « 上 shang, sur »)."
+  ]
  },
  "series": [
   {
@@ -61,9 +64,17 @@
       },
       {
        "zh": "请不要在草地上走。",
-       "pinyin": "qǐng bù yào zài cǎo dì shàng zǒu",
+       "pinyin": "qǐng bù yào zài cǎo dì shang zǒu",
        "fr": "ne marchez pas sur la pelouse.",
        "en": "please keep off the lawn."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "上",
+       "pinyin": "shang",
+       "fr": "sur",
+       "en": "on"
       }
      ]
     }
@@ -128,7 +139,7 @@
      "choix": [
       {
        "zh": "这个句子我不懂。",
-       "pinyin": "zhè gè jù zi wǒ bù dǒng",
+       "pinyin": "zhè ge jù zi wǒ bù dǒng",
        "fr": "Je ne comprends pas cette phrase.",
        "en": "I don't understand this sentence."
       },
@@ -390,7 +401,7 @@
       },
       {
        "zh": "这个字我会写。",
-       "pinyin": "zhè gè zì wǒ huì xiě",
+       "pinyin": "zhè ge zì wǒ huì xiě",
        "fr": "Ce caractère, je sais l'écrire.",
        "en": "I can write this character."
       },

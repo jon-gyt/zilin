@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:545acf9c6c2205312e10cafc540bd291439c32cc9b9d8146c135bd6199740091",
+  "empreinte_invite": "sha256:127239ba15455528f44fcfbe41bc92bc21e989843e3e909b8f111775afa38d8d",
   "contexte": "wenlu dico contexte 7-9 108",
   "essais": 1,
   "refus": []
@@ -623,14 +623,21 @@
    "exemples": [
     {
      "zh": "你不能压制不同的意见。",
-     "pinyin": "Nǐ bù néng yāzhì bù tóng de yìjiàn.",
+     "pinyin": "Nǐ bù néng yāzhì bù tóng de yìjian.",
      "fr": "Tu ne peux pas faire taire ceux qui pensent autrement.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ bù néng yāzhì bù tóng de yìjiàn. » → « Nǐ bù néng yāzhì bù tóng de yìjian. »"
+       }
+      ]
      }
     }
    ]
@@ -1020,14 +1027,21 @@
    "exemples": [
     {
      "zh": "春节的时候，天上都是烟火。",
-     "pinyin": "Chūnjié de shíhou, tiān shang dōu shì yānhuǒ.",
+     "pinyin": "Chūnjié de shíhou, tiān shàng dōu shì yānhuǒ.",
      "fr": "À la fête du Printemps, le ciel est illuminé de fusées.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Chūnjié de shíhou, tiān shang dōu shì yānhuǒ. » → « Chūnjié de shíhou, tiān shàng dōu shì yānhuǒ. »"
+       }
+      ]
      }
     }
    ]
@@ -1137,14 +1151,21 @@
    "exemples": [
     {
      "zh": "因为大雾，航班延误了。",
-     "pinyin": "Yīnwèi dà wù, hángbān yánwù le.",
+     "pinyin": "Yīnwei dà wù, hángbān yánwù le.",
      "fr": "À cause du brouillard, le vol a du retard.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīnwèi dà wù, hángbān yánwù le. » → « Yīnwei dà wù, hángbān yánwù le. »"
+       }
+      ]
      }
     }
    ]

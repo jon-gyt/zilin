@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:246692a5f24e83fc89bd24802e4dd359f8722752ac59edf3fe8bf67182d7fadf",
+  "empreinte_invite": "sha256:5c741f83b2e770c5211d346cda0c472d30757389ffbf9f14dcf4d2d38425ce6f",
   "contexte": "wenlu dico contexte 7-9 95",
   "essais": 1,
   "refus": []
@@ -119,14 +119,21 @@
    "exemples": [
     {
      "zh": "考试时不能偷看别人的答案。",
-     "pinyin": "Kǎoshì shí bù néng tōukàn biérén de dá'àn.",
+     "pinyin": "Kǎoshì shí bù néng tōukàn biéren de dá'àn.",
      "fr": "Pendant l'examen, on ne copie pas sur son voisin.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kǎoshì shí bù néng tōukàn biérén de dá'àn. » → « Kǎoshì shí bù néng tōukàn biéren de dá'àn. »"
+       }
+      ]
      }
     }
    ]
@@ -553,14 +560,21 @@
    "exemples": [
     {
      "zh": "他去城里投奔亲戚。",
-     "pinyin": "Tā qù chéng li tóubèn qīnqi.",
+     "pinyin": "Tā qù chéng lǐ tóubèn qīnqi.",
      "fr": "Il est parti en ville chez des parents qui pourraient l'accueillir.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā qù chéng li tóubèn qīnqi. » → « Tā qù chéng lǐ tóubèn qīnqi. »"
+       }
+      ]
      }
     }
    ]
@@ -828,14 +842,21 @@
    "exemples": [
     {
      "zh": "阳光透过窗户照进来。",
-     "pinyin": "Yángguāng tòuguò chuānghu zhào jìnlai.",
+     "pinyin": "Yángguāng tòuguò chuānghu zhào jinlai.",
      "fr": "Le soleil entre par la fenêtre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yángguāng tòuguò chuānghu zhào jìnlai. » → « Yángguāng tòuguò chuānghu zhào jinlai. »"
+       }
+      ]
      }
     }
    ]

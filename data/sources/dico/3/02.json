@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:b499a120ce412e2ef985e8670d1025de1c65e0f0c04bf8bf3a42d5d6b51133ca",
+  "empreinte_invite": "sha256:92dfd18499a498b3cae15d13ba11c858a565de4da4c21c3aa5af873f906ae325",
   "contexte": "wenlu dico contexte 3 02",
   "essais": 1,
   "refus": []
@@ -40,14 +40,21 @@
    "exemples": [
     {
      "zh": "我不知道怎么表达我的想法。",
-     "pinyin": "Wǒ bù zhīdào zěnme biǎodá wǒ de xiǎngfa.",
+     "pinyin": "Wǒ bù zhīdao zěnme biǎodá wǒ de xiǎngfa.",
      "fr": "Je ne sais pas comment dire ce que je pense.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ bù zhīdào zěnme biǎodá wǒ de xiǎngfa. » → « Wǒ bù zhīdao zěnme biǎodá wǒ de xiǎngfa. »"
+       }
+      ]
      }
     }
    ]
@@ -1721,14 +1728,21 @@
    "exemples": [
     {
      "zh": "他住在城里。",
-     "pinyin": "Tā zhù zài chéng li.",
+     "pinyin": "Tā zhù zài chéng lǐ.",
      "fr": "Il habite en ville.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zhù zài chéng li. » → « Tā zhù zài chéng lǐ. »"
+       }
+      ]
      }
     }
    ]
@@ -2042,14 +2056,21 @@
    "exemples": [
     {
      "zh": "他朝我走过来。",
-     "pinyin": "Tā cháo wǒ zǒu guolai.",
+     "pinyin": "Tā cháo wǒ zǒu guòlai.",
      "fr": "Il s'est avancé vers moi.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā cháo wǒ zǒu guolai. » → « Tā cháo wǒ zǒu guòlai. »"
+       }
+      ]
      }
     },
     {

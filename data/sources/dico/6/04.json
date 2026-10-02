@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:602203beb015b64805b0fe12a1f2d49556ea5181042d4fcb177f05e28f9163d3",
+  "empreinte_invite": "sha256:1c6e24f83859429a3e2e146934b21ce55f14228a86ce2de48273efd5b6e2cc74",
   "contexte": "wenlu dico contexte 6 04",
   "essais": 1,
   "refus": []
@@ -570,14 +570,21 @@
    "exemples": [
     {
      "zh": "这个小镇因为茶出名。",
-     "pinyin": "Zhège xiǎo zhèn yīnwèi chá chūmíng.",
+     "pinyin": "Zhège xiǎo zhèn yīnwei chá chūmíng.",
      "fr": "Cette petite ville est connue pour son thé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège xiǎo zhèn yīnwèi chá chūmíng. » → « Zhège xiǎo zhèn yīnwei chá chūmíng. »"
+       }
+      ]
      }
     }
    ]
@@ -983,14 +990,21 @@
    "exemples": [
     {
      "zh": "楼上传出了音乐声。",
-     "pinyin": "Lóu shang chuánchū le yīnyuè shēng.",
+     "pinyin": "Lóu shàng chuánchū le yīnyuè shēng.",
      "fr": "On entend de la musique venant de l'étage.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Lóu shang chuánchū le yīnyuè shēng. » → « Lóu shàng chuánchū le yīnyuè shēng. »"
+       }
+      ]
      }
     }
    ]
@@ -1874,14 +1888,21 @@
    "exemples": [
     {
      "zh": "别错过这次机会。",
-     "pinyin": "Bié cuòguò zhè cì jīhuì.",
+     "pinyin": "Bié cuòguò zhè cì jīhui.",
      "fr": "Ne rate pas cette occasion.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bié cuòguò zhè cì jīhuì. » → « Bié cuòguò zhè cì jīhui. »"
+       }
+      ]
      }
     }
    ]

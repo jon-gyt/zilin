@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6bedef423d4868f365f09385d20ee34e2731397de2a7aedff0b08b65fbfd923f",
+  "empreinte_invite": "sha256:a6bf6c05ed45c71e6955a0d51d939fcb608663641cdaa7cfce722136e2831b36",
   "contexte": "wenlu dico contexte 7-9 48",
   "essais": 1,
   "refus": []
@@ -234,14 +234,21 @@
    "exemples": [
     {
      "zh": "他每天练字，从来没有间断过。",
-     "pinyin": "Tā měi tiān liàn zì, cónglái méiyǒu jiànduàn guo.",
+     "pinyin": "Tā měi tiān liàn zì, cónglái méiyou jiànduàn guo.",
      "fr": "Il s'exerce à la calligraphie tous les jours, sans jamais s'arrêter.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā měi tiān liàn zì, cónglái méiyǒu jiànduàn guo. » → « Tā měi tiān liàn zì, cónglái méiyou jiànduàn guo. »"
+       }
+      ]
      }
     }
    ]
@@ -318,14 +325,21 @@
    "exemples": [
     {
      "zh": "阳光从门缝的空隙照进来。",
-     "pinyin": "Yángguāng cóng mén fèng de kòngxì zhào jìnlai.",
+     "pinyin": "Yángguāng cóng mén fèng de kòngxì zhào jinlai.",
      "fr": "Le soleil entre par l'interstice de la porte.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yángguāng cóng mén fèng de kòngxì zhào jìnlai. » → « Yángguāng cóng mén fèng de kòngxì zhào jinlai. »"
+       }
+      ]
      }
     }
    ]
@@ -515,14 +529,21 @@
    "exemples": [
     {
      "zh": "这是城里最高的建筑物。",
-     "pinyin": "Zhè shì chéng li zuì gāo de jiànzhùwù.",
+     "pinyin": "Zhè shì chéng lǐ zuì gāo de jiànzhùwù.",
      "fr": "C'est la plus haute construction de la ville.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè shì chéng li zuì gāo de jiànzhùwù. » → « Zhè shì chéng lǐ zuì gāo de jiànzhùwù. »"
+       }
+      ]
      }
     }
    ]

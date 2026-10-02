@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:4c7816b23d222815bdd7347402ebfc80b057eaea041ed1b83f574204dce7b537",
+  "empreinte_invite": "sha256:fc21af1921e40a138a3e9a643979a17ba9f52d7b525250b6d2a72f231a5f0f34",
   "contexte": "wenlu dico contexte 1 10",
   "essais": 1,
   "refus": []
@@ -1529,14 +1529,21 @@
    "exemples": [
     {
      "zh": "他还是小学生。",
-     "pinyin": "Tā hái shì xiǎoxuéshēng.",
+     "pinyin": "Tā hái shi xiǎoxuéshēng.",
      "fr": "Il n'est encore qu'un écolier.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā hái shì xiǎoxuéshēng. » → « Tā hái shi xiǎoxuéshēng. »"
+       }
+      ]
      }
     }
    ]

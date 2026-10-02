@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:30ee23438a0cfa8fbe71e58c391c08c2f821971f9a429235507ab7d1b44470ed",
+  "empreinte_invite": "sha256:664f66c18ffeca1d31602f665791838f579590459328309321c41bf4c1389e45",
   "contexte": "wenlu dico contexte 5 17",
   "essais": 1,
   "refus": []
@@ -151,14 +151,21 @@
    "exemples": [
     {
      "zh": "这个城市的水产品很新鲜。",
-     "pinyin": "Zhège chéngshì de shuǐchǎnpǐn hěn xīnxiān.",
+     "pinyin": "Zhège chéngshì de shuǐchǎnpǐn hěn xīnxian.",
      "fr": "Dans cette ville, le poisson et les fruits de mer sont très frais.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège chéngshì de shuǐchǎnpǐn hěn xīnxiān. » → « Zhège chéngshì de shuǐchǎnpǐn hěn xīnxian. »"
+       }
+      ]
      }
     }
    ]
@@ -665,14 +672,21 @@
    "exemples": [
     {
      "zh": "你在网上搜一下就知道了。",
-     "pinyin": "Nǐ zài wǎngshang sōu yīxià jiù zhīdào le.",
+     "pinyin": "Nǐ zài wǎngshang sōu yīxià jiù zhīdao le.",
      "fr": "Fais une recherche en ligne et tu sauras.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ zài wǎngshang sōu yīxià jiù zhīdào le. » → « Nǐ zài wǎngshang sōu yīxià jiù zhīdao le. »"
+       }
+      ]
      }
     }
    ]
@@ -1347,14 +1361,21 @@
    "exemples": [
     {
      "zh": "我们两个人把桌子抬了出去。",
-     "pinyin": "Wǒmen liǎng ge rén bǎ zhuōzi tái le chūqu.",
+     "pinyin": "Wǒmen liǎng ge rén bǎ zhuōzi tái le chuqu.",
      "fr": "À nous deux, nous avons sorti la table.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen liǎng ge rén bǎ zhuōzi tái le chūqu. » → « Wǒmen liǎng ge rén bǎ zhuōzi tái le chuqu. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:c660389b73a64b76e23d09ad1b4e08ad70202a00943e8f06069be9e41704725f",
+  "empreinte_invite": "sha256:c5d0f5abd68608f60112c4a6ee95313b7eaf340197aaf891ec0d7b9e661f3c68",
   "contexte": "wenlu dico contexte 7-9 05",
   "essais": 1,
   "refus": []
@@ -239,14 +239,21 @@
    "exemples": [
     {
      "zh": "我们要看到这种做法的弊端。",
-     "pinyin": "Wǒmen yào kàndào zhè zhǒng zuòfǎ de bìduān.",
+     "pinyin": "Wǒmen yào kàndào zhè zhǒng zuòfa de bìduān.",
      "fr": "Il faut voir les problèmes que pose cette pratique.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen yào kàndào zhè zhǒng zuòfǎ de bìduān. » → « Wǒmen yào kàndào zhè zhǒng zuòfa de bìduān. »"
+       }
+      ]
      }
     }
    ]

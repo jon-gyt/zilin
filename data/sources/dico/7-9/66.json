@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:4bfd74ab84bd5c74a65fda1895817e4fb9023f5aa65a48c975f683e3999ab912",
+  "empreinte_invite": "sha256:c71ff7d2239b8ef865da8775d79c9e95df653e17e7ce25c3d8a49e466bee185e",
   "contexte": "wenlu dico contexte 7-9 66",
   "essais": 1,
   "refus": []
@@ -349,14 +349,21 @@
    "exemples": [
     {
      "zh": "诚实是一种美德。",
-     "pinyin": "Chéngshí shì yī zhǒng měidé.",
+     "pinyin": "Chéngshi shì yī zhǒng měidé.",
      "fr": "L'honnêteté est une vertu.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Chéngshí shì yī zhǒng měidé. » → « Chéngshi shì yī zhǒng měidé. »"
+       }
+      ]
      }
     }
    ]
@@ -1005,14 +1012,21 @@
    "exemples": [
     {
      "zh": "他心里萌发了一个新想法。",
-     "pinyin": "Tā xīnli méngfā le yī ge xīn xiǎngfǎ.",
+     "pinyin": "Tā xīnli méngfā le yī ge xīn xiǎngfa.",
      "fr": "Une idée nouvelle a pris forme dans son esprit.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā xīnli méngfā le yī ge xīn xiǎngfǎ. » → « Tā xīnli méngfā le yī ge xīn xiǎngfa. »"
+       }
+      ]
      }
     }
    ]
@@ -1088,14 +1102,21 @@
    "exemples": [
     {
      "zh": "这种想法还在萌芽阶段。",
-     "pinyin": "Zhè zhǒng xiǎngfǎ hái zài méngyá jiēduàn.",
+     "pinyin": "Zhè zhǒng xiǎngfa hái zài méngyá jiēduàn.",
      "fr": "Cette idée n'en est encore qu'à ses débuts.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè zhǒng xiǎngfǎ hái zài méngyá jiēduàn. » → « Zhè zhǒng xiǎngfa hái zài méngyá jiēduàn. »"
+       }
+      ]
      }
     }
    ]
@@ -1290,14 +1311,21 @@
    "exemples": [
     {
      "zh": "他猛然站了起来。",
-     "pinyin": "Tā měngrán zhàn le qǐlai.",
+     "pinyin": "Tā měngrán zhàn le qilai.",
      "fr": "Il s'est levé d'un bond.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā měngrán zhàn le qǐlai. » → « Tā měngrán zhàn le qilai. »"
+       }
+      ]
      }
     }
    ]

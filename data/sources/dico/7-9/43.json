@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7f909fc22a527bc29a1b4c9cc806b789f81cab5e60841b1f8368ffe45e8f3552",
+  "empreinte_invite": "sha256:d18dcbe5db745b18d0c95db7dc15ad335dd216377343c284de25ba42e96ef3cc",
   "contexte": "wenlu dico contexte 7-9 43",
   "essais": 1,
   "refus": []
@@ -519,14 +519,21 @@
    "exemples": [
     {
      "zh": "他因为收回扣被开除了。",
-     "pinyin": "Tā yīnwèi shōu huíkòu bèi kāichú le.",
+     "pinyin": "Tā yīnwei shōu huíkòu bèi kāichú le.",
      "fr": "Il a été renvoyé pour avoir touché des commissions occultes.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi shōu huíkòu bèi kāichú le. » → « Tā yīnwei shōu huíkòu bèi kāichú le. »"
+       }
+      ]
      }
     }
    ]
@@ -836,14 +843,21 @@
    "exemples": [
     {
      "zh": "他悔恨自己没有好好学习。",
-     "pinyin": "Tā huǐhèn zìjǐ méiyǒu hǎohǎo xuéxí.",
+     "pinyin": "Tā huǐhèn zìjǐ méiyou hǎohǎo xuéxí.",
      "fr": "Il se reproche amèrement de ne pas avoir bien étudié.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā huǐhèn zìjǐ méiyǒu hǎohǎo xuéxí. » → « Tā huǐhèn zìjǐ méiyou hǎohǎo xuéxí. »"
+       }
+      ]
      }
     }
    ]
@@ -1332,14 +1346,21 @@
    "exemples": [
     {
      "zh": "他因为受贿被抓了。",
-     "pinyin": "Tā yīnwèi shòuhuì bèi zhuā le.",
+     "pinyin": "Tā yīnwei shòuhuì bèi zhuā le.",
      "fr": "Il a été arrêté pour corruption.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi shòuhuì bèi zhuā le. » → « Tā yīnwei shòuhuì bèi zhuā le. »"
+       }
+      ]
      }
     }
    ]

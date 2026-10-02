@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f60306355884d0ca28caaa18257ab253a57f06ba4cf928296a13aded2c18e5d1",
+  "empreinte_invite": "sha256:f0b0d846d85c9a79180ed20598aaf369a4423de9ecbb117e8b12c3966895a685",
   "contexte": "wenlu dico contexte 5 09",
   "essais": 1,
   "refus": []
@@ -954,14 +954,21 @@
    "exemples": [
     {
      "zh": "他继承了父亲的公司。",
-     "pinyin": "Tā jìchéng le fùqīn de gōngsī.",
+     "pinyin": "Tā jìchéng le fùqin de gōngsī.",
      "fr": "Il a repris l'entreprise de son père.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā jìchéng le fùqīn de gōngsī. » → « Tā jìchéng le fùqin de gōngsī. »"
+       }
+      ]
      }
     }
    ]

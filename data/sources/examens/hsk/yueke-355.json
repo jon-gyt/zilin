@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 1er octobre 2026, conventions du 1er octobre (décisions du propriétaire : ton neutre du 现代汉语词典, pinyin de la liste HSK 3.0, étages en anglais à l'américaine ; data/schema.md), le texte relu reste tel quel hors ces points, la série garde son statut : 家里 jiā lǐ → jiā li (A Q2, A s1 l2) ; 没有 méi yǒu → méi you (A s1 l2) ; 回来 huí lái → huí lai (B s1 l2) ; 桌子上 zhuō zi shàng → zhuō zi shang (B s1 l3) ; 上 shàng → shang (B s1 glose propre « 上 shang, sur »)."
+  ]
  },
  "series": [
   {
@@ -33,7 +36,7 @@
       },
       {
        "zh": "家里没有饭，",
-       "pinyin": "jiā lǐ méi yǒu fàn",
+       "pinyin": "jiā li méi you fàn",
        "fr": "il n'y a rien à manger à la maison :",
        "en": "there's no food at home,"
       },
@@ -103,7 +106,7 @@
      },
      "affirmation": {
       "zh": "家里有很多饭。",
-      "pinyin": "jiā lǐ yǒu hěn duō fàn",
+      "pinyin": "jiā li yǒu hěn duō fàn",
       "fr": "Il y a beaucoup à manger à la maison.",
       "en": "There's plenty of food at home."
      },
@@ -229,15 +232,23 @@
       },
       {
        "zh": "六点回来。",
-       "pinyin": "liù diǎn huí lái",
+       "pinyin": "liù diǎn huí lai",
        "fr": "je rentre à six heures.",
        "en": "back at six."
       },
       {
        "zh": "饭在桌子上。",
-       "pinyin": "fàn zài zhuō zi shàng",
+       "pinyin": "fàn zài zhuō zi shang",
        "fr": "Le repas est sur la table.",
        "en": "Dinner is on the table."
+      }
+     ],
+     "glose": [
+      {
+       "zh": "上",
+       "pinyin": "shang",
+       "fr": "sur",
+       "en": "on"
       }
      ]
     },

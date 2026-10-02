@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:2d4fa581ee902f35cb340404be970be1a1434c2e43cf0d7fd3b50cb482d5ba0b",
+  "empreinte_invite": "sha256:75cf7f7fe53801d94354f61e561496703bfedd76749546f9cc302b56ef618aec",
   "contexte": "wenlu dico contexte 4 11",
   "essais": 1,
   "refus": []
@@ -630,14 +630,21 @@
    "exemples": [
     {
      "zh": "他把地图卷起来了。",
-     "pinyin": "Tā bǎ dìtú juǎn qǐlai le.",
+     "pinyin": "Tā bǎ dìtú juǎn qilai le.",
      "fr": "Il a roulé la carte.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ dìtú juǎn qǐlai le. » → « Tā bǎ dìtú juǎn qilai le. »"
+       }
+      ]
      }
     },
     {
@@ -1520,14 +1527,21 @@
    "exemples": [
     {
      "zh": "他们打算扩建学校。",
-     "pinyin": "Tāmen dǎsuàn kuòjiàn xuéxiào.",
+     "pinyin": "Tāmen dǎsuan kuòjiàn xuéxiào.",
      "fr": "Ils prévoient des travaux pour agrandir l'école.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tāmen dǎsuàn kuòjiàn xuéxiào. » → « Tāmen dǎsuan kuòjiàn xuéxiào. »"
+       }
+      ]
      }
     }
    ]

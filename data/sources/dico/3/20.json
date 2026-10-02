@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:92f7198cacda59ee2c92f4fb74e675dea6238707cc928ea171ea134f5593717e",
+  "empreinte_invite": "sha256:23ad4a1fb2e80d86ad0224720d6d47dcec3d24eb2d6ba585c87909beebf1b848",
   "contexte": "wenlu dico contexte 3 20",
   "essais": 1,
   "refus": []
@@ -1124,14 +1124,21 @@
    "exemples": [
     {
      "zh": "我们去机场迎接客人。",
-     "pinyin": "Wǒmen qù jīchǎng yíngjiē kèrén.",
+     "pinyin": "Wǒmen qù jīchǎng yíngjiē kèren.",
      "fr": "Nous allons chercher nos invités à l'aéroport.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen qù jīchǎng yíngjiē kèrén. » → « Wǒmen qù jīchǎng yíngjiē kèren. »"
+       }
+      ]
      }
     }
    ]

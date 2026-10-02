@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:e397f6d18505607ab2100ce2580023863c7bf6edb8b74efb9081e9f6feeb5e92",
+  "empreinte_invite": "sha256:d2d93a1d5291af4ac8e36ce55072fc3a754c7d3c11a84bfa6b559c995cbce2f4",
   "contexte": "wenlu dico contexte 4 01",
   "essais": 1,
   "refus": []
@@ -910,14 +910,21 @@
    "exemples": [
     {
      "zh": "她用毛巾把孩子裹起来。",
-     "pinyin": "Tā yòng máojīn bǎ háizi guǒ qǐlai.",
+     "pinyin": "Tā yòng máojīn bǎ háizi guǒ qilai.",
      "fr": "Elle a enroulé l'enfant dans une serviette.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yòng máojīn bǎ háizi guǒ qǐlai. » → « Tā yòng máojīn bǎ háizi guǒ qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -1539,14 +1546,21 @@
    "exemples": [
     {
      "zh": "他的想法很保守。",
-     "pinyin": "Tā de xiǎngfǎ hěn bǎoshǒu.",
+     "pinyin": "Tā de xiǎngfa hěn bǎoshǒu.",
      "fr": "Il a des idées très traditionnelles.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de xiǎngfǎ hěn bǎoshǒu. » → « Tā de xiǎngfa hěn bǎoshǒu. »"
+       }
+      ]
      }
     },
     {
@@ -1742,14 +1756,21 @@
    "exemples": [
     {
      "zh": "因为下雨，比赛被迫停了。",
-     "pinyin": "Yīnwèi xià yǔ, bǐsài bèipò tíng le.",
+     "pinyin": "Yīnwei xià yǔ, bǐsài bèipò tíng le.",
      "fr": "À cause de la pluie, le match a dû être interrompu.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīnwèi xià yǔ, bǐsài bèipò tíng le. » → « Yīnwei xià yǔ, bǐsài bèipò tíng le. »"
+       }
+      ]
      }
     }
    ]

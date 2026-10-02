@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:f361f0884a5898393263d2b3aa404dfcfc2702410d4a2f9c3bbd36b69f5333d4",
+  "empreinte_invite": "sha256:1c647bb2499d09879e2315a82efda23db5b46c0b0e9eef27cdf36bd6a4b3584d",
   "contexte": "wenlu dico contexte 5 23",
   "essais": 1,
   "refus": []
@@ -1229,14 +1229,21 @@
    "exemples": [
     {
      "zh": "因为下大雪，交通中断了。",
-     "pinyin": "Yīnwèi xià dàxuě, jiāotōng zhōngduàn le.",
+     "pinyin": "Yīnwei xià dàxuě, jiāotōng zhōngduàn le.",
      "fr": "À cause des fortes chutes de neige, la circulation est coupée.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīnwèi xià dàxuě, jiāotōng zhōngduàn le. » → « Yīnwei xià dàxuě, jiāotōng zhōngduàn le. »"
+       }
+      ]
      }
     }
    ]
@@ -1818,14 +1825,21 @@
    "exemples": [
     {
      "zh": "你的看法太主观了。",
-     "pinyin": "Nǐ de kànfǎ tài zhǔguān le.",
+     "pinyin": "Nǐ de kànfa tài zhǔguān le.",
      "fr": "Ton avis manque d'objectivité.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nǐ de kànfǎ tài zhǔguān le. » → « Nǐ de kànfa tài zhǔguān le. »"
+       }
+      ]
      }
     }
    ]

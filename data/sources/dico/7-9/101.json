@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7541d7ccef9a65964d2bb8b5ea594b7f0a44c5a9380249137d3466343c5b7d1e",
+  "empreinte_invite": "sha256:2ac45050636cd4bb66d8fbfb05bbefbb63e668c7ef9b1f2c88ada610eb9f1f87",
   "contexte": "wenlu dico contexte 7-9 101",
   "essais": 1,
   "refus": []
@@ -749,14 +749,21 @@
    "exemples": [
     {
      "zh": "春节到处都是喜庆的气氛。",
-     "pinyin": "Chūnjié dàochù dōu shì xǐqìng de qìfēn.",
+     "pinyin": "Chūnjié dàochù dōu shì xǐqìng de qìfen.",
      "fr": "À la fête du Printemps, l'ambiance est à la fête partout.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Chūnjié dàochù dōu shì xǐqìng de qìfēn. » → « Chūnjié dàochù dōu shì xǐqìng de qìfen. »"
+       }
+      ]
      }
     }
    ]
@@ -1368,14 +1375,21 @@
    "exemples": [
     {
      "zh": "他的想法太狭隘了。",
-     "pinyin": "Tā de xiǎngfǎ tài xiá'ài le.",
+     "pinyin": "Tā de xiǎngfa tài xiá'ài le.",
      "fr": "Sa façon de voir est trop limitée.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā de xiǎngfǎ tài xiá'ài le. » → « Tā de xiǎngfa tài xiá'ài le. »"
+       }
+      ]
      }
     }
    ]

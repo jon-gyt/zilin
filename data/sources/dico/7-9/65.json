@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cd282cebb757e1ab16f6756f91e8cec72f9281cd90288693c17979d1053272d5",
+  "empreinte_invite": "sha256:634faafb649e3d5af78fec8054ac4759ebfb847dd5a76785f428b9c4a4f6a8b2",
   "contexte": "wenlu dico contexte 7-9 65",
   "essais": 1,
   "refus": []
@@ -591,14 +591,21 @@
    "exemples": [
     {
      "zh": "别总是埋怨别人。",
-     "pinyin": "Bié zǒngshì mányuàn biérén.",
+     "pinyin": "Bié zǒngshì mányuàn biéren.",
      "fr": "Arrête de toujours rejeter la faute sur les autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bié zǒngshì mányuàn biérén. » → « Bié zǒngshì mányuàn biéren. »"
+       }
+      ]
      }
     }
    ]
@@ -1231,14 +1238,21 @@
    "exemples": [
     {
      "zh": "他请客人喝茅台。",
-     "pinyin": "Tā qǐng kèrén hē Máotái.",
+     "pinyin": "Tā qǐng kèren hē Máotái.",
      "fr": "Il a offert du maotai à ses invités.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā qǐng kèrén hē Máotái. » → « Tā qǐng kèren hē Máotái. »"
+       }
+      ]
      }
     }
    ]

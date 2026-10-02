@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9574c6eef7827ecad5a784c1ab3838e5b3a42490bc30918f0727ded0cef758c4",
+  "empreinte_invite": "sha256:753e9d576e19caa3a01e9e4ccfe31acba6b423cc2d2924a1ffbdb59352d91bb9",
   "contexte": "wenlu dico contexte 7-9 69",
   "essais": 1,
   "refus": []
@@ -1157,14 +1157,21 @@
    "exemples": [
     {
      "zh": "他挠了挠头，不知道怎么回答。",
-     "pinyin": "Tā náo le náo tóu, bù zhīdào zěnme huídá.",
+     "pinyin": "Tā náo le náo tóu, bù zhīdao zěnme huídá.",
      "fr": "Il s'est gratté la tête, ne sachant que répondre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā náo le náo tóu, bù zhīdào zěnme huídá. » → « Tā náo le náo tóu, bù zhīdao zěnme huídá. »"
+       }
+      ]
      }
     }
    ]

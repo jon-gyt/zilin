@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bc41a42cf7ccc4a87c663bb7e029c710703609ef20f8df09bf399c798aba9ecb",
+  "empreinte_invite": "sha256:a561743fcdab29849a7c54b51ad786fb8ced43ad005d26baaf2379ea2af57c47",
   "contexte": "wenlu dico contexte 7-9 99",
   "essais": 1,
   "refus": []
@@ -1271,14 +1271,21 @@
    "exemples": [
     {
      "zh": "他无偿地帮助别人。",
-     "pinyin": "Tā wúcháng de bāngzhù biérén.",
+     "pinyin": "Tā wúcháng de bāngzhù biéren.",
      "fr": "Il aide les autres sans rien demander.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā wúcháng de bāngzhù biérén. » → « Tā wúcháng de bāngzhù biéren. »"
+       }
+      ]
      }
     }
    ]

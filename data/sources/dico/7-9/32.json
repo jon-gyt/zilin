@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:848532dec94cfddfe36c1ea9488c4bf60c3118dd17426ac3032c8d16a52f0f0f",
+  "empreinte_invite": "sha256:802101c04f16452283da095df9042879b30455b9d94d608faad43e3349ba056c",
   "contexte": "wenlu dico contexte 7-9 32",
   "essais": 1,
   "refus": []
@@ -306,14 +306,21 @@
    "exemples": [
     {
      "zh": "这个计划因为缺钱搁浅了。",
-     "pinyin": "Zhège jìhuà yīnwèi quē qián gēqiǎn le.",
+     "pinyin": "Zhège jìhuà yīnwei quē qián gēqiǎn le.",
      "fr": "Faute d'argent, le projet est bloqué.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhège jìhuà yīnwèi quē qián gēqiǎn le. » → « Zhège jìhuà yīnwei quē qián gēqiǎn le. »"
+       }
+      ]
      }
     }
    ]
@@ -446,14 +453,21 @@
    "exemples": [
     {
      "zh": "这首诗歌颂了母亲的爱。",
-     "pinyin": "Zhè shǒu shī gēsòng le mǔqīn de ài.",
+     "pinyin": "Zhè shǒu shī gēsòng le mǔqin de ài.",
      "fr": "Ce poème rend hommage à l'amour d'une mère.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè shǒu shī gēsòng le mǔqīn de ài. » → « Zhè shǒu shī gēsòng le mǔqin de ài. »"
+       }
+      ]
      }
     }
    ]

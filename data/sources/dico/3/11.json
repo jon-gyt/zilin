@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:0c36ec6ff2b5914013090011fc8f50c350b170712357dccfa9f9de3f0656e287",
+  "empreinte_invite": "sha256:821951eb73e5255a45b4c8ed0388cd56095ce6da2d611b8adba9800ea296af20",
   "contexte": "wenlu dico contexte 3 11",
   "essais": 1,
   "refus": []
@@ -1428,14 +1428,21 @@
    "exemples": [
     {
      "zh": "他快速地跑了过去。",
-     "pinyin": "Tā kuàisù de pǎo le guoqu.",
+     "pinyin": "Tā kuàisù de pǎo le guòqu.",
      "fr": "Il est passé en courant.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā kuàisù de pǎo le guoqu. » → « Tā kuàisù de pǎo le guòqu. »"
+       }
+      ]
      }
     }
    ]

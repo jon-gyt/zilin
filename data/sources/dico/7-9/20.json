@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cdd0f0dc5855cc9eca891cfb99ad35a40a72fcbd451b6b0290b526097a8cbf7c",
+  "empreinte_invite": "sha256:633b9d37060d8650a7012a26954dcf297d5d40a82d42d9e1afaa4c96e8001ebf",
   "contexte": "wenlu dico contexte 7-9 20",
   "essais": 1,
   "refus": []
@@ -118,14 +118,21 @@
    "exemples": [
     {
      "zh": "小偷没有得手就跑了。",
-     "pinyin": "Xiǎotōu méiyǒu déshǒu jiù pǎo le.",
+     "pinyin": "Xiǎotōu méiyou déshǒu jiù pǎo le.",
      "fr": "Le voleur s'est enfui sans avoir rien pu prendre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xiǎotōu méiyǒu déshǒu jiù pǎo le. » → « Xiǎotōu méiyou déshǒu jiù pǎo le. »"
+       }
+      ]
      }
     }
    ]
@@ -304,14 +311,21 @@
    "exemples": [
     {
      "zh": "得知这个消息后，他马上赶来了。",
-     "pinyin": "Dézhī zhège xiāoxi hòu, tā mǎshàng gǎn lái le.",
+     "pinyin": "Dézhī zhège xiāoxi hòu, tā mǎshàng gǎn lai le.",
      "fr": "Dès qu'il a su la nouvelle, il est accouru.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Dézhī zhège xiāoxi hòu, tā mǎshàng gǎn lái le. » → « Dézhī zhège xiāoxi hòu, tā mǎshàng gǎn lai le. »"
+       }
+      ]
      }
     }
    ]

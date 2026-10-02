@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5d8897f2e26880e2da582cf100722dcd229f98a41eea4454e49eca50c49f805b",
+  "empreinte_invite": "sha256:2a3a036979da08914f0c264ccef2ef7c251ed77d61902f2e5f8c4da5cbe1bff2",
   "contexte": "wenlu dico contexte 7-9 49",
   "essais": 1,
   "refus": []
@@ -310,14 +310,21 @@
    "exemples": [
     {
      "zh": "等了两个小时，大家都变得焦躁起来。",
-     "pinyin": "Děng le liǎng ge xiǎoshí, dàjiā dōu biàn de jiāozào qǐlai.",
+     "pinyin": "Děng le liǎng ge xiǎoshí, dàjiā dōu biàn de jiāozào qilai.",
      "fr": "Après deux heures d'attente, tout le monde s'énervait.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Děng le liǎng ge xiǎoshí, dàjiā dōu biàn de jiāozào qǐlai. » → « Děng le liǎng ge xiǎoshí, dàjiā dōu biàn de jiāozào qilai. »"
+       }
+      ]
      }
     }
    ]
@@ -1324,14 +1331,21 @@
    "exemples": [
     {
      "zh": "教室里的座位像阶梯一样。",
-     "pinyin": "Jiàoshì li de zuòwèi xiàng jiētī yīyàng.",
+     "pinyin": "Jiàoshì li de zuòwei xiàng jiētī yīyàng.",
      "fr": "Dans cet amphithéâtre, les places sont disposées en gradins.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Jiàoshì li de zuòwèi xiàng jiētī yīyàng. » → « Jiàoshì li de zuòwei xiàng jiētī yīyàng. »"
+       }
+      ]
      }
     }
    ]

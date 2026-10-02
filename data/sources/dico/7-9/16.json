@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:7563d36bbcdf136c87e256f93cca820d4be335719473c1501af7c7163cd39934",
+  "empreinte_invite": "sha256:a35d29c50895521725052fd278bde57cffd848183cd36b216d6be5ddf80ee7f5",
   "contexte": "wenlu dico contexte 7-9 16",
   "essais": 1,
   "refus": []
@@ -40,14 +40,21 @@
    "exemples": [
     {
      "zh": "她在家伺候生病的母亲。",
-     "pinyin": "Tā zài jiā cìhou shēngbìng de mǔqīn.",
+     "pinyin": "Tā zài jiā cìhou shēngbìng de mǔqin.",
      "fr": "Elle reste à la maison pour soigner sa mère malade.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā zài jiā cìhou shēngbìng de mǔqīn. » → « Tā zài jiā cìhou shēngbìng de mǔqin. »"
+       }
+      ]
      }
     }
    ]

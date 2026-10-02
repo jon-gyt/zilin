@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:366bc4b81e33f76e1b4c26f43ab3bd0446e9a576af5c26a24526a30a9d3ee567",
+  "empreinte_invite": "sha256:81b92f08a5cf8e90c1cf30a9227ba78ddc8eed2400d42b5722ac7455b4109c97",
   "contexte": "wenlu dico contexte 3 03",
   "essais": 1,
   "refus": []
@@ -48,14 +48,21 @@
    "exemples": [
     {
      "zh": "天上有一架飞机。",
-     "pinyin": "Tiān shang yǒu yī jià fēijī.",
+     "pinyin": "Tiān shàng yǒu yī jià fēijī.",
      "fr": "Il y a un avion dans le ciel.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tiān shang yǒu yī jià fēijī. » → « Tiān shàng yǒu yī jià fēijī. »"
+       }
+      ]
      }
     }
    ]
@@ -1126,14 +1133,21 @@
    "exemples": [
     {
      "zh": "除了你，没人知道。",
-     "pinyin": "Chúle nǐ, méi rén zhīdào.",
+     "pinyin": "Chúle nǐ, méi rén zhīdao.",
      "fr": "À part toi, personne n'est au courant.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Chúle nǐ, méi rén zhīdào. » → « Chúle nǐ, méi rén zhīdao. »"
+       }
+      ]
      }
     }
    ]

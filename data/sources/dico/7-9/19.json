@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6e6162111dce0fda0bc666a7451b21353739f733cd73652d02f63b194a27e58b",
+  "empreinte_invite": "sha256:d797229f20ad8614a7d54ea1d73761ef56bea6ee9b3ddee8b2149e56a9b8c4b4",
   "contexte": "wenlu dico contexte 7-9 19",
   "essais": 1,
   "refus": []
@@ -1576,14 +1576,21 @@
    "exemples": [
     {
      "zh": "他因为盗窃被判了三年。",
-     "pinyin": "Tā yīnwèi dàoqiè bèi pàn le sān nián.",
+     "pinyin": "Tā yīnwei dàoqiè bèi pàn le sān nián.",
      "fr": "Il a été condamné à trois ans pour vol.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi dàoqiè bèi pàn le sān nián. » → « Tā yīnwei dàoqiè bèi pàn le sān nián. »"
+       }
+      ]
      }
     }
    ]

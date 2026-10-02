@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:6141a263173faff37912c3183452f6534a1bedc3f8d003931783621bf3486ed8",
+  "empreinte_invite": "sha256:cb9fa61322a214ac0e5e039d4baa41264d766f58e54f66d603c94aa79160b222",
   "contexte": "wenlu dico contexte 4 20",
   "essais": 1,
   "refus": []
@@ -303,14 +303,21 @@
    "exemples": [
     {
      "zh": "因为下雨，比赛延期了。",
-     "pinyin": "Yīnwèi xià yǔ, bǐsài yánqī le.",
+     "pinyin": "Yīnwei xià yǔ, bǐsài yánqī le.",
      "fr": "À cause de la pluie, le match n'a pas eu lieu à la date prévue.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Yīnwèi xià yǔ, bǐsài yánqī le. » → « Yīnwei xià yǔ, bǐsài yánqī le. »"
+       }
+      ]
      }
     }
    ]
@@ -1363,14 +1370,21 @@
    "exemples": [
     {
      "zh": "大家的意见很一致。",
-     "pinyin": "Dàjiā de yìjiàn hěn yīzhì.",
+     "pinyin": "Dàjiā de yìjian hěn yīzhì.",
      "fr": "Tout le monde est du même avis.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Dàjiā de yìjiàn hěn yīzhì. » → « Dàjiā de yìjian hěn yīzhì. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:5ea23b43034cded3e53922f2804b7f25dc0c1bead23aef9f1f258167e2eec246",
+  "empreinte_invite": "sha256:313a5869c16cb05bf6347b1628cf322a0e587060daa8d8c8ad14ee602fea6338",
   "contexte": "wenlu dico contexte 7-9 92",
   "essais": 1,
   "refus": []
@@ -40,14 +40,21 @@
    "exemples": [
     {
      "zh": "他因为贪污被判了十年。",
-     "pinyin": "Tā yīnwèi tānwū bèi pàn le shí nián.",
+     "pinyin": "Tā yīnwei tānwū bèi pàn le shí nián.",
      "fr": "Il a pris dix ans de prison pour corruption.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yīnwèi tānwū bèi pàn le shí nián. » → « Tā yīnwei tānwū bèi pàn le shí nián. »"
+       }
+      ]
      }
     }
    ]

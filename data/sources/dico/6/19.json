@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cf1134a5225a04fe293107246449478f96a71f6d3e23604d926fc3ad12fc14ec",
+  "empreinte_invite": "sha256:298867a9c8eb602e46160f0ec098b3d589605ab6a01f018003140c21a702f258",
   "contexte": "wenlu dico contexte 6 19",
   "essais": 1,
   "refus": []
@@ -259,14 +259,21 @@
    "exemples": [
     {
      "zh": "他把药一口吞了下去。",
-     "pinyin": "Tā bǎ yào yī kǒu tūn le xiàqu.",
+     "pinyin": "Tā bǎ yào yī kǒu tūn le xiaqu.",
      "fr": "Il a pris le cachet d'un seul coup.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā bǎ yào yī kǒu tūn le xiàqu. » → « Tā bǎ yào yī kǒu tūn le xiaqu. »"
+       }
+      ]
      }
     }
    ]
@@ -1781,14 +1788,21 @@
    "exemples": [
     {
      "zh": "天上都是乌云，要下雨了。",
-     "pinyin": "Tiān shang dōu shì wūyún, yào xià yǔ le.",
+     "pinyin": "Tiān shàng dōu shì wūyún, yào xià yǔ le.",
      "fr": "Le ciel est tout noir, il va pleuvoir.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tiān shang dōu shì wūyún, yào xià yǔ le. » → « Tiān shàng dōu shì wūyún, yào xià yǔ le. »"
+       }
+      ]
      }
     }
    ]

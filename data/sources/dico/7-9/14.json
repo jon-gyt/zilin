@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:3fe85dbefa9f86e47dbe02e73d7e4fb63757f3c13a74eaebbac4278fd44f7788",
+  "empreinte_invite": "sha256:799a46569d25b1c63c95d9604fff5dcddcf0b0b016a93c278cde5f9a4d394191",
   "contexte": "wenlu dico contexte 7-9 14",
   "essais": 1,
   "refus": []
@@ -855,14 +855,21 @@
    "exemples": [
     {
      "zh": "他没有忘记自己的初衷。",
-     "pinyin": "Tā méiyǒu wàngjì zìjǐ de chūzhōng.",
+     "pinyin": "Tā méiyou wàngjì zìjǐ de chūzhōng.",
      "fr": "Il n'a pas oublié pourquoi il avait commencé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā méiyǒu wàngjì zìjǐ de chūzhōng. » → « Tā méiyou wàngjì zìjǐ de chūzhōng. »"
+       }
+      ]
      }
     }
    ]
@@ -1096,14 +1103,21 @@
    "exemples": [
     {
      "zh": "这件事你打算怎么处置？",
-     "pinyin": "Zhè jiàn shì nǐ dǎsuàn zěnme chǔzhì?",
+     "pinyin": "Zhè jiàn shì nǐ dǎsuan zěnme chǔzhì?",
      "fr": "Comment comptes-tu régler cette affaire ?",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiàn shì nǐ dǎsuàn zěnme chǔzhì? » → « Zhè jiàn shì nǐ dǎsuan zěnme chǔzhì? »"
+       }
+      ]
      }
     }
    ]
@@ -1486,14 +1500,21 @@
    "exemples": [
     {
      "zh": "我无法揣测他的想法。",
-     "pinyin": "Wǒ wúfǎ chuǎicè tā de xiǎngfǎ.",
+     "pinyin": "Wǒ wúfǎ chuǎicè tā de xiǎngfa.",
      "fr": "Je ne sais pas ce qu'il a en tête.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ wúfǎ chuǎicè tā de xiǎngfǎ. » → « Wǒ wúfǎ chuǎicè tā de xiǎngfa. »"
+       }
+      ]
      }
     }
    ]

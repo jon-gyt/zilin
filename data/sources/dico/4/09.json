@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:deb9487f679c86c5d05f20267e5082d241301f4cf3058c1b96e39666d0ce7ac2",
+  "empreinte_invite": "sha256:81b84663b58be17eb1ff7ed166798da9e0fbeb0041715d24c709efb5ce9fae56",
   "contexte": "wenlu dico contexte 4 09",
   "essais": 1,
   "refus": []
@@ -1532,14 +1532,21 @@
    "exemples": [
     {
      "zh": "他急忙跑了出去。",
-     "pinyin": "Tā jímáng pǎo le chūqu.",
+     "pinyin": "Tā jímáng pǎo le chuqu.",
      "fr": "Il est sorti en courant.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā jímáng pǎo le chūqu. » → « Tā jímáng pǎo le chuqu. »"
+       }
+      ]
      }
     }
    ]

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:23dfc3e8bf8c5a0470d41a6d27072777818c9036be1500910b2fa011339eac7d",
+  "empreinte_invite": "sha256:89e2bad77c40929ee1c26cbe80aa5bd1152c1eb2cf4b5b698680d1b93194ac4c",
   "contexte": "wenlu dico contexte 1 01",
   "essais": 1,
   "refus": []
@@ -456,14 +456,21 @@
     },
     {
      "zh": "学校里有三百个学生。",
-     "pinyin": "Xuéxiào lǐ yǒu sānbǎi ge xuésheng.",
+     "pinyin": "Xuéxiào li yǒu sānbǎi ge xuésheng.",
      "fr": "L'école compte trois cents élèves.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xuéxiào lǐ yǒu sānbǎi ge xuésheng. » → « Xuéxiào li yǒu sānbǎi ge xuésheng. »"
+       }
+      ]
      }
     }
    ]

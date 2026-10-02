@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:a62ff87d3b3f452f3c46ee7242948563b34da89532fd810971e558fbfa153759",
+  "empreinte_invite": "sha256:ce766566dc7bddba999f23a05255f2cd573c5ce18c7a2f68b9e532f46a0b2c9d",
   "contexte": "wenlu dico contexte 7-9 22",
   "essais": 1,
   "refus": []
@@ -854,14 +854,21 @@
    "exemples": [
     {
      "zh": "这件事还没有定论。",
-     "pinyin": "Zhè jiàn shì hái méiyǒu dìnglùn.",
+     "pinyin": "Zhè jiàn shì hái méiyou dìnglùn.",
      "fr": "Rien n'est encore tranché dans cette affaire.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè jiàn shì hái méiyǒu dìnglùn. » → « Zhè jiàn shì hái méiyou dìnglùn. »"
+       }
+      ]
      }
     }
    ]
@@ -1353,14 +1360,21 @@
    "exemples": [
     {
      "zh": "作为东道主，我们要热情接待客人。",
-     "pinyin": "Zuòwéi dōngdàozhǔ, wǒmen yào rèqíng jiēdài kèrén.",
+     "pinyin": "Zuòwéi dōngdàozhǔ, wǒmen yào rèqíng jiēdài kèren.",
      "fr": "Puisque c'est nous qui recevons, accueillons bien nos invités.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zuòwéi dōngdàozhǔ, wǒmen yào rèqíng jiēdài kèrén. » → « Zuòwéi dōngdàozhǔ, wǒmen yào rèqíng jiēdài kèren. »"
+       }
+      ]
      }
     }
    ]
@@ -1766,14 +1780,21 @@
    "exemples": [
     {
      "zh": "屋里一点儿动静也没有。",
-     "pinyin": "Wū li yīdiǎnr dòngjing yě méiyǒu.",
+     "pinyin": "Wū li yīdiǎnr dòngjing yě méiyou.",
      "fr": "On n'entend pas un son dans la maison.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wū li yīdiǎnr dòngjing yě méiyǒu. » → « Wū li yīdiǎnr dòngjing yě méiyou. »"
+       }
+      ]
      }
     }
    ]

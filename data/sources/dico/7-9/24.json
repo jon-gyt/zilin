@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:dd3c2b16c061c00a7de715ed5d5a56f06f5d51c9cbf42b0bec2f2729bb677677",
+  "empreinte_invite": "sha256:ef2c7a4655eee40729ffe25e1165c78194cfbe86c08405c8f534d48f748eb785",
   "contexte": "wenlu dico contexte 7-9 24",
   "essais": 1,
   "refus": []
@@ -1147,14 +1147,21 @@
    "exemples": [
     {
      "zh": "他用照片讹诈别人。",
-     "pinyin": "Tā yòng zhàopiàn ézhà biérén.",
+     "pinyin": "Tā yòng zhàopiàn ézhà biéren.",
      "fr": "Il menace les gens avec des photos pour leur soutirer de l'argent.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā yòng zhàopiàn ézhà biérén. » → « Tā yòng zhàopiàn ézhà biéren. »"
+       }
+      ]
      }
     }
    ]
@@ -1528,14 +1535,21 @@
    "exemples": [
     {
      "zh": "他说这些话并没有恶意。",
-     "pinyin": "Tā shuō zhèxiē huà bìng méiyǒu èyì.",
+     "pinyin": "Tā shuō zhèxiē huà bìng méiyou èyì.",
      "fr": "Il n'a pas dit ça méchamment.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā shuō zhèxiē huà bìng méiyǒu èyì. » → « Tā shuō zhèxiē huà bìng méiyou èyì. »"
+       }
+      ]
      }
     }
    ]
@@ -1691,14 +1705,21 @@
    "exemples": [
     {
      "zh": "这不是别人的恩赐，是我们自己争取的。",
-     "pinyin": "Zhè bù shì biérén de ēncì, shì wǒmen zìjǐ zhēngqǔ de.",
+     "pinyin": "Zhè bù shì biéren de ēncì, shì wǒmen zìjǐ zhēngqǔ de.",
      "fr": "Personne ne nous l'a donné, nous l'avons obtenu nous-mêmes.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè bù shì biérén de ēncì, shì wǒmen zìjǐ zhēngqǔ de. » → « Zhè bù shì biéren de ēncì, shì wǒmen zìjǐ zhēngqǔ de. »"
+       }
+      ]
      }
     }
    ]

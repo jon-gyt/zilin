@@ -10,7 +10,10 @@
   "statut": "relu",
   "par": "le propriétaire",
   "decision": "« Lance oui. Pas de relecture » (30 septembre 2026) : relecture considérée faite, sans relecture ligne à ligne",
-  "date": "2026-09-30"
+  "date": "2026-09-30",
+  "corrections": [
+   "le 1er octobre 2026, conventions du 1er octobre (décisions du propriétaire : ton neutre du 现代汉语词典, pinyin de la liste HSK 3.0, étages en anglais à l'américaine ; data/schema.md), le texte relu reste tel quel hors ces points, la série garde son statut : 桌子上 zhuō zi shàng → zhuō zi shang (A Q3) ; 上 shàng → shang (A s1 glose propre « 上 shang, sur ») ; 火车上 huǒ chē shàng → huǒ chē shang (B s2 l1)."
+  ]
  },
  "series": [
   {
@@ -36,6 +39,14 @@
        "pinyin": "wǒ xiǎng chī nín zuò de jī",
        "fr": "j'ai envie de ton poulet !",
        "en": "I'd love some of your chicken!"
+      }
+     ],
+     "glose": [
+      {
+       "zh": "上",
+       "pinyin": "shang",
+       "fr": "sur",
+       "en": "on"
       }
      ]
     },
@@ -126,7 +137,7 @@
       },
       {
        "zh": "你的书在桌子上。",
-       "pinyin": "nǐ de shū zài zhuō zi shàng",
+       "pinyin": "nǐ de shū zài zhuō zi shang",
        "fr": "Ton livre est sur la table.",
        "en": "Your book is on the table."
       },
@@ -259,7 +270,7 @@
      "lignes": [
       {
        "zh": "妹妹，我在火车上，",
-       "pinyin": "mèi mei wǒ zài huǒ chē shàng",
+       "pinyin": "mèi mei wǒ zài huǒ chē shang",
        "fr": "Petite sœur, je suis dans le train :",
        "en": "Sis, I'm on the train,"
       },

@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:cea4bd8d670b85091c93b6c34cbe8a01d2c86bc5125e9412447fd183a778b282",
+  "empreinte_invite": "sha256:8f540c0170d9d9959fe0616ced24b12b9277ae47f82b90c2bdf77a597a4e3c39",
   "contexte": "wenlu dico contexte 1 03",
   "essais": 1,
   "refus": []
@@ -516,14 +516,21 @@
    "exemples": [
     {
      "zh": "孩子们在院子里玩儿。",
-     "pinyin": "Háizimen zài yuànzi lǐ wánr.",
+     "pinyin": "Háizimen zài yuànzi li wánr.",
      "fr": "Les enfants jouent dans la cour.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Háizimen zài yuànzi lǐ wánr. » → « Háizimen zài yuànzi li wánr. »"
+       }
+      ]
      }
     }
    ]

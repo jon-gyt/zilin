@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:cc36ba239681edc677a6b9a0338467079a2b4e8646957006356924ac03c7676a",
+  "empreinte_invite": "sha256:3f311958954de62c5409cf49a1437c7c9dc74ded2486a7af89800aaf82509318",
   "contexte": "wenlu dico contexte 5 11",
   "essais": 1,
   "refus": []
@@ -193,14 +193,21 @@
    "exemples": [
     {
      "zh": "天上有很多颗星星。",
-     "pinyin": "Tiān shang yǒu hěn duō kē xīngxing.",
+     "pinyin": "Tiān shàng yǒu hěn duō kē xīngxing.",
      "fr": "Il y a beaucoup d'étoiles dans le ciel.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tiān shang yǒu hěn duō kē xīngxing. » → « Tiān shàng yǒu hěn duō kē xīngxing. »"
+       }
+      ]
      }
     }
    ]
@@ -277,14 +284,21 @@
    "exemples": [
     {
      "zh": "那只小狗看起来很可怜。",
-     "pinyin": "Nà zhī xiǎo gǒu kàn qǐlai hěn kělián.",
+     "pinyin": "Nà zhī xiǎo gǒu kàn qilai hěn kělián.",
      "fr": "Ce petit chien fait vraiment pitié.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Nà zhī xiǎo gǒu kàn qǐlai hěn kělián. » → « Nà zhī xiǎo gǒu kàn qilai hěn kělián. »"
+       }
+      ]
      }
     }
    ]
@@ -321,14 +335,21 @@
    "exemples": [
     {
      "zh": "他从小没有父母，真可怜。",
-     "pinyin": "Tā cóngxiǎo méiyǒu fùmǔ, zhēn kělián.",
+     "pinyin": "Tā cóngxiǎo méiyou fùmǔ, zhēn kělián.",
      "fr": "Il a perdu ses parents tout petit, le pauvre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā cóngxiǎo méiyǒu fùmǔ, zhēn kělián. » → « Tā cóngxiǎo méiyou fùmǔ, zhēn kělián. »"
+       }
+      ]
      }
     }
    ]
@@ -1981,14 +2002,21 @@
    "exemples": [
     {
      "zh": "他端着一脸盆水走了进来。",
-     "pinyin": "Tā duān zhe yī liǎnpén shuǐ zǒu le jìnlai.",
+     "pinyin": "Tā duān zhe yī liǎnpén shuǐ zǒu le jinlai.",
      "fr": "Il est entré avec une bassine d'eau dans les mains.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā duān zhe yī liǎnpén shuǐ zǒu le jìnlai. » → « Tā duān zhe yī liǎnpén shuǐ zǒu le jinlai. »"
+       }
+      ]
      }
     }
    ]

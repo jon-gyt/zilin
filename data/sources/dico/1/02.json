@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-29",
-  "empreinte_invite": "sha256:76650d1c69cb45646ae1b5dc21c9492f013b01466e144486eeb57c1736154676",
+  "empreinte_invite": "sha256:ad5d6ae8bcf2c6ffa1f675d88c3eb25240316cbee2e02ad95dc6fad34a58b0b5",
   "contexte": "wenlu dico contexte 1 02",
   "essais": 1,
   "refus": []
@@ -826,14 +826,21 @@
     },
     {
      "zh": "他从房间里出来了。",
-     "pinyin": "Tā cóng fángjiān lǐ chūlai le.",
+     "pinyin": "Tā cóng fángjiān li chūlai le.",
      "fr": "Il est sorti de sa chambre.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)"
+      "decision": "« Considère que relecture faite », puis « Oui, affiche-les » (29 et 30 septembre 2026)",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā cóng fángjiān lǐ chūlai le. » → « Tā cóng fángjiān li chūlai le. »"
+       }
+      ]
      }
     }
    ]

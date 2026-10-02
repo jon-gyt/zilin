@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:bf64d5935f084b7d0c72d3f51a2963cee778f945c548d665b6272e8259f48a73",
+  "empreinte_invite": "sha256:35382285da6c221a667886f0886c4482844bc88c8f5d68fb018c32907abe6b88",
   "contexte": "wenlu dico contexte 4 16",
   "essais": 1,
   "refus": []
@@ -274,14 +274,21 @@
    "exemples": [
     {
      "zh": "我不知道他是否会来。",
-     "pinyin": "Wǒ bù zhīdào tā shìfǒu huì lái.",
+     "pinyin": "Wǒ bù zhīdao tā shìfǒu huì lái.",
      "fr": "Je ne sais pas s'il viendra.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒ bù zhīdào tā shìfǒu huì lái. » → « Wǒ bù zhīdao tā shìfǒu huì lái. »"
+       }
+      ]
      }
     }
    ]
@@ -912,14 +919,21 @@
    "exemples": [
     {
      "zh": "风把树叶吹下来了。",
-     "pinyin": "Fēng bǎ shùyè chuī xiàlai le.",
+     "pinyin": "Fēng bǎ shùyè chuī xialai le.",
      "fr": "Le vent a fait tomber les feuilles.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Fēng bǎ shùyè chuī xiàlai le. » → « Fēng bǎ shùyè chuī xialai le. »"
+       }
+      ]
      }
     }
    ]

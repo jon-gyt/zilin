@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:8d34b1fb91e697d9e3cd84d625eacaca54bc1f484e930efb0169f71975810541",
+  "empreinte_invite": "sha256:be0b8ce63b819cda14356fde2bb8d61746be289fa930cbadbbd2359346a7691f",
   "contexte": "wenlu dico contexte 4 15",
   "essais": 1,
   "refus": []
@@ -665,14 +665,21 @@
    "exemples": [
     {
      "zh": "把衣服拿出去晒一晒。",
-     "pinyin": "Bǎ yīfu ná chūqu shài yī shài.",
+     "pinyin": "Bǎ yīfu ná chuqu shài yī shài.",
      "fr": "Sors le linge pour qu'il sèche dehors.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Bǎ yīfu ná chūqu shài yī shài. » → « Bǎ yīfu ná chuqu shài yī shài. »"
+       }
+      ]
      }
     }
    ]

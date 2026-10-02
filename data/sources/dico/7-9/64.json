@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:272f268ae4d492ec8f8930002afdea6c5152a00e1cb6422e4a9f0eb0140b30e1",
+  "empreinte_invite": "sha256:3476ee5f64a2b5d66ef85123bb6e84f7dc3bdd6ee481a96473b0fefebc214d05",
   "contexte": "wenlu dico contexte 7-9 64",
   "essais": 1,
   "refus": []
@@ -1680,14 +1680,21 @@
    "exemples": [
     {
      "zh": "太阳慢慢落下去了。",
-     "pinyin": "Tàiyáng mànmàn luòxia qù le.",
+     "pinyin": "Tàiyang mànmàn luòxia qu le.",
      "fr": "Le soleil se couche lentement.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tàiyáng mànmàn luòxia qù le. » → « Tàiyang mànmàn luòxia qu le. »"
+       }
+      ]
      }
     }
    ]

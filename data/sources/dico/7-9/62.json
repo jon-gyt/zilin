@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:aaaa91c4ba458e4a7183c30db37e92af97ffc285dc59aeea5872570ed7597593",
+  "empreinte_invite": "sha256:ca619361154192639f759556edc49dc080b09fe4538a14205c202e5cf1a7ecb7",
   "contexte": "wenlu dico contexte 7-9 62",
   "essais": 1,
   "refus": []
@@ -1016,14 +1016,21 @@
    "exemples": [
     {
      "zh": "这台机器缺了一个零件。",
-     "pinyin": "Zhè tái jīqì quē le yī ge língjiàn.",
+     "pinyin": "Zhè tái jīqi quē le yī ge língjiàn.",
      "fr": "Il manque une pièce à cette machine.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhè tái jīqì quē le yī ge língjiàn. » → « Zhè tái jīqi quē le yī ge língjiàn. »"
+       }
+      ]
      }
     }
    ]

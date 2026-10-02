@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:09395e22be538baf55b7c26f06a258e8d663cd35a076e23240994c6bfda4aae7",
+  "empreinte_invite": "sha256:878720140b0ecec9d8d577a01e426dc769148b7b478896c7b499e80727b1e600",
   "contexte": "wenlu dico contexte 7-9 72",
   "essais": 1,
   "refus": []
@@ -791,14 +791,21 @@
    "exemples": [
     {
      "zh": "这些衣服是从工厂批发来的。",
-     "pinyin": "Zhèxiē yīfu shì cóng gōngchǎng pīfā lái de.",
+     "pinyin": "Zhèxiē yīfu shì cóng gōngchǎng pīfā lai de.",
      "fr": "Ces vêtements viennent directement de l'usine, par grandes quantités.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Zhèxiē yīfu shì cóng gōngchǎng pīfā lái de. » → « Zhèxiē yīfu shì cóng gōngchǎng pīfā lai de. »"
+       }
+      ]
      }
     }
    ]
@@ -1018,14 +1025,21 @@
    "exemples": [
     {
      "zh": "下班回家，他看起来很疲惫。",
-     "pinyin": "Xiàbān huí jiā, tā kàn qǐlai hěn píbèi.",
+     "pinyin": "Xiàbān huí jiā, tā kàn qilai hěn píbèi.",
      "fr": "En rentrant du travail, il avait l'air vidé.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xiàbān huí jiā, tā kàn qǐlai hěn píbèi. » → « Xiàbān huí jiā, tā kàn qilai hěn píbèi. »"
+       }
+      ]
      }
     }
    ]

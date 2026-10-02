@@ -7,7 +7,7 @@
   "modele": "rédaction manuelle",
   "api": "session Claude Code (sans API)",
   "date": "2026-09-30",
-  "empreinte_invite": "sha256:9aa83654f5013cc29c9d7202433f079a0eabbead44e2fd3801c4811db8ed8c5a",
+  "empreinte_invite": "sha256:3cf89a62fc967c53db228ab806b392b93a7feb2b839a88cb678dbcd1e5165407",
   "contexte": "wenlu dico contexte 7-9 103",
   "essais": 1,
   "refus": []
@@ -376,14 +376,21 @@
    "exemples": [
     {
      "zh": "相传这座山上住过神仙。",
-     "pinyin": "Xiāngchuán zhè zuò shān shang zhù guo shénxiān.",
+     "pinyin": "Xiāngchuán zhè zuò shān shang zhù guo shénxian.",
      "fr": "On raconte que des immortels ont vécu sur cette montagne.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Xiāngchuán zhè zuò shān shang zhù guo shénxiān. » → « Xiāngchuán zhè zuò shān shang zhù guo shénxian. »"
+       }
+      ]
      }
     }
    ]
@@ -570,14 +577,21 @@
    "exemples": [
     {
      "zh": "客人们相继到了。",
-     "pinyin": "Kèrénmen xiāngjì dào le.",
+     "pinyin": "Kèrenmen xiāngjì dào le.",
      "fr": "Les invités sont arrivés les uns après les autres.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Kèrénmen xiāngjì dào le. » → « Kèrenmen xiāngjì dào le. »"
+       }
+      ]
      }
     }
    ]
@@ -727,14 +741,21 @@
    "exemples": [
     {
      "zh": "我们的想法是相通的。",
-     "pinyin": "Wǒmen de xiǎngfǎ shì xiāngtōng de.",
+     "pinyin": "Wǒmen de xiǎngfa shì xiāngtōng de.",
      "fr": "Nous pensons de la même façon.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Wǒmen de xiǎngfǎ shì xiāngtōng de. » → « Wǒmen de xiǎngfa shì xiāngtōng de. »"
+       }
+      ]
      }
     }
    ]
@@ -1623,14 +1644,21 @@
    "exemples": [
     {
      "zh": "他连一件像样的衣服都没有。",
-     "pinyin": "Tā lián yī jiàn xiàngyàng de yīfu dōu méiyǒu.",
+     "pinyin": "Tā lián yī jiàn xiàngyàng de yīfu dōu méiyou.",
      "fr": "Il n'a même pas un vêtement correct.",
      "statut": "relu",
      "relecture": {
       "date": "2026-09-30",
       "par": "décision du propriétaire",
       "mode": "sans relecture ligne à ligne",
-      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »"
+      "decision": "« Oui, affiche tout » (30 septembre 2026), à la suite de « Considère que relecture faite »",
+      "corrections": [
+       {
+        "date": "2026-10-01",
+        "par": "conventions du 1er octobre",
+        "objet": "pinyin : « Tā lián yī jiàn xiàngyàng de yīfu dōu méiyǒu. » → « Tā lián yī jiàn xiàngyàng de yīfu dōu méiyou. »"
+       }
+      ]
      }
     }
    ]
