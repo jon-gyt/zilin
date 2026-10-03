@@ -95,7 +95,7 @@ PHRASES_ORIGINE = 3
 #: spécialiste, et 45 mots au plus en français. Les sources restent dans la décision de
 #: l'étiquette, jamais dans le texte.
 TERMES_SAVANTS = (
-    "shuowen", "說文", "说文", "os oraculaire", "oracle bone", "oracle-bone", "bronze",
+    "shuowen", "說文", "说文", "os oraculaire", "oracle bone", "oracle-bone", "les bronzes", "bronze inscription", "inscriptions sur bronze",
     "petit sceau", "small seal", "seal script", "sigillaire", "paléograph", "palaeograph",
     "paleograph", "glose", "gloss",
 )
