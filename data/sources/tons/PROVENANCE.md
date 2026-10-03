@@ -269,7 +269,10 @@ rien de FLEURS n'est embarqué ni exporté.
    entre deux mots ; 不 et 一 selon le ton qui suit (一 ordinal ou dans un nombre : 1) ; le
    neutre des mots de la liste et des particules (的, 们, 吗…). Les 4 600 phrases donnent
    3 061 phrases lisibles (1 537 portent des chiffres ou des lettres latines, 2 un 儿 hors d'un
-   mot), 102 706 syllabes, dont 97 115 étiquetées (94,6 %). `fleurs-syllabes.json`, SHA-256
+   mot), 102 706 syllabes, dont 97 115 étiquetées (94,6 %). Limite : l'appariement peut
+   prendre pour un mot deux caractères qui n'en font pas un (都会 dūhuì dans 一切都会好的,
+   que les deux sens de lecture trouvent) ; ce bruit d'étiquette n'est pas mesuré.
+   `fleurs-syllabes.json`, SHA-256
    `637e32cb483b8357c666723d6bc738688454e765db5024ab482f9d295b00d6fb`.
 2. **Les trames** (`app/scripts/tons/trames.ts`) : le suivi de hauteur de l'app, réglé plus
    souple pour l'alignement (`SOUPLE` : apériodicité sous 0,5, plancher à 35 dB sous le pic).
