@@ -2,7 +2,7 @@
  * Les caractéristiques des voix synthétiques du continent (Kokoro), avec le code même de l'app,
  * pour l'entraînement du classifieur des tons de « Dis-le » (`data/sources/tons/PROVENANCE.md`,
  * « Les voix synthétiques du continent »). Tourne dans le workflow `donnees`, étape `tons-voix`,
- * après `data/sources/tons/kokoro.py generer` :
+ * après `data/sources/tons/voix_kokoro.py generer` :
  *
  *   cd app && npx vite-node scripts/tons/voix.ts ../data/work/tons/voix zf_002 [zm_009 …]
  *

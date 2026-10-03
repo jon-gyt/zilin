@@ -28,9 +28,9 @@ Trois temps :
 
 `zf_001`, la voix de l'app, n'entre jamais à l'entraînement : elle sert de test.
 
-    cd data && uv run python sources/tons/kokoro.py textes          # le poste, après `wenlu tout`
-    cd data && uv run python sources/tons/kokoro.py plan --groupes 6 # la matrice du workflow
-    cd data && uv run python sources/tons/kokoro.py generer --voix zf_002,zm_009
+    cd data && uv run python sources/tons/voix_kokoro.py textes          # le poste, après `wenlu tout`
+    cd data && uv run python sources/tons/voix_kokoro.py plan --groupes 6 # la matrice du workflow
+    cd data && uv run python sources/tons/voix_kokoro.py generer --voix zf_002,zm_009
 """
 from __future__ import annotations
 

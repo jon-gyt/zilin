@@ -22,10 +22,10 @@
 #
 # `etapes: tons-voix` (3 octobre 2026) fait dire à Kokoro, avec une vingtaine de voix du
 # continent, des caractères isolés et des mots HSK de deux syllabes, passés en phonèmes
-# (`data/sources/tons/kokoro.py`), puis en calcule les caractéristiques avec le code de l'app
+# (`data/sources/tons/voix_kokoro.py`), puis en calcule les caractéristiques avec le code de l'app
 # (`app/scripts/tons/voix.ts`). Sans `wenlu tout` : les textes sont versionnés
 # (`kokoro-textes.json`). Les voix sont réparties en `lots` jobs parallèles (`voix` : une liste
-# à virgules, vide pour celles de `kokoro.py`) ; seul le JSON des caractéristiques part sur la
+# à virgules, vide pour celles de `voix_kokoro.py`) ; seul le JSON des caractéristiques part sur la
 # branche `donnees/tons-voix`, jamais un son, et les voix déjà extraites y restent d'un
 # passage à l'autre.
 name: donnees
@@ -49,7 +49,7 @@ on:
         options: [lire, hsk]
         default: lire
       voix:
-        description: "Voix Kokoro (vide : celle du pipeline, zf_001 ; tons-voix : celles de kokoro.py, ou une liste à virgules) ; `wenlu audio voix` les liste"
+        description: "Voix Kokoro (vide : celle du pipeline, zf_001 ; tons-voix : celles de voix_kokoro.py, ou une liste à virgules) ; `wenlu audio voix` les liste"
         type: string
         default: ''
       lots:
@@ -413,7 +413,7 @@ jobs:
           VOIX: ${{ inputs.voix }}
           LOTS: ${{ inputs.lots }}
         run: |
-          lots=$(python3 sources/tons/kokoro.py plan --voix "$VOIX" --groupes "${LOTS:-5}")
+          lots=$(python3 sources/tons/voix_kokoro.py plan --voix "$VOIX" --groupes "${LOTS:-5}")
           echo "lots=$lots" >> "$GITHUB_OUTPUT"
           echo "Lots de voix : $lots" >> "$GITHUB_STEP_SUMMARY"
 
@@ -464,8 +464,8 @@ jobs:
           key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/wenlu_data/audio.py') }}
           restore-keys: huggingface-kokoro-v1.1-zh-
 
-      - name: Synthèse en phonèmes (kokoro.py generer)
-        run: uv run python sources/tons/kokoro.py generer --voix "$VOIX"
+      - name: Synthèse en phonèmes (voix_kokoro.py generer)
+        run: uv run python sources/tons/voix_kokoro.py generer --voix "$VOIX"
 
       - name: Caractéristiques, code de l'app (voix.ts)
         working-directory: app

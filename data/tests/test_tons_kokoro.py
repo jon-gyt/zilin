@@ -1,4 +1,4 @@
-"""Ce que Kokoro dit pour le classifieur des tons (`data/sources/tons/kokoro.py`) : les phonèmes
+"""Ce que Kokoro dit pour le classifieur des tons (`data/sources/tons/voix_kokoro.py`) : les phonèmes
 passés à Kokoro et le ton étiqueté, une règle par test. Un petit lexique tient lieu de la liste
 HSK et des lectures du dépôt. Les phonèmes attendus ont été relevés sur le G2P de Kokoro v1.1
 (`misaki.zh_frontend.ZHFrontend`, misaki 0.9.4) le 3 octobre 2026."""
@@ -23,7 +23,7 @@ def _charger(nom: str):
     return module
 
 
-kokoro = _charger("kokoro")
+kokoro = _charger("voix_kokoro")
 fleurs = _charger("fleurs")
 
 
