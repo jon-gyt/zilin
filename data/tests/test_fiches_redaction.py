@@ -632,3 +632,13 @@ def test_check_revalide_une_fiche_d_origine(table, tmp_path: Path) -> None:
     controles = fiches.controles(tmp_path / "fiches", corpus=_corpus_sans_鸟(table), listes=tmp_path)
     validation = next(x for x in controles if x.nom == "fiches : validation")
     assert validation.ok and "1 fiches d'origine" in validation.detail
+
+
+def test_l_origine_se_lit_sans_terme_savant_et_courte(table, tmp_path: Path) -> None:
+    """Retour du propriétaire du 3 octobre 2026 : ni Shuowen ni os oraculaires, 45 mots au plus."""
+    savante = "Sur les os oraculaires, un oiseau. Le Shuowen jiezi le glose ainsi. Il vole."
+    longue = " ".join(["mot"] * 20) + ". " + " ".join(["mot"] * 20) + ". " + " ".join(["mot"] * 10) + "."
+    for texte, attendu in ((savante, "terme savant"), (longue, "mots, 45 au plus")):
+        chemin = ecrire_brouillon(tmp_path / "brouillons", origine(origine_fr=texte))
+        resultat = importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=tmp_path, horloge=aujourdhui)
+        assert attendu in " ; ".join(resultat.rapport.refus)
