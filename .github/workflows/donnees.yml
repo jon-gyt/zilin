@@ -464,21 +464,29 @@ jobs:
           key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/wenlu_data/audio.py') }}
           restore-keys: huggingface-kokoro-v1.1-zh-
 
-      - name: Synthèse en phonèmes (voix_kokoro.py generer)
-        run: uv run python sources/tons/voix_kokoro.py generer --voix "$VOIX"
-
-      - name: Caractéristiques, code de l'app (voix.ts)
+      - name: Dépendances de l'app
         working-directory: app
+        run: npm ci --no-audit --no-fund
+
+      # Voix par voix : synthèse, puis caractéristiques tout de suite. Si le temps manque, les
+      # voix finies partent quand même (l'artefact est envoyé dans tous les cas).
+      - name: Synthèse en phonèmes (voix_kokoro.py generer) et caractéristiques (voix.ts)
+        timeout-minutes: 100
         run: |
-          npm ci --no-audit --no-fund
-          # shellcheck disable=SC2086 # une voix par mot, voulu
-          npx vite-node scripts/tons/voix.ts ../data/work/tons/voix ${VOIX//,/ } | tee -a "$GITHUB_STEP_SUMMARY"
+          for v in ${VOIX//,/ }; do
+            debut=$(date +%s)
+            uv run python sources/tons/voix_kokoro.py generer --voix "$v"
+            (cd ../app && npx vite-node scripts/tons/voix.ts ../data/work/tons/voix "$v") | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "$v : $(( $(date +%s) - debut )) s" | tee -a "$GITHUB_STEP_SUMMARY"
+            rm -rf "work/tons/voix/$v/wav"
+          done
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: tons-voix-${{ strategy.job-index }}
           path: data/sources/tons/voix-kokoro/
-          if-no-files-found: error
+          if-no-files-found: warn
 
   tons-voix-branche:
     needs: tons-voix
