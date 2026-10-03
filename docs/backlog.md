@@ -96,7 +96,7 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
-- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante (voir « Épic 9, en partie »).
+- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante ; les voix du continent (FLEURS) essayées le 3 octobre, sans gain sur les caractères isolés, poids inchangés (voir « Épic 9, en partie »).
 - 9.2 La conversation sur l'appareil, là où il le permet (modèle de langue, reconnaissance et synthèse vocales de l'appareil), limitée aux caractères acquis.
 - 9.3 Le relais : un seul serveur, sans compte, authentifié par la transaction App Store, qui ne garde rien ; quota d'une conversation par jour, sans accumulation.
 - 9.4 L'agent vocal par niveau dans le nuage : en cascade (reconnaissance, modèle de langue, contrôle de chaque réplique contre l'acquis, synthèse), des scènes par niveau rédigées par le pipeline.
@@ -845,7 +845,7 @@ Décisions du propriétaire du 29 septembre 2026 : « Ok maquette d'examen »
   à 200…), et leurs noms du 放榜 ; celles de la première étape passent le contrôle du
   pinyin.
 
-### Épic 9, en partie : « Dis-le », les tons sur l'appareil (29 et 30 septembre)
+### Épic 9, en partie : « Dis-le », les tons sur l'appareil (29 et 30 septembre, 3 octobre)
 
 Étude de faisabilité du 29 septembre 2026 (prototype mesuré : 88,5 % des caractères isolés
 d'une voix native jamais vue, 31 Ko de poids, 21 ms par seconde d'audio), puis
@@ -898,15 +898,21 @@ intégration, pour que le propriétaire l'essaie sur son téléphone.
     à la lancer et à reporter ce qu'elle dit ;
   - mesurer la précision sur des voix d'apprenants (une bêta d'enregistrements volontaires,
     à trancher avec la politique de confidentialité) avant de noter autrement que « Bien » ;
-  - réentraîner sur des voix du continent : le ton 3 plongeant du mandarin standard est la
-    faiblesse du modèle actuel, appris sur deux voix de Taïwan. Essai du 30 septembre :
-    aucune licence lisible d'ici (huggingface.co, arxiv.org, openslr.org, Wikimedia, Lingua
-    Libre, Common Voice refusés par le proxy) ; seul l'audio de FLEURS `cmn_hans_cn`
-    s'atteint, sans sa licence, et rien n'en est dérivé (`docs/sources-licences.md` §11).
-    L'étape `tons` du workflow `donnees` lit les cartes de FLEURS, THCHS-30 et AISHELL-1.
-    Ensuite, des phrases lues : il faudra un alignement forcé syllabe par syllabe (outil et
-    licence à choisir) avant `preparer.py`, puis mesurer sur une voix du continent jamais
-    vue, ton 3 compris, avant de remplacer `modele.json` ;
+  - réentraîner sur des voix du continent : **essayé le 3 octobre, poids non remplacés**.
+    FLEURS `cmn_hans_cn` (CC BY 4.0, carte lue le 1er octobre) : 3 061 phrases étiquetées
+    syllabe par syllabe avec la liste HSK et les lectures du dépôt, ton de surface (3-3, 不,
+    一, neutre) (`fleurs.py`) ; un alignement écrit ici, sur les îlots de voix et le type
+    d'attaque de chaque syllabe (`trames.ts`, `aligner.py`), garde 20 047 syllabes sûres
+    (15 724 pour l'entraînement, 2 000 phrases ; `dev` et `test`, d'autres locuteurs, pour la
+    mesure) ; `mesurer.ts` mesure avec le code de l'app. Mêlées aux voix de Taïwan
+    (`entrainer.py --fleurs`, treize variantes essayées), elles portent la parole enchaînée du
+    continent de 16 à 45 % et les mots de Yue Tan de 67,5 à 69 %, mais le ton 3 des
+    caractères isolés tombe de 92 à 58–75 % (Yue Tan), le neutre final disparaît, l'autre ton
+    affirmé à tort sur un mot passe 3 % : `modele.json` reste celui du 29 septembre,
+    `MOTS_DIRE` reste éteint (`PROVENANCE.md`, « Les voix du continent »). Une syllabe de
+    phrase n'est pas un caractère dit seul (ton 3 en 21 bref, durée d'un neutre). Reste : des
+    syllabes ou des mots du continent lus isolément, sous licence vérifiée (THCHS-30 et
+    AISHELL-1 sont aussi des phrases) ;
   - les mots de deux syllabes, la question prête et **éteinte** (30 septembre) : un mot de
     la fiche dont les deux caractères sont acquis, une séance sur deux, la carte notée restant
     celle du caractère ; la voix coupée en deux syllabes au creux d'énergie, le ton de

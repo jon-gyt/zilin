@@ -18,9 +18,10 @@ dérive.
 
 Voix du continent (essai du 3 octobre 2026, `PROVENANCE.md`) : `--fleurs` mêle aux voix de
 Taïwan les syllabes sûres des phrases de FLEURS `train` (Google, CC BY 4.0 ; `fleurs.py`,
-`aligner.py`), lues selon `continent`. Aucune lecture n'a gardé le ton 3 des caractères isolés
-(Yue Tan : 92 % reconnus en tête avec les poids versionnés, 56 à 75 % après) : par défaut,
-`non`, et `modele.json` n'en dérive pas. Un modèle appris avec FLEURS déclare FLEURS dans son
+`aligner.py`), lues selon `continent`. Aucune lecture n'a gardé à la fois le ton 3 des
+caractères isolés (Yue Tan, en tête : 92 % avec les poids versionnés, 56 à 85 % après ; 87 à
+91 % avec la durée de Taïwan, qui perd alors le ton 1 et les caractères reconnus de Chen
+Wang) et les autres tons : par défaut, `non`, et `modele.json` n'en dérive pas. Un modèle appris avec FLEURS déclare FLEURS dans son
 bloc de licence ; `wenlu check` le refuse tant que `tons.py` n'en exporte pas l'attribution.
 
 Modèle : un ensemble de cinq petits perceptrons (34-16-5), moyenne de leurs probabilités.
