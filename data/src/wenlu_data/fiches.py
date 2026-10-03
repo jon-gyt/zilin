@@ -90,6 +90,17 @@ ESSAIS_MAX = 3
 #: L'origine tient en exactement trois phrases (brief §6 : « explications en trois phrases »).
 PHRASES_ORIGINE = 3
 
+#: L'origine se lit sans savoir (retour du propriétaire du 3 octobre 2026 : « C'est d'où le
+#: Shuowen jiezi ? Personne saura. Sois plus direct ») : ni nom de source savante ni terme de
+#: spécialiste, et 45 mots au plus en français. Les sources restent dans la décision de
+#: l'étiquette, jamais dans le texte.
+TERMES_SAVANTS = (
+    "shuowen", "說文", "说文", "os oraculaire", "oracle bone", "oracle-bone", "les bronzes", "bronze inscription", "inscriptions sur bronze",
+    "petit sceau", "small seal", "seal script", "sigillaire", "paléograph", "palaeograph",
+    "paleograph", "glose", "gloss",
+)
+MOTS_ORIGINE_MAX = 45
+
 #: Deux mots par fiche (brief §7 : « le mot avant le caractère seul »).
 MOTS_PAR_FICHE = 2
 
@@ -941,6 +952,11 @@ def compter_phrases(texte: str) -> int:
     return phrases
 
 
+def compter_mots(texte: str) -> int:
+    """Les mots d'un texte, sans la ponctuation que le français détache par une espace (« : ; »)."""
+    return sum(1 for jeton in texte.split() if any(c.isalnum() for c in jeton))
+
+
 def caracteres_hors_acquis(texte: str, acquis: Iterable[str]) -> list[str]:
     """Caractères du texte absents de l'acquis, sans doublon, dans l'ordre d'apparition."""
     permis = set(acquis) | PONCTUATION
@@ -1035,6 +1051,11 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
         compte = compter_phrases(texte)
         if compte != PHRASES_ORIGINE:
             refus.append(f"{nom} fait {compte} phrase(s) au lieu de {PHRASES_ORIGINE}")
+        savants = [t for t in TERMES_SAVANTS if t in texte.lower()]
+        if savants:
+            refus.append(f"{nom} emploie un terme savant ({', '.join(savants)}) : dire simplement")
+    if compter_mots(fiche.origine_fr) > MOTS_ORIGINE_MAX:
+        refus.append(f"origine_fr fait {compter_mots(fiche.origine_fr)} mots, {MOTS_ORIGINE_MAX} au plus")
 
     if fiche.etiquette not in ETIQUETTES:
         refus.append(f"étiquette {fiche.etiquette!r} : attendu {' ou '.join(ETIQUETTES)}")
@@ -1695,8 +1716,12 @@ composant qui n'est pas un caractère autonome (亻, 氵, 扌, 讠…) se glose 
 « homme (clé) », « person (radical) ». Vides, ils sont un écart ; une fiche ne se \
 marque pas relue sans eux.
 - origine_fr et origine_en : exactement {PHRASES_ORIGINE} phrases chacune (fins de phrase \
-comptées : {' '.join(FINS_DE_PHRASE)}) ; l'anglaise est rédigée pour un anglophone, pas \
-traduite mot à mot.
+comptées : {' '.join(FINS_DE_PHRASE)}), {MOTS_ORIGINE_MAX} mots au plus en français ; l'anglaise \
+est rédigée pour un anglophone, pas traduite mot à mot. Directe, pour un lecteur de 12 ans : \
+ce qu'on voit (les composants, nommés par leur sens), pourquoi ça veut dire ça, puis un \
+sens dérivé ; aucun nom de source ni terme savant (Shuowen, os oraculaires, bronzes, petit \
+sceau, glose…) ; l'ancienneté se dit simplement (« on l'écrivait déjà ainsi il y a 3 000 \
+ans ») ; sous « mnémotechnique » : « Pour s'en souvenir : … ».
 - etiquette : « attesté » seulement si le Shuowen jiezi ou la paléographie (os oraculaires, \
 bronzes, petit sceau) établissent l'origine ; « mnémotechnique » dans tous les autres cas, \
 et dans le doute. Sous « mnémotechnique », décrire ce que l'on voit dans la forme actuelle, \
