@@ -3,12 +3,13 @@
 Recette de `data/sources/tons/modele.json` (voir `PROVENANCE.md`), étape du continent, entre
 l'étiquetage (`fleurs.py`) et les caractéristiques (`app/scripts/tons/extraire.ts`) :
 
-    cd app && npx vite-node scripts/tons/trames.ts ../data/work/tons fleurs && cd ..
+    cd app && npx vite-node scripts/tons/trames.ts ../data/work/tons && cd ..
     uv run --with numpy python data/sources/tons/aligner.py
 
 Un alignement simple, écrit ici, sans modèle acoustique : on connaît le nombre de syllabes de
 la phrase et le type de l'attaque de chacune (`fleurs.py`) ; le suivi de hauteur de l'app
-(`pitch.ts`, `suivreHauteur`, trames de 10 ms) dit où la voix vibre et avec quelle énergie.
+(`pitch.ts`, `suivreHauteur`, trames de 10 ms, réglé plus souple pour des phrases lues au
+micro d'un ordinateur : `trames.ts`, `SOUPLE`) dit où la voix vibre et avec quelle énergie.
 
 1. Les îlots : les plages voisées de la phrase (un trou d'une trame est comblé ; un îlot de
    moins de 40 ms, ou très faible au bord de la phrase, est écarté).
@@ -26,10 +27,19 @@ la phrase et le type de l'attaque de chacune (`fleurs.py`) ; le suivi de hauteur
 
 Sortie : les entrées FLEURS de `corpus.json` (source `fleurs`, rôle `entrainement` pour
 `train`, `test` pour `dev` et `test` : leurs locuteurs ne sont pas ceux de `train`), chacune
-avec ses syllabes sûres : leur ton, leur caractère et leur plage de trames `[a, b)`
-(`plages`), pour que `extraire.ts` les découpe avec `segmenter`, comme l'app ; et, pour la
+avec ses syllabes sûres : leur ton, leur caractère, leur place dans le groupe et leur plage
+`[a, b)` en trames : l'îlot et la moitié des trous qui l'entourent (`plages`), dont
+`extraire.ts` traite l'extrait comme l'enregistrement d'un caractère, avec les réglages de
+l'app ; la hauteur moyenne de chaque îlot (`moyennes`, la voix de la phrase) ; et, pour la
 mesure, les paires de syllabes sûres et voisines qui forment un mot de deux caractères de la
 liste HSK (`mots`). Le corpus existant (Taïwan, audio-cmn, Kokoro) est gardé tel quel.
+
+Contrôles de l'alignement (3 octobre 2026, `PROVENANCE.md`) : devant une syllabe sûre, le trou
+d'une consonne non aspirée (b d g z zh j) dure 60 ms en médiane, celui d'une fricative ou
+d'une aspirée 100 ms ; décalé d'une syllabe, ces écarts disparaissent (80 à 90 ms partout).
+Un perceptron appris sur les seules syllabes sûres de `train` reconnaît 51 % de celles de
+`dev` et `test` (cinq tons), le ton 3 à peine (6 %) : la parole enchaînée dit peu du ton de
+chaque syllabe, même bien bornée.
 """
 from __future__ import annotations
 
@@ -202,6 +212,13 @@ def sures(entree: dict, tr: np.ndarray) -> tuple[list[dict], dict]:
     return out, stats
 
 
+def place(syl: list[dict], j: int) -> str:
+    """`fin` : la dernière syllabe d'un groupe ; `debut` : la première ; `milieu` sinon."""
+    if j + 1 == len(syl) or syl[j + 1]["avant"] == "ponct":
+        return "fin"
+    return "debut" if syl[j]["avant"] == "ponct" else "milieu"
+
+
 def _traiter(args: tuple[dict, list]) -> tuple[str, list[dict], dict]:
     e, tr = args
     s, st = sures(e, np.asarray(tr, dtype=np.float64))
@@ -251,6 +268,7 @@ def main() -> None:
             partie=e["partie"], genre=e["genre"], fichier=e["fichier"], texte=e["texte"],
             tons=[syl[x["j"]]["ton"] for x in gardees],
             syllabes=[syl[x["j"]]["c"] for x in gardees],
+            places=[place(syl, x["j"]) for x in gardees],
             plages=[[x["a"], x["b"]] for x in gardees],
             moyennes=st.get("moyennes", []),
             mots=mots,
