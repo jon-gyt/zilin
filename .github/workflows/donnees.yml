@@ -56,6 +56,10 @@ on:
         description: "tons-voix : nombre de jobs parallèles entre lesquels les voix se répartissent"
         type: string
         default: '5'
+      artefacts:
+        description: "tons-voix : l'id d'un run dont reprendre les caractéristiques, sans synthèse (vide : synthétiser)"
+        type: string
+        default: ''
       jusqua:
         description: "Fiches : les N premiers caractères du parcours seulement (vide : tous)"
         type: string
@@ -400,7 +404,7 @@ jobs:
   # l'app.
 
   tons-voix-plan:
-    if: inputs.etapes == 'tons-voix'
+    if: inputs.etapes == 'tons-voix' && inputs.artefacts == ''
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
@@ -488,13 +492,22 @@ jobs:
           path: data/sources/tons/voix-kokoro/
           if-no-files-found: warn
 
+  # La branche part de la branche par défaut : un jeton de workflow ne peut pas pousser des
+  # commits qui changent un workflow, comme ceux d'une branche de travail pas encore fusionnée.
   tons-voix-branche:
     needs: tons-voix
-    if: always() && needs.tons-voix.result != 'skipped' && needs.tons-voix.result != 'cancelled'
+    if: >-
+      always() && inputs.etapes == 'tons-voix' && (inputs.artefacts != '' ||
+      (needs.tons-voix.result != 'skipped' && needs.tons-voix.result != 'cancelled'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: write
+      actions: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
 
       # Les voix des passages précédents restent : un passage peut ne refaire que quelques voix.
       - name: Garder les voix déjà extraites
@@ -508,6 +521,8 @@ jobs:
           pattern: tons-voix-*
           merge-multiple: true
           path: data/sources/tons/voix-kokoro
+          run-id: ${{ inputs.artefacts || github.run_id }}
+          github-token: ${{ github.token }}
 
       - name: Manifeste et bilan
         run: |
