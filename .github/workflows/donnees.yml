@@ -28,15 +28,23 @@
 # à virgules, vide pour celles de `voix_kokoro.py`) ; seul le JSON des caractéristiques part sur la
 # branche `donnees/tons-voix`, jamais un son, et les voix déjà extraites y restent d'un
 # passage à l'autre.
+#
+# `etapes: tons-cc` (3 octobre 2026, décision « Voix CC BY-SA ») lit la licence de chaque
+# enregistrement `cmn` de Lingua Libre sur Commons, les fiches de ses locuteurs, le readme de
+# Shtooka (Yue Tan) et le README d'audio-cmn (Chen Wang), puis, si `voix-cc.json` (le choix fait
+# sur le poste, `data/sources/tons/voix_cc.py choisir`) est versionné, télécharge les fichiers
+# retenus, vérifie leur empreinte et en calcule les caractéristiques avec le code de l'app
+# (`app/scripts/tons/voix.ts`). Seuls les pages de licence lues et le JSON des caractéristiques
+# partent sur la branche `donnees/tons-cc`, jamais un son.
 name: donnees
 
 on:
   workflow_dispatch:
     inputs:
       etapes:
-        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes), tons (licences des voix) ; tons-voix (voix Kokoro du classifieur des tons, sans wenlu tout)"
+        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes), tons (licences des voix) ; tons-voix (voix Kokoro du classifieur des tons, sans wenlu tout) ; tons-cc (voix humaines CC BY-SA du classifieur des tons, sans wenlu tout)"
         type: choice
-        options: [audio, fiches, contes, recuperer, tout, tons, tons-voix]
+        options: [audio, fiches, contes, recuperer, tout, tons, tons-voix, tons-cc]
         default: audio
       seuil:
         description: "Seuil de la liste cible (audio du parcours lire, contes)"
@@ -76,7 +84,7 @@ concurrency:
 
 jobs:
   pipeline:
-    if: inputs.etapes != 'tons-voix'
+    if: inputs.etapes != 'tons-voix' && inputs.etapes != 'tons-cc'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     defaults:
@@ -571,3 +579,116 @@ jobs:
           git commit -q -F "$RUNNER_TEMP/message.txt"
           git push --force origin "HEAD:refs/heads/donnees/tons-voix"
           echo "Commit $(git rev-parse --short HEAD) poussé sur donnees/tons-voix." >> "$GITHUB_STEP_SUMMARY"
+
+  # -------------------------------------------------------------- tons-cc
+  #
+  # Un seul job : l'inventaire des licences, l'audio et les caractéristiques des fichiers retenus,
+  # puis la branche, repartie de la branche par défaut (le jeton d'un workflow ne peut pas pousser
+  # un commit qui change un workflow).
+
+  tons-cc:
+    if: inputs.etapes == 'tons-cc'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inventaire des licences (voix_cc.py inventaire)
+        run: |
+          mkdir -p data/work/journaux
+          python3 data/sources/tons/voix_cc.py inventaire 2>&1 | tee data/work/journaux/tons-cc-inventaire.txt
+          {
+            echo "### Tons, voix CC : licences lues"
+            echo
+            echo '```'
+            cat data/sources/tons/licences-lues/SHA256SUMS-tons-cc.txt
+            echo '```'
+            sed -n '/^### Lingua Libre/,$p' data/work/journaux/tons-cc-inventaire.txt | head -150
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Choix versionné
+        id: choix
+        run: |
+          if [ -s data/sources/tons/voix-cc.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "Pas de voix-cc.json : inventaire seulement." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.choix.outputs.present == 'true'
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Audio et caractéristiques (voix_cc.py telecharger, voix.ts)
+        if: steps.choix.outputs.present == 'true'
+        timeout-minutes: 150
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg
+          (cd app && npm ci --no-audit --no-fund)
+          python3 data/sources/tons/voix_cc.py telecharger 2>&1 | tee data/work/journaux/tons-cc-telecharger.txt | tail -60 >> "$GITHUB_STEP_SUMMARY"
+          voix=$(python3 data/sources/tons/voix_cc.py locuteurs)
+          # shellcheck disable=SC2086 # une voix par mot, voulu
+          (cd app && npx vite-node scripts/tons/voix.ts ../data/work/tons/cc --sortie ../data/sources/tons/voix-cc --modele ../data/sources/tons/modele.json $voix) | tee -a "$GITHUB_STEP_SUMMARY"
+          (cd data/sources/tons/voix-cc && ls ./*.json | sort | xargs sha256sum > SHA256SUMS)
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tons-cc-${{ github.run_number }}
+          if-no-files-found: warn
+          path: |
+            data/sources/tons/licences-lues/
+            data/sources/tons/voix-cc/
+            data/work/journaux/
+
+      - name: Commit sur donnees/tons-cc
+        env:
+          DEFAUT: ${{ github.event.repository.default_branch }}
+        run: |
+          garde="$RUNNER_TEMP/garde"
+          mkdir -p "$garde"
+          cp -r data/sources/tons/licences-lues "$garde/" 2>/dev/null || true
+          cp -r data/sources/tons/voix-cc "$garde/" 2>/dev/null || true
+          git fetch --depth 1 origin "$DEFAUT"
+          git switch -f -C donnees/tons-cc FETCH_HEAD
+          # les voix déjà extraites d'un passage précédent restent
+          if git fetch --depth 1 origin donnees/tons-cc 2>/dev/null; then
+            git checkout FETCH_HEAD -- data/sources/tons/voix-cc/ 2>/dev/null || true
+          fi
+          mkdir -p data/sources/tons
+          rm -rf data/sources/tons/licences-lues
+          cp -r "$garde/licences-lues" data/sources/tons/ 2>/dev/null || true
+          if [ -d "$garde/voix-cc" ]; then mkdir -p data/sources/tons/voix-cc && cp -r "$garde/voix-cc/." data/sources/tons/voix-cc/; fi
+          git add -A -- data/sources/tons/licences-lues data/sources/tons/voix-cc
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau : pas de branche." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          {
+            echo "Lire les licences des voix CC du classifieur des tons"
+            echo
+            echo "Produit par le workflow donnees, étape tons-cc : $run_url"
+            echo "Pages de licence lues et caractéristiques (app/scripts/tons/voix.ts), aucun son."
+            echo
+            git diff --cached --stat | tail -1
+            echo
+            echo "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+          } > "$RUNNER_TEMP/message.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -F "$RUNNER_TEMP/message.txt"
+          git push --force origin "HEAD:refs/heads/donnees/tons-cc"
+          echo "Commit $(git rev-parse --short HEAD) poussé sur donnees/tons-cc." >> "$GITHUB_STEP_SUMMARY"
