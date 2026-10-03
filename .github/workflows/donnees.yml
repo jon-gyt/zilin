@@ -502,9 +502,16 @@ jobs:
           path: data/sources/tons/voix-kokoro
 
       - name: Manifeste et bilan
-        working-directory: data/sources/tons/voix-kokoro
         run: |
-          ls -- *.json | sort | xargs sha256sum > SHA256SUMS
+          mkdir -p data/sources/tons/voix-kokoro
+          cd data/sources/tons/voix-kokoro
+          shopt -s nullglob
+          fichiers=(*.json)
+          if [ ${#fichiers[@]} -eq 0 ]; then
+            echo "Aucune voix extraite." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          printf '%s\n' "${fichiers[@]}" | sort | xargs sha256sum > SHA256SUMS
           python3 - <<'PY' | tee bilan.md >> "$GITHUB_STEP_SUMMARY"
           import json, pathlib
           print("| voix | rôle | énoncés | syllabes | sans découpe juste | voix (Hz) | révision des poids |")
