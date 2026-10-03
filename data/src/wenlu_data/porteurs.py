@@ -591,3 +591,23 @@ def bilan(dossier: Path, critere: Mapping[str, float] = CRITERE) -> dict[str, ob
     (dossier / "choix.json").write_text(json.dumps(resultat, ensure_ascii=False, indent=1), encoding="utf-8")
     (dossier / "bilan.md").write_text(md, encoding="utf-8")
     return resultat
+
+
+def lots(n: int, porteur: str = "") -> list[str]:
+    """La matrice du workflow : les porteurs en `n` lots (à virgules) pour l'essai, ou un seul
+    lot `regenerer` quand un porteur est nommé. Sans dépendance : tourne avant `uv sync`."""
+    if porteur:
+        if porteur not in PORTEURS:
+            raise ValueError(f"porteur inconnu : {porteur} ; connus : {', '.join(PORTEURS)}")
+        return ["regenerer"]
+    n = max(1, min(n, len(PORTEURS)))
+    groupes: list[list[str]] = [[] for _ in range(n)]
+    for i, nom in enumerate(PORTEURS):
+        groupes[i % n].append(nom)
+    return [",".join(g) for g in groupes]
+
+
+if __name__ == "__main__":  # python3 -m wenlu_data.porteurs <lots> [porteur]
+    import sys
+
+    print(json.dumps(lots(int(sys.argv[1]) if len(sys.argv) > 1 else 5, sys.argv[2].strip() if len(sys.argv) > 2 else "")))

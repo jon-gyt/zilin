@@ -432,6 +432,18 @@ def test_un_fichier_repris_nest_pas_refait_sauf_un_caractere_a_porter(tmp_path: 
     assert lire_manifeste(tmp_path / "work").entrees["妈"].fichier == noms["妈"]
 
 
+def test_lessai_repartit_tous_les_porteurs_entre_les_lots() -> None:
+    lots = module.lots(5)
+    assert len(lots) == 5
+    assert sorted(n for lot in lots for n in lot.split(",")) == sorted(PORTEURS)
+
+
+def test_un_porteur_nomme_donne_un_seul_lot_de_regeneration() -> None:
+    assert module.lots(5, "double") == ["regenerer"]
+    with pytest.raises(ValueError):
+        module.lots(5, "inconnu")
+
+
 def test_le_porteur_par_defaut_est_un_porteur_connu() -> None:
     from wenlu_data.audio import PORTEUR_DEFAUT
 

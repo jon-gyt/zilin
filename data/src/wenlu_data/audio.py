@@ -1584,7 +1584,8 @@ def commande_porteurs(
 ) -> None:
     """Essai des porteurs (décision du 3 octobre 2026) : les caractères que l'app embarque dits
     dans chaque porteur et coupés, prêts à mesurer par app/scripts/tons/audio.ts."""
-    choisis = [n for n in (x.strip() for x in noms.split(",")) if n] or list(PORTEURS)
+    # « aucun » : les fichiers actuels seuls (`--app`), pour mesurer des fichiers refaits
+    choisis = [] if noms.strip() == AUCUN else [n for n in (x.strip() for x in noms.split(",")) if n] or list(PORTEURS)
     inconnus = [n for n in choisis if n not in PORTEURS]
     if inconnus:
         typer.echo(f"porteurs inconnus : {', '.join(inconnus)} ; connus : {', '.join(PORTEURS)}", err=True)
