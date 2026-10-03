@@ -24,6 +24,14 @@ caractères isolés (Yue Tan, en tête : 92 % avec les poids versionnés, 56 à 
 Wang) et les autres tons : par défaut, `non`, et `modele.json` n'en dérive pas. Un modèle appris avec FLEURS déclare FLEURS dans son
 bloc de licence ; `wenlu check` le refuse tant que `tons.py` n'en exporte pas l'attribution.
 
+Voix synthétiques du continent (3 octobre 2026, `PROVENANCE.md`) : `--kokoro <dossier>` mêle
+aux voix de Taïwan les caractères isolés et les mots HSK que Kokoro a dits en phonèmes
+(`voix_kokoro.py`, workflow `donnees`, étape `tons-voix`), dont `app/scripts/tons/voix.ts` a
+calculé les caractéristiques (branche `donnees/tons-voix`, dossier `voix-kokoro/`). Désactivé
+par défaut. `zf_001`, la voix de l'app, est refusée : c'est le test. Les sorties de Kokoro
+sont produites chez nous (Apache 2.0 pour le modèle, rien sur les sorties) : le bloc de
+licence les déclare comme synthèse, à côté des contours paramétriques.
+
 Modèle : un ensemble de cinq petits perceptrons (34-16-5), moyenne de leurs probabilités.
 Choisi sur le jeu de développement (Chen Wang, audio-cmn) parmi quelques tailles ; la
 température aussi. Le jeu de Yue Tan et les fichiers Kokoro restent le test.
@@ -43,6 +51,8 @@ from pathlib import Path
 import numpy as np
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.neural_network import MLPClassifier
+
+from voix_kokoro import VOIX_TEST, lignes_kokoro  # la recette voisine (voix synthétiques)
 
 warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
@@ -182,6 +192,32 @@ def continent(rows, mode: str, part: float, rng, places: tuple[str, ...] = ("fin
     return autres + out
 
 
+def kokoro(rows, dossier: Path | None, part: float, rng, genres: tuple[str, ...] = ("c", "m"),
+           sans_probleme: bool = True, avec_voix: bool = False, voix: tuple[str, ...] = ()) -> list:
+    """Les voix synthétiques du continent (Kokoro, `voix_kokoro.py`) mêlées aux autres lignes.
+
+    `part` : la part des syllabes Kokoro gardées (tirées au hasard) ; `genres` : `c` les
+    caractères isolés, `m` les syllabes de mots ; `sans_probleme` : écarter ce que l'app aurait
+    redemandé (trop court, saturé) ; `avec_voix` : seulement les conditions où la voix est
+    connue ; `voix` : ne garder que ces voix (vide : toutes)."""
+    if dossier is None:
+        return rows
+    fichiers = sorted(p for p in Path(dossier).glob("z*_*.json") if not p.name.endswith("-mesure.json"))
+    k = []
+    for p in fichiers:
+        doc = json.loads(p.read_text())
+        if doc["voix"] == VOIX_TEST or (voix and doc["voix"] not in voix):
+            continue
+        k += [r for r in lignes_kokoro(doc) if r["genre"] in genres and not (sans_probleme and r["probleme"])]
+    if part < 1:
+        idx = rng.choice(len(k), size=int(round(part * len(k))), replace=False)
+        k = [k[i] for i in sorted(idx)]
+    if avec_voix:
+        for r in k:
+            r["x_sans"] = None
+    return rows + k
+
+
 def augmenter(X: np.ndarray, y: np.ndarray, rng: np.random.Generator, copies: int = 4):
     """Variantes plausibles d'un contour : bruit, excursion plus ou moins marquée
     (un apprenant exagère ou aplatit), attaque ou fin rognée, durée ±30 %."""
@@ -303,11 +339,23 @@ def main():
     ap.add_argument("--fleurs-sans-neutre", action="store_true", help="FLEURS : sans les tons neutres")
     ap.add_argument("--places-t3", default="fin,debut,milieu", help="FLEURS : places gardées pour le ton 3")
     ap.add_argument("--graine", type=int, default=0, help="décale les graines des membres (variance)")
+    ap.add_argument("--kokoro", default=None,
+                    help="dossier des voix Kokoro (`voix-kokoro/`, branche donnees/tons-voix) ; absent : aucune")
+    ap.add_argument("--part-kokoro", type=float, default=1.0, help="part des syllabes Kokoro gardées")
+    ap.add_argument("--genres-kokoro", default="c,m", help="Kokoro : c (caractères isolés), m (syllabes de mots)")
+    ap.add_argument("--kokoro-avec-voix", action="store_true", help="Kokoro : seulement la voix connue")
+    ap.add_argument("--kokoro-avec-probleme", action="store_true",
+                    help="Kokoro : garder ce que l'app aurait redemandé (trop court, saturé)")
+    ap.add_argument("--voix-kokoro", default="", help="Kokoro : ces voix seulement (liste à virgules)")
     args = ap.parse_args()
     rows = continent(charger(), args.fleurs, args.part_fleurs, np.random.default_rng(GRAINE),
                      tuple(args.places_fleurs.split(",")), sans_registre=not args.fleurs_avec_voix,
                      neutres=not args.fleurs_sans_neutre,
                      places_t3=tuple(x for x in args.places_t3.split(",") if x))
+    rows = kokoro(rows, Path(args.kokoro) if args.kokoro else None, args.part_kokoro,
+                  np.random.default_rng(GRAINE + 1), tuple(args.genres_kokoro.split(",")),
+                  sans_probleme=not args.kokoro_avec_probleme, avec_voix=args.kokoro_avec_voix,
+                  voix=tuple(v for v in args.voix_kokoro.split(",") if v))
     humain = args.mode != "synthese"
     n_synth = args.n_synth if args.mode != "humain" else 0
     train_locs = sorted({r["locuteur"] for r in rows if r["role"] == "entrainement"}) if humain else []
@@ -403,6 +451,22 @@ def main():
         modele["entrainement"]["fleurs"] = {
             "lecture": args.fleurs, "part": args.part_fleurs, "places": args.places_fleurs,
             "avec_voix": args.fleurs_avec_voix, "sans_neutre": args.fleurs_sans_neutre, "places_t3": args.places_t3,
+        }
+    if args.kokoro:
+        dossier = Path(args.kokoro)
+        sommes = dossier / "SHA256SUMS"
+        voix_k = sorted({r["locuteur"].removeprefix("kokoro-") for r in rows if r["source"] == "kokoro"})
+        modele["licence"]["synthese_voix"] = (
+            "voix synthétiques du continent : sorties de Kokoro (hexgrad/Kokoro-82M-v1.1-zh, Apache 2.0), "
+            "produites par Wenlu dans le workflow donnees (étape tons-voix) ; ni le code ni les poids de "
+            "Kokoro ne sont redistribués, et la licence Apache 2.0 ne régit pas les sorties ; "
+            "zf_001 (la voix de l'app) reste le test"
+        )
+        modele["entrainement"]["kokoro"] = {
+            "voix": voix_k, "part": args.part_kokoro, "genres": args.genres_kokoro,
+            "avec_voix": args.kokoro_avec_voix, "avec_probleme": args.kokoro_avec_probleme,
+            "syllabes": sum(1 for r in rows if r["source"] == "kokoro"),
+            "manifeste": "sha256:" + hashlib.sha256(sommes.read_bytes()).hexdigest() if sommes.exists() else None,
         }
     p = Path(args.sortie)
     p.write_text(json.dumps(modele, ensure_ascii=False, separators=(",", ":")))

@@ -322,6 +322,35 @@ def generer(voix: list[str], sortie: Path = TRAVAIL) -> None:
         print(f"{v} : {len(entrees)} textes dits, {echecs} sans audio", flush=True)
 
 
+# ------------------------------------------------------------------------- entraînement
+
+#: Les entrées du modèle : 30 points de contour, puis registre, indicateur, durée, voisement.
+N_POINTS = 30
+
+
+def lignes_kokoro(doc: dict) -> list[dict]:
+    """Les syllabes d'une voix (`app/scripts/tons/voix.ts`) en lignes de `caracteristiques.json`,
+    pour `entrainer.py --kokoro` : `x` sans voix, puis le registre calibré (`rc`) et celui de la
+    voix entière (`ro`) à la place du registre et de son indicateur. Une syllabe que la découpe
+    a manquée n'entre pas. La voix de l'app, ou une voix marquée test, est refusée."""
+    if doc["voix"] == VOIX_TEST or doc.get("role") != "entrainement":
+        raise ValueError(f"{doc['voix']} : voix de test, jamais à l'entraînement")
+    out = []
+    for ligne in doc["lignes"]:
+        if not ligne["ok"]:
+            continue
+        x = list(ligne["x"])
+        out.append({
+            "id": ligne["id"], "source": "kokoro", "locuteur": f"kokoro-{doc['voix']}", "role": "entrainement",
+            "ton": ligne["t"], "pos": ligne["k"], "nsyl": ligne["n"], "genre": ligne["g"],
+            "vitesse": ligne["v"], "fin": ligne["f"], "probleme": ligne.get("probleme"), "ok": True,
+            "x_sans": x,
+            "x_calibree": x[:N_POINTS] + [ligne["rc"], 1.0] + x[N_POINTS + 2:],
+            "x_oracle": x[:N_POINTS] + [ligne["ro"], 1.0] + x[N_POINTS + 2:],
+        })
+    return out
+
+
 def main() -> None:
     import argparse
 

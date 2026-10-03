@@ -147,3 +147,32 @@ def test_les_lots_du_workflow_gardent_chaque_voix_une_fois() -> None:
     assert len(lots) == 5
     assert sorted(v for lot in lots for v in lot) == sorted(kokoro.VOIX_DEFAUT)
     assert kokoro.VOIX_TEST in lots[0]
+
+
+def _doc(voix: str, role: str = "entrainement") -> dict:
+    x = [0.1] * 30 + [0.0, 0.0, -0.5, 1.0]
+    return {"voix": voix, "role": role, "lignes": [
+        {"id": f"{voix}/c/高", "g": "c", "k": 0, "n": 1, "t": 1, "v": 1.0, "f": "", "ok": True, "x": x,
+         "rc": 2.5, "ro": 2.0, "probleme": None},
+        {"id": f"{voix}/m/水果", "g": "m", "n": 2, "ok": False},
+    ]}
+
+
+def test_la_voix_de_l_app_est_refusee_a_l_entrainement() -> None:
+    with pytest.raises(ValueError):
+        kokoro.lignes_kokoro(_doc("zf_001"))
+    with pytest.raises(ValueError):
+        kokoro.lignes_kokoro(_doc("zf_002", role="test"))
+
+
+def test_une_syllabe_que_la_decoupe_a_manquee_n_entre_pas() -> None:
+    assert [r["id"] for r in kokoro.lignes_kokoro(_doc("zf_002"))] == ["zf_002/c/高"]
+
+
+def test_les_trois_conditions_ne_different_que_par_le_registre() -> None:
+    (r,) = kokoro.lignes_kokoro(_doc("zf_002"))
+    assert r["x_sans"][30:] == [0.0, 0.0, -0.5, 1.0]
+    assert r["x_calibree"][30:] == [2.5, 1.0, -0.5, 1.0]
+    assert r["x_oracle"][30:] == [2.0, 1.0, -0.5, 1.0]
+    assert r["x_sans"][:30] == r["x_calibree"][:30] == r["x_oracle"][:30]
+    assert r["role"] == "entrainement" and r["locuteur"] == "kokoro-zf_002"
