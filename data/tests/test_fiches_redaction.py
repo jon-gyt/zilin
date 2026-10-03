@@ -642,3 +642,7 @@ def test_l_origine_se_lit_sans_terme_savant_et_courte(table, tmp_path: Path) -> 
         chemin = ecrire_brouillon(tmp_path / "brouillons", origine(origine_fr=texte))
         resultat = importer_brouillon(lire_brouillon(chemin), _corpus_sans_鸟(table), dossier=tmp_path, horloge=aujourdhui)
         assert attendu in " ; ".join(resultat.rapport.refus)
+
+
+def test_la_ponctuation_detachee_ne_compte_pas_comme_un_mot() -> None:
+    assert fiches.compter_mots("Une femme 女 : la mère ; « bonne » — et 好.") == 8

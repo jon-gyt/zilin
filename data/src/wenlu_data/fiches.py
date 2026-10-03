@@ -952,6 +952,11 @@ def compter_phrases(texte: str) -> int:
     return phrases
 
 
+def compter_mots(texte: str) -> int:
+    """Les mots d'un texte, sans la ponctuation que le français détache par une espace (« : ; »)."""
+    return sum(1 for jeton in texte.split() if any(c.isalnum() for c in jeton))
+
+
 def caracteres_hors_acquis(texte: str, acquis: Iterable[str]) -> list[str]:
     """Caractères du texte absents de l'acquis, sans doublon, dans l'ordre d'apparition."""
     permis = set(acquis) | PONCTUATION
@@ -1049,8 +1054,8 @@ def valider(fiche: Fiche, contexte: Contexte) -> Rapport:
         savants = [t for t in TERMES_SAVANTS if t in texte.lower()]
         if savants:
             refus.append(f"{nom} emploie un terme savant ({', '.join(savants)}) : dire simplement")
-    if len(fiche.origine_fr.split()) > MOTS_ORIGINE_MAX:
-        refus.append(f"origine_fr fait {len(fiche.origine_fr.split())} mots, {MOTS_ORIGINE_MAX} au plus")
+    if compter_mots(fiche.origine_fr) > MOTS_ORIGINE_MAX:
+        refus.append(f"origine_fr fait {compter_mots(fiche.origine_fr)} mots, {MOTS_ORIGINE_MAX} au plus")
 
     if fiche.etiquette not in ETIQUETTES:
         refus.append(f"étiquette {fiche.etiquette!r} : attendu {' ou '.join(ETIQUETTES)}")
