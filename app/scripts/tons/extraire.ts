@@ -9,15 +9,16 @@
  * Lit `<travail>/donnees/corpus.json` (écrit par `data/sources/tons/preparer.py`, puis complété
  * par `aligner.py`), écrit `<travail>/donnees/caracteristiques.json`.
  *
- * Une entrée avec `plages` (les phrases de FLEURS) : ses trames sont celles que `trames.ts` a
- * gardées (`fleurs-trames-*.json`, le même suivi de hauteur), et chaque syllabe sûre est la
- * plage `[a, b)` de ces trames que `segmenter` découpe comme l'enregistrement d'un caractère.
+ * Une entrée avec `plages` (les phrases de FLEURS, `aligner.py`) : chaque syllabe sûre est un
+ * extrait de la phrase (`extrait.ts`), traité comme l'enregistrement d'un caractère :
+ * `suivreHauteur` et `segmenter`, avec les réglages de l'app.
  */
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { caracteristiques, contourDe, type Contour } from '../../src/lib/tons/classifieur';
-import { segmenter, suivreHauteur, type Trame } from '../../src/lib/tons/pitch';
+import { segmenter, suivreHauteur } from '../../src/lib/tons/pitch';
 import { lireWav, reechantillonner } from '../../src/lib/tons/wav';
+import { extrait, lireSignal } from './extrait';
 
 const ICI = resolve(process.argv[2] ?? '../data/work/tons');
 type Entree = {
@@ -29,21 +30,12 @@ type Entree = {
   texte: string;
   tons: number[];
   plages?: number[][];
+  /** La place de chaque syllabe dans son groupe (`fin`, `debut`, `milieu`). */
+  places?: string[];
   /** Moyennes (Hz) de toutes les syllabes voisées de la phrase : la voix du locuteur. */
   moyennes?: number[];
 };
 const corpus: Entree[] = JSON.parse(readFileSync(join(ICI, 'donnees', 'corpus.json'), 'utf8')) as Entree[];
-
-/** Les trames gardées par `trames.ts`, par phrase. */
-const gardees = new Map<string, number[][]>();
-if (corpus.some((e) => e.plages)) {
-  const dossier = join(ICI, 'donnees');
-  for (const f of readdirSync(dossier).filter((n) => /^fleurs-trames-\d+\.json$/.test(n)).sort()) {
-    const d = JSON.parse(readFileSync(join(dossier, f), 'utf8')) as Record<string, { tr: number[][] }>;
-    for (const [k, v] of Object.entries(d)) gardees.set(k.startsWith('fleurs/') ? k : `fleurs/${k}`, v.tr);
-  }
-}
-const versTrames = (tr: number[][]): Trame[] => tr.map(([t, f0, aperiodicite, rms, v]) => ({ t, f0, aperiodicite, rms, voisee: v === 1 }));
 
 type Ligne = {
   id: string;
@@ -54,6 +46,7 @@ type Ligne = {
   ton: number;
   pos: number;
   nsyl: number;
+  place?: string;
   contour: Contour | null;
 };
 const lignes: Ligne[] = [];
@@ -62,10 +55,10 @@ let tCalcul = 0;
 for (const [k, e] of corpus.entries()) {
   let contours: (Contour | null)[];
   if (e.plages) {
-    const brutes = gardees.get(e.id);
-    const trames = brutes ? versTrames(brutes) : [];
+    if (!existsSync(join(ICI, e.fichier))) continue;
+    const x = lireSignal(join(ICI, e.fichier));
     contours = e.plages.map(([a, b]) => {
-      const segs = brutes ? segmenter(trames.slice(a, b), 1) : [];
+      const segs = segmenter(suivreHauteur(extrait(x, a, b), { sr: 16000 }), 1);
       return segs.length === 1 ? contourDe(segs[0]) : null;
     });
   } else {
@@ -82,7 +75,7 @@ for (const [k, e] of corpus.entries()) {
   }
   // une syllabe de phrase (FLEURS) se mesure seule, comme un caractère : nsyl 1
   e.tons.forEach((ton, pos) =>
-    lignes.push({ id: e.id, source: e.source, locuteur: e.locuteur, role: e.role, texte: e.texte, ton, pos, nsyl: e.plages ? 1 : e.tons.length, contour: contours[pos] })
+    lignes.push({ id: e.id, source: e.source, locuteur: e.locuteur, role: e.role, texte: e.texte, ton, pos, nsyl: e.plages ? 1 : e.tons.length, place: e.places?.[pos], contour: contours[pos] })
   );
   if (k % 1000 === 0) process.stderr.write(`${k}/${corpus.length}\n`);
 }
@@ -125,6 +118,7 @@ const sortie = lignes.map((l) => {
     ton: l.ton,
     pos: l.pos,
     nsyl: l.nsyl,
+    ...(l.place ? { place: l.place } : {}),
     ok: true,
     points: l.contour.points.map((p) => +p.toFixed(3)),
     moyenne: +l.contour.moyenne.toFixed(2),

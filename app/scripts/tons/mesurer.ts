@@ -22,10 +22,11 @@
  * tort, on redemande), et le verdict quand l'app attend un autre ton sur une syllabe tirée au
  * hasard (« reconnu à tort »). Écrit `<travail>/mesures/resultats-<etiquette>.md` et `.json`.
  */
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { analyserTrames, CLASSES, type Modele, type Ton } from '../../src/lib/tons/classifieur';
-import { moyenneLog, segmenter, type Trame } from '../../src/lib/tons/pitch';
+import { moyenneLog, segmenter, suivreHauteur, type Trame } from '../../src/lib/tons/pitch';
+import { extrait, lireSignal } from './extrait';
 
 const ICI = resolve(process.argv[2] ?? '../data/work/tons');
 const fichierModele = process.argv[3] && process.argv[3] !== '-' ? process.argv[3] : 'public/data/0.1.0/tons.json';
@@ -35,7 +36,7 @@ const MESURE = join(ICI, 'donnees', 'mesure');
 const lire = <T>(f: string): T => JSON.parse(readFileSync(f, 'utf8')) as T;
 
 type Tr = { crete: number; duree: number; tr: number[][] };
-type Enonce = { id: string; source: string; locuteur: string; tons: number[]; syl?: string[]; jeu?: string; plage?: number[]; trames?: string };
+type Enonce = { id: string; source: string; locuteur: string; tons: number[]; syl?: string[]; jeu?: string; plage?: number[]; phrase?: string };
 const trames: Record<string, Tr> = { ...lire<Record<string, Tr>>(join(MESURE, 'trames-ytm.json')), ...lire<Record<string, Tr>>(join(MESURE, 'trames-car.json')) };
 const enonces: Enonce[] = [
   ...lire<Enonce[]>(join(MESURE, 'mots-yt.json')).filter((e) => e.tons[0] !== 5),
@@ -44,26 +45,21 @@ const enonces: Enonce[] = [
 
 /** Les syllabes et les mots de FLEURS tenus à part, et la voix de chaque phrase. */
 const voixFleurs = new Map<string, number[]>();
-const tramesFleurs = new Map<string, Tr>();
-type EntreeFleurs = { id: string; source: string; partie: string; tons: number[]; plages: number[][]; moyennes: number[]; mots: { texte: string; a: number; b: number; tons: number[]; syl: (string | null)[] }[] };
+const fichiersFleurs = new Map<string, string>();
+type EntreeFleurs = {
+  id: string; source: string; partie: string; fichier: string; tons: number[]; plages: number[][]; moyennes: number[];
+  mots: { texte: string; a: number; b: number; tons: number[]; syl: (string | null)[] }[];
+};
 const fleurs = existsSync(join(ICI, 'donnees', 'corpus.json'))
   ? lire<EntreeFleurs[]>(join(ICI, 'donnees', 'corpus.json')).filter((e) => e.source === 'fleurs' && e.partie !== 'train')
   : [];
-if (fleurs.length) {
-  const voulus = new Set(fleurs.map((e) => e.id));
-  for (const f of readdirSync(join(ICI, 'donnees')).filter((n) => /^fleurs-trames-\d+\.json$/.test(n)).sort()) {
-    for (const [k, v] of Object.entries(lire<Record<string, Tr>>(join(ICI, 'donnees', f)))) {
-      const id = k.startsWith('fleurs/') ? k : `fleurs/${k}`;
-      if (voulus.has(id)) tramesFleurs.set(id, v);
-    }
-  }
-  for (const e of fleurs) {
-    voixFleurs.set(e.id, e.moyennes);
-    e.plages.forEach((p, k) => enonces.push({ id: `${e.id}#${k}`, source: 'fleurs', locuteur: e.id, tons: [e.tons[k]], jeu: `fleurs-${e.partie}`, plage: p, trames: e.id }));
-    e.mots.forEach((m, k) =>
-      enonces.push({ id: `${e.id}@${k}`, source: 'fleurs', locuteur: e.id, tons: m.tons, syl: m.syl.map((s) => s ?? ''), jeu: `fleursm-${e.partie}`, plage: [m.a, m.b], trames: e.id })
-    );
-  }
+for (const e of fleurs) {
+  voixFleurs.set(e.id, e.moyennes);
+  fichiersFleurs.set(e.id, join(ICI, e.fichier));
+  e.plages.forEach((p, k) => enonces.push({ id: `${e.id}#${k}`, source: 'fleurs', locuteur: e.id, tons: [e.tons[k]], jeu: `fleurs-${e.partie}`, plage: p, phrase: e.id }));
+  e.mots.forEach((m, k) =>
+    enonces.push({ id: `${e.id}@${k}`, source: 'fleurs', locuteur: e.id, tons: m.tons, syl: m.syl.map((s) => s ?? ''), jeu: `fleursm-${e.partie}`, plage: [m.a, m.b], phrase: e.id })
+  );
 }
 
 function hache(s: string): number {
@@ -74,11 +70,25 @@ function hache(s: string): number {
 const jeuDe = (e: Enonce): string => e.jeu ?? (e.source === 'ytm' ? (hache(e.id) % 2 === 0 ? 'ytm-dev' : 'ytm-test') : e.source);
 const vers = (tr: number[][]): Trame[] => tr.map(([t, f0, aperiodicite, rms, v]) => ({ t, f0, aperiodicite, rms, voisee: v === 1 }));
 
-/** Les trames d'un énoncé : un enregistrement entier, ou la plage d'une phrase. */
+/** Le signal de la dernière phrase lue (les énoncés d'une phrase se suivent). */
+let phraseLue: { id: string; x: Float32Array } | null = null;
+const extraits = new Map<string, { tr: Trame[]; crete: number }>();
+
+/** Les trames d'un énoncé : un enregistrement entier, ou l'extrait d'une phrase, suivi comme
+ * l'enregistrement d'un caractère (réglages de l'app). */
 function tramesDe(e: Enonce): { tr: Trame[]; crete: number } | null {
-  if (e.trames) {
-    const t = tramesFleurs.get(e.trames);
-    return t && e.plage ? { tr: vers(t.tr.slice(e.plage[0], e.plage[1])), crete: t.crete } : null;
+  if (e.phrase && e.plage) {
+    const deja = extraits.get(e.id);
+    if (deja) return deja;
+    const f = fichiersFleurs.get(e.phrase);
+    if (!f || !existsSync(f)) return null;
+    if (phraseLue?.id !== e.phrase) phraseLue = { id: e.phrase, x: lireSignal(f) };
+    const x = extrait(phraseLue.x, e.plage[0], e.plage[1]);
+    let crete = 0;
+    for (let i = 0; i < x.length; i++) crete = Math.max(crete, Math.abs(x[i]));
+    const r = { tr: suivreHauteur(x, { sr: 16000 }), crete };
+    extraits.set(e.id, r);
+    return r;
   }
   const t = trames[e.id];
   return t ? { tr: vers(t.tr), crete: t.crete } : null;
@@ -87,7 +97,7 @@ function tramesDe(e: Enonce): { tr: Trame[]; crete: number } | null {
 /** Les moyennes des syllabes de chaque locuteur, pour la référence calibrée. */
 const moyennes = new Map<string, number[]>();
 for (const e of enonces) {
-  if (e.trames) continue;
+  if (e.phrase) continue;
   const t = tramesDe(e);
   if (!t) continue;
   const cle = `${e.locuteur}/${e.tons.length === 1 ? 1 : 'n'}`;
