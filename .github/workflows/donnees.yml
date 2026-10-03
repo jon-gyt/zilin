@@ -19,15 +19,24 @@
 # et pages de licence des jeux candidats (FLEURS, THCHS-30, AISHELL-1) et la page du jeu
 # 5961 de data.gov.tw (fournisseur et année de l'attribution OGDL), dans l'artefact et le
 # résumé. Rien n'est entraîné ici : la recette est dans `data/sources/tons/PROVENANCE.md`.
+#
+# `etapes: tons-voix` (3 octobre 2026) fait dire à Kokoro, avec une vingtaine de voix du
+# continent, des caractères isolés et des mots HSK de deux syllabes, passés en phonèmes
+# (`data/sources/tons/voix_kokoro.py`), puis en calcule les caractéristiques avec le code de l'app
+# (`app/scripts/tons/voix.ts`). Sans `wenlu tout` : les textes sont versionnés
+# (`kokoro-textes.json`). Les voix sont réparties en `lots` jobs parallèles (`voix` : une liste
+# à virgules, vide pour celles de `voix_kokoro.py`) ; seul le JSON des caractéristiques part sur la
+# branche `donnees/tons-voix`, jamais un son, et les voix déjà extraites y restent d'un
+# passage à l'autre.
 name: donnees
 
 on:
   workflow_dispatch:
     inputs:
       etapes:
-        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes), tons (licences des voix)"
+        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes), tons (licences des voix) ; tons-voix (voix Kokoro du classifieur des tons, sans wenlu tout)"
         type: choice
-        options: [audio, fiches, contes, recuperer, tout, tons]
+        options: [audio, fiches, contes, recuperer, tout, tons, tons-voix]
         default: audio
       seuil:
         description: "Seuil de la liste cible (audio du parcours lire, contes)"
@@ -40,7 +49,15 @@ on:
         options: [lire, hsk]
         default: lire
       voix:
-        description: "Voix Kokoro (vide : celle du pipeline, zf_001) ; `wenlu audio voix` les liste"
+        description: "Voix Kokoro (vide : celle du pipeline, zf_001 ; tons-voix : celles de voix_kokoro.py, ou une liste à virgules) ; `wenlu audio voix` les liste"
+        type: string
+        default: ''
+      lots:
+        description: "tons-voix : nombre de jobs parallèles entre lesquels les voix se répartissent"
+        type: string
+        default: '5'
+      artefacts:
+        description: "tons-voix : l'id d'un run dont reprendre les caractéristiques, sans synthèse (vide : synthétiser)"
         type: string
         default: ''
       jusqua:
@@ -59,6 +76,7 @@ concurrency:
 
 jobs:
   pipeline:
+    if: inputs.etapes != 'tons-voix'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     defaults:
@@ -378,3 +396,178 @@ jobs:
         run: |
           echo "::error::wenlu audio generer a échoué (voix absente du modèle, ou textes en échec) : voir work/journaux/audio-generer.txt dans l'artefact."
           exit 1
+
+  # -------------------------------------------------------------- tons-voix
+  #
+  # Trois jobs : le plan (les voix en lots), la synthèse et l'extraction par lot (matrice), la
+  # branche. Rien de `wenlu tout` : Kokoro lit des phonèmes versionnés, l'extraction le code de
+  # l'app.
+
+  tons-voix-plan:
+    if: inputs.etapes == 'tons-voix' && inputs.artefacts == ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      lots: ${{ steps.plan.outputs.lots }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        working-directory: data
+        env:
+          VOIX: ${{ inputs.voix }}
+          LOTS: ${{ inputs.lots }}
+        run: |
+          lots=$(python3 sources/tons/voix_kokoro.py plan --voix "$VOIX" --groupes "${LOTS:-5}")
+          echo "lots=$lots" >> "$GITHUB_OUTPUT"
+          echo "Lots de voix : $lots" >> "$GITHUB_STEP_SUMMARY"
+
+  tons-voix:
+    needs: tons-voix-plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        voix: ${{ fromJSON(needs.tons-voix-plan.outputs.lots) }}
+    defaults:
+      run:
+        working-directory: data
+        shell: bash
+    env:
+      UV_NO_SYNC: '1'
+      PYTHONUNBUFFERED: '1'
+      VOIX: ${{ matrix.voix }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+          enable-cache: true
+          cache-dependency-glob: data/uv.lock
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      # Comme « Installer le pipeline » : torch CPU, sans les paquets CUDA du verrou.
+      - name: Installer Kokoro (torch CPU)
+        run: |
+          exclus=$(python3 -c 'import tomllib; print(" ".join("--no-install-package " + p["name"] for p in tomllib.load(open("uv.lock", "rb"))["package"] if p["name"] in ("torch", "triton") or p["name"].startswith(("nvidia-", "cuda-"))))')
+          # shellcheck disable=SC2086 # une option par mot, voulu
+          uv sync --locked --extra audio $exclus
+          torch=$(python3 -c 'import tomllib; print(next(p["version"] for p in tomllib.load(open("uv.lock", "rb"))["package"] if p["name"] == "torch"))')
+          uv pip install --python .venv/bin/python --index-url https://download.pytorch.org/whl/cpu "torch==${torch}"
+
+      - name: Restaurer les poids Kokoro (cache Hugging Face)
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/huggingface
+          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/wenlu_data/audio.py') }}
+          restore-keys: huggingface-kokoro-v1.1-zh-
+
+      - name: Dépendances de l'app
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+
+      # Voix par voix : synthèse, puis caractéristiques tout de suite. Si le temps manque, les
+      # voix finies partent quand même (l'artefact est envoyé dans tous les cas).
+      - name: Synthèse en phonèmes (voix_kokoro.py generer) et caractéristiques (voix.ts)
+        timeout-minutes: 100
+        run: |
+          for v in ${VOIX//,/ }; do
+            debut=$(date +%s)
+            uv run python sources/tons/voix_kokoro.py generer --voix "$v"
+            (cd ../app && npx vite-node scripts/tons/voix.ts ../data/work/tons/voix "$v") | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "$v : $(( $(date +%s) - debut )) s" | tee -a "$GITHUB_STEP_SUMMARY"
+            rm -rf "work/tons/voix/$v/wav"
+          done
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tons-voix-${{ strategy.job-index }}
+          path: data/sources/tons/voix-kokoro/
+          if-no-files-found: warn
+
+  # La branche part de la branche par défaut : un jeton de workflow ne peut pas pousser des
+  # commits qui changent un workflow, comme ceux d'une branche de travail pas encore fusionnée.
+  tons-voix-branche:
+    needs: tons-voix
+    if: >-
+      always() && inputs.etapes == 'tons-voix' && (inputs.artefacts != '' ||
+      (needs.tons-voix.result != 'skipped' && needs.tons-voix.result != 'cancelled'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      # Les voix des passages précédents restent : un passage peut ne refaire que quelques voix.
+      - name: Garder les voix déjà extraites
+        run: |
+          if git fetch --depth 1 origin donnees/tons-voix; then
+            git checkout FETCH_HEAD -- data/sources/tons/voix-kokoro/ 2>/dev/null || true
+          fi
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tons-voix-*
+          merge-multiple: true
+          path: data/sources/tons/voix-kokoro
+          run-id: ${{ inputs.artefacts || github.run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Manifeste et bilan
+        run: |
+          mkdir -p data/sources/tons/voix-kokoro
+          cd data/sources/tons/voix-kokoro
+          shopt -s nullglob
+          fichiers=(*.json)
+          if [ ${#fichiers[@]} -eq 0 ]; then
+            echo "Aucune voix extraite." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          printf '%s\n' "${fichiers[@]}" | sort | xargs sha256sum > SHA256SUMS
+          python3 - <<'PY' | tee bilan.md >> "$GITHUB_STEP_SUMMARY"
+          import json, pathlib
+          print("| voix | rôle | énoncés | syllabes | sans découpe juste | voix (Hz) | révision des poids |")
+          print("|---|---|---|---|---|---|---|")
+          for p in sorted(pathlib.Path(".").glob("z*_*.json")):
+              if p.name.endswith("-mesure.json"):
+                  continue
+              d = json.loads(p.read_text())
+              ok = sum(1 for l in d["lignes"] if l["ok"])
+              print(f"| {d['voix']} | {d['role']} | {d['enonces']} | {ok} | {d['echecs']} | {d['voix_hz']} | {d['revision']} |")
+          PY
+
+      - name: Commit sur donnees/tons-voix
+        run: |
+          git add -A -- data/sources/tons/voix-kokoro
+          if git diff --cached --quiet; then
+            echo "Aucune caractéristique nouvelle : pas de branche." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          {
+            echo "Extraire les voix Kokoro du classifieur des tons"
+            echo
+            echo "Produit par le workflow donnees, étape tons-voix : $run_url"
+            echo "Caractéristiques seulement (app/scripts/tons/voix.ts), aucun son."
+            echo
+            git diff --cached --stat | tail -1
+            echo
+            echo "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+          } > "$RUNNER_TEMP/message.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C donnees/tons-voix
+          git commit -q -F "$RUNNER_TEMP/message.txt"
+          git push --force origin "HEAD:refs/heads/donnees/tons-voix"
+          echo "Commit $(git rev-parse --short HEAD) poussé sur donnees/tons-voix." >> "$GITHUB_STEP_SUMMARY"

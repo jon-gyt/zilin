@@ -368,3 +368,117 @@ cd app && npx vite-node scripts/tons/mesurer.ts ../data/work/tons ../essai.json 
 
 `mesurer.ts` lit les trames des voix de mesure dans `data/work/tons/donnees/mesure/`
 (`car.json`, `trames-car.json`, `mots-yt.json`, `trames-ytm.json`, du 30 septembre).
+
+## Les voix synthétiques du continent : Kokoro (3 octobre 2026)
+
+Après l'échec de FLEURS (des phrases, dont le ton 3 est un 21 bref), l'essai des syllabes et des
+mots dits isolément par des voix du continent, synthétiques : Kokoro, déjà dans le pipeline.
+**Résultat : `modele.json` n'est pas remplacé, `MOTS_DIRE` reste éteint.** Aucun poids versionné
+ni exporté ne dérive de Kokoro ; aucun son n'est versionné.
+
+### La source et la licence
+
+- Modèle `hexgrad/Kokoro-82M-v1.1-zh`, **Apache 2.0** (code et poids ; carte du modèle
+  `license: apache-2.0`, lue par le workflow `donnees` le 24 septembre 2026,
+  `docs/sources-licences.md`), commit des poids servi par le cache Hugging Face du workflow :
+  `01e7505bd6a7a2ac4975463114c3a7650a9f7218`.
+- Les sorties sont produites chez nous, dans le workflow `donnees` (étape `tons-voix`). L'Apache
+  2.0 régit le code et les poids, pas ce qu'ils produisent ; nous ne redistribuons ni l'un ni
+  l'autre. Si des poids en dérivaient, ce serait au même titre que les contours paramétriques :
+  une synthèse faite par nous (`entrainer.py --kokoro` l'écrit dans `licence.synthese_voix`),
+  sans attribution exigée ; l'attribution exportée resterait celle de l'OGDL.
+
+### La méthode
+
+1. **Ce que Kokoro dit** (`voix_kokoro.py textes`, `kokoro-textes.json`, SHA-256
+   `f4635fd427d02614e28db0422d28519a3dc42b6c57ff1de7bd16a9490fc3f2c7`) : 2 887 caractères des
+   listes HSK 3.0 à une seule lecture pleine (la liste des mots HSK et la lecture courante du
+   dépôt, `fleurs.Lexique.lectures`), aux quatre tons de citation (713, 671, 513, 990) ; 8 287
+   mots HSK de deux syllabes, étiquetés par les règles de `fleurs.py` (`lire_groupe`, `surface`) :
+   3-3 lu 2-3, 不 et 一 selon le ton qui suit, neutre de la liste ; écartés : un mot dont une
+   syllabe reste sans étiquette (姐姐), un mot qui commence par un neutre. Jamais CC-CEDICT.
+2. **En phonèmes, jamais en caractères** : Kokoro reçoit le pinyin étiqueté écrit comme le G2P
+   de Kokoro v1.1 l'écrit (`misaki.zh_frontend`, zhuyin et chiffre du ton, syllabes d'un mot
+   accolées), par `KPipeline.generate_from_tokens` : il ne choisit ni la lecture ni le sandhi.
+   Contrôle : sur les 2 887 caractères et 8 287 mots, les phonèmes de `voix_kokoro.py` sont ceux
+   de misaki 0.9.4 chaque fois que sa lecture est la nôtre (2 879 et 8 269 ; les autres sont des
+   polyphones qu'il lit autrement, 了 le, 地 de…, et que nous imposons).
+3. **Les voix** : 24 voix d'entraînement, 12 femmes et 12 hommes pris à pas réguliers parmi les
+   100 voix chinoises du modèle (`zf_002`, `zf_006`, `zf_018`, `zf_023`, `zf_028`, `zf_039`,
+   `zf_044`, `zf_049`, `zf_070`, `zf_076`, `zf_085`, `zf_093` ; `zm_009`, `zm_013`, `zm_020`,
+   `zm_031`, `zm_037`, `zm_052`, `zm_056`, `zm_062`, `zm_066`, `zm_081`, `zm_095`, `zm_100`), et
+   `zf_001`, la voix de l'app, pour le **test seulement** (`entrainer.py` la refuse). Chaque voix
+   dit 400 caractères (100 par ton) et 400 mots (paires de tons équilibrées), tirés selon son
+   nom ; vitesse tirée parmi 0,8, 0,9, 1, 1,1, 1,2, texte suivi ou non d'un point.
+4. **Les caractéristiques** (`app/scripts/tons/voix.ts`, code de l'app) : `analyserTrames` tel
+   que l'app l'appelle (frontière liée d'un mot, réglages des mots), sans voix, avec la voix
+   calibrée sur cinq caractères et avec la voix entière. Workflow `donnees`, run 37156478268
+   (synthèse, cinq lots en parallèle, 3 à 6 minutes par voix) et run 37160130665 (branche), commit
+   `9c329fc` de `donnees/tons-voix`, dossier `data/sources/tons/voix-kokoro/` (25 fichiers, 12 Mo
+   de JSON compact, aucun son ; manifeste `SHA256SUMS`, SHA-256
+   `effc29f72482ca1c8f9c86701a8f3d5bb2d76789c71a3b394d2d5f528337a6c5`). Les 24 voix d'entraînement :
+   9 495 syllabes de caractères et 19 028 syllabes de mots (191 énoncés sans découpe juste,
+   surtout des voix d'hommes graves) ; `zf_001` : 400 caractères (`kz1`) et 400 mots (`kz2`).
+
+### Ce que Kokoro dit vraiment
+
+Le ton étiqueté est celui des phonèmes, mais Kokoro le réalise mal. Sur un caractère isolé, il
+dit presque la même courbe quel que soit le ton : une montée brève puis une chute (contour moyen
+du ton 1 : +0,6 → +1,2 → −2,0 demi-tons ; ton 2 : +0,6 → −0,5 ; ton 3 : +1,2 → −2,2 ; ton 4 :
++1,7 → −4,2), au même registre pour les quatre tons (écart à la voix : −0,1 à +0,2 demi-ton,
+contre −4,7 à +5,0 chez les voix de Taïwan). Le ton 3 de citation (214) n'y est jamais. Un
+perceptron appris sur 16 voix Kokoro et mesuré sur 8 autres ne reconnaît que 56,5 % de leurs
+caractères (ton 3 : 37 %), 76 % des premières syllabes de mot et 49 % des secondes (ton 3 :
+12 %) ; sur `zf_001`, 49, 59 et 34 %. Le neutre n'est pas plus bref qu'un ton plein (0,42 s).
+Le modèle versionné lit 29 % des caractères Kokoro en tête (ton 2 : 5,5 %), comme les fichiers
+de l'app (`kk1`, 35 %) : ce n'est pas le classifieur, c'est la voix.
+
+### Les mesures
+
+Code de l'app (`mesurer.ts`, protocole du 30 septembre ; il lit aussi `kz1`, `kz2` depuis
+`donnees/mesure/zf_001-mesure.json`), voix calibrée sur 5 à 30 syllabes. « Taïwan » : le modèle
+versionné (graine 0 : `entrainer.py` en redonne exactement les poids sur le corpus de l'étude) et le
+même avec les graines 1 et 2. Kokoro : `entrainer.py --kokoro`, part des syllabes Kokoro tirées.
+
+| Jeu (voix jamais vue) | Taïwan, graines 0 / 1 / 2 | + Kokoro 10 %, caractères (3 graines) | + Kokoro 3 %, caractères et mots (3 graines) |
+|---|---|---|---|
+| Chen Wang, syllabes (dév.), reconnu | **88,3** / 87,7 / 87,9 % | 85,2 / 85,8 / 85,8 % | 84,4 / 85,0 / 85,4 % |
+| Yue Tan, caractères (test), en tête | 90,6 / 91,2 / 90,8 % | 92,0 / 91,4 / 91,9 % | 91,0 / 91,2 / 90,4 % |
+| Yue Tan, caractères, reconnu | **88,2** / 88,9 / 87,9 % | 88,8 / 88,6 / 89,1 % | 88,0 / 88,5 / 87,8 % |
+| **Yue Tan, ton 3 en tête** | **92,4** / 92,4 / 92,4 % | 90,5 / 91,5 / 90,5 % | 90,5 / 90,5 / 90,0 % |
+| Yue Tan, mots (moitié test), reconnus | **67,5** / 67,4 / 66,8 % | 66,3 / 67,3 / 66,9 % | 66,4 / 66,1 / 66,1 % |
+| — autre ton affirmé à tort | 2,1 / 2,4 / 2,1 % | 2,1 / 2,3 / 2,2 % | 1,7 / 1,5 / 1,7 % |
+| — reconnu à tort | 1,7 / 1,6 / 1,7 % | 1,3 / 1,4 / 1,3 % | 1,5 / 1,5 / 1,3 % |
+| `zf_001` en phonèmes, caractères (`kz1`), en tête | 33,5 / 35,0 / 33,5 % | 39,2 / 39,2 / 40,5 % | 29,5 / 32,2 / 29,5 % |
+| — reconnus | 24,0 / 24,2 / 23,2 % | 25,5 / 28,0 / 29,8 % | 20,8 / 22,0 / 20,0 % |
+| `zf_001` en phonèmes, mots (`kz2`), reconnus | 16,5 / 16,5 / 16,2 % | 15,5 / 16,8 / 15,8 % | 16,8 / 15,8 / 16,5 % |
+| `zf_001`, fichiers de l'app (`kk1`), en tête | 35,1 / 37,5 / 38,3 % | 43,5 / 44,8 / 46,0 % | 28,2 / 31,5 / 29,8 % |
+
+Les autres lectures (graine 0) font moins bien : Kokoro 10 % caractères et mots (Chen Wang 83,6 %,
+ton 3 de Yue Tan 91,5 %, mots 64,1 %), Kokoro entier (75,8 %, 91,0 %, 60,6 %), mots seuls 25 %
+(79,1 %, 90,5 %, 64,2 %), mots seuls 10 % avec la voix connue (81,5 %, 90,5 %, 63,7 %). (`kk1`
+bouge un peu d'une mesure à l'autre depuis que `kz1` partage sa voix : la référence de `zf_001`
+mêle les deux.)
+
+**Lecture.** La règle d'adoption, la même que pour FLEURS, n'est remplie par aucune variante :
+le ton 3 des caractères de Yue Tan régresse toujours (92,4 → 90,0 à 91,5 %), les caractères
+reconnus de Chen Wang aussi (88,3 → 75,8 à 85,8 %), et les mots ne progressent pas (67,5 →
+60,6 à 67,3 %). Seuls les caractères reconnus de Yue Tan gagnent un peu (jusqu'à 89,1 %), et le
+neutre de Kokoro n'apprend rien. **`modele.json` reste celui du 29 septembre** (empreinte
+inchangée), **`MOTS_DIRE` reste éteint** (67,5 % contre 80 %). Kokoro ne dit pas les tons d'un
+caractère isolé ; ce qu'il manque reste des voix humaines du continent, syllabes et mots isolés,
+sous une licence sans partage à l'identique.
+
+### La recette des voix synthétiques
+
+```bash
+cd data && uv run python sources/tons/voix_kokoro.py textes   # après wenlu tout ; kokoro-textes.json
+# workflow donnees, etapes: tons-voix (lots: 5) ; artefacts: <run> pour ne refaire que la branche
+git fetch origin donnees/tons-voix
+mkdir -p data/work/tons/voix-kokoro
+git archive origin/donnees/tons-voix data/sources/tons/voix-kokoro | tar -x -C data/work/tons/voix-kokoro --strip-components=4
+cp data/work/tons/voix-kokoro/zf_001-mesure.json data/work/tons/donnees/mesure/
+uv run --project data --with numpy --with scikit-learn python data/sources/tons/entrainer.py --sortie essai.json \
+  --kokoro data/work/tons/voix-kokoro --part-kokoro 0.1 --genres-kokoro c
+cd app && npx vite-node scripts/tons/mesurer.ts ../data/work/tons ../essai.json essai
+```

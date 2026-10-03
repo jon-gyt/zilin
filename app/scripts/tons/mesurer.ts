@@ -10,6 +10,8 @@
  * - `cw` : les syllabes isolées de Chen Wang (développement), `yt1` : les caractères de Yue Tan
  *   (test), `kk1`, `kk2` : la voix Kokoro de l'app ; trames dans `donnees/mesure/car.json` et
  *   `trames-car.json` ;
+ * - `kz1`, `kz2` : la même voix (`zf_001`), caractères isolés et mots HSK dits en phonèmes par
+ *   l'étape `tons-voix` (`voix.ts`), si `donnees/mesure/zf_001-mesure.json` est là ;
  * - `ytm-dev`, `ytm-test` : les mots de deux syllabes de Yue Tan, coupés en deux moitiés par le
  *   hachage FNV-1a du nom (`donnees/mesure/mots-yt.json`, `trames-ytm.json`) ;
  * - `fleurs-dev`, `fleurs-test` : les syllabes sûres des phrases de FLEURS dont les locuteurs ne
@@ -42,6 +44,13 @@ const enonces: Enonce[] = [
   ...lire<Enonce[]>(join(MESURE, 'mots-yt.json')).filter((e) => e.tons[0] !== 5),
   ...lire<Enonce[]>(join(MESURE, 'car.json'))
 ];
+/** La voix de l'app dite par l'étape `tons-voix` (`voix.ts`) : `kz1` ses caractères, `kz2` ses mots. */
+const KOKORO = join(MESURE, 'zf_001-mesure.json');
+if (existsSync(KOKORO)) {
+  const k = lire<{ enonces: Enonce[]; trames: Record<string, Tr> }>(KOKORO);
+  Object.assign(trames, k.trames);
+  enonces.push(...k.enonces);
+}
 
 /** Les syllabes et les mots de FLEURS tenus à part, et la voix de chaque phrase. */
 const voixFleurs = new Map<string, number[]>();

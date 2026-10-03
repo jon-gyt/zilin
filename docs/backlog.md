@@ -96,7 +96,7 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
-- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante ; les voix du continent (FLEURS) essayées le 3 octobre, sans gain sur les caractères isolés, poids inchangés (voir « Épic 9, en partie »).
+- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante ; les voix du continent (FLEURS, puis les voix synthétiques de Kokoro) essayées le 3 octobre, sans gain sur les caractères isolés, poids inchangés (voir « Épic 9, en partie »).
 - 9.2 La conversation sur l'appareil, là où il le permet (modèle de langue, reconnaissance et synthèse vocales de l'appareil), limitée aux caractères acquis.
 - 9.3 Le relais : un seul serveur, sans compte, authentifié par la transaction App Store, qui ne garde rien ; quota d'une conversation par jour, sans accumulation.
 - 9.4 L'agent vocal par niveau dans le nuage : en cascade (reconnaissance, modèle de langue, contrôle de chaque réplique contre l'acquis, synthèse), des scènes par niveau rédigées par le pipeline.
@@ -913,6 +913,18 @@ intégration, pour que le propriétaire l'essaie sur son téléphone.
     phrase n'est pas un caractère dit seul (ton 3 en 21 bref, durée d'un neutre). Reste : des
     syllabes ou des mots du continent lus isolément, sous licence vérifiée (THCHS-30 et
     AISHELL-1 sont aussi des phrases) ;
+  - des voix synthétiques du continent : **essayé le 3 octobre, poids non remplacés**. Kokoro
+    (Apache 2.0, sorties produites chez nous) a dit, en phonèmes tirés de la liste HSK et des
+    lectures du dépôt, 400 caractères et 400 mots de deux syllabes avec 24 voix (12 femmes,
+    12 hommes), `zf_001` gardée pour le test (`voix_kokoro.py`, workflow `donnees`, étape
+    `tons-voix`, caractéristiques sur `donnees/tons-voix`, aucun son ; `entrainer.py --kokoro`).
+    Kokoro ne réalise pas les tons d'un caractère isolé (une même courbe descendante, au même
+    registre, pour les quatre tons ; 56 % séparables par un modèle appris sur ses propres
+    voix) : mêlé aux voix de Taïwan, à toute proportion, le ton 3 des caractères de Yue Tan
+    régresse (92,4 → 90–91,5 %), Chen Wang aussi (88,3 → 76–86 %), les mots ne progressent
+    pas (67,5 → 61–67 %). `modele.json` inchangé, `MOTS_DIRE` éteint (`PROVENANCE.md`, « Les
+    voix synthétiques du continent »). Une voix de synthèse ne remplace pas des locuteurs
+    humains qui disent des syllabes isolées ;
   - les mots de deux syllabes, la question prête et **éteinte** (30 septembre) : un mot de
     la fiche dont les deux caractères sont acquis, une séance sur deux, la carte notée restant
     celle du caractère ; la voix coupée en deux syllabes au creux d'énergie, le ton de
