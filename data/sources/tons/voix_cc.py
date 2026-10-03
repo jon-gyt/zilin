@@ -89,13 +89,13 @@ CHAMPS = ("LicenseShortName", "License", "LicenseUrl", "UsageTerms", "Copyrighte
 # ------------------------------------------------------------------------------- réseau
 
 
-def http(url: str, data: dict | None = None, essais: int = 5) -> tuple[int, bytes]:
+def http(url: str, data: dict | None = None, essais: int = 5, delai: float = 60) -> tuple[int, bytes]:
     """GET (ou POST si `data`), avec l'agent et quelques reprises sur 429, 5xx et `maxlag`."""
     corps = urllib.parse.urlencode(data).encode() if data is not None else None
     for k in range(essais):
         req = urllib.request.Request(url, data=corps, headers={"User-Agent": AGENT})
         try:
-            with urllib.request.urlopen(req, timeout=120) as r:
+            with urllib.request.urlopen(req, timeout=delai) as r:
                 return r.status, r.read()
         except urllib.error.HTTPError as e:
             if e.code in (429, 500, 502, 503, 504) and k < essais - 1:
@@ -114,7 +114,7 @@ def api(base: str, **params) -> dict:
     """Un appel à l'API MediaWiki (POST, JSON, `formatversion=2`), repris si le serveur est en retard."""
     params = {"format": "json", "formatversion": "2", "maxlag": "5", **params}
     for k in range(6):
-        code, octets = http(base, params)
+        code, octets = http(base, params, essais=3)
         try:
             doc = json.loads(octets)
         except ValueError:
@@ -228,7 +228,7 @@ def inventaire() -> None:
     LUES.mkdir(parents=True, exist_ok=True)
     sommes: list[str] = []
     for nom, url in PAGES.items():
-        code, octets = http(url, essais=2)
+        code, octets = http(url, essais=2, delai=30)
         ecrire(nom, octets, url, code, sommes)
 
     cats = categories()
@@ -251,6 +251,7 @@ def inventaire() -> None:
                  key=lambda q: int(q[1:]) if q[1:].isdigit() else 0)
     ids = [q for q in ids if re.fullmatch(r"Q\d+", q)]
     loc: dict[str, dict] = {}
+    print(f"Lingua Libre : {len(ids)} locuteurs", flush=True)
     try:
         loc = entites(ids)
         refs = sorted(references(loc) - set(loc))
@@ -262,15 +263,21 @@ def inventaire() -> None:
         sommes.append(f"échec {LINGUALIBRE} wbgetentities : {str(e)[:120]}")
         print(sommes[-1], flush=True)
         # d'autres portes du même serveur : la page de données d'une entité, en GET
+        echecs = 0
         for q in ids:
             url = f"https://lingualibre.org/wiki/Special:EntityData/{q}.json"
-            code, octets = http(url, essais=2)
+            code, octets = http(url, essais=1, delai=20)
             if code == 200:
                 ecrire(f"lingualibre-{q}.json", octets, url, code, sommes)
                 loc[q] = json.loads(octets).get("entities", {}).get(q, {})
-            else:
-                sommes.append(f"{code} {url}")
+                continue
+            sommes.append(f"{code} {url}")
+            print(sommes[-1], flush=True)
+            echecs += 1
+            if echecs >= 3 and not loc:
+                sommes.append("Lingua Libre refuse le runner : fiches des locuteurs non lues")
                 print(sommes[-1], flush=True)
+                break
 
     # Les pages des locuteurs sur Commons : leurs boîtes Babel (« zh-N » : langue maternelle) et
     # ce qu'ils disent d'eux-mêmes, quand Lingua Libre ne répond pas.
