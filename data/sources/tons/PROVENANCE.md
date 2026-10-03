@@ -224,3 +224,147 @@ La question de mot ne se pose que si la mesure passe ces seuils (`dire.ts`,
 textes (`data/sources/ecrans/dire.tsv`) et les tests sont prêts, une meilleure mesure
 l'allume. Les mots de la voix Kokoro de l'app (139) ne sont reconnus qu'à 10 % : ses
 tons en contexte sont peu marqués.
+
+## Les voix du continent : FLEURS (3 octobre 2026)
+
+Accord du propriétaire du 3 octobre 2026 (« Oui stp ») : réentraîner le classifieur sur des
+voix du mandarin du continent, en mêlant Taïwan et continent, et ne remplacer `modele.json`
+que si la mesure s'améliore sans dégrader les caractères isolés. **Résultat : `modele.json`
+n'est pas remplacé, `MOTS_DIRE` reste éteint.** Aucun poids versionné ne dérive de FLEURS ;
+rien de FLEURS n'est embarqué ni exporté.
+
+### La source
+
+- FLEURS (Google ; Conneau et al., 2022, « FLEURS: Few-shot Learning Evaluation of Universal
+  Representations of Speech », arXiv:2205.12446), langue `cmn_hans_cn` : des phrases de
+  FLoRes lues par des locuteurs natifs du continent, transcrites en caractères simplifiés.
+- Licence : **CC BY 4.0** (étiquette `license:cc-by-4.0` et « All datasets are licensed under
+  the Creative Commons license (CC-BY) » de la carte du jeu, lue le 1er octobre 2026 par
+  l'étape `tons` du workflow `donnees`, `huggingface.co/datasets/google/fleurs/raw/main/README.md`
+  gardée sur la branche `donnees/tons`, `data/sources/tons/licences-lues/fleurs-carte.md`,
+  SHA-256 `688f79f2a5c731af3796e9f683eb02f9b3f09d040decd8c5625d0f37098e71c6`). Usage
+  commercial et poids dérivés permis, avec attribution. Si des poids en dérivaient un jour,
+  l'attribution à exporter (`tons.py`, `LICENCES.md`) serait : « FLEURS (Google), Conneau et
+  al. 2022, arXiv:2205.12446, CC BY 4.0, https://creativecommons.org/licenses/by/4.0/ » ;
+  `entrainer.py --fleurs` l'écrit déjà dans le bloc de licence du modèle, et `wenlu check`
+  refuse un tel modèle tant que `tons.py` ne l'exporte pas.
+- La carte dit aussi : « Speakers of the train sets are different than speakers from the
+  dev/test sets ». FLEURS ne donne pas d'identifiant de locuteur : `train` sert à
+  l'entraînement, `dev` et `test` sont tenus à part.
+- L'archive : `https://storage.googleapis.com/xtreme_translations/FLEURS102/cmn_hans_cn.tar.gz`,
+  2 522 990 658 octets, SHA-256
+  `0b412f291a8790db9226a1d4b69f811d5ace99cffae2a3df994a15af335190f3` (vérifiée le 3 octobre,
+  puis effacée après extraction). WAV mono 16 kHz en flottants 32 bits. Transcriptions :
+  `train.tsv` (3 246 lignes) `89c4a48ffaf2811bf64a4c38a65ccf436e4e46feaf1ba762ba137fc324532200`,
+  `dev.tsv` (409) `6b4efd804b543048feb278db06f3b58b5ea171cdd4ba072e328ad630ca25384b`,
+  `test.tsv` (945) `5734461648f816181d7dab5fc79204b18c4b9bc2cd5138225b25c72d18385d21`.
+
+### Les syllabes préparées
+
+1. **Le pinyin en contexte** (`fleurs.py`, testé par `data/tests/test_tons_fleurs.py`) : les
+   mots de la liste HSK 3.0 du dépôt (`hsk-mots.tsv`) par le plus long appariement dans les
+   deux sens, sinon la lecture du caractère quand la liste HSK et sa lecture courante
+   (`pinyin.tsv`, sinon `kMandarin` d'Unihan) s'accordent sur un ton ; jamais CC-CEDICT. Le
+   ton étiqueté est la réalisation attendue : 3-3 → 2-3 dans un mot (2-2-3 pour trois), rien
+   entre deux mots ; 不 et 一 selon le ton qui suit (一 ordinal ou dans un nombre : 1) ; le
+   neutre des mots de la liste et des particules (的, 们, 吗…). Les 4 600 phrases donnent
+   3 061 phrases lisibles (1 537 portent des chiffres ou des lettres latines, 2 un 儿 hors d'un
+   mot), 102 706 syllabes, dont 97 115 étiquetées (94,6 %). Limite : l'appariement peut
+   prendre pour un mot deux caractères qui n'en font pas un (都会 dūhuì dans 一切都会好的,
+   que les deux sens de lecture trouvent) ; ce bruit d'étiquette n'est pas mesuré.
+   `fleurs-syllabes.json`, SHA-256
+   `637e32cb483b8357c666723d6bc738688454e765db5024ab482f9d295b00d6fb`.
+2. **Les trames** (`app/scripts/tons/trames.ts`) : le suivi de hauteur de l'app, réglé plus
+   souple pour l'alignement (`SOUPLE` : apériodicité sous 0,5, plancher à 35 dB sous le pic).
+   Avec les réglages de l'app, une phrase sur deux n'avait pas 57 % de sa parole voisée
+   (72 % avec ces réglages : bruit de fond, micro d'ordinateur, voix soufflée), et les îlots
+   ne suivaient plus les syllabes.
+3. **L'alignement** (`aligner.py`, écrit ici, sans modèle acoustique ni outil tiers) : une
+   programmation dynamique apparie les trous entre îlots voisés aux frontières des syllabes,
+   en sachant le type de chaque attaque (p t k c ch q s sh x f h, et b d g z zh j coupent la
+   voix ; m n l r, y w et les voyelles presque jamais) et les ponctuations ; une syllabe est
+   sûre quand elle occupe seule un îlot, bornée par deux consonnes sourdes ou des pauses,
+   d'une durée plausible, et que l'appariement tient sous sept variantes des coûts et du
+   débit. 20 921 syllabes sûres (20,4 %), dont 20 047 étiquetées :
+
+   | Partie | Phrases | Femmes / hommes | Syllabes | Ton 1 | Ton 2 | Ton 3 | Ton 4 | Neutre | Paires formant un mot HSK |
+   |---|---|---|---|---|---|---|---|---|---|
+   | `train` (entraînement) | 2 000 (985 textes) | 1 131 / 869 | 15 724 | 3 891 | 3 289 | 1 759 | 6 077 | 708 | 3 004 |
+   | `dev` (tenu à part) | 246 | 86 / 160 | 1 159 | 293 | 268 | 161 | 375 | 62 | 192 |
+   | `test` (tenu à part) | 579 | 175 / 404 | 3 164 | 761 | 725 | 358 | 1 190 | 130 | 480 |
+
+   `corpus.json` (le corpus de l'étude, SHA-256 `162cda8e…4811`, et les entrées FLEURS) :
+   `6534350ac6a1b25fda45f49f5bc4f24e8a2615d776ea2156d01d043f43f22c63`.
+4. **Les caractéristiques** (`extraire.ts`, `extrait.ts`) : chaque syllabe sûre est un extrait
+   de la phrase (l'îlot et la moitié des trous qui l'entourent), traité comme l'enregistrement
+   d'un caractère, avec les réglages de l'app ; la voix de la phrase est la médiane de ses
+   îlots. 19 609 syllabes ont une hauteur (15 460 de `train`). `caracteristiques.json` :
+   `9663b2dc43a4533d766491d201970b55547173278c90a915241a1256f720328b`.
+
+Contrôles de l'alignement : devant une syllabe sûre, le trou d'une consonne non aspirée dure
+60 ms en médiane, celui d'une fricative ou d'une aspirée 100 ms ; décalé d'une syllabe, l'écart
+disparaît (80 à 90 ms partout). Un perceptron appris sur les seules syllabes sûres de `train`
+reconnaît 51 % de celles de `dev` et `test` (cinq tons ; ton 3 : 6 %). La voix y est brève :
+0,11 s en médiane (0,35 s pour un caractère isolé), aussi brève qu'un ton neutre de Taïwan.
+Deux essais écartés : les îlots du suivi de l'app tel quel (46 %, trous sans écart selon la
+consonne) ; un compteur de noyaux d'énergie (à la manière de de Jong et Wempe, 2009), qui ne
+comptait juste que 80 % des mots de deux syllabes de Yue Tan.
+
+### Les mesures
+
+Code de l'app (`app/scripts/tons/mesurer.ts`, protocole du 30 septembre, qu'il retrouve à
+l'identique avec les poids versionnés), voix calibrée sur 5 à 30 syllabes. « En tête » : le ton
+de plus forte probabilité ; « reconnu » : le verdict « juste » de l'app. Les syllabes de FLEURS
+sont jugées seules, comme un caractère ; ses paires, comme un mot. Trois entraînements :
+les poids versionnés ; Taïwan seul, réentraîné avec le même code (le témoin) ; Taïwan et
+FLEURS `train` (la meilleure lecture : durée telle quelle, seulement avec la voix connue, sans
+les neutres de FLEURS), avec trois graines.
+
+| Jeu (voix jamais vue) | Poids versionnés | Taïwan seul | Taïwan + FLEURS (3 graines) |
+|---|---|---|---|
+| Chen Wang, syllabes (dév.), reconnu | 88,3 % | 86,1 % | 89,0 / 87,9 / 84,3 % |
+| Chen Wang, ton 3 en tête | 91,2 % | 90,8 % | 89,1 / 85,1 / 79,9 % |
+| Yue Tan, caractères (test), en tête | 90,6 % | 89,1 % | 92,3 / 91,4 / 89,3 % |
+| Yue Tan, caractères, reconnu | 88,2 % | 84,9 % | 88,2 / 87,8 / 84,6 % |
+| **Yue Tan, ton 3 en tête** | **92,4 %** | 88,2 % | **74,9 / 73,5 / 58,3 %** |
+| Yue Tan, tons 1, 2, 4 en tête | 99,6, 79,4, 90,0 % | 99,6, 79,8, 87,9 % | 100, 94,7 à 97,4, 91,8 à 95,1 % |
+| Yue Tan, mots (moitié test), reconnus | 67,5 % | 63,4 % | 68,0 / 68,6 / 69,0 % |
+| — autre ton affirmé à tort | 2,1 % | 2,0 % | 3,6 / 3,4 / 2,7 % |
+| — reconnu à tort | 1,7 % | 1,6 % | 1,5 / 1,4 / 1,2 % |
+| — ton 3 final, neutre final, en tête | 43,0 %, 33,2 % | 49,4 %, 23,6 % | 41,4 à 46,2 %, 0 à 1 % |
+| FLEURS `test`, syllabes, en tête | 16,3 % | 17,7 % | 45,6 / 45,2 / 45,0 % |
+| — par ton (1, 2, 3, 4, neutre) | 5,5, 3,7, 5,9, 28,5, 66,9 % | 11,0, 2,9, 11,2, 28,4, 59,2 % | 57,8, 31,0, 25,7, 57,6, 0,8 % (graine 0) |
+| FLEURS `test`, paires (mots), reconnues | 8,1 % | 8,1 % | 8,8 / 9,0 / 8,8 % |
+| Kokoro, mots, autre ton affirmé à tort | 17,3 % | 10,1 % | 54,7 % (graine 0) |
+
+Les autres lectures essayées (`entrainer.py --fleurs`, développement) ne font pas mieux :
+durée de mot (× 0,35 / 0,2), durée rapportée au débit de la phrase, durée d'une syllabe de
+Taïwan du même ton, 30 ou 50 % des phrases, le ton 3 de FLEURS en fin de groupe seulement ou
+pas du tout. Le ton 3 des caractères de Yue Tan y tombe entre 56 et 85 %, sauf avec la durée
+de Taïwan (87 à 91 %), qui perd alors le ton 1 de Chen Wang (85 % en tête au lieu de 96) et
+les caractères reconnus (Chen Wang 80,6 à 86,0 %).
+
+**Lecture.** Les syllabes de phrase enseignent bien la parole enchaînée (FLEURS : 16 → 45 %)
+et les tons 2 et 4 des caractères ; mais leur ton 3 est un 21 bref, et leurs tons pleins durent
+ce que dure un neutre : le modèle perd le ton 3 de citation (214) des caractères isolés,
+précisément la faiblesse visée, et le neutre en fin de mot ; il affirme plus souvent un autre
+ton à tort sur un mot (au-dessus du seuil de 3 %). La règle n'est pas remplie : **`modele.json`
+reste celui du 29 septembre** (empreinte inchangée). Les mots restent sous le seuil (69,2 % au
+mieux contre 80 %) : **`MOTS_DIRE` reste éteint.** Il faudrait, pour le continent, des
+syllabes et des mots lus isolément (THCHS-30 et AISHELL-1 sont aussi des phrases).
+
+### La recette du continent
+
+```bash
+# l'archive de FLEURS, vérifiée, extraite dans data/work/tons/donnees/brut/fleurs/
+cd data && uv run python sources/tons/fleurs.py && cd ..
+cd app && for k in 0 1 2 3; do npx vite-node scripts/tons/trames.ts ../data/work/tons $k 4 & done; wait; cd ..
+uv run --with numpy python data/sources/tons/aligner.py
+cd app && npx vite-node scripts/tons/extraire.ts ../data/work/tons && cd ..
+uv run --with numpy --with scikit-learn python data/sources/tons/entrainer.py --sortie essai.json \
+  --fleurs brut --fleurs-avec-voix --fleurs-sans-neutre
+cd app && npx vite-node scripts/tons/mesurer.ts ../data/work/tons ../essai.json essai
+```
+
+`mesurer.ts` lit les trames des voix de mesure dans `data/work/tons/donnees/mesure/`
+(`car.json`, `trames-car.json`, `mots-yt.json`, `trames-ytm.json`, du 30 septembre).

@@ -6,17 +6,35 @@
  *
  *   cd app && npx vite-node scripts/tons/extraire.ts ../data/work/tons
  *
- * Lit `<travail>/donnees/corpus.json` (écrit par `data/sources/tons/preparer.py`), écrit
- * `<travail>/donnees/caracteristiques.json`.
+ * Lit `<travail>/donnees/corpus.json` (écrit par `data/sources/tons/preparer.py`, puis complété
+ * par `aligner.py`), écrit `<travail>/donnees/caracteristiques.json`.
+ *
+ * Une entrée avec `plages` (les phrases de FLEURS, `aligner.py`) : chaque syllabe sûre est un
+ * extrait de la phrase (`extrait.ts`), traité comme l'enregistrement d'un caractère :
+ * `suivreHauteur` et `segmenter`, avec les réglages de l'app.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { caracteristiques, contourDe, type Contour } from '../../src/lib/tons/classifieur';
 import { segmenter, suivreHauteur } from '../../src/lib/tons/pitch';
 import { lireWav, reechantillonner } from '../../src/lib/tons/wav';
+import { extrait, lireSignal } from './extrait';
 
 const ICI = resolve(process.argv[2] ?? '../data/work/tons');
-type Entree = { id: string; source: string; locuteur: string; role: string; fichier: string; texte: string; tons: number[] };
+type Entree = {
+  id: string;
+  source: string;
+  locuteur: string;
+  role: string;
+  fichier: string;
+  texte: string;
+  tons: number[];
+  plages?: number[][];
+  /** La place de chaque syllabe dans son groupe (`fin`, `debut`, `milieu`). */
+  places?: string[];
+  /** Moyennes (Hz) de toutes les syllabes voisées de la phrase : la voix du locuteur. */
+  moyennes?: number[];
+};
 const corpus: Entree[] = JSON.parse(readFileSync(join(ICI, 'donnees', 'corpus.json'), 'utf8')) as Entree[];
 
 type Ligne = {
@@ -28,35 +46,52 @@ type Ligne = {
   ton: number;
   pos: number;
   nsyl: number;
+  place?: string;
   contour: Contour | null;
 };
 const lignes: Ligne[] = [];
 let tAudio = 0;
 let tCalcul = 0;
 for (const [k, e] of corpus.entries()) {
-  const octets = readFileSync(join(ICI, e.fichier));
-  const { sr, x: brut } = lireWav(octets.buffer.slice(octets.byteOffset, octets.byteOffset + octets.byteLength) as ArrayBuffer);
-  const x = reechantillonner(brut, sr, 16000);
-  const a = performance.now();
-  const trames = suivreHauteur(x, { sr: 16000 });
-  const segs = segmenter(trames, e.tons.length);
-  const contours = segs.length === e.tons.length ? segs.map((s) => contourDe(s)) : e.tons.map(() => null);
-  tCalcul += performance.now() - a;
-  tAudio += x.length / 16000;
+  let contours: (Contour | null)[];
+  if (e.plages) {
+    if (!existsSync(join(ICI, e.fichier))) continue;
+    const x = lireSignal(join(ICI, e.fichier));
+    contours = e.plages.map(([a, b]) => {
+      const segs = segmenter(suivreHauteur(extrait(x, a, b), { sr: 16000 }), 1);
+      return segs.length === 1 ? contourDe(segs[0]) : null;
+    });
+  } else {
+    if (!existsSync(join(ICI, e.fichier))) continue;
+    const octets = readFileSync(join(ICI, e.fichier));
+    const { sr, x: brut } = lireWav(octets.buffer.slice(octets.byteOffset, octets.byteOffset + octets.byteLength) as ArrayBuffer);
+    const x = reechantillonner(brut, sr, 16000);
+    const a = performance.now();
+    const trames = suivreHauteur(x, { sr: 16000 });
+    const segs = segmenter(trames, e.tons.length);
+    contours = segs.length === e.tons.length ? segs.map((s) => contourDe(s)) : e.tons.map(() => null);
+    tCalcul += performance.now() - a;
+    tAudio += x.length / 16000;
+  }
+  // une syllabe de phrase (FLEURS) se mesure seule, comme un caractère : nsyl 1
   e.tons.forEach((ton, pos) =>
-    lignes.push({ id: e.id, source: e.source, locuteur: e.locuteur, role: e.role, texte: e.texte, ton, pos, nsyl: e.tons.length, contour: contours[pos] })
+    lignes.push({ id: e.id, source: e.source, locuteur: e.locuteur, role: e.role, texte: e.texte, ton, pos, nsyl: e.plages ? 1 : e.tons.length, place: e.places?.[pos], contour: contours[pos] })
   );
   if (k % 1000 === 0) process.stderr.write(`${k}/${corpus.length}\n`);
 }
 
 /*
- * La référence de chaque locuteur : médiane (en log) des moyennes de ses syllabes.
+ * La référence de chaque locuteur : médiane (en log) des moyennes de ses syllabes (pour une
+ * phrase de FLEURS, de toutes ses syllabes voisées, `moyennes`, pas seulement des sûres).
  * « oracle » : sur tous ses enregistrements ; « calibree » : sur cinq autres syllabes tirées
  * au hasard, comme l'app l'aurait après cinq questions (`voix.ts`).
  */
 const parLoc = new Map<string, number[]>();
+for (const e of corpus) if (e.moyennes?.length) parLoc.set(e.locuteur, e.moyennes.map(Math.log2));
+const voixConnues = new Set(parLoc.keys());
 for (const l of lignes) {
-  if (!l.contour) continue;
+  // une syllabe sans hauteur (le nettoyage de la fin a tout retiré) ne compte pas
+  if (!l.contour || !(l.contour.moyenne > 0) || voixConnues.has(l.locuteur)) continue;
   const v = parLoc.get(l.locuteur) ?? [];
   v.push(Math.log2(l.contour.moyenne));
   parLoc.set(l.locuteur, v);
@@ -71,7 +106,7 @@ let graine = 12345;
 const alea = (): number => (graine = (graine * 1103515245 + 12345) % 2147483648) / 2147483648;
 
 const sortie = lignes.map((l) => {
-  if (!l.contour) return { ...l, contour: undefined, ok: false };
+  if (!l.contour || !(l.contour.moyenne > 0)) return { ...l, contour: undefined, ok: false };
   const v = parLoc.get(l.locuteur) ?? [];
   const cinq = Array.from({ length: 5 }, () => v[Math.floor(alea() * v.length)]);
   return {
@@ -83,6 +118,7 @@ const sortie = lignes.map((l) => {
     ton: l.ton,
     pos: l.pos,
     nsyl: l.nsyl,
+    ...(l.place ? { place: l.place } : {}),
     ok: true,
     points: l.contour.points.map((p) => +p.toFixed(3)),
     moyenne: +l.contour.moyenne.toFixed(2),

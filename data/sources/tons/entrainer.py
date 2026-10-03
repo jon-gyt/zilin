@@ -16,6 +16,14 @@ embarqués dans une app payante (rôle « entrainement » du corpus) : les deux 
 les fichiers Kokoro de l'app ne servent qu'au développement et au test : aucun poids n'en
 dérive.
 
+Voix du continent (essai du 3 octobre 2026, `PROVENANCE.md`) : `--fleurs` mêle aux voix de
+Taïwan les syllabes sûres des phrases de FLEURS `train` (Google, CC BY 4.0 ; `fleurs.py`,
+`aligner.py`), lues selon `continent`. Aucune lecture n'a gardé à la fois le ton 3 des
+caractères isolés (Yue Tan, en tête : 92 % avec les poids versionnés, 56 à 85 % après ; 87 à
+91 % avec la durée de Taïwan, qui perd alors le ton 1 et les caractères reconnus de Chen
+Wang) et les autres tons : par défaut, `non`, et `modele.json` n'en dérive pas. Un modèle appris avec FLEURS déclare FLEURS dans son
+bloc de licence ; `wenlu check` le refuse tant que `tons.py` n'en exporte pas l'attribution.
+
 Modèle : un ensemble de cinq petits perceptrons (34-16-5), moyenne de leurs probabilités.
 Choisi sur le jeu de développement (Chen Wang, audio-cmn) parmi quelques tailles ; la
 température aussi. Le jeu de Yue Tan et les fichiers Kokoro restent le test.
@@ -118,6 +126,62 @@ def charger():
     return [r for r in rows if r["ok"]]
 
 
+#: Les syllabes d'une phrase lue sont brèves (0,11 s de voix en médiane dans FLEURS, contre
+#: 0,35 s pour un caractère isolé) : l'app lit une syllabe de mot comme si elle durait
+#: 0,35 / 0,2 fois plus (`classifieur.ts`, `REGLAGES_MOTS.duree`).
+DUREE_MOT = 0.2
+DUREE_REF = 0.35
+
+
+def continent(rows, mode: str, part: float, rng, places: tuple[str, ...] = ("fin", "debut", "milieu"),
+              sans_registre: bool = True, neutres: bool = True,
+              places_t3: tuple[str, ...] = ("fin", "debut", "milieu")) -> list:
+    """Les syllabes de FLEURS d'entraînement, lues selon `mode` ; les autres lignes telles quelles.
+
+    - `non` : écartées ;
+    - `brut` : telles que `extraire.ts` les a calculées (une syllabe seule) ;
+    - `mot` : comme l'app lit une syllabe de mot (durée × 0,35 / 0,2) ;
+    - `debit` : la durée rapportée à celle des syllabes sûres de la même phrase ;
+    - `citation` : la durée d'une syllabe de Taïwan du même ton, tirée au hasard (la phrase
+      n'apprend que la forme et le registre, la durée reste celle des caractères isolés).
+    `part` : la part des phrases gardées (tirées au hasard) ; `places` : les places dans le
+    groupe gardées (`fin`, `debut`, `milieu`), `places_t3` celles du ton 3 ; `sans_registre` :
+    faux pour ne garder d'une syllabe de phrase que les conditions où la voix est connue ;
+    `neutres` : faux pour écarter ses tons neutres."""
+    autres = [r for r in rows if r["source"] != "fleurs"]
+    if mode == "non":
+        return autres
+    durees_tw = {}
+    for r in autres:
+        if r["role"] == "entrainement":
+            durees_tw.setdefault(r["ton"], []).append(r["x_calibree"][N_POINTS + 2])
+    fl = [r for r in rows if r["source"] == "fleurs" and r.get("place", "milieu") in places
+          and (r["ton"] != 5 or neutres) and (r["ton"] != 3 or r.get("place") in places_t3)]
+    phrases = sorted({r["locuteur"] for r in fl})
+    gardees = set(rng.choice(phrases, size=int(round(part * len(phrases))), replace=False)) if part < 1 else set(phrases)
+    fl = [r for r in fl if r["locuteur"] in gardees]
+    med = {}
+    for r in fl:
+        med.setdefault(r["locuteur"], []).append(r["duree"])
+    out = []
+    for r in fl:
+        r = dict(r)
+        d_cit = float(rng.choice(durees_tw[r["ton"]]))
+        for k in ("x_sans", "x_calibree", "x_oracle"):
+            x = list(r[k])
+            if mode == "mot":
+                x[N_POINTS + 2] += float(np.log2(DUREE_REF / DUREE_MOT))
+            elif mode == "debit":
+                x[N_POINTS + 2] = float(np.log2(max(r["duree"], 0.02) / np.median(med[r["locuteur"]])))
+            elif mode == "citation":
+                x[N_POINTS + 2] = d_cit
+            r[k] = x
+        if not sans_registre:
+            r["x_sans"] = None
+        out.append(r)
+    return autres + out
+
+
 def augmenter(X: np.ndarray, y: np.ndarray, rng: np.random.Generator, copies: int = 4):
     """Variantes plausibles d'un contour : bruit, excursion plus ou moins marquée
     (un apprenant exagère ou aplatit), attaque ou fin rognée, durée ±30 %."""
@@ -149,8 +213,9 @@ def jeu(rows, locuteurs, rng, augm=True, n_synth=0):
     sur cinq syllabes, avec la référence du locuteur entier. Le modèle apprend
     ainsi à se passer du registre tant que l'app ne connaît pas la voix."""
     sel = [r for r in rows if r["locuteur"] in locuteurs]
-    X = np.array([r[k] for r in sel for k in ("x_sans", "x_calibree", "x_oracle")], dtype=np.float64).reshape(-1, N_POINTS + 4)
-    y = np.array([r["ton"] for r in sel for _ in range(3)])
+    paires = [(r[k], r["ton"]) for r in sel for k in ("x_sans", "x_calibree", "x_oracle") if r[k] is not None]
+    X = np.array([x for x, _ in paires], dtype=np.float64).reshape(-1, N_POINTS + 4)
+    y = np.array([t for _, t in paires])
     if augm and len(X):
         X, y = augmenter(X, y, rng)
     if n_synth:
@@ -230,12 +295,25 @@ def main():
     ap.add_argument("--mode", choices=["humain", "synthese", "mixte"], default="mixte")
     ap.add_argument("--n-synth", type=int, default=3000, help="contours synthétiques par ton")
     ap.add_argument("--sortie", default=str(POIDS))
+    ap.add_argument("--fleurs", choices=["non", "brut", "mot", "debit", "citation"], default="non",
+                    help="les syllabes de FLEURS (continent) et leur lecture (`continent`)")
+    ap.add_argument("--part-fleurs", type=float, default=1.0, help="part des phrases de FLEURS gardées")
+    ap.add_argument("--places-fleurs", default="fin,debut,milieu", help="places dans le groupe gardées")
+    ap.add_argument("--fleurs-avec-voix", action="store_true", help="FLEURS : seulement la voix connue")
+    ap.add_argument("--fleurs-sans-neutre", action="store_true", help="FLEURS : sans les tons neutres")
+    ap.add_argument("--places-t3", default="fin,debut,milieu", help="FLEURS : places gardées pour le ton 3")
+    ap.add_argument("--graine", type=int, default=0, help="décale les graines des membres (variance)")
     args = ap.parse_args()
-    rows = charger()
+    rows = continent(charger(), args.fleurs, args.part_fleurs, np.random.default_rng(GRAINE),
+                     tuple(args.places_fleurs.split(",")), sans_registre=not args.fleurs_avec_voix,
+                     neutres=not args.fleurs_sans_neutre,
+                     places_t3=tuple(x for x in args.places_t3.split(",") if x))
     humain = args.mode != "synthese"
     n_synth = args.n_synth if args.mode != "humain" else 0
     train_locs = sorted({r["locuteur"] for r in rows if r["role"] == "entrainement"}) if humain else []
-    print(f"mode {args.mode} ; locuteurs d'entraînement : {train_locs} ; synthèse : {n_synth} par ton")
+    voix = sorted({r["source"] for r in rows if r["locuteur"] in set(train_locs)})
+    print(f"mode {args.mode} ; FLEURS {args.fleurs} ({args.part_fleurs}) ; sources d'entraînement : {voix}, "
+          f"{len(train_locs)} locuteurs ou phrases ; synthèse : {n_synth} par ton")
     val, _ = validation_croisee(rows, np.random.default_rng(GRAINE), n_synth=n_synth, humain=humain)
     for k, v in val.items():
         print(f"  {k}: {v}")
@@ -243,9 +321,9 @@ def main():
     membres = []
     n_ex = 0
     for g in range(MEMBRES):
-        rng = np.random.default_rng(100 + g)
+        rng = np.random.default_rng(100 + g + 1000 * args.graine)
         X, y = jeu(rows, set(train_locs), rng, n_synth=n_synth)
-        clf, mu, sd = entrainer(X, y, graine=g)
+        clf, mu, sd = entrainer(X, y, graine=g + 10 * args.graine)
         membres.append((clf, mu, sd))
         n_ex += len(y)
         print(f"  membre {g} : {clf.n_iter_} itérations")
@@ -313,6 +391,19 @@ def main():
             "precision_dev_cw": round(acc_dev, 4),
         },
     }
+    if args.fleurs != "non":
+        modele["licence"]["donnees"].append({
+            "nom": "FLEURS, mandarin du continent (cmn_hans_cn), partie train",
+            "fournisseur": "Google (Conneau et al., 2022, arXiv:2205.12446)",
+            "licence": "CC BY 4.0",
+            "attribution": "FLEURS (Google), CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/",
+            "recupere_par": "https://storage.googleapis.com/xtreme_translations/FLEURS102/cmn_hans_cn.tar.gz",
+            "usage": "entraînement",
+        })
+        modele["entrainement"]["fleurs"] = {
+            "lecture": args.fleurs, "part": args.part_fleurs, "places": args.places_fleurs,
+            "avec_voix": args.fleurs_avec_voix, "sans_neutre": args.fleurs_sans_neutre, "places_t3": args.places_t3,
+        }
     p = Path(args.sortie)
     p.write_text(json.dumps(modele, ensure_ascii=False, separators=(",", ":")))
     print(f"{p} : {p.stat().st_size / 1024:.1f} Ko, {n_params} paramètres, T={best_T:.2f}")
