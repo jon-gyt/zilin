@@ -49,6 +49,7 @@ import importlib.util
 import io
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -65,6 +66,7 @@ import typer
 from .gf0014 import Controle
 from .ingest import charger_liste
 from .paths import AUDIO_WORK, EXPORT, LISTES
+from .porteurs import PORTEURS, DecoupeImpossible, Porteur, Rendu, lectures_exportees, rendre
 
 #: Format des fichiers et débit visé. Voir le module : MP3 mono 24 kHz, 48 kbit/s.
 FORMAT = "mp3"
@@ -462,6 +464,22 @@ class MoteurKokoro:
             raise SyntheseImpossible(f"aucun échantillon rendu pour {texte!r}")
         return valeurs
 
+    def rendu_phonemes(self, ps: str, voix: str, vitesse: float = 1.0) -> Rendu:
+        """Des phonèmes dits tels quels (`generate_from_tokens`, sans G2P), avec la durée de
+        chaque jeton (`pred_dur`) et le vocabulaire du modèle, pour couper la cible (`porteurs`)."""
+        pipeline = self.pipeline()
+        resultats = list(pipeline.generate_from_tokens(ps, voice=voix, speed=vitesse))  # type: ignore[attr-defined]
+        if len(resultats) != 1 or resultats[0].audio is None:
+            raise SyntheseImpossible(f"aucun échantillon rendu pour {ps!r}")
+        r = resultats[0]
+        durees = r.pred_dur.tolist() if getattr(r, "pred_dur", None) is not None else None
+        vocab = getattr(getattr(pipeline, "model", None), "vocab", None)
+        return Rendu(
+            echantillons=[float(v) for v in r.audio.tolist()],
+            durees=[int(d) for d in durees] if durees is not None else None,
+            vocab=frozenset(vocab) if vocab else None,
+        )
+
     def voix_disponibles(self) -> list[str]:
         """Les voix du dépôt de poids : ses fichiers `voices/<voix>.pt`.
 
@@ -665,6 +683,8 @@ class FournisseurLocal:
         modele: str = MODELE_LOCAL,
         moteur: Moteur | None = None,
         encodeur: Encodeur | None = None,
+        porteur: Porteur | None = None,
+        lectures: Mapping[str, Sequence[str]] | None = None,
     ) -> None:
         self.voix = voix
         self.modele = modele
@@ -672,6 +692,16 @@ class FournisseurLocal:
         self.encodeur = encodeur if encodeur is not None else encodeur_defaut()
         self.format = self.encodeur.format
         self._moteur = moteur
+        #: Le porteur des caractères (`porteurs.py`), et la lecture de chacun : un caractère
+        #: sans lecture connue est dit comme avant, par son texte.
+        self.porteur = porteur
+        self.lectures = dict(lectures or {})
+
+    def porteur_de(self, texte: str) -> str:
+        """Le nom du porteur dont ce texte sera dit, `""` s'il est dit seul, par son texte."""
+        if self.porteur is None or len(texte) != 1 or texte not in self.lectures:
+            return ""
+        return self.porteur.nom
 
     @property
     def moteur(self) -> Moteur:
@@ -686,7 +716,15 @@ class FournisseurLocal:
         return None if lister is None else list(lister())
 
     def synthetiser(self, texte: str, voix: str) -> bytes:
-        echantillons = self.moteur.echantillons(texte, voix)
+        if self.porteur_de(texte):
+            assert self.porteur is not None
+            try:
+                coupe = rendre(self.moteur, self.lectures[texte], self.porteur, voix)  # type: ignore[arg-type]
+            except DecoupeImpossible as erreur:
+                raise SyntheseImpossible(f"{texte} : {erreur}") from erreur
+            echantillons: Sequence[float] = coupe.echantillons
+        else:
+            echantillons = self.moteur.echantillons(texte, voix)
         if not len(echantillons):
             raise SyntheseImpossible(f"aucun échantillon rendu pour {texte!r}")
         echantillons = finir(echantillons, self.moteur.echantillonnage)
@@ -701,11 +739,16 @@ def paquet_local_present() -> bool:
     return importlib.util.find_spec(PAQUET_LOCAL) is not None
 
 
-def fournisseur_local(voix: str | None = None) -> Fournisseur:
+def fournisseur_local(
+    voix: str | None = None,
+    *,
+    porteur: Porteur | None = None,
+    lectures: Mapping[str, Sequence[str]] | None = None,
+) -> Fournisseur:
     """Fournisseur local. Refuse de partir sans le paquet, sans rien écrire."""
     if not paquet_local_present():
         raise PaquetAbsent(message_paquet_absent())
-    return FournisseurLocal(voix or VOIX_LOCALE_DEFAUT)
+    return FournisseurLocal(voix or VOIX_LOCALE_DEFAUT, porteur=porteur, lectures=lectures)
 
 
 # --------------------------------------------------------------------------- choix
@@ -727,10 +770,18 @@ def licence_de(nom: str) -> Licence:
     raise FournisseurInconnu(f"fournisseur {nom!r} inconnu : {', '.join(FOURNISSEURS)}")
 
 
-def fabriquer(nom: str = LOCAL, voix: str | None = None) -> Fournisseur:
-    """Le fournisseur demandé. Seul point d'entrée de la CLI vers une voix."""
+def fabriquer(
+    nom: str = LOCAL,
+    voix: str | None = None,
+    *,
+    porteur: Porteur | None = None,
+    lectures: Mapping[str, Sequence[str]] | None = None,
+) -> Fournisseur:
+    """Le fournisseur demandé. Seul point d'entrée de la CLI vers une voix.
+
+    Le porteur des caractères ne vaut que pour la voix locale : Azure lit du texte."""
     if nom == LOCAL:
-        return fournisseur_local(voix)
+        return fournisseur_local(voix, porteur=porteur, lectures=lectures)
     if nom == AZURE:
         return fournisseur_azure(voix or VOIX_DEFAUT)
     raise FournisseurInconnu(f"fournisseur {nom!r} inconnu : {', '.join(FOURNISSEURS)}")
@@ -884,9 +935,11 @@ class Entree:
     date: str
     empreinte: str
     octets: int
+    #: Le porteur dont le caractère a été coupé (`porteurs.py`) ; vide : dit seul, par son texte.
+    porteur: str = ""
 
     def en_json(self) -> dict[str, object]:
-        return {
+        document: dict[str, object] = {
             "texte": self.texte,
             "genre": self.genre,
             "fichier": self.fichier,
@@ -897,6 +950,9 @@ class Entree:
             "empreinte": self.empreinte,
             "octets": self.octets,
         }
+        if self.porteur:
+            document["porteur"] = self.porteur
+        return document
 
 
 @dataclass
@@ -944,6 +1000,7 @@ def entree_depuis_json(document: Mapping[str, object]) -> Entree:
             date=str(document.get("date") or ""),
             empreinte=str(document.get("empreinte") or ""),
             octets=int(document.get("octets") or 0),
+            porteur=str(document.get("porteur") or ""),
         )
     except KeyError as erreur:
         raise ManifesteInvalide(f"entrée sans {erreur}") from erreur
@@ -991,8 +1048,18 @@ class Rapport:
         return not self.echecs
 
 
+def porteur_attendu(fournisseur: Fournisseur, texte: str) -> str:
+    """Le porteur dont le fournisseur dira ce texte ; `""` s'il n'en a pas (Azure, les mots)."""
+    porteur_de = getattr(fournisseur, "porteur_de", None)
+    return str(porteur_de(texte)) if porteur_de is not None else ""
+
+
 def a_jour(entree: Entree | None, fournisseur: Fournisseur, dossier: Path) -> bool:
-    """Vrai si ce texte a déjà sa voix : même fournisseur, même voix, fichier présent."""
+    """Vrai si ce texte a déjà sa voix : même fournisseur, même voix, même porteur, fichier présent.
+
+    Un caractère dit seul, quand le fournisseur a désormais un porteur pour lui, n'est pas à
+    jour : il est refait, sous le même nom de fichier (le nom ne dépend que du texte, de la
+    voix, du fournisseur et du format)."""
     if entree is None:
         return False
     if (entree.fournisseur, entree.voix, entree.format) != (
@@ -1000,6 +1067,8 @@ def a_jour(entree: Entree | None, fournisseur: Fournisseur, dossier: Path) -> bo
         fournisseur.voix,
         fournisseur.format,
     ):
+        return False
+    if entree.porteur != porteur_attendu(fournisseur, entree.texte):
         return False
     return (dossier / entree.fichier).exists()
 
@@ -1042,6 +1111,7 @@ def generer(
             date=_maintenant(),
             empreinte=empreinte(audio),
             octets=len(audio),
+            porteur=porteur_attendu(fournisseur, cible.texte),
         )
         rapport.crees.append(cible.texte)
         if len(audio) > TAILLE_VISEE:
@@ -1063,6 +1133,37 @@ def chemin_app(version: str, fichier: str) -> str:
     return f"data/{version}/audio/{fichier}"
 
 
+#: Les empreintes des fichiers exportés, au format de `sha256sum` : `sha256sum -c SHA256SUMS`
+#: les vérifie dans `app/public/data/<version>/audio/`. Sans extension : le service worker ne
+#: le précache pas (`vite.config.ts`, `globPatterns`).
+EMPREINTES_EXPORT = "SHA256SUMS"
+
+
+def porteurs_exportes(entrees: Sequence[Entree]) -> dict[str, object] | None:
+    """L'en-tête `porteur` du manifeste exporté : de quel porteur les caractères ont été
+    coupés, et combien ; `None` si aucun ne l'a été."""
+    noms: dict[str, int] = {}
+    for e in entrees:
+        if e.porteur:
+            noms[e.porteur] = noms.get(e.porteur, 0) + 1
+    if not noms:
+        return None
+    return {
+        "caracteres": {
+            nom: {
+                "fichiers": n,
+                "description": PORTEURS[nom].description if nom in PORTEURS else "",
+            }
+            for nom, n in sorted(noms.items())
+        },
+        "methode": (
+            "caractère dit en phonèmes (zhuyin et ton, sans G2P) dans un porteur, puis coupé "
+            "par la durée des phonèmes rendue par Kokoro ; décision du propriétaire du "
+            "3 octobre 2026, docs/sources-licences.md"
+        ),
+    }
+
+
 def manifeste_exporte(
     version: str,
     entrees: Sequence[Entree],
@@ -1073,8 +1174,9 @@ def manifeste_exporte(
     """Le manifeste que l'app lit, et que l'export des fiches (story 1.6) relit.
 
     En-tête `license`, `source`, `source_url`, `modified` : exigé de tout export par
-    `docs/sources-licences.md` §8.
+    `docs/sources-licences.md` §8. `porteur`, quand des caractères ont été coupés d'un porteur.
     """
+    porteur = porteurs_exportes(entrees)
     return {
         "version": version,
         "license": f"audio synthétisé — droits du fournisseur ({licence.fournisseur})",
@@ -1085,6 +1187,7 @@ def manifeste_exporte(
         "format": FORMAT,
         "debit": DEBIT,
         "licence": licence.en_json(),
+        **({"porteur": porteur} if porteur else {}),
         "chemins": {e.texte: chemin_app(version, e.fichier) for e in sorted(entrees, key=lambda e: e.texte)},
     }
 
@@ -1122,6 +1225,13 @@ def exporter(
     (dest / MANIFESTE_EXPORT).write_text(
         json.dumps(document, ensure_ascii=False, indent=1), encoding="utf-8"
     )
+    (dest / EMPREINTES_EXPORT).write_text(
+        "".join(
+            f"{hashlib.sha256((dest / f).read_bytes()).hexdigest()}  {f}\n"
+            for f in sorted({e.fichier for e in retenues})
+        ),
+        encoding="utf-8",
+    )
     return {
         "copies": len(retenues),
         "manquants": manquants,
@@ -1143,6 +1253,70 @@ def chemins_exportes(version: str, export: Path | None = None) -> dict[str, str]
     if not isinstance(chemins, dict):
         raise ManifesteInvalide(f"{chemin} : format inattendu")
     return {str(k): str(v) for k, v in chemins.items()}
+
+
+#: Origine d'un texte du périmètre « exporté » : ce que l'app embarque déjà.
+DE_L_EXPORT = "export"
+PERIMETRES = ("", DE_L_EXPORT)
+
+
+def perimetre_exporte(version: str, export: Path | None = None) -> list[TexteAudio]:
+    """Les textes que l'app embarque déjà (le manifeste exporté), ni plus ni moins.
+
+    Pour refaire des fichiers en place sans changer ce que l'app embarque : un caractère
+    (un seul signe) est un caractère, le reste des mots.
+    """
+    return [
+        TexteAudio(texte, CARACTERE if len(texte) == 1 else MOT, DE_L_EXPORT)
+        for texte in sorted(chemins_exportes(version, export))
+    ]
+
+
+def reprendre(version: str, *, dossier: Path | None = None, export: Path | None = None) -> list[str]:
+    """Remet dans `data/work/audio/` les fichiers que l'app embarque et que le manifeste de
+    travail n'a pas (le cache du workflow a pu les perdre), pour ne pas les refaire.
+
+    Seuls sont repris les fichiers de la voix locale dont le nom est bien l'empreinte de leur
+    texte (`nom_fichier`), avec la voix que déclare le manifeste exporté : leur provenance est
+    alors certaine. Ils sont repris sans porteur, tels quels.
+    """
+    dossier = dossier or AUDIO_WORK
+    source = dossier_export(version, export)
+    chemin = source / MANIFESTE_EXPORT
+    if not chemin.exists():
+        return []
+    document = json.loads(chemin.read_text(encoding="utf-8"))
+    if str(document.get("fournisseur") or "") != LICENCE_KOKORO.fournisseur:
+        return []
+    voix = re.findall(r"voix ([\w-]+)$", str(document.get("source") or ""))
+    if len(voix) != 1:
+        return []
+    manifeste = lire_manifeste(dossier)
+    repris: list[str] = []
+    for texte, chemin_app_ in sorted(chemins_exportes(version, export).items()):
+        fichier = Path(chemin_app_).name
+        if texte in manifeste.entrees or fichier != nom_fichier(texte, voix[0], NOM_LOCAL, FORMAT):
+            continue
+        if not (source / fichier).exists():
+            continue
+        octets = (source / fichier).read_bytes()
+        dossier.mkdir(parents=True, exist_ok=True)
+        (dossier / fichier).write_bytes(octets)
+        manifeste.entrees[texte] = Entree(
+            texte=texte,
+            genre=CARACTERE if len(texte) == 1 else MOT,
+            fichier=fichier,
+            fournisseur=NOM_LOCAL,
+            voix=voix[0],
+            format=FORMAT,
+            date=str(document.get("modified") or ""),
+            empreinte=empreinte(octets),
+            octets=len(octets),
+        )
+        repris.append(texte)
+    if repris:
+        ecrire_manifeste(manifeste, dossier)
+    return repris
 
 
 # --------------------------------------------------------------------------- check
@@ -1187,14 +1361,38 @@ def controles(
 app = typer.Typer(help="Audio pré-généré : génération par fournisseur, export dans l'app.")
 
 
-def _fournisseur(nom: str, voix: str | None) -> Fournisseur:
+#: Le porteur des caractères quand la ligne de commande n'en nomme pas (`--porteur`) : vide,
+#: chaque caractère est dit seul, par son texte. `AUCUN` le dit explicitement.
+PORTEUR_DEFAUT = ""
+AUCUN = "aucun"
+
+
+def _porteur(nom: str | None) -> Porteur | None:
+    """Le porteur nommé, le défaut sans nom, `None` pour `aucun` ; code 1 s'il est inconnu."""
+    nom = PORTEUR_DEFAUT if nom is None else nom
+    if not nom or nom == AUCUN:
+        return None
+    if nom not in PORTEURS:
+        typer.echo(f"porteur {nom!r} inconnu : {', '.join(PORTEURS)}, ou {AUCUN}", err=True)
+        raise typer.Exit(code=1)
+    return PORTEURS[nom]
+
+
+def _fournisseur(
+    nom: str,
+    voix: str | None,
+    porteur: Porteur | None = None,
+    lectures: Mapping[str, Sequence[str]] | None = None,
+) -> Fournisseur:
     """Le fournisseur demandé, ou un refus propre avant la première écriture.
 
     Code 2 quand il manque de quoi parler — le paquet local ou la clé Azure —, code 1
     quand le nom demandé n'existe pas. Dans les trois cas, rien n'est écrit.
     """
     try:
-        return fabriquer(nom, voix)
+        if porteur is None:
+            return fabriquer(nom, voix)
+        return fabriquer(nom, voix, porteur=porteur, lectures=lectures)
     except (PaquetAbsent, CleAbsente) as erreur:
         typer.echo(str(erreur), err=True)
         raise typer.Exit(code=2) from erreur
@@ -1219,7 +1417,13 @@ def _voix_du_modele(fournisseur: Fournisseur) -> list[str] | None:
     return list(disponibles) if disponibles else None
 
 
-def _perimetre(parcours: str, seuil: int) -> list[TexteAudio]:
+def _perimetre(parcours: str, seuil: int, quel: str = "", version: str = "0.1.0") -> list[TexteAudio]:
+    """Le périmètre du parcours, ou (`--perimetre export`) ce que l'app embarque déjà."""
+    if quel == DE_L_EXPORT:
+        return perimetre_exporte(version)
+    if quel:
+        typer.echo(f"périmètre {quel!r} inconnu : rien (celui du parcours) ou {DE_L_EXPORT}", err=True)
+        raise typer.Exit(code=1)
     try:
         return perimetre(parcours, seuil)
     except ParcoursInconnu as erreur:
@@ -1235,9 +1439,24 @@ def commande_generer(
     parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
     seuil: int = typer.Option(SEUIL_DEFAUT, "--seuil", help="Seuil de la liste cible du parcours lire."),
     voix: str = typer.Option(None, "--voix", help="Voix du fournisseur. Par défaut, la sienne."),
+    porteur_nom: str = typer.Option(
+        None, "--porteur", help="Porteur des caractères (porteurs.py), ou « aucun ». Par défaut : PORTEUR_DEFAUT."
+    ),
+    quel: str = typer.Option(
+        "", "--perimetre", help="Vide : celui du parcours ; « export » : ce que l'app embarque déjà, ni plus ni moins."
+    ),
+    version: str = typer.Option("0.1.0", "--version", help="Version de l'export (lectures des fiches, périmètre export)."),
 ) -> None:
-    """Synthétise un fichier par caractère et par mot du périmètre. Idempotent."""
-    fournisseur = _fournisseur(fournisseur_nom, voix)
+    """Synthétise un fichier par caractère et par mot du périmètre. Idempotent.
+
+    Avec un porteur, chaque caractère dont la fiche exportée donne la lecture est dit en
+    phonèmes dans ce porteur, puis coupé (`porteurs.py`) ; les mots restent dits par leur texte.
+    """
+    porteur = _porteur(porteur_nom)
+    lectures = lectures_exportees(EXPORT / version) if porteur else None
+    if porteur is not None:
+        typer.echo(f"Porteur des caractères : {porteur.nom} ({porteur.description}), {len(lectures or {})} lectures.")
+    fournisseur = _fournisseur(fournisseur_nom, voix, porteur, lectures)
     disponibles = _voix_du_modele(fournisseur)
     if disponibles is not None:
         try:
@@ -1265,7 +1484,7 @@ def commande_generer(
             "et ne sont pas ceux qu'on embarque — installez ffmpeg et repassez.",
             err=True,
         )
-    cibles = _perimetre(parcours, seuil)
+    cibles = _perimetre(parcours, seuil, quel, version)
     if not cibles:
         typer.echo("Périmètre vide : ni fiche relue, ni liste. Rien à synthétiser.")
         return
@@ -1312,9 +1531,13 @@ def commande_exporter(
     ),
     parcours: str = typer.Option("lire", "--parcours", help="lire ou hsk."),
     seuil: int = typer.Option(SEUIL_DEFAUT, "--seuil", help="Seuil de la liste cible du parcours lire."),
+    quel: str = typer.Option(
+        "", "--perimetre", help="Vide : celui du parcours ; « export » : ce que l'app embarque déjà."
+    ),
 ) -> None:
-    """Copie l'audio du périmètre dans app/public/data/<version>/audio/."""
-    cibles = _perimetre(parcours, seuil)
+    """Copie l'audio du périmètre dans app/public/data/<version>/audio/, avec son manifeste et
+    les empreintes des fichiers (`SHA256SUMS`)."""
+    cibles = _perimetre(parcours, seuil, quel, version)
     try:
         licence = licence_de(fournisseur_nom)
     except FournisseurInconnu as erreur:
@@ -1325,3 +1548,82 @@ def commande_exporter(
     assert isinstance(manquants, list)
     typer.echo(f"{rapport['copies']} fichiers copiés, {len(manquants)} textes sans audio.")
     typer.echo(f"Manifeste : {rapport['manifeste']}.")
+
+
+@app.command("reprendre")
+def commande_reprendre(
+    version: str = typer.Option("0.1.0", "--version", help="Version de l'export."),
+) -> None:
+    """Reprend dans data/work/audio/ les fichiers que l'app embarque et que le travail n'a plus."""
+    repris = reprendre(version)
+    typer.echo(f"{len(repris)} fichiers repris de app/public/data/{version}/audio/ dans {AUDIO_WORK}.")
+
+
+def _syllabes(texte: str) -> dict[str, list[str]]:
+    """`妈:ma1,麻:ma2` → {妈: [ma1], 麻: [ma2]}."""
+    out: dict[str, list[str]] = {}
+    for morceau in filter(None, (m.strip() for m in texte.split(","))):
+        c, _, syl = morceau.partition(":")
+        if not syl:
+            typer.echo(f"« {morceau} » : il faut caractère:syllabe numérotée (妈:ma1)", err=True)
+            raise typer.Exit(code=1)
+        out[c] = syl.split()
+    return out
+
+
+@app.command("porteurs")
+def commande_porteurs(
+    sortie: Path = typer.Option(AUDIO_WORK.parent / "audio-porteurs", "--sortie", help="Dossier de l'essai."),
+    noms: str = typer.Option("", "--porteurs", help="Porteurs essayés, à virgules (vide : tous)."),
+    etiquette: str = typer.Option("0", "--etiquette", help="Nom du lot : liste-<etiquette>.json."),
+    version: str = typer.Option("0.1.0", "--version", help="Version de l'export : caractères, lectures, fichiers actuels."),
+    avec_app: bool = typer.Option(False, "--app/--sans-app", help="Mesurer aussi les fichiers actuels de l'app."),
+    ecoute: str = typer.Option("", "--ecoute", help="Échantillons d'écoute, caractère:syllabe à virgules (妈:ma1,麻:ma2)."),
+    limite: int = typer.Option(0, "--limite", help="Les N premiers caractères seulement (0 : tous)."),
+    voix: str = typer.Option(VOIX_LOCALE_DEFAUT, "--voix", help="Voix Kokoro."),
+) -> None:
+    """Essai des porteurs (décision du 3 octobre 2026) : les caractères que l'app embarque dits
+    dans chaque porteur et coupés, prêts à mesurer par app/scripts/tons/audio.ts."""
+    choisis = [n for n in (x.strip() for x in noms.split(",")) if n] or list(PORTEURS)
+    inconnus = [n for n in choisis if n not in PORTEURS]
+    if inconnus:
+        typer.echo(f"porteurs inconnus : {', '.join(inconnus)} ; connus : {', '.join(PORTEURS)}", err=True)
+        raise typer.Exit(code=1)
+    lectures = lectures_exportees(EXPORT / version)
+    chemins = chemins_exportes(version)
+    textes = {t: lectures[t] for t in sorted(chemins) if len(t) == 1 and t in lectures}
+    if limite:
+        textes = dict(list(textes.items())[:limite])
+    # les chemins du manifeste sont relatifs à app/public/, le parent de l'export
+    app_fichiers = {t: EXPORT.parent / chemins[t] for t in textes} if avec_app else None
+    ffmpeg = shutil.which(FFMPEG)
+    if (avec_app or ecoute) and not ffmpeg:
+        typer.echo("ffmpeg introuvable : ni fichiers actuels ni MP3 d'écoute.", err=True)
+        raise typer.Exit(code=2)
+    if not paquet_local_present():
+        typer.echo(message_paquet_absent(), err=True)
+        raise typer.Exit(code=2)
+    from .porteurs import essai
+
+    typer.echo(f"{len(textes)} caractères, porteurs : {', '.join(choisis)}.")
+    rapport = essai(
+        sortie, textes, [PORTEURS[n] for n in choisis], MoteurKokoro(), voix,
+        etiquette=etiquette, app=app_fichiers, ffmpeg=ffmpeg, ecoute=_syllabes(ecoute),
+    )
+    echecs = rapport["echecs"]
+    assert isinstance(echecs, list)
+    typer.echo(f"{rapport['entrees']} fichiers à mesurer, {len(echecs)} échecs.")
+    for motif in echecs[:20]:
+        typer.echo(f"  échec : {motif}", err=True)
+
+
+@app.command("choisir")
+def commande_choisir(
+    dossier: Path = typer.Option(AUDIO_WORK.parent / "audio-porteurs", "--dossier", help="Dossier de l'essai mesuré."),
+) -> None:
+    """Applique le critère de remplacement aux mesures d'un essai : bilan.md et choix.json."""
+    from .porteurs import bilan
+
+    resultat = bilan(dossier)
+    typer.echo((dossier / "bilan.md").read_text(encoding="utf-8"))
+    typer.echo(f"choix : {resultat['choix'] or 'aucun'}")
