@@ -52,6 +52,7 @@ import numpy as np
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.neural_network import MLPClassifier
 
+from voix_cc import lignes_cc  # les voix humaines sous CC BY-SA, CC BY ou CC0
 from voix_kokoro import VOIX_TEST, lignes_kokoro  # la recette voisine (voix synthétiques)
 
 warnings.filterwarnings("ignore", category=ConvergenceWarning)
@@ -218,6 +219,26 @@ def kokoro(rows, dossier: Path | None, part: float, rng, genres: tuple[str, ...]
     return rows + k
 
 
+def voix_cc(rows, dossier: Path | None, sans: tuple[str, ...] = (), genres: tuple[str, ...] = ("c", "m")):
+    """Les voix humaines sous licence CC (`voix_cc.py`, `voix.ts`, branche `donnees/tons-cc`,
+    dossier `voix-cc/`) mêlées aux autres lignes, sauf les voix `sans` (la validation croisée
+    par locuteur : une voix mesurée n'est jamais entraînée). Rend aussi ce qu'il faut des voix
+    gardées pour le bloc de licence."""
+    if dossier is None:
+        return rows, []
+    docs = []
+    for p in sorted(Path(dossier).glob("cc-*.json")):
+        doc = json.loads(p.read_text())
+        if doc["voix"] in sans:
+            continue
+        lignes = [r for r in lignes_cc(doc) if r["genre"] in genres]
+        if lignes:
+            docs.append({"voix": doc["voix"], "source": doc.get("source") or {}, "syllabes": len(lignes),
+                         "sha256": hashlib.sha256(p.read_bytes()).hexdigest()})
+            rows = rows + lignes
+    return rows, docs
+
+
 def augmenter(X: np.ndarray, y: np.ndarray, rng: np.random.Generator, copies: int = 4):
     """Variantes plausibles d'un contour : bruit, excursion plus ou moins marquée
     (un apprenant exagère ou aplatit), attaque ou fin rognée, durée ±30 %."""
@@ -347,6 +368,11 @@ def main():
     ap.add_argument("--kokoro-avec-probleme", action="store_true",
                     help="Kokoro : garder ce que l'app aurait redemandé (trop court, saturé)")
     ap.add_argument("--voix-kokoro", default="", help="Kokoro : ces voix seulement (liste à virgules)")
+    ap.add_argument("--voix-cc", default=None,
+                    help="dossier des voix humaines CC (`voix-cc/`, branche donnees/tons-cc) ; absent : aucune")
+    ap.add_argument("--sans-voix", default="", help="voix CC tenues à part (liste à virgules : cc-yue-tan…)")
+    ap.add_argument("--genres-cc", default="c,m", help="voix CC : c (caractères isolés), m (syllabes de mots)")
+    ap.add_argument("--sans-validation", action="store_true", help="sauter la validation croisée Taïwan")
     args = ap.parse_args()
     rows = continent(charger(), args.fleurs, args.part_fleurs, np.random.default_rng(GRAINE),
                      tuple(args.places_fleurs.split(",")), sans_registre=not args.fleurs_avec_voix,
@@ -356,13 +382,15 @@ def main():
                   np.random.default_rng(GRAINE + 1), tuple(args.genres_kokoro.split(",")),
                   sans_probleme=not args.kokoro_avec_probleme, avec_voix=args.kokoro_avec_voix,
                   voix=tuple(v for v in args.voix_kokoro.split(",") if v))
+    rows, docs_cc = voix_cc(rows, Path(args.voix_cc) if args.voix_cc else None,
+                            tuple(v for v in args.sans_voix.split(",") if v), tuple(args.genres_cc.split(",")))
     humain = args.mode != "synthese"
     n_synth = args.n_synth if args.mode != "humain" else 0
     train_locs = sorted({r["locuteur"] for r in rows if r["role"] == "entrainement"}) if humain else []
     voix = sorted({r["source"] for r in rows if r["locuteur"] in set(train_locs)})
     print(f"mode {args.mode} ; FLEURS {args.fleurs} ({args.part_fleurs}) ; sources d'entraînement : {voix}, "
           f"{len(train_locs)} locuteurs ou phrases ; synthèse : {n_synth} par ton")
-    val, _ = validation_croisee(rows, np.random.default_rng(GRAINE), n_synth=n_synth, humain=humain)
+    val = {} if args.sans_validation else validation_croisee(rows, np.random.default_rng(GRAINE), n_synth=n_synth, humain=humain)[0]
     for k, v in val.items():
         print(f"  {k}: {v}")
 
@@ -468,6 +496,25 @@ def main():
             "syllabes": sum(1 for r in rows if r["source"] == "kokoro"),
             "manifeste": "sha256:" + hashlib.sha256(sommes.read_bytes()).hexdigest() if sommes.exists() else None,
         }
+    if docs_cc:
+        # Les poids dérivent de voix sous CC BY-SA : ils passent sous CC BY-SA 4.0 (décision du
+        # 3 octobre 2026), avec l'attribution de chaque voix (`wenlu_data/tons.py`, `SOURCES`).
+        modele["licence"]["poids"] = "CC BY-SA 4.0"
+        for d in docs_cc:
+            src = d["source"]
+            modele["licence"]["donnees"].append({
+                "cle": d["voix"], "nom": src.get("nom"), "titre": src.get("titre"), "lien": src.get("lien"),
+                "licence": src.get("licence"), "version": src.get("version"), "usage": "entraînement",
+                "syllabes": d["syllabes"], "caracteristiques": f"voix-cc/{d['voix']}.json sha256:{d['sha256']}",
+            })
+        noms = [d["source"].get("nom") or d["voix"] for d in docs_cc]
+        modele["licence"]["hors_entrainement"] = [
+            h for h in modele["licence"]["hors_entrainement"] if not any(n in h for n in noms)]
+        tenues = [v for v in args.sans_voix.split(",") if v]
+        if tenues:
+            modele["licence"]["hors_entrainement"].append(f"voix tenues à part (mesure) : {', '.join(tenues)}")
+        modele["entrainement"]["voix_cc"] = {"sans": tenues, "genres": args.genres_cc,
+                                             "voix": [d["voix"] for d in docs_cc]}
     p = Path(args.sortie)
     p.write_text(json.dumps(modele, ensure_ascii=False, separators=(",", ":")))
     print(f"{p} : {p.stat().st_size / 1024:.1f} Ko, {n_params} paramètres, T={best_T:.2f}")
