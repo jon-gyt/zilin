@@ -96,7 +96,7 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
-- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante ; les voix du continent (FLEURS, puis les voix synthétiques de Kokoro) essayées le 3 octobre, sans gain sur les caractères isolés, poids inchangés (voir « Épic 9, en partie »).
+- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante ; les voix du continent (FLEURS, puis les voix synthétiques de Kokoro) essayées le 3 octobre, sans gain sur les caractères isolés, poids inchangés ; les voix humaines sous CC BY-SA (Yue Tan, quatre voix de Lingua Libre) les 3 et 4 octobre, le ton 3 de Yue Tan tenue à part régressant, poids inchangés (voir « Épic 9, en partie »).
 - 9.2 La conversation sur l'appareil, là où il le permet (modèle de langue, reconnaissance et synthèse vocales de l'appareil), limitée aux caractères acquis.
 - 9.3 Le relais : un seul serveur, sans compte, authentifié par la transaction App Store, qui ne garde rien ; quota d'une conversation par jour, sans accumulation.
 - 9.4 L'agent vocal par niveau dans le nuage : en cascade (reconnaissance, modèle de langue, contrôle de chaque réplique contre l'acquis, synthèse), des scènes par niveau rédigées par le pipeline.
@@ -925,6 +925,23 @@ intégration, pour que le propriétaire l'essaie sur son téléphone.
     pas (67,5 → 61–67 %). `modele.json` inchangé, `MOTS_DIRE` éteint (`PROVENANCE.md`, « Les
     voix synthétiques du continent »). Une voix de synthèse ne remplace pas des locuteurs
     humains qui disent des syllabes isolées ;
+  - des voix humaines du continent sous CC BY-SA (décision « Voix CC BY-SA » du 3 octobre) :
+    **essayé les 3 et 4 octobre, poids non remplacés**. Licences lues fichier par fichier par le
+    workflow `donnees` (étape `tons-cc`, pages sur `donnees/tons-cc`, `voix_cc.py`) : Yue Tan,
+    CC BY-SA 3.0 US (readme de Shtooka par l'Internet Archive) ; Fake estate, Jouketou,
+    Luilui6666 (CC BY-SA 4.0) et CanonNi (CC0) sur Lingua Libre, 4 126 fichiers `cmn` lus ;
+    Chen Wang, « CC-by-sa » sans version, gardé à la mesure. Validation croisée par locuteur,
+    trois graines : les caractères reconnus montent sur les voix tenues à part (Yue Tan 88,4 →
+    90,6 %, Chen Wang 88,0 → 88,5 à 91,5 %), mais le ton 3 de Yue Tan tenue à part régresse
+    (92,4 → 89,6 %, 91,8 % avec les seuls caractères) : `modele.json` inchangé, `MOTS_DIRE`
+    éteint (68,6 % des mots au mieux). Prêt pour la suite : `tons.py` (`VOIX_CC`) attribue chaque
+    voix, `wenlu check` refuse une source sans attribution exportée, NC, ND ou sans version, et
+    des poids dérivés qui ne se disent pas sous CC BY-SA 4.0 ; `CC-BY-SA-4.0.txt` dans l'export,
+    `tons.json` publié sur la page des licences. Reste : d'autres voix natives du continent qui
+    lisent des caractères isolés sous licence lue (la version de la licence de Chen Wang à
+    demander au dépositaire d'audio-cmn ; d'autres locuteurs de Lingua Libre dont les fiches
+    soient lisibles), une troisième voix tenue à part pour entraîner Yue Tan, et la question du
+    DRM de l'App Store pour des poids sous CC BY-SA (`docs/sources-licences.md` §9) ;
   - les mots de deux syllabes, la question prête et **éteinte** (30 septembre) : un mot de
     la fiche dont les deux caractères sont acquis, une séance sur deux, la carte notée restant
     celle du caractère ; la voix coupée en deux syllabes au creux d'énergie, le ton de
