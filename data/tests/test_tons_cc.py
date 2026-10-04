@@ -151,9 +151,9 @@ def test_les_syllabes_de_chen_wang_viennent_du_nom_du_fichier() -> None:
 # ------------------------------------------------------------------------- entraînement
 
 
-def _doc(role: str = "entrainement") -> dict:
+def _doc(role: str = "entrainement", version: str | None = "3.0 US") -> dict:
     x = [0.0] * 34
-    return {"voix": "cc-test", "role": role, "lignes": [
+    return {"voix": "cc-test", "role": role, "source": {"licence": "CC BY-SA", "version": version}, "lignes": [
         {"id": "cc-test/水果", "g": "m", "k": 0, "n": 2, "t": 2, "ok": True, "x": x, "rc": 1.5, "ro": 2.0, "probleme": None},
         {"id": "cc-test/水果", "g": "m", "k": 1, "n": 2, "t": 3, "ok": True, "x": x, "rc": 0.5, "ro": 1.0, "probleme": "sature"},
         {"id": "cc-test/马", "g": "c", "n": 1, "ok": False},
@@ -169,6 +169,12 @@ def test_une_syllabe_manquee_ou_a_redemander_n_entre_pas_a_l_entrainement() -> N
 def test_une_voix_de_test_n_entre_jamais_a_l_entrainement() -> None:
     with pytest.raises(ValueError):
         cc.lignes_cc(_doc(role="test"))
+
+
+def test_une_voix_dont_la_licence_ne_dit_pas_sa_version_n_entre_pas_a_l_entrainement() -> None:
+    with pytest.raises(ValueError, match="sans version"):
+        cc.lignes_cc(_doc(version=None))
+    assert cc.AUDIO_CMN_VOIX["cc-chen-wang"]["role"] == "test"
 
 
 # ---------------------------------------------------------------------- attribution exportée

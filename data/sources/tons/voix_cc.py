@@ -96,7 +96,14 @@ def http(url: str, data: dict | None = None, essais: int = 5, delai: float = 60)
         req = urllib.request.Request(url, data=corps, headers={"User-Agent": AGENT})
         try:
             with urllib.request.urlopen(req, timeout=delai) as r:
-                return r.status, r.read()
+                octets = r.read()
+                if octets[:2] == b"\x1f\x8b":
+                    import gzip
+                    try:
+                        octets = gzip.decompress(octets)
+                    except OSError:
+                        pass
+                return r.status, octets
         except urllib.error.HTTPError as e:
             if e.code in (429, 500, 502, 503, 504) and k < essais - 1:
                 time.sleep(float(e.headers.get("Retry-After") or 5 * (k + 1)))
@@ -279,6 +286,15 @@ def inventaire() -> None:
                 print(sommes[-1], flush=True)
                 break
 
+    # Les fiches des locuteurs de plus de 30 fichiers, telles que l'Internet Archive les a gardées
+    nombres = Counter(modele_ll(f["texte"]).get("speakerId", "") for f in tous)
+    for q, n in sorted(nombres.items()):
+        if n < 30 or not re.fullmatch(r"Q\d+", q) or q in loc:
+            continue
+        url = f"https://web.archive.org/web/2026id_/https://lingualibre.org/wiki/{q}"
+        code, octets = http(url, essais=1, delai=30)
+        ecrire(f"lingualibre-{q}-archive.html", octets if code == 200 else b"", url, code, sommes)
+
     # Les pages des locuteurs sur Commons : leurs boîtes Babel (« zh-N » : langue maternelle) et
     # ce qu'ils disent d'eux-mêmes, quand Lingua Libre ne répond pas.
     noms = sorted({re.sub(r"\[\[User:([^|\]]+).*", r"\1", modele_ll(f["texte"]).get("speaker", "")) for f in tous} - {""})
@@ -381,6 +397,9 @@ def accord_page(nom: str | None, texte: str | None) -> bool:
 #: Les voix d'audio-cmn : le dossier, la voix, la source à attribuer. La licence de chacune est
 #: celle que la page lue déclare (`licences-lues/`, `PROVENANCE.md`).
 AUDIO_CMN_VOIX = {
+    # Le README d'audio-cmn (seule page qui la dise, écrite par le dépositaire) ne donne que
+    # « CC-by-sa », sans version, et Commons n'a aucune page de cette voix : licence douteuse,
+    # la voix reste à la mesure (`role` « test »), jamais à l'entraînement.
     "cc-chen-wang": {
         "nom": "Chen Wang",
         "dossier": "64k/syllabs",
@@ -389,21 +408,39 @@ AUDIO_CMN_VOIX = {
         "licence": "CC BY-SA",
         "version": None,
         "page_licence": "audio-cmn-README.md",
+        "role": "test",
     },
+    # Le readme de la collection (packs.shtooka.net, lu par l'Internet Archive, le serveur ne
+    # répondant plus) : « Copyright (c) 2009 Yue Tan », « Creative Commons Attribution Share
+    # Alike 3.0 United States ». Les fichiers sont ceux qu'audio-cmn a recompressés.
     "cc-yue-tan": {
         "nom": "Yue Tan",
         "dossier": "64k/hsk",
-        "titre": "Shtooka, cmn-caen-tan (mots de la liste HSK), par audio-cmn",
+        "titre": "Collection audio libre de mots chinois (mandarins) enregistrée par l'université de Caen"
+                 " (Shtooka, cmn-caen-tan), © 2009 Yue Tan ; MP3 d'audio-cmn",
         "lien": "http://packs.shtooka.net/cmn-caen-tan/",
         "licence": "CC BY-SA",
-        "version": None,
-        "page_licence": "shtooka-cmn-caen-tan-readme.txt",
+        "version": "3.0 US",
+        "page_licence": "shtooka-cmn-caen-tan-readme-archive.txt",
+        "role": "entrainement",
     },
 }
 
 #: Les locuteurs de Lingua Libre retenus, par leur élément sur Lingua Libre, avec la raison
 #: (fiche lue dans `licences-lues/lingualibre-locuteurs.json`). Un locuteur absent est écarté.
-LOCUTEURS_LL: dict[str, str] = {}
+LOCUTEURS_LL: dict[str, str] = {
+    # Lingua Libre refuse le runner (403, 426) : leurs fiches (langue maternelle, résidence) n'ont
+    # pas pu être lues. Retenus : les quatre locuteurs qui lisent des mots de la liste HSK en
+    # caractères simplifiés, sous l'élément « mandarin » (Q9192), et dont les tons sont ceux d'un
+    # natif d'après le modèle versionné (`voix.ts --modele`, PROVENANCE.md). Écartés : les
+    # apprenants déclarés (Assassas77 zh-2, Yug zh-3), les lecteurs de Taïwan (Levi Highway,
+    # Shangkuanlc et Cookai1205 : graphies traditionnelles, élément « mandarin de Taïwan »,
+    # boîte {{User Taiwan}}), les voix de moins de 30 fichiers.
+    "Q812770": "Fake estate : 1 148 mots et caractères HSK en simplifiés, CC BY-SA 4.0",
+    "Q1431140": "CanonNi : 845 mots et caractères HSK en simplifiés, CC0",
+    "Q1332695": "Jouketou : 549 mots et caractères HSK en simplifiés, CC BY-SA 4.0",
+    "Q301531": "Luilui6666 : 805 enregistrements en simplifiés, CC BY-SA 4.0 (et CC0), boîtes zh-N et yue-N",
+}
 
 SYL = re.compile(r"cmn-_?([a-zü]+)([1-4])\.mp3")
 HANZI = re.compile(r"[㐀-鿿]{1,2}")
@@ -463,14 +500,14 @@ def choisir_audio_cmn(arbre: list[tuple[str, str]], lex, fleurs, vk) -> list[dic
                 e["texte"] = h
             entrees.append({"id": f"{cle}/{e['texte']}", **e, "chemin": nom, "empreinte": f"git-blob:{blob}"})
         voix.append({"voix": cle, **{k: v[k] for k in ("nom", "titre", "lien", "licence", "version", "page_licence")},
-                     "source": f"{AUDIO_CMN}@{AUDIO_CMN_COMMIT[:7]}", "role": "entrainement",
+                     "source": f"{AUDIO_CMN}@{AUDIO_CMN_COMMIT[:7]}", "role": v["role"],
                      "base": f"https://raw.githubusercontent.com/hugolpz/audio-cmn/{AUDIO_CMN_COMMIT}/",
                      "entrees": sorted(entrees, key=lambda x: x["id"])})
     return voix
 
 
-def inventaire_lu() -> list[dict]:
-    chemin = LUES / "commons-lingualibre-cmn.jsonl"
+def inventaire_lu(dossier: Path | None = None) -> list[dict]:
+    chemin = (dossier or LUES) / "commons-lingualibre-cmn.jsonl"
     if not chemin.exists():
         return []
     return [json.loads(x) for x in chemin.read_text(encoding="utf-8").splitlines() if x.strip()]
@@ -510,7 +547,7 @@ def choisir_lingualibre(tous: list[dict], lex, fleurs, vk) -> tuple[list[dict], 
         famille, version = licence_acceptee(f["licence"]["LicenseShortName"])
         cle = f"cc-ll-{q}"
         infos[cle] = {"nom": m.get("speaker", q), "q": q}
-        par[cle].append({"id": f"{cle}/{texte}", "texte": texte, **e, "url": f["url"], "page": f["page"],
+        par[cle].append({"id": f"{cle}/{texte}", "texte": texte, **e, "url": f["url"],
                          "empreinte": f"sha1:{f['sha1']}", "licence": f"{famille} {version}",
                          "auteur": m.get("speaker", q), "titre": f["titre"]})
     voix = []
@@ -523,23 +560,23 @@ def choisir_lingualibre(tous: list[dict], lex, fleurs, vk) -> tuple[list[dict], 
         licences = sorted({e["licence"] for e in uniques})
         voix.append({"voix": cle, "nom": infos[cle]["nom"], "titre": "Lingua Libre, enregistrements cmn",
                      "lien": f"https://lingualibre.org/wiki/{infos[cle]['q']}", "licence": " ; ".join(licences),
-                     "version": None, "page_licence": "commons-lingualibre-cmn.jsonl",
+                     "version": "", "page_licence": "commons-lingualibre-cmn.jsonl",
                      "raison": LOCUTEURS_LL[infos[cle]["q"]], "source": "Wikimedia Commons (Lingua Libre)",
                      "role": "entrainement", "entrees": uniques})
     return voix, ecarts
 
 
-def choisir(arbre: Path) -> None:
+def choisir(arbre: Path, lues: Path | None = None) -> None:
     fleurs, vk, lex = _lexique()
     voix = choisir_audio_cmn(arbre_audio_cmn(arbre), lex, fleurs, vk)
-    ll, ecarts = choisir_lingualibre(inventaire_lu(), lex, fleurs, vk)
+    ll, ecarts = choisir_lingualibre(inventaire_lu(lues), lex, fleurs, vk)
     voix += ll
     doc = {
         "format": "wenlu-tons-voix-cc",
         "regles": ("licence CC BY-SA, CC BY ou CC0 lue fichier par fichier (NC, ND, inconnue : écartés) ; "
                    "pinyin de la liste HSK et des lectures du dépôt, jamais de CC-CEDICT ; ton que la voix fait"),
-        "inventaire": hashlib.sha256((LUES / "commons-lingualibre-cmn.jsonl").read_bytes()).hexdigest()
-        if (LUES / "commons-lingualibre-cmn.jsonl").exists() else None,
+        "inventaire": hashlib.sha256(((lues or LUES) / "commons-lingualibre-cmn.jsonl").read_bytes()).hexdigest()
+        if ((lues or LUES) / "commons-lingualibre-cmn.jsonl").exists() else None,
         "ecarts_lingualibre": dict(ecarts.most_common()),
         "voix": voix,
     }
@@ -633,6 +670,9 @@ def lignes_cc(doc: dict, sans_probleme: bool = True) -> list[dict]:
     (trop courte, saturée), n'entre pas."""
     if doc.get("role") != "entrainement":
         raise ValueError(f"{doc['voix']} : voix de test, jamais à l'entraînement")
+    src = doc.get("source") or {}
+    if src.get("version") is None:
+        raise ValueError(f"{doc['voix']} : licence {src.get('licence')!r} sans version, jamais à l'entraînement")
     out = []
     for ligne in doc["lignes"]:
         if not ligne["ok"] or (sans_probleme and ligne.get("probleme")):
@@ -656,13 +696,14 @@ def main() -> None:
     sous.add_parser("inventaire")
     c = sous.add_parser("choisir")
     c.add_argument("--arbre", required=True, help="`git -c core.quotepath=off ls-tree -r` d'audio-cmn au commit lu")
+    c.add_argument("--lues", default=None, help="les pages lues (`licences-lues/` de la branche donnees/tons-cc)")
     sous.add_parser("telecharger")
     sous.add_parser("locuteurs")
     a = ap.parse_args()
     if a.commande == "inventaire":
         inventaire()
     elif a.commande == "choisir":
-        choisir(Path(a.arbre))
+        choisir(Path(a.arbre), Path(a.lues) if a.lues else None)
     elif a.commande == "telecharger":
         telecharger()
     else:

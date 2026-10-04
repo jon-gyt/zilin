@@ -231,7 +231,11 @@ def voix_cc(rows, dossier: Path | None, sans: tuple[str, ...] = (), genres: tupl
         doc = json.loads(p.read_text())
         if doc["voix"] in sans:
             continue
-        lignes = [r for r in lignes_cc(doc) if r["genre"] in genres]
+        try:
+            lignes = [r for r in lignes_cc(doc) if r["genre"] in genres]
+        except ValueError as e:  # voix de test, ou licence sans version : jamais à l'entraînement
+            print(f"  {e}")
+            continue
         if lignes:
             docs.append({"voix": doc["voix"], "source": doc.get("source") or {}, "syllabes": len(lignes),
                          "sha256": hashlib.sha256(p.read_bytes()).hexdigest()})
