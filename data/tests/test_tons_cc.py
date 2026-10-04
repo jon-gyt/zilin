@@ -227,3 +227,35 @@ def test_l_attribution_exportee_garde_l_ogdl_puis_chaque_voix(monkeypatch: pytes
 def test_le_texte_de_la_cc_by_sa_4_est_versionne() -> None:
     texte = tons.CC_BY_SA_TEXTE.read_text(encoding="utf-8")
     assert texte.startswith("Creative Commons Attribution-ShareAlike 4.0 International")
+
+
+def test_un_export_de_poids_cc_porte_licence_lien_et_chaque_attribution(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    import json
+
+    m = copy.deepcopy(tons.charger())
+    m["licence"]["poids"] = tons.LICENCE_POIDS_CC
+    m["licence"]["donnees"].append({"cle": "cc-yue-tan", "nom": "Yue Tan", "licence": "CC BY-SA", "version": "3.0 US",
+                                    "usage": "entraînement"})
+    modele = tmp_path / "modele.json"
+    modele.write_text(json.dumps(m), encoding="utf-8")
+    monkeypatch.setattr(tons, "MODELE", modele)
+    assert tons.fautes_licence(m) == []
+    doc = tons.document({"version": "0.1.0", "source_url": "x", "modified": "x"})
+    (tmp_path / tons.FICHIER).write_text(json.dumps(doc), encoding="utf-8")
+    for nom in (tons.OGDL, tons.CC_BY_SA):
+        (tmp_path / nom).write_text("texte", encoding="utf-8")
+    licences = " ".join(["OGDL", tons.URL_LICENCE, tons.URL_CC_BY_SA_4, *(ligne[3] for ligne in tons.lignes_licences(m))])
+    index = {"tons": tons.FICHIER}
+    assert doc["license_url"] == tons.URL_CC_BY_SA_4 and tons.LICENCE_POIDS_CC in str(doc["license"])
+    assert tons.fautes_export(doc, index, licences, tmp_path) == []
+    sans = {**doc, "attributions": list(doc["attributions"])[:1]}
+    assert any("n'attribue pas Yue Tan" in f for f in tons.fautes_export(sans, index, licences, tmp_path))
+    (tmp_path / tons.CC_BY_SA).unlink()
+    assert any(tons.CC_BY_SA in f for f in tons.fautes_export(doc, index, licences, tmp_path))
+
+
+def test_les_voix_recensees_ont_une_licence_qui_permet_d_en_deriver_des_poids() -> None:
+    for cle, v in tons.VOIX_CC.items():
+        assert tons.licence_refusee(v["licence"]) is None, cle
+        assert all(v.get(c) for c in ("auteur", "titre", "lien")), cle
+    assert "cc-chen-wang" not in tons.VOIX_CC  # licence sans version : jamais attribuée comme source

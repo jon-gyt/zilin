@@ -109,7 +109,45 @@ MODIFICATION = (
 #: avec ce que leur licence exige d'attribuer : l'auteur, le titre, le lien, la licence et sa
 #: version (lues dans `licences-lues/`, `PROVENANCE.md`). Relu à la main : un modèle qui nomme
 #: une source d'entraînement absente d'ici est refusé, faute d'attribution exportée.
-VOIX_CC: dict[str, dict[str, str]] = {}
+VOIX_CC: dict[str, dict[str, str]] = {
+    # readme de la collection (packs.shtooka.net, par l'Internet Archive) : « Copyright (c) 2009
+    # Yue Tan », « Creative Commons Attribution Share Alike 3.0 United States » ; sa §4 b permet
+    # de placer l'œuvre adaptée sous une version ultérieure (la 4.0).
+    "cc-yue-tan": {
+        "auteur": "Yue Tan",
+        "titre": "Collection audio libre de mots chinois (mandarins) enregistrée par l'université de Caen"
+                 " (Shtooka, cmn-caen-tan), © 2009 Yue Tan",
+        "lien": "http://packs.shtooka.net/cmn-caen-tan/",
+        "licence": "CC BY-SA 3.0 US",
+    },
+    # Lingua Libre : la licence lue sur la page Commons de chaque fichier (modèle de licence et
+    # `extmetadata`), toutes les mêmes pour un locuteur.
+    "cc-ll-Q812770": {
+        "auteur": "Fake estate",
+        "titre": "enregistrements cmn de Lingua Libre (Wikimedia Commons, « LL-Q9192 (cmn)-Fake estate-… »)",
+        "lien": "https://lingualibre.org/wiki/Q812770",
+        "licence": "CC BY-SA 4.0",
+    },
+    "cc-ll-Q1332695": {
+        "auteur": "Jouketou",
+        "titre": "enregistrements cmn de Lingua Libre (Wikimedia Commons, « LL-Q9192 (cmn)-Jouketou-… »)",
+        "lien": "https://lingualibre.org/wiki/Q1332695",
+        "licence": "CC BY-SA 4.0",
+    },
+    "cc-ll-Q301531": {
+        "auteur": "Luilui6666",
+        "titre": "enregistrements cmn de Lingua Libre (Wikimedia Commons, « LL-Q9192 (cmn)-Luilui6666-… »)",
+        "lien": "https://lingualibre.org/wiki/Q301531",
+        "licence": "CC BY-SA 4.0",
+    },
+    # CC0 : aucune attribution exigée, donnée tout de même.
+    "cc-ll-Q1431140": {
+        "auteur": "CanonNi",
+        "titre": "enregistrements cmn de Lingua Libre (Wikimedia Commons, « LL-Q9192 (cmn)-CanonNi-… »)",
+        "lien": "https://lingualibre.org/wiki/Q1431140",
+        "licence": "CC0 1.0",
+    },
+}
 
 
 def licence_refusee(licence: str | None) -> str | None:
