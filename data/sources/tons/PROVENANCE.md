@@ -482,3 +482,145 @@ uv run --project data --with numpy --with scikit-learn python data/sources/tons/
   --kokoro data/work/tons/voix-kokoro --part-kokoro 0.1 --genres-kokoro c
 cd app && npx vite-node scripts/tons/mesurer.ts ../data/work/tons ../essai.json essai
 ```
+
+## Les voix humaines sous CC BY-SA (3 et 4 octobre 2026)
+
+Décision du propriétaire du 3 octobre 2026 (« Voix CC BY-SA ») : entraîner le classifieur sur de
+vraies voix humaines du continent, sous CC BY-SA (ou CC BY, CC0), qui disent des caractères et des
+mots isolés ; en contrepartie, les poids passent sous CC BY-SA 4.0 avec l'attribution de chaque
+source, le code de l'app restant propriétaire. Règle d'adoption : sur les voix tenues à part, le
+ton 3 des caractères de Yue Tan ne régresse pas (92,4 %), les caractères reconnus ne baissent pas,
+et l'autre ton affirmé à tort sur les mots reste au plus à 3 %. **Résultat : la règle n'est pas
+remplie, `modele.json` n'est pas remplacé (empreinte inchangée), `MOTS_DIRE` reste éteint.** Aucun
+poids versionné ni exporté ne dérive de ces voix ; `tons.json` reste sous le régime de l'OGDL. Tout
+est prêt pour qu'un modèle qui en dériverait soit attribué et contrôlé (`tons.py`, `VOIX_CC`).
+
+### Les sources, la licence lue fichier par fichier
+
+Le poste de développement n'atteint ni Commons, ni Lingua Libre, ni Shtooka : l'étape `tons-cc`
+du workflow `donnees` (`voix_cc.py inventaire`) lit les pages et les garde, avec leur SHA-256, sur
+la branche `donnees/tons-cc` (`data/sources/tons/licences-lues/`, `SHA256SUMS-tons-cc.txt`) ; runs
+37163862432 (inventaire, Chen Wang et Yue Tan) et 37164449685 (inventaire, voix de Lingua Libre),
+commit `59e5ac9` de la branche.
+
+| Voix | Source | Licence lue (version) | Page lue (SHA-256) | Retenu | Rôle |
+|---|---|---|---|---|---|
+| Yue Tan | Shtooka `cmn-caen-tan`, « Collection audio libre de mots chinois (mandarins) enregistrée par l'université de Caen », MP3 de `hugolpz/audio-cmn@ff9ed3d` (`64k/hsk/`) | **CC BY-SA 3.0 United States**, « Copyright (c) 2009 Yue Tan » | `readme.txt` de la collection par l'Internet Archive (`web.archive.org/web/2024id_/http://packs.shtooka.net/cmn-caen-tan/readme.txt`, `11584998…f95b` ; packs.shtooka.net ne répond plus) | 1 634 caractères, 5 121 mots | entraînement (pli CW et modèle final) ; mesure (pli YT) |
+| Chen Wang | `hugolpz/audio-cmn@ff9ed3d`, `64k/syllabs/` (syllabes v0.2) | « CC-by-sa », **version non précisée** | `README.md` d'audio-cmn (`dc2d9244…4200`), seule page qui la dise, écrite par le dépositaire ; aucune page sur Commons (recherche gardée) | 1 688 syllabes | **mesure seulement** (licence douteuse) |
+| Fake estate (Lingua Libre `Q812770`) | Commons, `LL-Q9192 (cmn)-Fake estate-…` | **CC BY-SA 4.0** (modèle `{{cc-by-sa-4.0}}` et `extmetadata`, chaque fichier) | `commons-lingualibre-cmn.jsonl` (`a629f198…80bc`) ; fiche Lingua Libre par l'Internet Archive : mandarin langue maternelle, teochew (`ee5d2881…f15e`) | 98 caractères, 973 mots | entraînement |
+| CanonNi (`Q1431140`) | idem | **CC0 1.0** (`{{cc-zero}}`) | idem ; fiche : mandarin langue maternelle, résidence Q8686 (Shanghai) (`02f88c6f…bb8a96`) | 109 caractères, 573 mots | entraînement |
+| Jouketou (`Q1332695`) | idem | **CC BY-SA 4.0** | idem ; fiche non lue (Lingua Libre refuse le runner, l'Internet Archive n'a pas répondu) | 166 caractères, 268 mots | entraînement |
+| Luilui6666 (`Q301531`) | idem | **CC BY-SA 4.0** (et CC0) | idem ; page Commons : boîtes `zh-N` et `yue-N` (`commons-locuteurs.json`, `b3cb8b05…3951`) | 119 caractères, 189 mots | entraînement |
+
+- **Lingua Libre** : 4 126 fichiers `cmn` (catégories « Lingua Libre pronunciation-cmn » et
+  « -zho »), toutes leurs licences lues : CC BY-SA 4.0, CC0, CC BY 4.0 ; aucun NC ni ND. Lingua
+  Libre refuse le runner (`api.php` : 403 ; `Special:EntityData` : 426) : les fiches des locuteurs
+  n'ont été lues que par l'Internet Archive, pour deux d'entre eux. Écartés : 779 fichiers de
+  locuteurs non retenus (apprenants déclarés : Assassas77 `zh-2`, Yug `zh-3` ; lecteurs de Taïwan :
+  Levi Highway, Shangkuanlc, Cookai1205, graphies traditionnelles, élément « mandarin de Taïwan »,
+  `{{User Taiwan}}` ; voix de moins de 30 fichiers ; fichiers sans locuteur nommé), 852 textes sans
+  étiquette sûre (plus de deux caractères, chiffres, lettres, caractère à plusieurs lectures, mot
+  hors de la liste HSK). « Du continent » n'est attesté que pour CanonNi (Shanghai) ; Fake estate
+  (teochew), Jouketou et Luilui6666 lisent en caractères simplifiés, sans résidence lue.
+- **Shtooka** : le catalogue archivé (`packs.shtooka.net`) n'a pas d'autre collection `cmn` que
+  celle de Yue Tan ; les fichiers `Zh-*.ogg` de Commons sont la même voix.
+- **`hugolpz/audio-cmn`** n'a que ces deux voix (README, tableau « Voices »).
+- **Version de la CC BY-SA** : la 3.0 United States (§4 b) permet de placer une œuvre adaptée sous
+  « a later version of this License with the same License Elements » : la 4.0 International ; une
+  CC BY-SA 4.0 (§3 b) et une CC0 aussi. Les poids qui dériveraient de ces voix seraient donc sous
+  **CC BY-SA 4.0**, texte dans `data/sources/licences/CC-BY-SA-4.0.txt`
+  (`spdx/license-list-data@31ba1a5`, SHA-256
+  `cde7883b9050a1104f4ac19a1572aafd6e5d7323b68351aaf51fbf4beba54966`), copié dans l'export.
+- **Chen Wang** : « CC-by-sa » sans version ; aucune autre page ne la précise. Une attribution
+  CC exige le nom ou l'adresse de la licence : la voix reste à la mesure, jamais à l'entraînement
+  (`voix_cc.py`, rôle `test` ; `lignes_cc` refuse une licence sans version ; `tons.VOIX_CC` ne
+  la recense pas). À lever par une question au dépositaire (Hugo Lopez, INALCO) ou à Chen Wang.
+
+### Les étiquettes et les caractéristiques
+
+- **Le choix** (`voix_cc.py choisir`, sur le poste) : `data/sources/tons/voix-cc.json`, SHA-256
+  `5168bf6ea2bbb74c194c99f9bcc703d4eba2feadd7814ced25e84657d148e01b` : chaque fichier retenu, son
+  empreinte (blob git d'audio-cmn, sha1 de Commons), sa licence, son étiquette. Le pinyin vient
+  de la liste HSK et des lectures du dépôt (`fleurs.Lexique`), jamais de CC-CEDICT : un caractère
+  n'est gardé que s'il n'a qu'une lecture pleine (`voix_kokoro.lecture_unique`) ; un mot de deux
+  caractères de la liste HSK porte le ton que la voix fait (`voix_kokoro.etiqueter_mot`, règles de
+  `fleurs.py` : 3-3 lu 2-3, 不 et 一 selon le ton qui suit, neutre de la liste) ; un mot qui
+  commence par un neutre est écarté. Chen Wang : la syllabe du nom de fichier (ce qu'elle a lu).
+- **L'audio** (`voix_cc.py telecharger`, workflow) : chaque fichier vérifié par son empreinte, sa
+  licence relue dans l'inventaire du même passage, décodé en WAV mono 16 kHz, jamais versionné.
+  Tout a été téléchargé : 6 755 énoncés de Yue Tan, 1 688 de Chen Wang, 2 494 des quatre voix de
+  Lingua Libre.
+- **Les caractéristiques** (`app/scripts/tons/voix.ts --modele`, code de l'app, comme pour Kokoro) :
+  `voix-cc/<voix>.json` sur `donnees/tons-cc` (manifeste `SHA256SUMS`, SHA-256
+  `2352748c4d47425f834d8c2d3ee6a22390dcf880eecc4d2471722d7bbf447e54`), avec le verdict des poids
+  versionnés pour chaque énoncé. Syllabes gardées (ni manquées, ni à redemander) : Yue Tan 10 917,
+  Fake estate 1 451, Jouketou 545, CanonNi 501, Luilui6666 425.
+- Les voix de Lingua Libre sont des voix d'hommes graves (90 à 110 Hz, sauf Luilui6666, 221 Hz),
+  enregistrées vite : beaucoup de syllabes trop brèves (« court ») ; les poids versionnés n'y
+  reconnaissent en tête que 53 à 80 % des caractères (Yue Tan : 90 %).
+
+### La validation croisée par locuteur
+
+`entrainer.py --voix-cc <dossier> --sans-voix <voix>` : la voix mesurée n'est jamais entraînée.
+Pli **YT** : Taïwan et les quatre voix de Lingua Libre, mesuré sur Yue Tan (caractères, mots de la
+moitié test) et sur Chen Wang. Pli **CW** : Taïwan, Yue Tan et Lingua Libre (la configuration d'un
+modèle final), mesuré sur Chen Wang (les chiffres de Yue Tan y sont ceux d'une voix entraînée, sans
+valeur). Code de l'app (`mesurer.ts`, protocole du 30 septembre), voix calibrée sur 5 à 30
+syllabes ; graines 0, 1, 2 ; « actuel » : Taïwan seul, le modèle versionné en graine 0. La
+température est choisie sur Chen Wang (0,7 au pli YT, 0,6 au pli CW).
+
+| Jeu tenu à part (graines 0 / 1 / 2) | Actuel (Taïwan) | Pli YT, voix CC entières | Pli YT, caractères CC seuls | Pli CW, voix CC entières | Pli CW, caractères CC seuls |
+|---|---|---|---|---|---|
+| **Yue Tan, ton 3 en tête** | **92,4 / 92,4 / 92,4** | **89,6 / 90,5 / 88,6** | **93,4 / 90,5 / 91,5** | — | — |
+| Yue Tan, caractères en tête | 90,6 / 91,2 / 90,8 | 93,7 / 94,3 / 93,5 | 93,0 / 92,9 / 91,5 | — | — |
+| Yue Tan, caractères reconnus | 88,2 / 88,9 / 87,9 | 90,6 / 91,0 / 90,4 | 89,6 / 89,5 / 89,3 | — | — |
+| Yue Tan, mots (test) reconnus | 67,5 / 67,4 / 66,8 | 68,6 / 68,5 / 68,5 | 67,0 / 67,1 / 67,2 | — | — |
+| — autre ton affirmé à tort | 2,1 / 2,4 / 2,1 | 2,7 / 2,7 / 2,8 | 2,4 / **3,1** / 2,3 | — | — |
+| — reconnu à tort | 1,7 / 1,6 / 1,7 | 1,1 / 1,2 / 1,3 | 1,7 / 1,7 / 1,7 | — | — |
+| — ton 3 final, neutre final, en tête | 43,0 / 33,2 % (g0) | 38,4 / 18,8 % (g0) | 43,5 / 23,1 % (g0) | — | — |
+| Chen Wang, reconnus | 88,3 / 87,7 / 87,9 | 89,2 / 89,1 / 88,4 | 91,2 / 89,7 / 90,0 | 88,7 / 88,2 / 88,7 | 91,5 / 91,6 / 91,4 |
+| Chen Wang, ton 3 en tête | 91,2 / 91,9 / 91,7 | 92,9 / 91,5 / 92,2 | 93,4 / 91,7 / 91,9 | 93,1 / 94,1 / 92,9 | 93,6 / 93,8 / 93,6 |
+| Chen Wang, autre ton affirmé à tort | 0,4 / 0,3 / 0,4 | 0,7 / 0,9 / 0,7 | 0,6 / 0,4 / 0,6 | 0,7 / 0,6 / 0,6 | 0,6 / 0,3 / 0,5 |
+
+**Lecture.** Les voix humaines du continent font mieux que FLEURS et Kokoro : sur les deux voix
+tenues à part, les caractères reconnus montent (Yue Tan 88,4 → 89,5 à 90,6 % en moyenne, Chen Wang
+88,0 → 88,5 à 91,5 %), les mots de Yue Tan un peu (67,2 → 68,5 %). Mais la règle n'est remplie
+par aucune variante : le ton 3 des caractères de Yue Tan, tenue à part, régresse (92,4 → 89,6 % en
+moyenne avec les voix entières ; 91,8 % avec les seuls caractères, dont une graine à 90,5 %), et
+l'autre ton affirmé à tort sur les mots passe 3 % sur une graine (3,1 %). Les quatre voix de Lingua
+Libre pèsent peu (2 900 syllabes, voix graves, syllabes brèves, ton 3 souvent mal réalisé : les
+poids versionnés n'en reconnaissent que 0 à 59 % en tête) ; Yue Tan, la seule grande voix sous
+licence vérifiée, ne peut pas être à la fois entraînée et la mesure du ton 3. **`modele.json`
+reste celui du 29 septembre ; `MOTS_DIRE` reste éteint** (68,6 % au mieux contre 80 %). Seules ces
+deux variantes ont été essayées, posées avant de lire la mesure (la seconde d'après la leçon de
+FLEURS : un ton 3 dans un mot n'est pas le 214 de citation) ; aucune n'a été retenue sur la mesure.
+
+Pour aller plus loin : d'autres voix du continent qui lisent des caractères isolés, sous licence
+lue (lever la licence de Chen Wang ; d'autres locuteurs natifs sur Lingua Libre, dont les fiches
+soient lisibles) ; une troisième voix tenue à part pour pouvoir entraîner Yue Tan et mesurer le
+ton 3 ailleurs.
+
+### La recette des voix CC
+
+```bash
+# workflow donnees, etapes: tons-cc (inventaire, puis audio et caractéristiques si voix-cc.json)
+git fetch origin donnees/tons-cc
+git archive -o cc.tar origin/donnees/tons-cc data/sources/tons/licences-lues data/sources/tons/voix-cc
+mkdir -p data/work/tons/cc-branche && tar -xf cc.tar -C data/work/tons/cc-branche
+# le choix, sur le poste (après wenlu tout) : l'arbre d'audio-cmn au commit lu
+git clone --filter=blob:none --no-checkout https://github.com/hugolpz/audio-cmn acmn
+git -C acmn -c core.quotepath=off ls-tree -r ff9ed3d0c631195bd2c06f39450f3264c7124040 64k/syllabs 64k/hsk > arbre.txt
+cd data && uv run python sources/tons/voix_cc.py choisir --arbre ../arbre.txt \
+  --lues work/tons/cc-branche/data/sources/tons/licences-lues && cd ..
+# la validation croisée (pli YT ; pli CW : --sans-voix cc-chen-wang), graines 0, 1, 2
+cp -r data/work/tons/cc-branche/data/sources/tons/voix-cc data/work/tons/voix-cc
+uv run --project data --with numpy --with scikit-learn python data/sources/tons/entrainer.py --sans-validation \
+  --graine 0 --sortie essai.json --voix-cc data/work/tons/voix-cc --sans-voix cc-yue-tan [--genres-cc c]
+cd app && npx vite-node scripts/tons/mesurer.ts ../data/work/tons ../essai.json essai
+```
+
+Un modèle appris ainsi déclare chaque voix dans son bloc de licence (`cle`, licence, version) et se
+dit sous CC BY-SA 4.0 ; `wenlu check` le refuse si une voix n'est pas recensée dans
+`tons.VOIX_CC` (attribution exportée), si sa licence est NC, ND ou sans version, ou si les poids ne
+se disent pas sous CC BY-SA 4.0 ; `wenlu export` écrirait alors dans `tons.json` la licence, son
+lien, `CC-BY-SA-4.0.txt` à côté, et l'attribution de chaque source (`attributions`), l'OGDL en tête.
