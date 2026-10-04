@@ -1,0 +1,1614 @@
+{
+ "choix": null,
+ "critere": {
+  "en_tete": 85.0,
+  "ton_min": 70.0,
+  "creux_t3": 50.0,
+  "decoupe": 95.0,
+  "coupes_nettes": 90.0,
+  "gain": 30.0
+ },
+ "manques": {
+  "seul": [
+   "en tête 41.1 % < 85",
+   "ton 1 37.3 % < 70",
+   "ton 2 2.0 % < 70",
+   "ton 3 6.6 % < 70",
+   "ton 3 en creux 1.6 % < 50",
+   "gain +1.6 points < 30"
+  ],
+  "seul-lent": [
+   "en tête 37.5 % < 85",
+   "ton 2 0.0 % < 70",
+   "ton 3 3.3 % < 70",
+   "ton 4 44.9 % < 70",
+   "ton 3 en creux 1.6 % < 50",
+   "gain -2.0 points < 30"
+  ],
+  "triple": [
+   "en tête 47.2 % < 85",
+   "ton 1 32.2 % < 70",
+   "ton 2 58.0 % < 70",
+   "ton 3 14.8 % < 70",
+   "ton 3 en creux 18.0 % < 50",
+   "coupes nettes 0.4 % < 90",
+   "gain +7.7 points < 30"
+  ],
+  "je-dis": [
+   "en tête 40.7 % < 85",
+   "ton 1 32.2 % < 70",
+   "ton 3 54.1 % < 70",
+   "ton 4 14.1 % < 70",
+   "ton 3 en creux 42.6 % < 50",
+   "coupes nettes 0.0 % < 90",
+   "gain +1.2 points < 30"
+  ],
+  "point": [
+   "en tête 40.3 % < 85",
+   "ton 1 11.9 % < 70",
+   "ton 2 0.0 % < 70",
+   "ton 3 26.2 % < 70",
+   "ton 3 en creux 0.0 % < 50",
+   "gain +0.8 points < 30"
+  ],
+  "point-lent": [
+   "en tête 43.1 % < 85",
+   "ton 2 0.0 % < 70",
+   "ton 3 0.0 % < 70",
+   "ton 4 62.8 % < 70",
+   "ton 3 en creux 0.0 % < 50",
+   "gain +3.6 points < 30"
+  ],
+  "exclamation": [
+   "en tête 39.5 % < 85",
+   "ton 1 10.2 % < 70",
+   "ton 2 0.0 % < 70",
+   "ton 3 24.6 % < 70",
+   "ton 3 en creux 0.0 % < 50",
+   "gain +0.0 points < 30"
+  ],
+  "exclamation-lent": [
+   "en tête 41.5 % < 85",
+   "ton 2 0.0 % < 70",
+   "ton 3 0.0 % < 70",
+   "ton 4 60.3 % < 70",
+   "ton 3 en creux 0.0 % < 50",
+   "gain +2.0 points < 30"
+  ],
+  "je-dis-milieu": [
+   "en tête 42.7 % < 85",
+   "ton 1 69.5 % < 70",
+   "ton 2 52.0 % < 70",
+   "ton 3 26.2 % < 70",
+   "ton 4 29.5 % < 70",
+   "ton 3 en creux 41.0 % < 50",
+   "coupes nettes 0.0 % < 90",
+   "gain +3.2 points < 30"
+  ],
+  "ce-caractere": [
+   "en tête 56.0 % < 85",
+   "ton 2 58.0 % < 70",
+   "ton 3 67.2 % < 70",
+   "ton 4 24.4 % < 70",
+   "coupes nettes 0.0 % < 90",
+   "gain +16.5 points < 30"
+  ],
+  "double": [
+   "en tête 45.6 % < 85",
+   "ton 1 6.8 % < 70",
+   "ton 2 18.0 % < 70",
+   "ton 3 47.5 % < 70",
+   "coupes nettes 19.8 % < 90",
+   "gain +6.1 points < 30"
+  ],
+  "double-lent": [
+   "en tête 47.2 % < 85",
+   "ton 1 23.7 % < 70",
+   "ton 2 8.0 % < 70",
+   "ton 3 47.5 % < 70",
+   "coupes nettes 39.5 % < 90",
+   "gain +7.7 points < 30"
+  ],
+  "ce-caractere-double": [
+   "en tête 52.8 % < 85",
+   "ton 1 13.6 % < 70",
+   "ton 2 24.0 % < 70",
+   "coupes nettes 44.0 % < 90",
+   "gain +13.3 points < 30"
+  ],
+  "double-premier": [
+   "en tête 38.3 % < 85",
+   "ton 1 49.2 % < 70",
+   "ton 2 8.0 % < 70",
+   "ton 3 21.3 % < 70",
+   "ton 4 62.8 % < 70",
+   "ton 3 en creux 31.1 % < 50",
+   "coupes nettes 2.4 % < 90",
+   "gain -1.2 points < 30"
+  ],
+  "je-dis-lent": [
+   "en tête 33.5 % < 85",
+   "ton 1 25.4 % < 70",
+   "ton 3 37.7 % < 70",
+   "ton 4 1.3 % < 70",
+   "ton 3 en creux 34.4 % < 50",
+   "coupes nettes 0.0 % < 90",
+   "gain -6.0 points < 30"
+  ]
+ },
+ "nettes": {
+  "seul": 100.0,
+  "triple": 0.4,
+  "seul-lent": 100.0,
+  "point": 100.0,
+  "je-dis": 0.0,
+  "point-lent": 100.0,
+  "exclamation": 100.0,
+  "je-dis-milieu": 0.0,
+  "exclamation-lent": 100.0,
+  "double": 19.8,
+  "ce-caractere": 0.0,
+  "double-lent": 39.5,
+  "double-premier": 2.4,
+  "ce-caractere-double": 44.0,
+  "je-dis-lent": 0.0
+ },
+ "groupes": {
+  "app": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 39.5,
+   "reconnu": 36.3,
+   "voix_hz": 254.25,
+   "duree_moyenne": 0.79,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 37.3,
+     "reconnu": 32.2,
+     "contour": [
+      0.45,
+      0.5,
+      -0.21,
+      -0.39,
+      -0.29
+     ],
+     "registre": 0.03,
+     "creux": 23.7,
+     "profondeur": 0.71,
+     "confusion": {
+      "1": 22,
+      "3": 13,
+      "4": 9,
+      "5": 15
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 2,
+     "reconnu": 0,
+     "contour": [
+      0.65,
+      0.2,
+      -0.74,
+      -0.1,
+      0.63
+     ],
+     "registre": 0.13,
+     "creux": 62,
+     "profondeur": 1.08,
+     "confusion": {
+      "1": 19,
+      "2": 1,
+      "3": 25,
+      "5": 5
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 4.9,
+     "reconnu": 1.6,
+     "contour": [
+      0.55,
+      0.82,
+      -0.06,
+      -0.9,
+      -0.44
+     ],
+     "registre": -0.04,
+     "creux": 1.6,
+     "profondeur": 0.2,
+     "confusion": {
+      "1": 27,
+      "3": 3,
+      "4": 13,
+      "5": 18
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 92.3,
+     "reconnu": 89.7,
+     "contour": [
+      1.67,
+      1.96,
+      0.45,
+      -2.34,
+      -2.1
+     ],
+     "registre": 0.01,
+     "creux": 2.6,
+     "profondeur": 0.26,
+     "confusion": {
+      "1": 2,
+      "3": 1,
+      "4": 72,
+      "5": 3
+     }
+    }
+   }
+  },
+  "seul": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 41.1,
+   "reconnu": 37.9,
+   "voix_hz": 254.49,
+   "duree_moyenne": 0.67,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 37.3,
+     "reconnu": 30.5,
+     "contour": [
+      0.48,
+      0.51,
+      -0.21,
+      -0.39,
+      -0.29
+     ],
+     "registre": 0,
+     "creux": 30.5,
+     "profondeur": 0.75,
+     "confusion": {
+      "1": 22,
+      "3": 14,
+      "4": 8,
+      "5": 15
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 2,
+     "reconnu": 0,
+     "contour": [
+      0.61,
+      0.2,
+      -0.73,
+      -0.08,
+      0.64
+     ],
+     "registre": 0.11,
+     "creux": 56,
+     "profondeur": 1.06,
+     "confusion": {
+      "1": 21,
+      "2": 1,
+      "3": 24,
+      "5": 4
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 6.6,
+     "reconnu": 1.6,
+     "contour": [
+      0.89,
+      0.75,
+      -0.12,
+      -0.91,
+      -0.46
+     ],
+     "registre": -0.03,
+     "creux": 1.6,
+     "profondeur": 0.2,
+     "confusion": {
+      "1": 27,
+      "3": 4,
+      "4": 12,
+      "5": 18
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 96.2,
+     "reconnu": 96.2,
+     "contour": [
+      1.69,
+      2.08,
+      0.4,
+      -2.44,
+      -2.12
+     ],
+     "registre": 0,
+     "creux": 0,
+     "profondeur": 0.24,
+     "confusion": {
+      "1": 2,
+      "4": 75,
+      "5": 1
+     }
+    }
+   }
+  },
+  "seul-lent": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 37.5,
+   "reconnu": 22.6,
+   "voix_hz": 257.56,
+   "duree_moyenne": 0.8,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 94.9,
+     "reconnu": 84.7,
+     "contour": [
+      -0.98,
+      -0.85,
+      2.21,
+      -0.41,
+      -1.09
+     ],
+     "registre": -0.16,
+     "creux": 3.4,
+     "profondeur": 0.37,
+     "confusion": {
+      "1": 56,
+      "3": 1,
+      "5": 2
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 0,
+     "reconnu": 0,
+     "contour": [
+      -0.63,
+      -0.09,
+      1.59,
+      -1.17,
+      -0.51
+     ],
+     "registre": -0.03,
+     "creux": 8,
+     "profondeur": 0.41,
+     "confusion": {
+      "1": 43,
+      "3": 4,
+      "4": 3
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 3.3,
+     "reconnu": 0,
+     "contour": [
+      -1.09,
+      -0.23,
+      2.31,
+      -0.46,
+      -1.94
+     ],
+     "registre": -0.09,
+     "creux": 1.6,
+     "profondeur": 0.45,
+     "confusion": {
+      "1": 48,
+      "3": 2,
+      "4": 10,
+      "5": 1
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 44.9,
+     "reconnu": 7.7,
+     "contour": [
+      -1.68,
+      -0.99,
+      2.9,
+      1.11,
+      -3.66
+     ],
+     "registre": 0.12,
+     "creux": 0,
+     "profondeur": 0.58,
+     "confusion": {
+      "1": 30,
+      "2": 7,
+      "3": 6,
+      "4": 35
+     }
+    }
+   }
+  },
+  "triple": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 47.2,
+   "reconnu": 43.5,
+   "voix_hz": 263.71,
+   "duree_moyenne": 0.61,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 32.2,
+     "reconnu": 20.3,
+     "contour": [
+      0.93,
+      0.47,
+      -0.26,
+      -0.32,
+      -0.69
+     ],
+     "registre": 0.66,
+     "creux": 3.4,
+     "profondeur": 0.32,
+     "confusion": {
+      "1": 19,
+      "3": 2,
+      "4": 7,
+      "5": 31
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 58,
+     "reconnu": 58,
+     "contour": [
+      0.25,
+      -1.4,
+      -0.26,
+      1.17,
+      0.94
+     ],
+     "registre": -0.65,
+     "creux": 26,
+     "profondeur": 0.84,
+     "confusion": {
+      "1": 10,
+      "2": 29,
+      "3": 11
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 14.8,
+     "reconnu": 11.5,
+     "contour": [
+      0.25,
+      -0.74,
+      -0.33,
+      0.79,
+      0.56
+     ],
+     "registre": -0.52,
+     "creux": 18,
+     "profondeur": 0.69,
+     "confusion": {
+      "1": 16,
+      "2": 28,
+      "3": 9,
+      "4": 2,
+      "5": 6
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 76.9,
+     "reconnu": 76.9,
+     "contour": [
+      3.08,
+      2.44,
+      -1.08,
+      -2.08,
+      -1.84
+     ],
+     "registre": 0.27,
+     "creux": 20.5,
+     "profondeur": 0.69,
+     "confusion": {
+      "3": 18,
+      "4": 60
+     }
+    }
+   }
+  },
+  "je-dis": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 40.7,
+   "reconnu": 25.8,
+   "voix_hz": 231.39,
+   "duree_moyenne": 0.8,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 32.2,
+     "reconnu": 8.5,
+     "contour": [
+      0.39,
+      -0.23,
+      -0.42,
+      0.12,
+      0.82
+     ],
+     "registre": 0.77,
+     "creux": 3.4,
+     "profondeur": 0.39,
+     "confusion": {
+      "1": 19,
+      "2": 2,
+      "5": 38
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 76,
+     "reconnu": 74,
+     "contour": [
+      -0.34,
+      -1.22,
+      -0.79,
+      0.91,
+      2.73
+     ],
+     "registre": -0.67,
+     "creux": 10,
+     "profondeur": 0.43,
+     "confusion": {
+      "2": 38,
+      "3": 10,
+      "5": 2
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 54.1,
+     "reconnu": 27.9,
+     "contour": [
+      0.05,
+      -1.09,
+      -1.1,
+      0.84,
+      2.86
+     ],
+     "registre": -0.71,
+     "creux": 42.6,
+     "profondeur": 0.9,
+     "confusion": {
+      "2": 26,
+      "3": 33,
+      "5": 2
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 14.1,
+     "reconnu": 6.4,
+     "contour": [
+      2.32,
+      1.16,
+      -1.38,
+      -1.42,
+      0.65
+     ],
+     "registre": 0.33,
+     "creux": 50,
+     "profondeur": 1.06,
+     "confusion": {
+      "2": 3,
+      "3": 29,
+      "4": 11,
+      "5": 35
+     }
+    }
+   }
+  },
+  "point": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 40.3,
+   "reconnu": 26.6,
+   "voix_hz": 259.66,
+   "duree_moyenne": 0.82,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 11.9,
+     "reconnu": 6.8,
+     "contour": [
+      -1.4,
+      0.91,
+      1.04,
+      -0.61,
+      -1.26
+     ],
+     "registre": 0.13,
+     "creux": 0,
+     "profondeur": 0.73,
+     "confusion": {
+      "1": 7,
+      "3": 16,
+      "4": 31,
+      "5": 5
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 0,
+     "reconnu": 0,
+     "contour": [
+      -0.58,
+      0.95,
+      -0.48,
+      -0.48,
+      0.31
+     ],
+     "registre": -0.02,
+     "creux": 42,
+     "profondeur": 1.04,
+     "confusion": {
+      "1": 19,
+      "3": 25,
+      "4": 4,
+      "5": 2
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 26.2,
+     "reconnu": 0,
+     "contour": [
+      -0.61,
+      1.6,
+      0.5,
+      -1.35,
+      -0.85
+     ],
+     "registre": -0.16,
+     "creux": 0,
+     "profondeur": 0.4,
+     "confusion": {
+      "1": 6,
+      "3": 16,
+      "4": 38,
+      "5": 1
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 98.7,
+     "reconnu": 79.5,
+     "contour": [
+      -1.52,
+      1.74,
+      2.61,
+      -1.79,
+      -3.4
+     ],
+     "registre": 0,
+     "creux": 0,
+     "profondeur": 0.6,
+     "confusion": {
+      "3": 1,
+      "4": 77
+     }
+    }
+   }
+  },
+  "point-lent": {
+   "enonces": 248,
+   "decoupe_juste": 99.6,
+   "en_tete": 43.1,
+   "reconnu": 36.7,
+   "voix_hz": 260.79,
+   "duree_moyenne": 0.92,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 98.3,
+     "reconnu": 94.9,
+     "contour": [
+      -0.62,
+      -0.98,
+      2.29,
+      -0.34,
+      -0.96
+     ],
+     "registre": -0.01,
+     "creux": 5.1,
+     "profondeur": 0.46,
+     "confusion": {
+      "1": 58,
+      "4": 1
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 0,
+     "reconnu": 0,
+     "contour": [
+      -0.26,
+      0.17,
+      1.03,
+      -1.39,
+      0.43
+     ],
+     "registre": 0.04,
+     "creux": 20,
+     "profondeur": 0.7,
+     "confusion": {
+      "1": 40,
+      "3": 9,
+      "4": 1
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 0,
+     "reconnu": 0,
+     "contour": [
+      -0.34,
+      0.23,
+      1.82,
+      -1.68,
+      -0.45
+     ],
+     "registre": -0.06,
+     "creux": 0,
+     "profondeur": 0.29,
+     "confusion": {
+      "1": 42,
+      "4": 19
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 62.8,
+     "reconnu": 44.9,
+     "contour": [
+      -0.9,
+      -0.63,
+      3.39,
+      -0.6,
+      -2.31
+     ],
+     "registre": 0,
+     "creux": 0,
+     "profondeur": 0.82,
+     "confusion": {
+      "1": 28,
+      "4": 49,
+      "-": 1
+     }
+    }
+   }
+  },
+  "exclamation": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 39.5,
+   "reconnu": 25.8,
+   "voix_hz": 259.64,
+   "duree_moyenne": 0.82,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 10.2,
+     "reconnu": 6.8,
+     "contour": [
+      -1.69,
+      0.83,
+      1.16,
+      -0.53,
+      -1.23
+     ],
+     "registre": 0.1,
+     "creux": 0,
+     "profondeur": 0.75,
+     "confusion": {
+      "1": 6,
+      "3": 16,
+      "4": 33,
+      "5": 4
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 0,
+     "reconnu": 0,
+     "contour": [
+      -0.55,
+      0.97,
+      -0.47,
+      -0.49,
+      0.3
+     ],
+     "registre": -0.01,
+     "creux": 42,
+     "profondeur": 1.03,
+     "confusion": {
+      "1": 20,
+      "3": 24,
+      "4": 4,
+      "5": 2
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 24.6,
+     "reconnu": 0,
+     "contour": [
+      -0.43,
+      1.57,
+      0.45,
+      -1.37,
+      -0.89
+     ],
+     "registre": -0.14,
+     "creux": 0,
+     "profondeur": 0.4,
+     "confusion": {
+      "1": 7,
+      "3": 15,
+      "4": 37,
+      "5": 2
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 98.7,
+     "reconnu": 76.9,
+     "contour": [
+      -1.63,
+      1.73,
+      2.64,
+      -1.76,
+      -3.36
+     ],
+     "registre": -0.01,
+     "creux": 0,
+     "profondeur": 0.58,
+     "confusion": {
+      "3": 1,
+      "4": 77
+     }
+    }
+   }
+  },
+  "exclamation-lent": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 41.5,
+   "reconnu": 32.7,
+   "voix_hz": 260.43,
+   "duree_moyenne": 0.89,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 94.9,
+     "reconnu": 89.8,
+     "contour": [
+      -0.79,
+      -1.07,
+      2.56,
+      -0.29,
+      -1.18
+     ],
+     "registre": -0.13,
+     "creux": 1.7,
+     "profondeur": 0.47,
+     "confusion": {
+      "1": 56,
+      "3": 1,
+      "4": 2
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 0,
+     "reconnu": 0,
+     "contour": [
+      -0.22,
+      0.13,
+      1.15,
+      -1.41,
+      0.14
+     ],
+     "registre": 0.03,
+     "creux": 16,
+     "profondeur": 0.63,
+     "confusion": {
+      "1": 42,
+      "3": 7,
+      "4": 1
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 0,
+     "reconnu": 0,
+     "contour": [
+      -0.4,
+      0.18,
+      1.94,
+      -1.5,
+      -0.81
+     ],
+     "registre": -0.05,
+     "creux": 0,
+     "profondeur": 0.24,
+     "confusion": {
+      "1": 38,
+      "4": 23
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 60.3,
+     "reconnu": 35.9,
+     "contour": [
+      -1.07,
+      -0.64,
+      3.44,
+      -0.24,
+      -2.95
+     ],
+     "registre": 0,
+     "creux": 0,
+     "profondeur": 0.9,
+     "confusion": {
+      "1": 30,
+      "3": 1,
+      "4": 47
+     }
+    }
+   }
+  },
+  "je-dis-milieu": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 42.7,
+   "reconnu": 28.2,
+   "voix_hz": 237.15,
+   "duree_moyenne": 0.45,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 69.5,
+     "reconnu": 55.9,
+     "contour": [
+      0.63,
+      0.08,
+      -0.24,
+      -0.07,
+      -0.12
+     ],
+     "registre": 2.49,
+     "creux": 0,
+     "profondeur": 0.25,
+     "confusion": {
+      "1": 41,
+      "5": 18
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 52,
+     "reconnu": 48,
+     "contour": [
+      -0.16,
+      -0.94,
+      -0.54,
+      0.85,
+      1.46
+     ],
+     "registre": -0.57,
+     "creux": 12,
+     "profondeur": 0.43,
+     "confusion": {
+      "2": 26,
+      "3": 7,
+      "5": 17
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 26.2,
+     "reconnu": 9.8,
+     "contour": [
+      1.31,
+      0.06,
+      -0.8,
+      -0.1,
+      0.44
+     ],
+     "registre": -1.69,
+     "creux": 41,
+     "profondeur": 0.79,
+     "confusion": {
+      "2": 1,
+      "3": 16,
+      "5": 44
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 29.5,
+     "reconnu": 9,
+     "contour": [
+      2.58,
+      1.15,
+      -0.96,
+      -1.16,
+      -0.92
+     ],
+     "registre": 0.55,
+     "creux": 0,
+     "profondeur": 0.27,
+     "confusion": {
+      "4": 23,
+      "5": 55
+     }
+    }
+   }
+  },
+  "ce-caractere": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 56,
+   "reconnu": 48.4,
+   "voix_hz": 243.03,
+   "duree_moyenne": 0.92,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 84.7,
+     "reconnu": 71.2,
+     "contour": [
+      0.73,
+      0.05,
+      -0.53,
+      -0.16,
+      0.6
+     ],
+     "registre": 0.94,
+     "creux": 10.2,
+     "profondeur": 0.58,
+     "confusion": {
+      "1": 50,
+      "3": 1,
+      "5": 8
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 58,
+     "reconnu": 54,
+     "contour": [
+      -0.3,
+      -1.3,
+      -1.09,
+      1.16,
+      3.07
+     ],
+     "registre": -1.76,
+     "creux": 34,
+     "profondeur": 0.77,
+     "confusion": {
+      "2": 29,
+      "3": 21
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 67.2,
+     "reconnu": 59,
+     "contour": [
+      0.69,
+      -0.81,
+      -1.37,
+      0.74,
+      2.24
+     ],
+     "registre": -1.53,
+     "creux": 65.6,
+     "profondeur": 1.67,
+     "confusion": {
+      "2": 14,
+      "3": 41,
+      "5": 6
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 24.4,
+     "reconnu": 19.2,
+     "contour": [
+      2.52,
+      1.41,
+      -1.3,
+      -1.44,
+      -0.19
+     ],
+     "registre": 0.29,
+     "creux": 48.7,
+     "profondeur": 0.94,
+     "confusion": {
+      "2": 3,
+      "3": 32,
+      "4": 19,
+      "5": 24
+     }
+    }
+   }
+  },
+  "double": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 45.6,
+   "reconnu": 39.1,
+   "voix_hz": 249.56,
+   "duree_moyenne": 0.75,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 6.8,
+     "reconnu": 1.7,
+     "contour": [
+      1.1,
+      0.79,
+      0.08,
+      -0.8,
+      -1.26
+     ],
+     "registre": 0.33,
+     "creux": 0,
+     "profondeur": 0.2,
+     "confusion": {
+      "1": 4,
+      "4": 16,
+      "5": 39
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 18,
+     "reconnu": 14,
+     "contour": [
+      1.53,
+      -0.36,
+      -1.15,
+      0.07,
+      1.5
+     ],
+     "registre": -1.28,
+     "creux": 60,
+     "profondeur": 1.29,
+     "confusion": {
+      "2": 9,
+      "3": 29,
+      "5": 12
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 47.5,
+     "reconnu": 37.7,
+     "contour": [
+      1.74,
+      0.28,
+      -1.17,
+      -0.64,
+      1.21
+     ],
+     "registre": -1.26,
+     "creux": 55.7,
+     "profondeur": 1.06,
+     "confusion": {
+      "2": 3,
+      "3": 29,
+      "5": 29
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 91,
+     "reconnu": 84.6,
+     "contour": [
+      1.57,
+      1.72,
+      0.22,
+      -2,
+      -1.69
+     ],
+     "registre": 0.95,
+     "creux": 0,
+     "profondeur": 0.31,
+     "confusion": {
+      "4": 71,
+      "5": 7
+     }
+    }
+   }
+  },
+  "double-lent": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 47.2,
+   "reconnu": 44,
+   "voix_hz": 237.49,
+   "duree_moyenne": 0.87,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 23.7,
+     "reconnu": 13.6,
+     "contour": [
+      1.16,
+      0.78,
+      -0.01,
+      -0.71,
+      -1.33
+     ],
+     "registre": 0.42,
+     "creux": 0,
+     "profondeur": 0.32,
+     "confusion": {
+      "1": 14,
+      "4": 14,
+      "5": 31
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 8,
+     "reconnu": 8,
+     "contour": [
+      1.47,
+      -0.07,
+      -1.05,
+      -0.2,
+      1.17
+     ],
+     "registre": -1.11,
+     "creux": 60,
+     "profondeur": 1.13,
+     "confusion": {
+      "2": 4,
+      "3": 23,
+      "5": 23
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 47.5,
+     "reconnu": 45.9,
+     "contour": [
+      1.67,
+      0.2,
+      -1.06,
+      -0.6,
+      1.06
+     ],
+     "registre": -0.97,
+     "creux": 52.5,
+     "profondeur": 1.06,
+     "confusion": {
+      "2": 2,
+      "3": 29,
+      "5": 30
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 89.7,
+     "reconnu": 88.5,
+     "contour": [
+      1.92,
+      2.02,
+      0.22,
+      -1.97,
+      -2.71
+     ],
+     "registre": 1.03,
+     "creux": 9,
+     "profondeur": 0.87,
+     "confusion": {
+      "3": 6,
+      "4": 70,
+      "5": 2
+     }
+    }
+   }
+  },
+  "ce-caractere-double": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 52.8,
+   "reconnu": 45.6,
+   "voix_hz": 228.2,
+   "duree_moyenne": 1.01,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 13.6,
+     "reconnu": 6.8,
+     "contour": [
+      0.98,
+      0.2,
+      -0.6,
+      -0.32,
+      0.44
+     ],
+     "registre": 0.11,
+     "creux": 6.8,
+     "profondeur": 0.6,
+     "confusion": {
+      "1": 8,
+      "5": 51
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 24,
+     "reconnu": 18,
+     "contour": [
+      1.44,
+      -0.1,
+      -1.23,
+      -0.3,
+      1.64
+     ],
+     "registre": -0.76,
+     "creux": 66,
+     "profondeur": 1.26,
+     "confusion": {
+      "2": 12,
+      "3": 27,
+      "5": 11
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 72.1,
+     "reconnu": 60.7,
+     "contour": [
+      1.95,
+      0.55,
+      -1.28,
+      -0.92,
+      1.14
+     ],
+     "registre": -0.89,
+     "creux": 70.5,
+     "profondeur": 1.39,
+     "confusion": {
+      "1": 1,
+      "3": 44,
+      "5": 16
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 85.9,
+     "reconnu": 80.8,
+     "contour": [
+      2.13,
+      1.79,
+      -0.21,
+      -1.97,
+      -1.6
+     ],
+     "registre": 1.1,
+     "creux": 9,
+     "profondeur": 0.44,
+     "confusion": {
+      "3": 2,
+      "4": 67,
+      "5": 9
+     }
+    }
+   }
+  },
+  "double-premier": {
+   "enonces": 248,
+   "decoupe_juste": 100,
+   "en_tete": 38.3,
+   "reconnu": 25,
+   "voix_hz": 273.33,
+   "duree_moyenne": 0.67,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 49.2,
+     "reconnu": 23.7,
+     "contour": [
+      -1.6,
+      -0.35,
+      0.89,
+      0.31,
+      -0.36
+     ],
+     "registre": 0.02,
+     "creux": 0,
+     "profondeur": 0.39,
+     "confusion": {
+      "1": 29,
+      "3": 18,
+      "4": 3,
+      "5": 9
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 8,
+     "reconnu": 2,
+     "contour": [
+      0.26,
+      -0.45,
+      -0.06,
+      0.55,
+      -0.22
+     ],
+     "registre": 0.08,
+     "creux": 36,
+     "profondeur": 0.86,
+     "confusion": {
+      "1": 27,
+      "2": 4,
+      "3": 11,
+      "4": 5,
+      "5": 3
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 21.3,
+     "reconnu": 13.1,
+     "contour": [
+      0.5,
+      0.16,
+      -0.18,
+      0.02,
+      -0.51
+     ],
+     "registre": -0.01,
+     "creux": 31.1,
+     "profondeur": 0.88,
+     "confusion": {
+      "1": 28,
+      "2": 2,
+      "3": 13,
+      "4": 11,
+      "5": 7
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 62.8,
+     "reconnu": 50,
+     "contour": [
+      0.65,
+      2.03,
+      -0.11,
+      -1.8,
+      -1.27
+     ],
+     "registre": -0.06,
+     "creux": 28.2,
+     "profondeur": 0.85,
+     "confusion": {
+      "3": 27,
+      "4": 49,
+      "5": 2
+     }
+    }
+   }
+  },
+  "je-dis-lent": {
+   "enonces": 248,
+   "decoupe_juste": 99.2,
+   "en_tete": 33.5,
+   "reconnu": 27,
+   "voix_hz": 226.33,
+   "duree_moyenne": 0.95,
+   "par_ton": {
+    "1": {
+     "n": 59,
+     "en_tete": 25.4,
+     "reconnu": 5.1,
+     "contour": [
+      0.17,
+      -0.61,
+      -0.64,
+      0.43,
+      1.56
+     ],
+     "registre": 0.43,
+     "creux": 6.8,
+     "profondeur": 0.5,
+     "confusion": {
+      "1": 15,
+      "2": 30,
+      "3": 4,
+      "5": 10
+     }
+    },
+    "2": {
+     "n": 50,
+     "en_tete": 88,
+     "reconnu": 88,
+     "contour": [
+      -0.84,
+      -1.54,
+      -0.9,
+      1.29,
+      3.4
+     ],
+     "registre": -0.41,
+     "creux": 8,
+     "profondeur": 0.36,
+     "confusion": {
+      "2": 44,
+      "3": 6
+     }
+    },
+    "3": {
+     "n": 61,
+     "en_tete": 37.7,
+     "reconnu": 32.8,
+     "contour": [
+      0.07,
+      -1.66,
+      -1.22,
+      1.33,
+      3.32
+     ],
+     "registre": -0.26,
+     "creux": 34.4,
+     "profondeur": 0.88,
+     "confusion": {
+      "2": 38,
+      "3": 23
+     }
+    },
+    "4": {
+     "n": 78,
+     "en_tete": 1.3,
+     "reconnu": 0,
+     "contour": [
+      2.54,
+      0.61,
+      -1.91,
+      -0.73,
+      1.41
+     ],
+     "registre": 0.16,
+     "creux": 83.3,
+     "profondeur": 1.98,
+     "confusion": {
+      "2": 4,
+      "3": 69,
+      "4": 1,
+      "5": 2,
+      "-": 2
+     }
+    }
+   }
+  }
+ },
+ "echecs": []
+}
