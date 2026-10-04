@@ -125,6 +125,7 @@ PORTEURS: dict[str, Porteur] = {
         Porteur("je-dis", "我说X。", avant=_JE_DIS),
         Porteur("je-dis-milieu", "我说X这个字。", avant=_JE_DIS, apres=("zhe4 ge5", "zi4")),
         Porteur("ce-caractere", "这个字读X。", avant=_CE_CARACTERE),
+        Porteur("ce-caractere-double", "这个字读X，X。 — la seconde", avant=_CE_CARACTERE, fois=2, garde=1),
         Porteur("seul-lent", "X, vitesse 0,8", fin="", vitesse=0.8),
         Porteur("point-lent", "X., vitesse 0,8", vitesse=0.8),
         Porteur("exclamation-lent", "X!, vitesse 0,8", fin="!", vitesse=0.8),
@@ -196,40 +197,83 @@ def bornes(ps: str, durees: Sequence[int], vocab: frozenset[str] | None = None) 
 
 def plage_par_durees(
     ps: str, debut: int, fin: int, durees: Sequence[int], n: int, vocab: frozenset[str] | None = None,
-    sr: int = ECHANTILLONNAGE,
+    sr: int = ECHANTILLONNAGE, x: Sequence[float] | None = None,
 ) -> tuple[int, int]:
     """La plage de la cible `ps[debut:fin]` dans un rendu de `n` échantillons.
 
     Les bornes prédites, élargies de `MARGE_AVANT` dans la pause qui précède (ou le bord du
     rendu) et de `MARGE_APRES` dans celle qui suit, jamais au-delà de la pause : un mot du
-    porteur collé à la cible (« 我说X ») n'est jamais pris.
+    porteur collé à la cible (« 我说X ») n'est jamais pris. Avec le signal `x`, l'élargissement
+    va plus loin dans la pause tant que le signal y sonne encore : l'essai du 3 octobre 2026 a
+    montré que Kokoro commence souvent la voix plus tôt que la frontière prédite.
     """
     places = bornes(ps, durees, vocab)
     cible = [p for p in places[debut:fin] if p is not None]
     if not cible:
         raise DecoupeImpossible("aucun jeton de la cible")
-    a, b = cible[0][0], cible[-1][1]
+    a0, b0 = cible[0][0], cible[-1][1]
+    a, b = a0, b0
+    seuil = (max(_trames_db(x, sr)) + SILENCE_DB) if x is not None and len(x) else None
     # avant : le bord du rendu, ou une pause
     i = debut - 1
+    limite_a: int | None = None
     if i < 0:
-        a = max(0, a - int(MARGE_AVANT * sr))
+        limite_a = 0
     elif ps[i] in PAUSES:
         while i >= 0 and ps[i] in PAUSES:
             i -= 1
         precede = next((places[j] for j in range(i + 1, debut) if places[j] is not None), None)
-        limite = precede[0] if precede else (0 if i < 0 else a)
-        a = max(limite, a - int(MARGE_AVANT * sr))
+        limite_a = precede[0] if precede else (0 if i < 0 else a0)
+    if limite_a is not None:
+        a = a0 - int(MARGE_AVANT * sr)
+        if seuil is not None and x is not None:
+            a = min(a, reculer(x, a0, limite_a, seuil, sr))
+        a = max(limite_a, a)
     # après : le bord du rendu, ou une pause
     j = fin
+    limite_b: int | None = None
     if j >= len(ps):
-        b = min(n, b + int(MARGE_APRES * sr))
+        limite_b = n
     elif ps[j] in PAUSES:
         while j < len(ps) and ps[j] in PAUSES:
             j += 1
         suit = [places[k] for k in range(fin, j) if places[k] is not None]
-        limite = n if j >= len(ps) else (suit[-1][1] if suit else b)
-        b = min(limite, b + int(MARGE_APRES * sr))
+        limite_b = n if j >= len(ps) else (suit[-1][1] if suit else b0)
+    if limite_b is not None:
+        b = b0 + int(MARGE_APRES * sr)
+        if seuil is not None and x is not None:
+            b = max(b, avancer(x, b0, limite_b, seuil, sr))
+        b = min(limite_b, b)
     return max(0, min(a, n)), max(0, min(b, n))
+
+
+def _niveau(x: Sequence[float], i: int, j: int) -> float:
+    t = x[max(0, i) : max(0, j)]
+    e = math.sqrt(sum(v * v for v in t) / max(1, len(t)))
+    return 20 * math.log10(max(e, 1e-9))
+
+
+def reculer(x: Sequence[float], a: int, limite: int, seuil: float, sr: int = ECHANTILLONNAGE) -> int:
+    """Depuis `a`, recule par trames de 10 ms jusqu'à la première trame sous `seuil` (dB),
+    sans passer `limite` : le début d'un silence avant la voix, ou `limite`."""
+    h = max(1, int(TRAME_BORD * sr))
+    k = a
+    while k - h >= limite:
+        if _niveau(x, k - h, k) <= seuil:
+            return k - h
+        k -= h
+    return limite
+
+
+def avancer(x: Sequence[float], b: int, limite: int, seuil: float, sr: int = ECHANTILLONNAGE) -> int:
+    """Le pendant de `reculer` après la voix : la fin de la première trame sous `seuil`."""
+    h = max(1, int(TRAME_BORD * sr))
+    k = b
+    while k + h <= limite:
+        if _niveau(x, k, k + h) <= seuil:
+            return k + h
+        k += h
+    return limite
 
 
 def _trames_db(x: Sequence[float], sr: int, pas: float = TRAME_BORD) -> list[float]:
@@ -292,7 +336,7 @@ def couper(rendu: Rendu, porteur: Porteur, ps: str, debut: int, fin: int, sr: in
     """La cible coupée du rendu : par les durées s'il y en a, sinon par les silences."""
     x = rendu.echantillons
     if rendu.durees is not None:
-        a, b = plage_par_durees(ps, debut, fin, rendu.durees, len(x), rendu.vocab, sr)
+        a, b = plage_par_durees(ps, debut, fin, rendu.durees, len(x), rendu.vocab, sr, x)
         methode = "durees"
     elif porteur.entoure_de_pauses:
         a, b = plage_par_silences(x, porteur.fois, porteur.garde, sr)

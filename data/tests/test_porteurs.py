@@ -181,6 +181,31 @@ def test_la_coupe_prend_la_queue_de_la_voix_dans_la_pause_qui_suit() -> None:
     assert fin_cible is not None and b == fin_cible[1] + int(MARGE_APRES * SR)
 
 
+def test_une_voix_partie_avant_la_frontiere_predite_est_prise_jusqua_son_silence() -> None:
+    """Kokoro commence souvent la voix avant la frontière prédite : la coupe recule dans la pause
+    jusqu'à une trame muette, au lieu de couper l'attaque."""
+    ps, debut, fin = PORTEURS["double"].phonemes(["ma1"])
+    r = rendu_de(ps)
+    cible = bornes(ps, r.durees or [])[debut]
+    assert cible is not None
+    avance = int(0.1 * SR)  # la voix part 100 ms plus tôt, dans la pause
+    for k in range(cible[0] - avance, cible[0]):
+        r.echantillons[k] = 0.5
+    a, _ = plage_par_durees(ps, debut, fin, r.durees or [], len(r.echantillons), x=r.echantillons)
+    assert a <= cible[0] - avance
+    assert all(v == 0.0 for v in r.echantillons[a : cible[0] - avance])
+
+
+def test_le_recul_ne_passe_jamais_le_debut_de_la_pause() -> None:
+    ps, debut, fin = PORTEURS["double"].phonemes(["ma1"])
+    r = rendu_de(ps)
+    r.echantillons = [0.5] * len(r.echantillons)
+    places = bornes(ps, r.durees or [])
+    a, _ = plage_par_durees(ps, debut, fin, r.durees or [], len(r.echantillons), x=r.echantillons)
+    virgule = places[ps.index(",")]
+    assert virgule is not None and a == virgule[0]
+
+
 def test_la_coupe_ne_prend_rien_du_mot_porteur_colle_a_la_cible() -> None:
     """« 我说X » : la coupe commence à la frontière prédite, pas un échantillon de 说 avant."""
     ps, debut, fin = PORTEURS["je-dis"].phonemes(["ma1"])
