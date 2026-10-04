@@ -176,6 +176,9 @@ MIT_CJK_DECOMP = "MIT-cjk-decomp.txt"
 OGDL = tons_mod.OGDL
 #: Texte de la MIT d'ivankra/hsk30, dont vient la liste des mots du dictionnaire.
 MIT_HSK30 = mots_hsk_mod.TEXTE_LICENCE
+#: Texte de la CC BY-SA 4.0 : celle des poids des tons dès qu'ils dérivent d'une voix sous
+#: CC BY-SA (`tons.py`), et celle des mots tirés de CC-CEDICT (§8 de `docs/sources-licences.md`).
+CC_BY_SA = tons_mod.CC_BY_SA
 
 #: Substitués à l'écriture : la date ne fait pas varier le contenu comparé.
 JETON_DATE = "@date@"
@@ -297,6 +300,7 @@ def fichiers_sources(
         ("unicode", LICENCES_SOURCE / UNICODE_NOTICE),
         ("mit-cjk-decomp", LICENCES_SOURCE / MIT_CJK_DECOMP),
         ("mit-hsk30", LICENCES_SOURCE / MIT_HSK30),
+        ("cc-by-sa-4.0", LICENCES_SOURCE / CC_BY_SA),
     ]
     for chemin in fiches_mod.fiches_ecrites(fiches):
         lus.append((f"fiche:{chemin.stem}", chemin))
@@ -1704,7 +1708,7 @@ def licences_md(version: str) -> str:
         "| Source | Usage dans l'export | Licence | Attribution | Texte de la licence |",
         "|---|---|---|---|---|",
     ]
-    for source, usage, licence, attribution, texte in TABLEAU_LICENCES:
+    for source, usage, licence, attribution, texte in (*TABLEAU_LICENCES, *tons_mod.lignes_licences()):
         lignes.append(f"| {source} | {usage} | {licence} | {attribution} | {texte} |")
     lignes += [
         "",
@@ -1729,9 +1733,7 @@ def licences_md(version: str) -> str:
         " décompositions descendues de cjk-decomp.",
         f"- `{MIT_HSK30}` : notice de copyright et texte de la MIT d'ivankra/hsk30, qui couvrent"
         " la liste des mots du dictionnaire (`dico/`).",
-        f"- `{tons_mod.FICHIER}` : les poids du classifieur des tons, propriétaires, dérivés de"
-        f" données sous {tons_mod.LICENCE_DONNEES} ; ils portent l'attribution exigée, et"
-        f" `{tons_mod.OGDL}` le texte de la licence.",
+        *tons_mod.ligne_separation(),
         "",
         "## Ce que l'export ne contient pas",
         "",
@@ -2175,8 +2177,6 @@ def assembler(
         tons_mod.document(
             en_tete={
                 "version": version,
-                "license": tons_mod.LICENCE_EXPORT,
-                "source": tons_mod.SOURCE_EXPORT,
                 "source_url": URL_PIPELINE,
                 "modified": f"{JETON_JOUR} : copié par `wenlu export`, poids inchangés",
             }
@@ -2190,7 +2190,7 @@ def assembler(
     textes.update(ecriture_mod.fichiers(version, ingest=ingest, licences=licences, jour=JETON_JOUR))
     textes["LICENCES.md"] = licences_md(version)
     textes["traits/MODIFICATIONS.md"] = modifications_md(version, len(graphies), decoupes_decrites, dico_traits)
-    for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP, OGDL, MIT_HSK30):
+    for nom in (ARPHIC, UNICODE_NOTICE, MIT_CJK_DECOMP, OGDL, MIT_HSK30, CC_BY_SA):
         texte = (licences / nom).read_text(encoding="utf-8")
         textes[nom] = texte
         if nom == ARPHIC:
@@ -2385,6 +2385,7 @@ TEXTES_DE_LICENCE: tuple[str, ...] = (
     MIT_CJK_DECOMP,
     OGDL,
     MIT_HSK30,
+    CC_BY_SA,
     "LICENCES.md",
     f"traits/{ARPHIC}",
     "traits/MODIFICATIONS.md",

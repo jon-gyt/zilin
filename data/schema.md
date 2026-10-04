@@ -58,6 +58,7 @@ app/public/data/0.1.0/
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
   tons.json                  les poids du classifieur des tons de « Dis-le », avec leur attribution
   OGDL-Taiwan-1.0.txt        le texte de la licence des données dont ces poids dérivent
+  CC-BY-SA-4.0.txt           le texte de la CC BY-SA 4.0 (mots de CC-CEDICT ; poids des tons dérivés de voix CC BY-SA)
   familles/<racine>.json     une famille : `Famille` de models.py
   traits/<racine>.json       les tracés de la famille, sous APL, et rien d'autre
   traits/ARPHICPL.TXT        la même licence, à côté des fichiers qu'elle couvre
@@ -864,14 +865,20 @@ L'app remplit les jetons entre accolades (`app/src/lib/ecrans.ts`).
 
 Tiré de `data/sources/tons/modele.json` (story 9.1, provenance dans
 `data/sources/tons/PROVENANCE.md`) : les poids du classifieur des tons de « Dis-le », tels
-que l'entraînement les a écrits, compacts. En tête, l'en-tête de licence, l'attribution
-exigée par l'Open Government Data License 1.0 et le fichier de son texte ; puis les poids.
+que l'entraînement les a écrits, compacts. En tête, l'en-tête de licence, l'attribution de
+chaque source dont les poids dérivent et les fichiers des textes de licence ; puis les poids.
+Tant que les poids ne dérivent que des voix de Taïwan, la licence est celle d'aujourd'hui
+(propriétaire, données sous OGDL 1.0) ; s'ils dérivent d'une voix sous CC BY-SA (`tons.py`,
+`VOIX_CC`), ils sont sous CC BY-SA 4.0 : `license` le dit, `license_url` donne l'adresse de son
+texte, `license_files` nomme `OGDL-Taiwan-1.0.txt` et `CC-BY-SA-4.0.txt`, et `attributions`
+porte l'attribution de chaque source, l'OGDL en tête (`attribution` les met bout à bout).
 
 ```json
 {"version": "0.1.0-2026-09-29", "license": "propriétaire (poids Wenlu) ; données d'entraînement sous Open Government Data License 1.0 …",
  "source": "…", "source_url": "…", "modified": "…",
- "attribution": "Syllabes du mandarin, deux voix, jeu de données 5961 de data.gov.tw … https://data.gov.tw/license",
- "license_file": "OGDL-Taiwan-1.0.txt",
+ "attribution": "數位發展部 … jeu de données 5961 de data.gov.tw … https://data.gov.tw/license",
+ "attributions": ["數位發展部 … https://data.gov.tw/license"],
+ "license_file": "OGDL-Taiwan-1.0.txt", "license_files": ["OGDL-Taiwan-1.0.txt"],
  "format": "wenlu-tons-mlp", "classes": [1, 2, 3, 4, 5], "entrees": 34,
  "membres": [{"normalisation": {"moyenne": […], "ecart": […]}, "couches": [{"poids": [[…]], "biais": […]}, …]}, …],
  "temperature": 1.2, "poidsRegles": 4, "licence": {…}, "entrainement": {…}}

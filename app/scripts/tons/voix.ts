@@ -6,8 +6,17 @@
  *
  *   cd app && npx vite-node scripts/tons/voix.ts ../data/work/tons/voix zf_002 [zm_009 …]
  *
+ * Les voix humaines sous CC BY-SA, CC BY ou CC0 (étape `tons-cc`, `data/sources/tons/voix_cc.py`)
+ * passent par le même code :
+ *
+ *   cd app && npx vite-node scripts/tons/voix.ts ../data/work/tons/cc --sortie ../data/sources/tons/voix-cc \
+ *     --modele ../data/sources/tons/modele.json cc-chen-wang cc-yue-tan …
+ *
+ * `--modele` : le verdict de l'app avec ces poids est gardé pour chaque énoncé (`h`, le ton en tête ;
+ * `e`, l'état), pour repérer une voix qui ne dit pas les tons attendus avant de l'entraîner.
+ *
  * Lit `<travail>/<voix>/corpus.json` et ses WAV, écrit
- * `data/sources/tons/voix-kokoro/<voix>.json` (aucun son) : pour chaque syllabe, les entrées du
+ * `data/sources/tons/voix-kokoro/<voix>.json` (ou `--sortie`), aucun son : pour chaque syllabe, les entrées du
  * modèle telles que l'app les calcule (`analyserTrames` : `suivreHauteur`, `segmenter` avec les
  * frontières liées d'un mot, `probabilitesSyllabe` avec les réglages des mots), sans référence
  * de voix (`x`), puis le registre face à une référence calibrée sur cinq caractères de la voix
@@ -17,18 +26,29 @@
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { analyserTrames, type Ton } from '../../src/lib/tons/classifieur';
+import { analyserTrames, CLASSES, type Modele, type Ton } from '../../src/lib/tons/classifieur';
 import { suivreHauteur } from '../../src/lib/tons/pitch';
 import { lireWav, reechantillonner } from '../../src/lib/tons/wav';
 
-const ICI = resolve(process.argv[2] ?? '../data/work/tons/voix');
-const VOIX = process.argv.slice(3);
-const SORTIE = resolve('../data/sources/tons/voix-kokoro');
+const args = process.argv.slice(2);
+/** Les options `--nom valeur`, retirées de la liste des voix. */
+function option(nom: string): string | undefined {
+  const i = args.indexOf(nom);
+  if (i < 0) return undefined;
+  const v = args[i + 1];
+  args.splice(i, 2);
+  return v;
+}
+const SORTIE = resolve(option('--sortie') ?? '../data/sources/tons/voix-kokoro');
+const fichierModele = option('--modele');
+const modele = fichierModele ? (JSON.parse(readFileSync(fichierModele, 'utf8')) as Modele) : undefined;
+const ICI = resolve(args[0] ?? '../data/work/tons/voix');
+const VOIX = args.slice(1);
 /** La voix de l'app : ses trames sont gardées pour `mesurer.ts`. */
 const VOIX_TEST = 'zf_001';
 
-type Entree = { id: string; genre: 'c' | 'm'; texte: string; syl: string[]; tons: number[]; vitesse: number; fin: string; ps: string; fichier: string };
-type Corpus = { voix: string; modele: string; revision: string | null; textes: string; role: string; entrees: Entree[] };
+type Entree = { id: string; genre: 'c' | 'm'; texte: string; syl: string[]; tons: number[]; vitesse?: number | null; fin?: string | null; ps?: string; fichier: string };
+type Corpus = { voix: string; modele: string; revision: string | null; textes: string; role: string; source?: object; entrees: Entree[] };
 
 /** Les syllabes qui commencent par une voix (m, n, l, r, y, w, voyelle) : `mesurer.ts`, `lieesDe`. */
 export function liees(syl: readonly string[]): boolean[] {
@@ -62,6 +82,14 @@ for (const voix of VOIX) {
     const s = analyserTrames(a.tr, a.crete, a.e.tons as Ton[]).syllabes;
     if (s.length === 1 && s[0].contour.moyenne > 0) moyennes.push(s[0].contour.moyenne);
   }
+  // une voix qui ne dit que des mots : la moyenne de chaque syllabe de ses mots
+  if (moyennes.length < 5) {
+    for (const a of analyses) {
+      if (a.e.tons.length === 1) continue;
+      const s = analyserTrames(a.tr, a.crete, a.e.tons as Ton[], undefined, undefined, lieesDe(a.e)).syllabes;
+      if (s.length === a.e.tons.length) for (const x of s) if (x.contour.moyenne > 0) moyennes.push(x.contour.moyenne);
+    }
+  }
   const oracle = med(moyennes);
   let g = 12345;
   const alea = (): number => (g = (g * 1103515245 + 12345) % 2147483648) / 2147483648;
@@ -78,17 +106,23 @@ for (const voix of VOIX) {
     }
     const cal = analyserTrames(a.tr, a.crete, e.tons as Ton[], undefined, ref, lieesDe(e));
     const ora = analyserTrames(a.tr, a.crete, e.tons as Ton[], undefined, oracle, lieesDe(e));
-    sans.syllabes.forEach((s, k) =>
+    // le verdict de l'app avec les poids donnés, voix calibrée : le ton en tête, l'état
+    const app = modele ? analyserTrames(a.tr, a.crete, e.tons as Ton[], modele, ref, lieesDe(e)) : null;
+    sans.syllabes.forEach((s, k) => {
+      const p = app?.syllabes[k]?.verdict.probabilites;
       lignes.push({
-        id: e.id, g: e.genre, k, n: e.tons.length, t: e.tons[k], v: e.vitesse, f: e.fin, ok: true,
+        id: e.id, g: e.genre, k, n: e.tons.length, t: e.tons[k], v: e.vitesse ?? null, f: e.fin ?? null, ok: true,
         x: s.entrees.map(r3), rc: r3(cal.syllabes[k].entrees[30]), ro: r3(ora.syllabes[k].entrees[30]),
-        probleme: sans.probleme
-      })
-    );
+        probleme: sans.probleme,
+        ...(app ? { h: p ? CLASSES[p.indexOf(Math.max(...p))] : null, e: app.etat } : {})
+      });
+    });
   }
   const doc = {
     format: 'wenlu-tons-voix', voix, role: corpus.role, modele: corpus.modele, revision: corpus.revision,
     textes: corpus.textes, code: 'app/scripts/tons/voix.ts (analyserTrames, réglages de l’app)',
+    ...(fichierModele ? { verdicts: `${fichierModele.split('/').pop()} (h : ton en tête, e : état, voix calibrée)` } : {}),
+    ...(corpus.source ? { source: corpus.source } : {}),
     voix_hz: r3(oracle), enonces: corpus.entrees.length, echecs, lignes
   };
   writeFileSync(join(SORTIE, `${voix}.json`), JSON.stringify(doc));

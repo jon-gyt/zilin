@@ -28,15 +28,33 @@
 # à virgules, vide pour celles de `voix_kokoro.py`) ; seul le JSON des caractéristiques part sur la
 # branche `donnees/tons-voix`, jamais un son, et les voix déjà extraites y restent d'un
 # passage à l'autre.
+#
+# `etapes: tons-cc` (3 octobre 2026, décision « Voix CC BY-SA ») lit la licence de chaque
+# enregistrement `cmn` de Lingua Libre sur Commons, les fiches de ses locuteurs, le readme de
+# Shtooka (Yue Tan) et le README d'audio-cmn (Chen Wang), puis, si `voix-cc.json` (le choix fait
+# sur le poste, `data/sources/tons/voix_cc.py choisir`) est versionné, télécharge les fichiers
+# retenus, vérifie leur empreinte et en calcule les caractéristiques avec le code de l'app
+# (`app/scripts/tons/voix.ts`). Seuls les pages de licence lues et le JSON des caractéristiques
+# partent sur la branche `donnees/tons-cc`, jamais un son.
+#
+# `etapes: audio-porteurs` (3 octobre 2026, décision « vérifier puis corriger ») : sans `porteur`,
+# l'essai des porteurs des caractères (`data/src/wenlu_data/porteurs.py`) : chaque caractère que
+# l'app embarque, dit par Kokoro en phonèmes dans chaque porteur et coupé, est mesuré avec le code
+# de l'app (`app/scripts/tons/audio.ts`), à côté des fichiers actuels ; `wenlu audio choisir`
+# applique le critère. Les mesures et quelques MP3 d'écoute partent sur `donnees/audio-porteurs`.
+# Avec `porteur`, la régénération : `wenlu audio reprendre`, `generer --porteur --perimetre
+# export`, `exporter --perimetre export` refont les seuls caractères embarqués sous les mêmes
+# noms, les mots restant tels quels ; le dossier audio de l'export part sur
+# `donnees/audio-caracteres`. Sans `wenlu tout`. Les deux branches partent de la branche par défaut.
 name: donnees
 
 on:
   workflow_dispatch:
     inputs:
       etapes:
-        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes), tons (licences des voix) ; tons-voix (voix Kokoro du classifieur des tons, sans wenlu tout)"
+        description: "Étape après wenlu tout : audio, fiches, contes, recuperer (lots soumis), tout (audio + fiches + contes), tons (licences des voix) ; tons-voix (voix Kokoro du classifieur des tons, sans wenlu tout) ; tons-cc (voix humaines CC BY-SA du classifieur des tons, sans wenlu tout) ; audio-porteurs (essai des porteurs des caractères, ou régénération avec `porteur`)"
         type: choice
-        options: [audio, fiches, contes, recuperer, tout, tons, tons-voix]
+        options: [audio, fiches, contes, recuperer, tout, tons, tons-voix, tons-cc, audio-porteurs]
         default: audio
       seuil:
         description: "Seuil de la liste cible (audio du parcours lire, contes)"
@@ -64,19 +82,24 @@ on:
         description: "Fiches : les N premiers caractères du parcours seulement (vide : tous)"
         type: string
         default: ''
+      porteur:
+        description: "audio-porteurs : vide pour l'essai de tous les porteurs ; un nom (porteurs.py) pour régénérer les caractères embarqués avec lui"
+        type: string
+        default: ''
 
 permissions:
   contents: write
 
 # Un seul passage à la fois : le journal des lots et l'audio déjà synthétisé passent
 # d'un passage au suivant par le cache, et deux passages concurrents se l'écraseraient.
+# `tons-cc` ne touche à aucun cache : il a son propre groupe, et passe à côté des autres.
 concurrency:
-  group: donnees
+  group: ${{ inputs.etapes == 'tons-cc' && 'donnees-tons-cc' || 'donnees' }}
   cancel-in-progress: false
 
 jobs:
   pipeline:
-    if: inputs.etapes != 'tons-voix'
+    if: inputs.etapes != 'tons-voix' && inputs.etapes != 'tons-cc' && inputs.etapes != 'audio-porteurs'
     runs-on: ubuntu-latest
     timeout-minutes: 120
     defaults:
@@ -571,3 +594,334 @@ jobs:
           git commit -q -F "$RUNNER_TEMP/message.txt"
           git push --force origin "HEAD:refs/heads/donnees/tons-voix"
           echo "Commit $(git rev-parse --short HEAD) poussé sur donnees/tons-voix." >> "$GITHUB_STEP_SUMMARY"
+
+  # -------------------------------------------------------------- tons-cc
+  #
+  # Un seul job : l'inventaire des licences, l'audio et les caractéristiques des fichiers retenus,
+  # puis la branche, repartie de la branche par défaut (le jeton d'un workflow ne peut pas pousser
+  # un commit qui change un workflow).
+
+  tons-cc:
+    if: inputs.etapes == 'tons-cc'
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inventaire des licences (voix_cc.py inventaire)
+        continue-on-error: true
+        run: |
+          mkdir -p data/work/journaux
+          python3 data/sources/tons/voix_cc.py inventaire 2>&1 | tee data/work/journaux/tons-cc-inventaire.txt
+          {
+            echo "### Tons, voix CC : licences lues"
+            echo
+            echo '```'
+            cat data/sources/tons/licences-lues/SHA256SUMS-tons-cc.txt
+            echo '```'
+            sed -n '/^### Lingua Libre/,$p' data/work/journaux/tons-cc-inventaire.txt | head -150
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Choix versionné
+        id: choix
+        run: |
+          if [ -s data/sources/tons/voix-cc.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "Pas de voix-cc.json : inventaire seulement." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.choix.outputs.present == 'true'
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Audio et caractéristiques (voix_cc.py telecharger, voix.ts)
+        if: steps.choix.outputs.present == 'true'
+        timeout-minutes: 150
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg
+          (cd app && npm ci --no-audit --no-fund)
+          python3 data/sources/tons/voix_cc.py telecharger 2>&1 | tee data/work/journaux/tons-cc-telecharger.txt | tail -60 >> "$GITHUB_STEP_SUMMARY"
+          voix=$(python3 data/sources/tons/voix_cc.py locuteurs)
+          # shellcheck disable=SC2086 # une voix par mot, voulu
+          (cd app && npx vite-node scripts/tons/voix.ts ../data/work/tons/cc --sortie ../data/sources/tons/voix-cc --modele ../data/sources/tons/modele.json $voix) | tee -a "$GITHUB_STEP_SUMMARY"
+          (cd data/sources/tons/voix-cc && ls ./*.json | sort | xargs sha256sum > SHA256SUMS)
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tons-cc-${{ github.run_number }}
+          if-no-files-found: warn
+          path: |
+            data/sources/tons/licences-lues/
+            data/sources/tons/voix-cc/
+            data/work/journaux/
+
+      # Toujours : les pages lues partent même si l'audio échoue, l'artefact n'étant pas lisible
+      # depuis le poste de développement.
+      - name: Commit sur donnees/tons-cc
+        if: always()
+        env:
+          DEFAUT: ${{ github.event.repository.default_branch }}
+        run: |
+          garde="$RUNNER_TEMP/garde"
+          mkdir -p "$garde"
+          cp -r data/sources/tons/licences-lues "$garde/" 2>/dev/null || true
+          cp -r data/sources/tons/voix-cc "$garde/" 2>/dev/null || true
+          git fetch --depth 1 origin "$DEFAUT"
+          git switch -f -C donnees/tons-cc FETCH_HEAD
+          # les voix déjà extraites d'un passage précédent restent
+          if git fetch --depth 1 origin donnees/tons-cc 2>/dev/null; then
+            git checkout FETCH_HEAD -- data/sources/tons/voix-cc/ 2>/dev/null || true
+          fi
+          mkdir -p data/sources/tons
+          rm -rf data/sources/tons/licences-lues
+          cp -r "$garde/licences-lues" data/sources/tons/ 2>/dev/null || true
+          if [ -d "$garde/voix-cc" ]; then mkdir -p data/sources/tons/voix-cc && cp -r "$garde/voix-cc/." data/sources/tons/voix-cc/; fi
+          for d in data/sources/tons/licences-lues data/sources/tons/voix-cc; do
+            if [ -d "$d" ]; then git add -A -- "$d"; fi
+          done
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau : pas de branche." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          {
+            echo "Lire les licences des voix CC du classifieur des tons"
+            echo
+            echo "Produit par le workflow donnees, étape tons-cc : $run_url"
+            echo "Pages de licence lues et caractéristiques (app/scripts/tons/voix.ts), aucun son."
+            echo
+            git diff --cached --stat | tail -1
+            echo
+            echo "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+          } > "$RUNNER_TEMP/message.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -F "$RUNNER_TEMP/message.txt"
+          git push --force origin "HEAD:refs/heads/donnees/tons-cc"
+          echo "Commit $(git rev-parse --short HEAD) poussé sur donnees/tons-cc." >> "$GITHUB_STEP_SUMMARY"
+
+  # -------------------------------------------------------------- audio-porteurs
+  #
+  # Trois jobs, comme tons-voix : le plan (les porteurs en lots, ou la régénération), la synthèse et
+  # la mesure par lot (matrice), puis la branche, repartie de la branche par défaut (le jeton d'un
+  # workflow ne peut pas pousser un commit qui change un workflow). Rien de `wenlu tout` : les
+  # caractères, leurs lectures et les fichiers actuels viennent de l'export versionné.
+
+  audio-porteurs-plan:
+    if: inputs.etapes == 'audio-porteurs' && inputs.artefacts == ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      lots: ${{ steps.plan.outputs.lots }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        working-directory: data/src
+        env:
+          PORTEUR: ${{ inputs.porteur }}
+          LOTS: ${{ inputs.lots }}
+        run: |
+          lots=$(python3 -m wenlu_data.porteurs "${LOTS:-5}" "$PORTEUR")
+          echo "lots=$lots" >> "$GITHUB_OUTPUT"
+          echo "Lots : $lots" >> "$GITHUB_STEP_SUMMARY"
+
+  audio-porteurs:
+    needs: audio-porteurs-plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        lot: ${{ fromJSON(needs.audio-porteurs-plan.outputs.lots) }}
+    defaults:
+      run:
+        working-directory: data
+        shell: bash
+    env:
+      UV_NO_SYNC: '1'
+      PYTHONUNBUFFERED: '1'
+      LOT: ${{ matrix.lot }}
+      INDEX: ${{ strategy.job-index }}
+      PORTEUR: ${{ inputs.porteur }}
+      VOIX: ${{ inputs.voix }}
+      # Les échantillons d'écoute : mā má mǎ mà (seul 妈 est dans l'app), puis deux syllabes dont
+      # l'app a trois tons.
+      ECOUTE: '妈:ma1,麻:ma2,马:ma3,骂:ma4,七:qi1,其:qi2,气:qi4,国:guo2,果:guo3,过:guo4'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.12'
+          enable-cache: true
+          cache-dependency-glob: data/uv.lock
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: ffmpeg (MP3 mono 24 kHz 48 kbit/s)
+        working-directory: .
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg
+          ffmpeg -hide_banner -version | sed -n 1p
+
+      # Comme « Installer le pipeline » : torch CPU, sans les paquets CUDA du verrou.
+      - name: Installer Kokoro (torch CPU)
+        run: |
+          exclus=$(python3 -c 'import tomllib; print(" ".join("--no-install-package " + p["name"] for p in tomllib.load(open("uv.lock", "rb"))["package"] if p["name"] in ("torch", "triton") or p["name"].startswith(("nvidia-", "cuda-"))))')
+          # shellcheck disable=SC2086 # une option par mot, voulu
+          uv sync --locked --extra audio $exclus
+          torch=$(python3 -c 'import tomllib; print(next(p["version"] for p in tomllib.load(open("uv.lock", "rb"))["package"] if p["name"] == "torch"))')
+          uv pip install --python .venv/bin/python --index-url https://download.pytorch.org/whl/cpu "torch==${torch}"
+          echo "VERSION=$(uv run python -c 'from wenlu_data.export import VERSION; print(VERSION)')" >> "$GITHUB_ENV"
+
+      - name: Restaurer les poids Kokoro (cache Hugging Face)
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/huggingface
+          key: huggingface-kokoro-v1.1-zh-${{ hashFiles('data/src/wenlu_data/audio.py') }}
+          restore-keys: huggingface-kokoro-v1.1-zh-
+
+      - name: Dépendances de l'app
+        working-directory: app
+        run: npm ci --no-audit --no-fund
+
+      - name: Essai des porteurs (wenlu audio porteurs) et mesure (audio.ts)
+        if: env.PORTEUR == ''
+        timeout-minutes: 100
+        run: |
+          mkdir -p work/audio-porteurs
+          args=(--porteurs "$LOT" --etiquette "$INDEX" --version "$VERSION" --sortie work/audio-porteurs --ecoute "$ECOUTE")
+          if [ "$INDEX" = 0 ]; then args+=(--app); fi
+          if [ -n "$VOIX" ]; then args+=(--voix "$VOIX"); fi
+          uv run wenlu audio porteurs "${args[@]}" 2>&1 | tee "work/audio-porteurs/journal-$INDEX.txt"
+          (cd ../app && npx vite-node scripts/tons/audio.ts "../data/work/audio-porteurs/liste-$INDEX.json" "../data/work/audio-porteurs/mesure-$INDEX.json") | tee -a "$GITHUB_STEP_SUMMARY"
+          rm -rf work/audio-porteurs/wav
+
+      # Les seuls caractères embarqués, refaits sous les mêmes noms ; les mots sont repris de
+      # l'export (`reprendre`) et ne sont pas refaits. Puis les fichiers refaits sont mesurés.
+      - name: Régénération des caractères (wenlu audio reprendre, generer, exporter) et mesure
+        if: env.PORTEUR != ''
+        timeout-minutes: 100
+        run: |
+          mkdir -p work/audio-porteurs/export
+          uv run wenlu audio reprendre --version "$VERSION" | tee work/audio-porteurs/journal-regenerer.txt
+          args=(--fournisseur local --porteur "$PORTEUR" --perimetre export --version "$VERSION")
+          if [ -n "$VOIX" ]; then args+=(--voix "$VOIX"); fi
+          uv run wenlu audio generer "${args[@]}" 2>&1 | tee -a work/audio-porteurs/journal-regenerer.txt
+          uv run wenlu audio exporter --perimetre export --version "$VERSION" 2>&1 | tee -a work/audio-porteurs/journal-regenerer.txt
+          uv run wenlu audio porteurs --porteurs aucun --app --etiquette apres --version "$VERSION" --sortie work/audio-porteurs
+          (cd ../app && npx vite-node scripts/tons/audio.ts ../data/work/audio-porteurs/liste-apres.json ../data/work/audio-porteurs/mesure-apres.json) | tee -a "$GITHUB_STEP_SUMMARY"
+          rm -rf work/audio-porteurs/wav
+          cp -r "../app/public/data/$VERSION/audio/." work/audio-porteurs/export/
+          cp work/audio/audio.json work/audio-porteurs/audio-travail.json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-porteurs-${{ strategy.job-index }}
+          path: data/work/audio-porteurs/
+          if-no-files-found: warn
+
+  audio-porteurs-branche:
+    needs: audio-porteurs
+    if: >-
+      always() && inputs.etapes == 'audio-porteurs' && (inputs.artefacts != '' ||
+      (needs.audio-porteurs.result != 'skipped' && needs.audio-porteurs.result != 'cancelled'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      actions: read
+    env:
+      PORTEUR: ${{ inputs.porteur }}
+    steps:
+      # Le code du critère vient de la branche lancée ; le commit part de la branche par défaut.
+      - uses: actions/checkout@v4
+        with:
+          path: code
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          path: depot
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: audio-porteurs-*
+          merge-multiple: true
+          path: essai
+          run-id: ${{ inputs.artefacts || github.run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Bilan (le critère de porteurs.py)
+        run: |
+          PYTHONPATH=code/data/src python3 -c 'from pathlib import Path; from wenlu_data.porteurs import bilan; print("choix :", bilan(Path("essai"))["choix"])'
+          {
+            if [ -n "$PORTEUR" ]; then echo "### Caractères refaits avec le porteur $PORTEUR, mesurés"; else echo "### Essai des porteurs"; fi
+            echo
+            cat essai/bilan.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit sur la branche de données
+        working-directory: depot
+        run: |
+          version=$(grep -m1 '^VERSION' ../code/data/src/wenlu_data/export.py | cut -d'"' -f2)
+          mesures=data/sources/audio/porteurs
+          if [ -z "$PORTEUR" ]; then
+            branche=donnees/audio-porteurs
+            sujet="Essayer les porteurs des caractères de l'audio"
+            rm -rf "$mesures" && mkdir -p "$mesures"
+            cp ../essai/*.json ../essai/*.md ../essai/*.txt "$mesures/" 2>/dev/null || true
+            if [ -d ../essai/ecoute ]; then cp -r ../essai/ecoute "$mesures/"; fi
+          else
+            branche=donnees/audio-caracteres
+            sujet="Refaire l'audio des caractères avec le porteur $PORTEUR"
+            if [ ! -s ../essai/export/manifeste.json ]; then
+              echo "Pas d'export refait : pas de branche." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            cp -r ../essai/export/. "app/public/data/$version/audio/"
+            mkdir -p "$mesures/apres"
+            cp ../essai/mesure-apres.json ../essai/bilan.md ../essai/audio-travail.json ../essai/journal-regenerer.txt "$mesures/apres/" 2>/dev/null || true
+          fi
+          (cd "$mesures" && find . -type f ! -name SHA256SUMS | sort | xargs sha256sum > SHA256SUMS)
+          git add -A -- "$mesures" "app/public/data/$version/audio"
+          if git diff --cached --quiet; then
+            echo "Rien de nouveau : pas de branche." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          run_url="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          {
+            echo "$sujet"
+            echo
+            echo "Produit par le workflow donnees, étape audio-porteurs : $run_url"
+            echo "Mesures par le code de l'app (app/scripts/tons/audio.ts), critère de porteurs.py."
+            echo
+            git diff --cached --stat | tail -1
+            echo
+            echo "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+          } > "$RUNNER_TEMP/message.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$branche"
+          git commit -q -F "$RUNNER_TEMP/message.txt"
+          git push --force origin "HEAD:refs/heads/$branche"
+          echo "Commit $(git rev-parse --short HEAD) poussé sur $branche." >> "$GITHUB_STEP_SUMMARY"

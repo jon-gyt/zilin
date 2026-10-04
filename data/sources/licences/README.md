@@ -15,6 +15,7 @@ reste possible hors ligne et que toute modification se voie dans un diff.
 | `MIT-cjk-decomp.txt` | texte MIT de SPDX (`https://raw.githubusercontent.com/spdx/license-list-data/main/text/MIT.txt`, SHA-256 `b05785f9…`), la ligne de copyright remplie d'après le README de `amake/cjk-decomp` (« originally compiled by Gavin Grover », sans année) | 2026-09-28 | `d370370fea014228fedaf1bed95d3d6baa7edd33f356c479dce140ad895bdba5` |
 | `MIT-hsk30.txt` | `https://raw.githubusercontent.com/ivankra/hsk30/master/LICENSE`, tel quel | 2026-09-29 | `9cd70c000ea23c899e71b2cbe7c28e18c60937f6e74d1b344d2923f6bddae44a` |
 | `OGDL-Taiwan-1.0.txt` | `https://raw.githubusercontent.com/spdx/license-list-data/main/text/OGDL-Taiwan-1.0.txt` (texte chinois, puis anglais), relevé pendant l'étude des tons | 2026-09-29 | `6fb1f786e1d278b6240b4816ba791d48fc84223e35da8a9263e42836bc154e94` |
+| `CC-BY-SA-4.0.txt` | `https://raw.githubusercontent.com/spdx/license-list-data/31ba1a50e5397e00a304dbadc76531740e89ee48/text/CC-BY-SA-4.0.txt` (SPDX, commit `31ba1a5`), tel quel : la licence des poids des tons dès qu'ils dérivent d'une voix sous CC BY-SA (décision du 3 octobre 2026), et celle des mots tirés de CC-CEDICT | 2026-10-03 | `cde7883b9050a1104f4ac19a1572aafd6e5d7323b68351aaf51fbf4beba54966` |
 
 `ARPHICPL.TXT` couvre les tracés de `graphics.txt` (`docs/sources-licences.md`
 §2.1). `UNICODE-LICENSE.txt` couvre le pinyin d'Unihan (§5) ; c'est la notice

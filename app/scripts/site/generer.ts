@@ -730,6 +730,9 @@ function pageLicences(ctx: Contexte, ex: Export, langue: Langue): string {
     ['UNICODE-LICENSE.txt', 'Unicode License'],
     ['MIT-cjk-decomp.txt', 'MIT License (cjk-decomp)'],
     ['OGDL-Taiwan-1.0.txt', 'Open Government Data License 1.0 (Taïwan)'],
+    ['CC-BY-SA-4.0.txt', 'Creative Commons Attribution-ShareAlike 4.0'],
+    // les poids des tons, publiés ici en entier avec leur licence et leurs attributions, hors de l'app
+    ['tons.json', 'tons.json'],
     ['LICENCES.md', 'LICENCES.md']
   ];
   const corps = `<div class="licences">
