@@ -92,8 +92,9 @@ permissions:
 
 # Un seul passage à la fois : le journal des lots et l'audio déjà synthétisé passent
 # d'un passage au suivant par le cache, et deux passages concurrents se l'écraseraient.
+# `tons-cc` ne touche à aucun cache : il a son propre groupe, et passe à côté des autres.
 concurrency:
-  group: donnees
+  group: ${{ inputs.etapes == 'tons-cc' && 'donnees-tons-cc' || 'donnees' }}
   cancel-in-progress: false
 
 jobs:
