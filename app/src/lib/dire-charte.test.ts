@@ -72,7 +72,7 @@ describe('l’écran de « Dis-le »', () => {
     expect(dire).toMatch(/const carte = \$derived\(cible\.mot\?\.carte \?\? cible\.c\)/);
     expect(dire).toMatch(/onnote\(revisionDire\(carte,/);
     expect(dire).toMatch(/if \(contour && !cible\.mot\) onvoix\(/);
-    expect(dire).toMatch(/analyser\(x, sr, attendus, modele, ref, \{\}, cible\.mot\?\.liees \?\? null\)/);
+    expect(dire).toMatch(/analyser\(x, sr, attendus, modele, ref, \{\}, cible\.mot\?\.liees \?\? null, cible\.mot \? modeleMots : null\)/);
   });
 
   it('rien ne joue pendant la prise : le micro n’entend ni « Écouter » ni « Réécouter »', () => {

@@ -22,12 +22,14 @@ import {
   messageDireMot,
   motsJustifies,
   motsLisibles,
+  motsPossibles,
   notesMot,
   revisionDire,
   tonsDeSurface,
   type CibleMot
 } from './dire';
 import { lireModele } from './modele';
+import { lireModeleMots } from './profil';
 import { courbesTons, syllabe } from './synthese';
 
 /** Les textes de « Dis-le » tels que la source du pipeline les écrit. */
@@ -122,18 +124,37 @@ describe('les tons que la voix fait : le sandhi', () => {
 });
 
 describe('la question de mot ne se pose que si la mesure le justifie', () => {
-  it('les seuils sont écrits, et la mesure du 30 septembre 2026 ne les passe pas : éteinte', () => {
-    expect(SEUILS_MOTS_DIRE).toEqual({ reconnu: 0.8, autreATort: 0.03, reconnuATort: 0.03 });
-    expect(MESURE_MOTS_DIRE.reconnu).toBeLessThan(SEUILS_MOTS_DIRE.reconnu);
-    expect(motsJustifies()).toBe(false);
-    expect(MOTS_DIRE).toBe(false);
-    expect(motsJustifies({ reconnu: 0.85, autreATort: 0.02, reconnuATort: 0.02 })).toBe(true);
-    expect(motsJustifies({ reconnu: 0.9, autreATort: 0.05, reconnuATort: 0.01 })).toBe(false);
+  it('le seuil des mots reconnus est de 77 % (décision du 7 octobre 2026), l’autre ton à tort et le reconnu à tort de 3 %', () => {
+    expect(SEUILS_MOTS_DIRE).toEqual({ reconnu: 0.77, autreATort: 0.03, reconnuATort: 0.03 });
+    expect(motsJustifies({ reconnu: 0.77, autreATort: 0.03, reconnuATort: 0.03 })).toBe(true);
+    expect(motsJustifies({ reconnu: 0.769, autreATort: 0.02, reconnuATort: 0.02 })).toBe(false);
+    expect(motsJustifies({ reconnu: 0.9, autreATort: 0.031, reconnuATort: 0.01 })).toBe(false);
+    expect(motsJustifies({ reconnu: 0.9, autreATort: 0.01, reconnuATort: 0.031 })).toBe(false);
   });
 
-  it('éteinte, la séance ne demande que des caractères', () => {
-    for (const g of ['a', 'b', 'c', 'd', 'e', 'f']) expect(cibleDire('好', TOUS, g)?.mot).toBeUndefined();
-    expect(cibleDEssai(TOUS, [], 0.99)?.mot).toBeUndefined();
+  it('la mesure du modèle final (77,6 %, 1,9 %, 2,5 %) passe ces seuils : la question de mot est allumée', () => {
+    expect(MESURE_MOTS_DIRE).toEqual({ reconnu: 0.776, autreATort: 0.019, reconnuATort: 0.025 });
+    expect(motsJustifies()).toBe(true);
+    expect(MOTS_DIRE).toBe(true);
+    // la mesure du 30 septembre (syllabe par syllabe) ne les passerait pas
+    expect(motsJustifies({ reconnu: 0.675, autreATort: 0.021, reconnuATort: 0.017 })).toBe(false);
+  });
+
+  it('les mots ne se posent qu’avec le modèle des mots que la mesure a jugé, et leurs textes', () => {
+    const mm = lireModeleMots(JSON.parse(readFileSync(new URL('../../../public/data/0.1.0/tons-mots.json', import.meta.url), 'utf8')));
+    expect(mm).not.toBeNull();
+    expect(motsPossibles(mm, TM)).toBe(true);
+    expect(motsPossibles(null, TM)).toBe(false);
+    expect(motsPossibles(undefined, TM)).toBe(false);
+    expect(motsPossibles(mm, SANS_ECRANS.direMots)).toBe(false);
+    expect(motsPossibles(mm, TM, false)).toBe(false);
+  });
+
+  it('allumée, la séance demande des mots ; éteinte, que des caractères', () => {
+    const graines = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    expect(graines.some((g) => cibleDire('好', TOUS, g)?.mot !== undefined)).toBe(true);
+    for (const g of graines) expect(cibleDire('好', TOUS, g, false)?.mot).toBeUndefined();
+    expect(cibleDEssai(TOUS, [], 0.99, false)?.mot).toBeUndefined();
   });
 
   it('allumée, une séance sur deux environ demande un mot de la fiche, jamais un mot dont un caractère manque', () => {

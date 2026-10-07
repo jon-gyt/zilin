@@ -1,12 +1,13 @@
 /**
  * Le profil de tons d'un mot entier (décision du propriétaire du 4 octobre 2026, « Revoir la
- * méthode des mots ») : un test par règle. Le modèle des mots n'est pas branché dans l'app
- * (mesure du 7 octobre 2026 sous le seuil, `data/sources/tons/PROVENANCE.md`) ; ces règles
- * tiennent pour le jour où il le sera.
+ * méthode des mots ») : un test par règle. Le modèle des mots, variante libre, est branché dans
+ * l'app depuis la décision du 7 octobre 2026 (« Brancher à 77,6 % », `tons-mots.json`,
+ * `data/sources/tons/PROVENANCE.md`) : un mot est noté par son profil, un caractère isolé
+ * exactement comme avant.
  */
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { analyser, type Contour, type Modele, type Ton } from './classifieur';
+import { analyser, jugerContours, type Contour, type Modele, type Ton } from './classifieur';
 import { MOTS_DIRE } from './dire';
 import { lireModele } from './modele';
 import {
@@ -24,6 +25,9 @@ import {
 import { courbesTons, syllabe } from './synthese';
 
 const caracteres = lireModele(JSON.parse(readFileSync(new URL('../../../public/data/0.1.0/tons.json', import.meta.url), 'utf8'))) as Modele;
+/** Le modèle des mots exporté, celui que l'app charge (`tons-mots.json`). */
+const motsExporte = lireModeleMots(JSON.parse(readFileSync(new URL('../../../public/data/0.1.0/tons-mots.json', import.meta.url), 'utf8')));
+const source = (f: string): string => readFileSync(new URL(f, import.meta.url), 'utf8');
 
 /** Un modèle des mots sans avis : toutes ses sorties égales (une couche nulle). */
 function neutre(melange = 0.5): ModeleMots {
@@ -149,7 +153,60 @@ describe('la notation des caractères isolés ne change pas', () => {
     expect(a.probleme).toBeNull();
   });
 
-  it('la question de mot reste éteinte : le modèle des mots n’a pas passé la mesure', () => {
-    expect(MOTS_DIRE).toBe(false);
+  it('le modèle des mots exporté : un caractère garde exactement le même verdict, quel que soit son ton, sa voix, sa durée', () => {
+    expect(motsExporte).not.toBeNull();
+    for (const hz of [110, 200, 260]) {
+      const tt = courbesTons(hz);
+      for (const ton of [1, 2, 3, 4] as Ton[]) {
+        for (const duree of [0.12, 0.35]) {
+          const x = syllabe(tt[ton as 1 | 2 | 3 | 4], duree);
+          for (const attendu of [1, 2, 3, 4] as Ton[]) {
+            for (const ref of [undefined, hz]) {
+              const a = analyser(x, 16000, [attendu], caracteres, ref);
+              const b = analyser(x, 16000, [attendu], caracteres, ref, {}, null, motsExporte);
+              expect(b).toEqual(a);
+            }
+          }
+        }
+      }
+    }
+  });
+
+  it('juger des contours déjà découpés : un caractère, le même jugement avec ou sans le modèle des mots', () => {
+    let g = 7;
+    const alea = (): number => (g = (g * 1103515245 + 12345) % 2147483648) / 2147483648;
+    for (let k = 0; k < 200; k++) {
+      const pente = (alea() - 0.5) * 12;
+      const contour: Contour = {
+        points: Array.from({ length: 30 }, (_, i) => (pente * (i - 14.5)) / 29 + (alea() - 0.5)),
+        moyenne: 90 + 200 * alea(),
+        duree: 0.05 + 0.4 * alea(),
+        voisement: 0.3 + 0.7 * alea()
+      };
+      const t = (1 + Math.floor(alea() * 4)) as Ton;
+      expect(jugerContours([contour], [t], caracteres, 180, motsExporte)).toEqual(jugerContours([contour], [t], caracteres, 180, null));
+    }
+  });
+
+  it('avec le modèle exporté, un mot est noté par son profil : chaque syllabe porte la part de son ton dans les profils', () => {
+    const x = new Float32Array([...syllabe(t[1], 0.3), ...syllabe(t[4], 0.3)]);
+    const a = analyser(x, 16000, [1, 4], caracteres, 200, {}, null, motsExporte);
+    const seul = analyser(x, 16000, [1, 4], caracteres, 200);
+    expect(a.probleme).toBeNull();
+    for (const s of a.syllabes) expect(s.verdict.probabilites.reduce((u, v) => u + v, 0)).toBeCloseTo(1, 6);
+    expect(a.syllabes.map((s) => s.verdict.probabilites)).not.toEqual(seul.syllabes.map((s) => s.verdict.probabilites));
+    expect(['juste', 'autre', 'redemander']).toContain(a.etat);
+  });
+
+  it('la question de mot est allumée (décision du 7 octobre 2026) et l’écran « Dis-le » lui passe le modèle des mots', () => {
+    expect(MOTS_DIRE).toBe(true);
+    const dire = source('../Dire.svelte');
+    expect(dire).toMatch(/analyser\([^)]*cible\.mot \? modeleMots : null\)/);
+    for (const f of ['../Warm.svelte', '../DireEssai.svelte']) {
+      const s = source(f);
+      expect(s, f).toMatch(/modeleMotsOnce\(\)/);
+      expect(s, f).toMatch(/\{modeleMots\}/);
+      expect(s, f).toMatch(/motsPossibles\(modeleMots, /);
+    }
   });
 });

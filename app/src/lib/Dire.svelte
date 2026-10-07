@@ -9,6 +9,10 @@
    * courbe de la voix sur la forme canonique du ton attendu, puis le ton reconnu et un
    * conseil, jamais un reproche.
    *
+   * Un mot de deux caractères (décision du propriétaire du 7 octobre 2026) est jugé sur son
+   * profil de tons entier, par le modèle des mots (`modeleMots`) mêlé à celui des caractères ;
+   * un caractère isolé, par le seul modèle des caractères, comme avant.
+   *
    * Notation automatique (`tons/dire.ts`) : le ton reconnu note la carte « Bien » et donne un
    * point 说 ; un autre ton, une confiance basse ou un silence ne notent rien et redemandent,
    * trois fois au plus, puis on passe sans rien noter. L'essai des Réglages (`essai`) ne note
@@ -48,6 +52,7 @@
   import { ErreurMicro, ecouter, type EtatMicro, type Prise } from './tons/micro';
   import { Reecoute } from './tons/reecoute';
   import type { Modele } from './tons/classifieur';
+  import type { ModeleMots } from './tons/profil';
   import { refLocuteur } from './tons/voix';
 
   let {
@@ -56,6 +61,7 @@
     textes: t,
     textesMots: tm = SANS_ECRANS.direMots,
     modele,
+    modeleMots = null,
     voix,
     micro,
     essai = false,
@@ -73,6 +79,11 @@
     /** Les textes d'un mot de deux syllabes (`cible.mot`). */
     textesMots?: TextesDireMots;
     modele: Modele;
+    /**
+     * Le modèle des mots (`tons-mots.json`) : un mot est jugé sur son profil de tons entier
+     * (`tons/profil.ts`). Un caractère isolé est toujours jugé par le seul `modele`.
+     */
+    modeleMots?: ModeleMots | null;
     /** Les moyennes de la voix de l'apprenant (`Progress.voix`). */
     voix: readonly number[];
     /** L'état du micro à l'ouverture : la ligne de confidentialité précède la première demande. */
@@ -218,7 +229,7 @@
   }
 
   function juger(x: Float32Array, sr: number): void {
-    const a = analyser(x, sr, attendus, modele, ref, {}, cible.mot?.liees ?? null);
+    const a = analyser(x, sr, attendus, modele, ref, {}, cible.mot?.liees ?? null, cible.mot ? modeleMots : null);
     const ok = a.probleme === null && a.syllabes.length === attendus.length;
     essais += 1;
     probleme = a.probleme;

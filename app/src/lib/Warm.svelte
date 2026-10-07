@@ -38,10 +38,11 @@
   } from './revision';
   import { echeance, repriseRev, type Progress, type Revision } from './session';
   import { ecransOnce, SANS_ECRANS, type TextesDire, type TextesDireMots } from './ecrans';
-  import { choisirDire, cibleDire, MOTS_DIRE, motsLisibles } from './tons/dire';
+  import { choisirDire, cibleDire, motsPossibles } from './tons/dire';
   import { etatMicro, microPossible, type EtatMicro } from './tons/micro';
-  import { modeleOnce } from './tons/modele';
+  import { modeleMotsOnce, modeleOnce } from './tons/modele';
   import type { Modele } from './tons/classifieur';
+  import type { ModeleMots } from './tons/profil';
   import { manifesteOnce, voixPretes } from './audio';
   import { humeur, stade } from './tao';
   import { TaoMange } from './reactions.svelte';
@@ -200,6 +201,8 @@
    * série, comme la voix : la question choisie ne change pas en route.
    */
   let modele = $state.raw<Modele | null | undefined>(undefined);
+  /** Le modèle des mots (`tons-mots.json`) : sans lui, « Dis-le » ne demande que des caractères. */
+  let modeleMots = $state.raw<ModeleMots | null | undefined>(undefined);
   let micro = $state<EtatMicro | null>(null);
   let textesDire = $state<TextesDire | null>(null);
   let textesMots = $state<TextesDireMots>(SANS_ECRANS.direMots);
@@ -208,6 +211,9 @@
     let vivant = true;
     void modeleOnce().then((m) => {
       if (vivant) modele = m;
+    });
+    void modeleMotsOnce().then((m) => {
+      if (vivant) modeleMots = m;
     });
     void etatMicro()
       .then((e) => {
@@ -235,7 +241,14 @@
   let repli = $state(false);
 
   const pret = $derived(
-    chargee && v !== null && voix !== null && manifeste !== null && modele !== undefined && micro !== null && textesDire !== null
+    chargee &&
+      v !== null &&
+      voix !== null &&
+      manifeste !== null &&
+      modele !== undefined &&
+      modeleMots !== undefined &&
+      micro !== null &&
+      textesDire !== null
   );
 
   const corpus = $derived(
@@ -291,7 +304,7 @@
   /** « Dis-le » est la question en cours : sa cible, ou `null`. */
   const cible = $derived(
     i === iDire && !repli && q
-      ? cibleDire(q.c, corpus, graineDuJour('rev', p.day), MOTS_DIRE && motsLisibles(textesMots))
+      ? cibleDire(q.c, corpus, graineDuJour('rev', p.day), motsPossibles(modeleMots, textesMots))
       : null
   );
 
@@ -364,6 +377,7 @@
       textes={textesDire}
       {textesMots}
       {modele}
+      {modeleMots}
       voix={p.voix}
       {micro}
       echeanceDe={(c) => echeance(p, c)}
