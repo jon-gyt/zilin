@@ -17,6 +17,7 @@
  */
 
 import { demiTons, moyenneLog, segmenter, suivreHauteur, type OptionsHauteur, type Segment, type Trame } from './pitch';
+import { entreesMot, jugerMot, probabilitesMot, seuilsDe, type ModeleMots } from './profil';
 
 export const N_POINTS = 30;
 export const N_ENTREES = N_POINTS + 4;
@@ -350,6 +351,11 @@ export function etatEnonce(verdicts: readonly Verdict[], probleme: Probleme | nu
  * Analyse des trames déjà suivies (`suivreHauteur`) : découpe en autant de syllabes que de
  * tons `attendus`, puis le verdict de chacune. `crete` : la crête du signal (le son sature
  * au-dessus de 0,999). `liees` : pour un mot, les frontières sans silence (`segmenter`).
+ *
+ * `modeleMots` (un mot de deux syllabes) : le profil de tons du mot entier est reconnu d'un
+ * bloc (`profil.ts`), mêlé au modèle des caractères ; le verdict de chaque syllabe en découle.
+ * Sans lui, chaque syllabe est jugée seule (la méthode du 30 septembre 2026). Un caractère
+ * isolé est toujours jugé par le seul modèle des caractères.
  */
 export function analyserTrames(
   trames: Trame[],
@@ -358,21 +364,76 @@ export function analyserTrames(
   modele?: Modele,
   refLocuteur?: number,
   liees: readonly boolean[] | null = null,
+  modeleMots: ModeleMots | null = null,
 ): Analyse {
+  const segs = segmenter(trames, attendus.length, 0.12, {}, liees);
+  const j = jugerContours(segs.map((s) => contourDe(s)), attendus, modele, refLocuteur, modeleMots, crete > 0.999);
+  return { trames, syllabes: j.syllabes.map((s, k) => ({ ...s, segment: segs[k] })), probleme: j.probleme, etat: j.etat };
+}
+
+/** Le jugement d'un énoncé à partir de ses syllabes déjà découpées (`analyserTrames`). */
+export interface Jugement {
+  syllabes: Omit<AnalyseSyllabe, 'segment'>[];
+  probleme: Probleme | null;
+  etat: Etat;
+}
+
+/**
+ * Juge les contours des syllabes découpées d'un énoncé dont on attend les tons `attendus`
+ * (`sature` : le son a saturé). Sert à `analyserTrames`, et à la mesure sur des syllabes dont
+ * seuls les contours ont été gardés (`app/scripts/tons/mesurer.ts`).
+ *
+ * `modeleMots` (un mot de deux syllabes) : le profil de tons du mot entier est reconnu d'un
+ * bloc (`profil.ts`), mêlé au modèle des caractères ; le verdict de chaque syllabe en découle.
+ * Une syllabe brève n'y est pas une raison de redemander (le neutre est bref) : seulement une
+ * découpe manquée, une syllabe sans voix ou trop peu voisée, un son saturé. Sans lui, chaque
+ * syllabe est jugée seule (la méthode du 30 septembre 2026). Un caractère isolé est toujours
+ * jugé par le seul modèle des caractères.
+ */
+export function jugerContours(
+  contours: Contour[],
+  attendus: Ton[],
+  modele: Modele | undefined,
+  refLocuteur: number | undefined,
+  modeleMots: ModeleMots | null = null,
+  sature = false,
+): Jugement {
   const n = attendus.length;
-  const segs = segmenter(trames, n, 0.12, {}, liees);
-  const court = segs.length !== n || segs.some((s) => s.duree < SEUILS_JUGEMENT.dureeMin || s.voisement < SEUILS_JUGEMENT.voisementMin);
-  const probleme: Probleme | null = segs.length === 0 ? 'silence' : court ? 'court' : crete > 0.999 ? 'sature' : null;
+  if (n === 2 && modeleMots) return jugerMotContours(contours, attendus, modeleMots, modele, refLocuteur, sature);
+  const court = contours.length !== n || contours.some((c) => c.duree < SEUILS_JUGEMENT.dureeMin || c.voisement < SEUILS_JUGEMENT.voisementMin);
+  const probleme: Probleme | null = contours.length === 0 ? 'silence' : court ? 'court' : sature ? 'sature' : null;
   const seuils = n > 1 ? { ...SEUILS_JUGEMENT, ...REGLAGES_MOTS.seuils } : SEUILS_JUGEMENT;
-  const syllabes = segs.map((segment, k) => {
-    const contour = contourDe(segment);
+  const syllabes = contours.map((contour, k) => {
     const { entrees, regle, probas } = probabilitesSyllabe(contour, k, n, modele, refLocuteur);
     const verdict: Verdict = probleme
       ? { etat: 'redemander', attendu: attendus[k], entendu: null, confiance: 0, probabilites: probas }
       : juger(attendus[k], probas, modele?.classes ?? CLASSES, seuils);
-    return { segment, contour, entrees, verdict, regle };
+    return { contour, entrees, verdict, regle };
   });
-  return { trames, syllabes, probleme, etat: etatEnonce(syllabes.map((s) => s.verdict), probleme) };
+  return { syllabes, probleme, etat: etatEnonce(syllabes.map((s) => s.verdict), probleme) };
+}
+
+function jugerMotContours(
+  contours: Contour[],
+  attendus: Ton[],
+  mm: ModeleMots,
+  modele: Modele | undefined,
+  refLocuteur: number | undefined,
+  sature: boolean,
+): Jugement {
+  const s = seuilsDe(mm);
+  const vide = contours.length !== 2 || contours.some((c) => !(c.moyenne > 0) || !(c.voisement >= s.voisementMin));
+  const parSyllabe = vide ? [] : contours.map((c, k) => probabilitesSyllabe(c, k, 2, modele, refLocuteur));
+  const probas = vide ? [] : probabilitesMot(mm, entreesMot(contours, refLocuteur), modele ? parSyllabe.map((p) => p.probas) : null);
+  const illisible = !vide && !probas.every(Number.isFinite);
+  const probleme: Probleme | null = contours.length === 0 ? 'silence' : vide || illisible ? 'court' : sature ? 'sature' : null;
+  const v = probleme ? null : jugerMot(attendus, probas, s);
+  const syllabes = contours.map((contour, k) => {
+    const p = parSyllabe[k];
+    const verdict: Verdict = v?.syllabes[k] ?? { etat: 'redemander', attendu: attendus[k], entendu: null, confiance: 0, probabilites: p?.probas ?? [] };
+    return { contour, entrees: p?.entrees ?? [], verdict, regle: p?.regle ?? regles(caracteristiques(contour)) };
+  });
+  return { syllabes, probleme, etat: v?.etat ?? 'redemander' };
 }
 
 /**
@@ -388,9 +449,10 @@ export function analyser(
   refLocuteur?: number,
   optsHauteur: OptionsHauteur = {},
   liees: readonly boolean[] | null = null,
+  modeleMots: ModeleMots | null = null,
 ): Analyse {
   const trames = suivreHauteur(x, { ...optsHauteur, sr });
   let crete = 0;
   for (let i = 0; i < x.length; i++) crete = Math.max(crete, Math.abs(x[i]));
-  return analyserTrames(trames, crete, attendus, modele, refLocuteur, liees);
+  return analyserTrames(trames, crete, attendus, modele, refLocuteur, liees, modeleMots);
 }
