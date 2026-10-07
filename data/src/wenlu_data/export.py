@@ -40,6 +40,10 @@ familles de fichiers, jamais mêlés :
 - `tons.json` : les poids du classifieur des tons de « Dis-le » (`tons.py`), dérivés de données
   sous Open Government Data License 1.0, avec leur attribution ; nommé par l'index, et le texte
   de la licence (`OGDL-Taiwan-1.0.txt`) copié à côté. Aucun son n'est embarqué.
+- `tons-mots.json` : les poids du modèle des mots de « Dis-le » (`tons.py`, décision du
+  7 octobre 2026), propriétaires, appris sur des mots dits par Kokoro (sorties produites chez
+  nous) et sur une voix sous CC0, sans aucune source CC BY-SA ; avec l'attribution de chaque
+  source ; nommé par l'index (clé `tonsMots`). Aucun son n'est embarqué.
 - `apercu/` : les textes encore à relire (voir plus bas), propriétaires eux aussi.
 
 Ce qui n'entre jamais dans l'export :
@@ -1593,6 +1597,8 @@ def document_index(
         "tons": tons_mod.FICHIER,
         "ecriture": ecriture_mod.FICHIER,
     }
+    if tons_mod.MODELE_MOTS.exists():
+        document[tons_mod.CLE_INDEX_MOTS] = tons_mod.FICHIER_MOTS
     if dictionnaire:
         document["dictionnaire"] = dictionnaire_mod.INDEX
     if apercu:
@@ -1708,7 +1714,7 @@ def licences_md(version: str) -> str:
         "| Source | Usage dans l'export | Licence | Attribution | Texte de la licence |",
         "|---|---|---|---|---|",
     ]
-    for source, usage, licence, attribution, texte in (*TABLEAU_LICENCES, *tons_mod.lignes_licences()):
+    for source, usage, licence, attribution, texte in (*TABLEAU_LICENCES, *tons_mod.lignes_licences(), *tons_mod.lignes_licences_mots()):
         lignes.append(f"| {source} | {usage} | {licence} | {attribution} | {texte} |")
     lignes += [
         "",
@@ -1734,6 +1740,7 @@ def licences_md(version: str) -> str:
         f"- `{MIT_HSK30}` : notice de copyright et texte de la MIT d'ivankra/hsk30, qui couvrent"
         " la liste des mots du dictionnaire (`dico/`).",
         *tons_mod.ligne_separation(),
+        *tons_mod.ligne_separation_mots(),
         "",
         "## Ce que l'export ne contient pas",
         "",
@@ -2182,6 +2189,17 @@ def assembler(
             }
         )
     )
+    # Le modèle des mots (`tons.py`, décision du 7 octobre 2026) : à part, nommé par l'index.
+    if tons_mod.MODELE_MOTS.exists():
+        textes[tons_mod.FICHIER_MOTS] = _json_compact(
+            tons_mod.document_mots(
+                en_tete={
+                    "version": version,
+                    "source_url": URL_PIPELINE,
+                    "modified": f"{JETON_JOUR} : copié par `wenlu export`, poids inchangés",
+                }
+            )
+        )
     textes.update(dico_textes)
     # Les découpes des familles et du dictionnaire, dans l'ordre de la table des découpes.
     decrites = {str(d["c"]) for d in (*decoupes, *dico_decoupes)}
