@@ -3,7 +3,12 @@
  * (`classifieur.ts`, `analyserTrames`), sur des voix jamais vues à l'entraînement. Recette des
  * poids (`data/sources/tons/PROVENANCE.md`), hors CI :
  *
- *   cd app && npx vite-node scripts/tons/mesurer.ts ../data/work/tons [modele.json] [etiquette]
+ *   cd app && npx vite-node scripts/tons/mesurer.ts ../data/work/tons [modele.json] [etiquette] [modele-mots.json]
+ *
+ * `modele-mots.json` (`data/sources/tons/entrainer_mots.py`) : les mots de deux syllabes sont jugés
+ * sur leur profil de tons entier (`profil.ts`), mêlé au modèle des caractères ; sans lui, chaque
+ * syllabe est jugée seule. `SANS_TEST=1` : la moitié test des mots de Yue Tan n'est pas mesurée
+ * (les réglages se font sur la moitié dev, le test ne se lit qu'une fois les variantes fixées).
  *
  * Le modèle par défaut : `public/data/0.1.0/tons.json`. Les jeux, tous tenus à part :
  *
@@ -17,23 +22,32 @@
  * - `fleurs-dev`, `fleurs-test` : les syllabes sûres des phrases de FLEURS dont les locuteurs ne
  *   sont pas ceux de l'entraînement (`corpus.json`, `aligner.py`), chacune jugée seule, comme un
  *   caractère ; `fleursm-dev`, `fleursm-test` : leurs paires de syllabes qui forment un mot de
- *   deux caractères de la liste HSK, jugées comme un mot.
+ *   deux caractères de la liste HSK, jugées comme un mot ;
+ * - `ll-<voix>` : les mots des voix de Lingua Libre (`<travail>/voix-cc/cc-ll-*.json`, branche
+ *   `donnees/tons-cc`), dont `voix.ts` n'a gardé que les syllabes : leurs contours sont rebâtis
+ *   (`rebatir.ts`) et jugés par `jugerContours`, voix calibrée sur cinq caractères comme dans
+ *   `voix.ts`.
  *
  * La voix est calibrée comme dans l'app, sur 5 à 30 de ses syllabes tirées au hasard. Pour
  * chaque énoncé : le ton de chaque syllabe en tête, le verdict (reconnu, autre ton affirmé à
  * tort, on redemande), et le verdict quand l'app attend un autre ton sur une syllabe tirée au
  * hasard (« reconnu à tort »). Écrit `<travail>/mesures/resultats-<etiquette>.md` et `.json`.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { analyserTrames, CLASSES, type Modele, type Ton } from '../../src/lib/tons/classifieur';
+import { analyserTrames, CLASSES, jugerContours, type Modele, type Ton } from '../../src/lib/tons/classifieur';
+import { lireModeleMots, type ModeleMots } from '../../src/lib/tons/profil';
 import { moyenneLog, segmenter, suivreHauteur, type Trame } from '../../src/lib/tons/pitch';
 import { extrait, lireSignal } from './extrait';
+import { motsDeVoix, REF, type DocVoix } from './rebatir';
 
 const ICI = resolve(process.argv[2] ?? '../data/work/tons');
 const fichierModele = process.argv[3] && process.argv[3] !== '-' ? process.argv[3] : 'public/data/0.1.0/tons.json';
 const etiquette = process.argv[4] ?? 'base';
 const modele = JSON.parse(readFileSync(fichierModele, 'utf8')) as Modele;
+const modeleMots: ModeleMots | null = process.argv[5] ? lireModeleMots(JSON.parse(readFileSync(process.argv[5], 'utf8'))) : null;
+if (process.argv[5] && !modeleMots) throw new Error(`${process.argv[5]} : modèle des mots mal formé`);
+const SANS_TEST = process.env.SANS_TEST === '1';
 const MESURE = join(ICI, 'donnees', 'mesure');
 const lire = <T>(f: string): T => JSON.parse(readFileSync(f, 'utf8')) as T;
 
@@ -41,7 +55,7 @@ type Tr = { crete: number; duree: number; tr: number[][] };
 type Enonce = { id: string; source: string; locuteur: string; tons: number[]; syl?: string[]; jeu?: string; plage?: number[]; phrase?: string };
 const trames: Record<string, Tr> = { ...lire<Record<string, Tr>>(join(MESURE, 'trames-ytm.json')), ...lire<Record<string, Tr>>(join(MESURE, 'trames-car.json')) };
 const enonces: Enonce[] = [
-  ...lire<Enonce[]>(join(MESURE, 'mots-yt.json')).filter((e) => e.tons[0] !== 5),
+  ...lire<Enonce[]>(join(MESURE, 'mots-yt.json')).filter((e) => e.tons[0] !== 5 && !(SANS_TEST && hache(e.id) % 2 === 1)),
   ...lire<Enonce[]>(join(MESURE, 'car.json'))
 ];
 /** La voix de l'app dite par l'étape `tons-voix` (`voix.ts`) : `kz1` ses caractères, `kz2` ses mots. */
@@ -134,7 +148,7 @@ function lieesDe(e: Enonce): boolean[] | null {
 
 function analyser(e: Enonce, attendus: number[], ref: number): { tetes: number[]; etat: string } {
   const t = tramesDe(e)!;
-  const a = analyserTrames(t.tr, t.crete, attendus as Ton[], modele, ref, lieesDe(e));
+  const a = analyserTrames(t.tr, t.crete, attendus as Ton[], modele, ref, lieesDe(e), modeleMots);
   const tetes = a.syllabes.map((s) => {
     const p = s.verdict.probabilites;
     return CLASSES[p.indexOf(Math.max(...p))];
@@ -176,6 +190,41 @@ for (const e of enonces) {
   faux[k] = choix[Math.floor(alea() * choix.length)];
   c.fauxN++;
   if (analyser(e, faux, ref).etat === 'juste') c.fauxReconnu++;
+}
+
+/** Les mots des voix de Lingua Libre tenues à part : contours rebâtis, jugés par le code de l'app. */
+const VOIX_CC = join(ICI, 'voix-cc');
+if (existsSync(VOIX_CC)) {
+  for (const f of readdirSync(VOIX_CC).filter((x) => /^cc-ll-.*\.json$/.test(x)).sort()) {
+    const doc = lire<DocVoix>(join(VOIX_CC, f));
+    const c = (res[`ll-${doc.voix.replace('cc-ll-', '')}`] ??= nouveau());
+    for (const m of motsDeVoix(doc)) {
+      c.n++;
+      if (m.contours.length !== 2) { c.redemande++; c.fauxN++; c.sylN += 2; continue; }
+      const juge = (tons: number[]) => jugerContours(m.contours, tons as Ton[], modele, REF, modeleMots, m.probleme === 'sature');
+      const j = juge(m.tons);
+      let tous = true;
+      m.tons.forEach((ton, k) => {
+        const p = j.syllabes[k]?.verdict.probabilites ?? [];
+        const h = p.length ? CLASSES[p.indexOf(Math.max(...p))] : null;
+        c.sylN++;
+        const cle = `p${k + 1}/${ton}`;
+        const pt = (c.parTon[cle] ??= [0, 0]);
+        pt[1]++;
+        if (h === ton) { c.sylBons++; pt[0]++; } else tous = false;
+      });
+      if (tous) c.motBons++;
+      if (j.etat === 'juste') c.reconnu++;
+      else if (j.etat === 'autre') c.autre++;
+      else c.redemande++;
+      const k = Math.floor(alea() * 2);
+      const choix = [1, 2, 3, 4, 5].filter((x) => x !== m.tons[k]);
+      const faux = [...m.tons];
+      faux[k] = choix[Math.floor(alea() * choix.length)];
+      c.fauxN++;
+      if (juge(faux).etat === 'juste') c.fauxReconnu++;
+    }
+  }
 }
 
 const pc = (a: number, b: number): string => (b ? ((100 * a) / b).toFixed(1) : '—');
