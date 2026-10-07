@@ -139,6 +139,13 @@ describe('site public', () => {
     expect(licences).toContain('OGDL-Taiwan-1.0.txt"');
   });
 
+  it('attribue les sources du modèle des mots (Kokoro, CanonNi en CC0) et publie ses poids', () => {
+    const licences = page('licences/');
+    expect(licences).toContain('tons-mots.json"');
+    expect(licences).toContain('Kokoro-82M-v1.1-zh');
+    expect(licences).toContain('CanonNi');
+  });
+
   it('dessine les grands caractères depuis leurs traits, jamais depuis une police', () => {
     const html = page(cheminPage('fr', 'caractere', '休'));
     const grand = /<div class="grand">([\s\S]*?)<\/div>/.exec(html)![1];
