@@ -624,3 +624,176 @@ dit sous CC BY-SA 4.0 ; `wenlu check` le refuse si une voix n'est pas recensée 
 `tons.VOIX_CC` (attribution exportée), si sa licence est NC, ND ou sans version, ou si les poids ne
 se disent pas sous CC BY-SA 4.0 ; `wenlu export` écrirait alors dans `tons.json` la licence, son
 lien, `CC-BY-SA-4.0.txt` à côté, et l'attribution de chaque source (`attributions`), l'OGDL en tête.
+
+## Le profil de tons du mot entier (4 au 7 octobre 2026)
+
+Décision du propriétaire du 4 octobre 2026 (« Revoir la méthode des mots ») : quelles que soient
+les voix ajoutées, les mots plafonnaient à 68-69 % parce que chaque syllabe d'un mot était jugée
+comme un caractère isolé. Reconnaître plutôt le **profil de tons du mot entier** (19 profils :
+4 × 4 tons pleins, et le neutre en seconde syllabe ; 3-3 étiqueté 2-3 ; 不 et 一 étiquetés par le
+ton dit), avec deux variantes : **libre**, sans aucune source CC BY-SA, adoptable tout de suite ;
+**CC BY-SA**, dont les poids iraient dans un fichier à part, en attendant l'avis juridique sur le
+DRM de l'App Store. Règle d'adoption : mots tenus à part reconnus à 80 % au moins, autre ton
+affirmé à tort à 3 % au plus, caractères isolés inchangés. **Résultat : aucune variante ne
+remplit la règle (77,6 % et 79,0 % des mots de Yue Tan tenue à part). Rien ne change dans le
+produit : `modele.json` (empreinte inchangée) et sa notation restent tels quels, aucun modèle des
+mots n'est versionné ni exporté, `MOTS_DIRE` reste éteint, aucun fichier sous CC BY-SA n'est
+préparé.** La méthode est dans le code de l'app, testée, non branchée.
+
+### La méthode
+
+- **Les entrées du mot** (`app/src/lib/tons/profil.ts`, `entreesMot`, 38 nombres) : les deux
+  syllabes que `segmenter` découpe (frontière liée comprise, comme l'app), chacune avec sa forme
+  (15 points, la moyenne de deux des 30 points du contour), sa hauteur face à la voix calibrée
+  comme dans l'app (0 si la voix n'est pas encore connue), sa durée et son voisement ; puis la
+  voix connue ou non, et la hauteur de la seconde syllabe face à la première (lisible même sans
+  voix).
+- **Le modèle des mots** : trois perceptrons (38-32-19, ReLU, softmax), moyenne de leurs
+  probabilités, 5 625 paramètres, 50 Ko de JSON (format `wenlu-tons-mots`), exécuté en
+  TypeScript (`probabilitesProfils`).
+- **Le mélange** (`probabilitesMot`) : la probabilité d'un profil est proportionnelle à
+  (modèle des mots)^0,5 × p(ton de la syllabe 1) × p(ton de la syllabe 2), ces deux dernières
+  données par le modèle des caractères tel quel (`probabilitesSyllabe`, réglages des mots du
+  30 septembre). Seul, un modèle des mots ne lit que 42 à 57 % des profils de la moitié dev selon
+  ses sources : il corrige le modèle des caractères, il ne le remplace pas.
+- **Le jugement** (`jugerMot`, « conforme ou autre profil, lequel ») : le profil attendu est
+  reconnu dès que sa probabilité atteint 0,4, même talonné ; un autre profil n'est affirmé que
+  sûr à 0,98, l'attendu sous 1 % ; on redemande sinon. Une syllabe brève n'est plus une raison de
+  redemander (le neutre est bref) : seulement une découpe manquée, une syllabe sans voix ou
+  voisée à moins de 50 %, un son saturé. Le verdict de chaque syllabe en découle, pour les
+  phrases de `messageDireMot` (seule la syllabe qui diffère est nommée).
+- **Dans l'app** : `analyserTrames` et `analyser` prennent le modèle des mots en dernier
+  paramètre (`modeleMots`), absent par défaut ; `jugerContours` juge des syllabes déjà
+  découpées (la mesure s'en sert). Un caractère isolé est toujours jugé par le seul modèle des
+  caractères ; sans modèle des mots, un mot l'est syllabe par syllabe, comme le 30 septembre.
+  `Dire.svelte` ne le passe pas : rien ne change à l'écran. `profil.test.ts` couvre une règle
+  par test.
+
+### Les données, et la contrainte de licence
+
+`app/scripts/tons/mots.ts` écrit les entrées de chaque mot avec le code de l'app
+(`data/work/tons/mots/entrees-mots.json`, SHA-256
+`7d50826c05d9b58c490836bc68910721c48f0380bef449d73d9bcc9f97eed018`), dans trois conditions (sans
+voix, voix calibrée sur cinq caractères, voix entière), et les probabilités des syllabes selon le
+modèle des caractères :
+
+- les voix dont `voix.ts` a gardé les syllabes (`voix-kokoro/`, manifeste `effc29f7…c6f5`,
+  branche `donnees/tons-voix` ; `voix-cc/`, manifeste `2352748c…7e54`, branche `donnees/tons-cc`) :
+  le contour de chaque syllabe est rebâti tel que l'app le voit (`rebatir.ts` : la forme `x`, la
+  hauteur `rc` ou `ro` moins la déclinaison des réglages des mots, la durée, le voisement) ;
+  rebâtis ainsi, les mots de Lingua Libre retrouvent exactement les verdicts que `voix.ts` avait
+  notés avec les poids versionnés ;
+- les pseudo-mots des deux voix de Taïwan (OGDL 1.0) : deux syllabes isolées de la même voix,
+  trames bout à bout, comprimées au débit d'un mot, le ton 3 coupé après son creux (en tête
+  trois fois sur quatre, en fin une fois sur deux), le neutre bref posé à la hauteur que lui
+  donne le ton qui précède, puis `segmenter` (8 000 par voix ; trames `trames-tw.json` du
+  30 septembre) ;
+- la moitié dev des mots de Yue Tan, pour les réglages ; la moitié test n'est lue que par
+  `mesurer.ts`.
+
+| Source | Licence | Mots | Variante libre | Variante CC BY-SA |
+|---|---|---|---|---|
+| Kokoro, 24 voix (`zf_001` tenue à part) | sorties produites chez nous (Apache 2.0 pour le modèle) | 9 514 | oui | oui |
+| CanonNi (Lingua Libre) | CC0 1.0 | 557 | oui (× 5) | oui (× 5) |
+| Pseudo-mots de Taïwan | OGDL 1.0 | 16 000 | permis, écartés par le développement | idem |
+| Yue Tan (Shtooka, HSK d'audio-cmn) | CC BY-SA 3.0 US | 5 093 | **refusé** | oui (× 5), sauf au pli YT |
+| Fake estate, Jouketou, Luilui6666 | CC BY-SA 4.0 | 972, 267, 187 | **refusé** | oui (× 5) |
+
+`data/sources/tons/entrainer_mots.py` refuse toute source CC BY-SA dans la variante libre
+(`sources_libres`, et une garde qui lève une erreur si l'une s'y glisse), toute licence NC, ND ou
+sans version dans la variante CC BY-SA (`tons.licence_refusee`), la voix de l'app, une voix
+tenue à part, un mot saturé. Son bloc de licence déclare chaque voix par sa clé de
+`tons.VOIX_CC` : un modèle CC BY-SA s'y dit sous CC BY-SA 4.0, et `tons.fautes_licence` et
+`tons.attributions` le relisent comme `modele.json` (`data/tests/test_tons_mots.py`).
+
+### Le développement (moitié dev des mots de Yue Tan, 3 009 mots)
+
+Tout a été choisi là, avant la moindre mesure du test : les sources, le poids des voix humaines,
+la taille, le mélange, les seuils, la règle des syllabes brèves. Ce que le développement a montré :
+
+- le modèle des mots seul ne transfère pas d'une voix à l'autre : 42 % des profils en tête appris
+  sur les pseudo-mots de Taïwan, 45 % sur Kokoro, 52 % sur les deux ; empilé sur les probabilités
+  des syllabes, 52 à 57 % ;
+- les pseudo-mots de Taïwan nuisent : aucun réglage ne tient les contraintes (autre ton à tort
+  ≤ 2 %, reconnu à tort ≤ 2,5 % sur la moitié dev) quand le modèle des mots n'apprend qu'eux ;
+  écartés de la variante libre ;
+- le produit des deux syllabes, jugé sur le profil (seuil 0,35 sans exiger la tête), reconnaît
+  déjà 72,2 % des mots (65,1 % syllabe par syllabe) ;
+- le mélange avec un modèle des mots appris sur Kokoro et CanonNi : 76,1 à 77,3 % ; sur Kokoro
+  et les quatre voix de Lingua Libre (variante CC BY-SA, pli YT) : 78,7 à 79,6 % ; les voix
+  humaines, même peu nombreuses et graves, comptent le plus.
+
+Avec le code de l'app (`mesurer.ts`, `SANS_TEST=1`), voix calibrée sur 5 à 30 caractères : libre
+76,1 / 77,1 / 76,1 % reconnus, 1,9 à 2,0 % d'autre ton à tort, 2,7 à 2,8 % reconnus à tort ;
+CC BY-SA sans Yue Tan 77,6 / 77,6 / 77,8 %, 1,7 à 1,9 %, 2,6 %.
+
+### La mesure : validation croisée par locuteur, trois graines
+
+Protocole fixé avant le test : variante libre (Kokoro et CanonNi) mesurée sur la moitié test de
+Yue Tan et sur les trois voix de Lingua Libre qu'elle n'a jamais vues, et sans CanonNi sur
+CanonNi ; variante CC BY-SA sans Yue Tan sur Yue Tan, et sans chaque voix de Lingua Libre sur
+cette voix (Yue Tan entraînée alors). Graines 0, 1, 2. La règle se lit sur Yue Tan, voix de
+référence de `MESURE_MOTS_DIRE` (chaque graine : reconnus ≥ 80 %, autre ton à tort ≤ 3 %,
+reconnus à tort ≤ 3 %) ; sur chaque voix de Lingua Libre, ni moins de mots reconnus ni plus
+d'autres tons affirmés à tort que la méthode actuelle. « Actuel » : les poids versionnés,
+syllabe par syllabe (protocole du 30 septembre, retrouvé à l'identique : 67,5 %, 2,1 %, 1,7 %).
+
+| Voix tenue à part (mots) | | Actuel | Libre (graines 0 / 1 / 2) | CC BY-SA (graines 0 / 1 / 2) |
+|---|---|---|---|---|
+| **Yue Tan, moitié test (3 061)** | **reconnus** | 67,5 | **77,6 / 77,8 / 77,4** | **78,9 / 79,1 / 79,1** |
+| | autre ton à tort | 2,1 | 1,9 / 2,1 / 1,9 | 1,9 / 1,8 / 1,9 |
+| | reconnus à tort | 1,7 | 2,5 / 2,4 / 2,6 | 2,3 / 2,3 / 2,4 |
+| | profil en tête | 73,7 | 76,4 / 76,5 / 76,0 | 77,6 / 77,6 / 77,4 |
+| Fake estate (973) | reconnus | 23,1 | 37,1 / 37,4 / 37,2 | 38,5 / 39,7 / 38,8 |
+| | autre ton à tort | 8,4 | 4,2 / 4,1 / 4,3 | 5,2 / 5,0 / 5,3 |
+| | reconnus à tort | 3,3 | 6,0 / 5,7 / 5,4 | 5,5 / 5,2 / 5,7 |
+| Jouketou (267) | reconnus | 37,5 | 51,3 / 51,7 / 51,7 | 54,3 / 55,4 / 53,6 |
+| | autre ton à tort | 5,6 | 4,9 / 5,2 / 5,2 | 6,4 / 6,7 / 6,0 |
+| | reconnus à tort | 3,7 | 6,7 / 6,4 / 6,0 | 5,6 / 6,0 / 6,4 |
+| Luilui6666 (189) | reconnus | 40,2 | 48,1 / 47,1 / 48,1 | 50,3 / 50,3 / 50,3 |
+| | autre ton à tort | 9,5 | 8,5 / 9,5 / 8,5 | 8,5 / 9,0 / 7,9 |
+| | reconnus à tort | 3,2 | 7,4 / 7,9 / 7,4 | 5,3 / 5,8 / 5,3 |
+| CanonNi (573) | reconnus | 14,0 | 34,0 / 34,6 / 34,6 (sans CanonNi) | 34,0 / 35,3 / 35,1 |
+| | autre ton à tort | 3,7 | 9,6 / 9,4 / 8,7 | 9,2 / 10,5 / 9,6 |
+| | reconnus à tort | 1,4 | 5,6 / 5,8 / 5,8 | 5,6 / 6,3 / 5,6 |
+| Caractères : Chen Wang (1 688), Yue Tan (1 094) | reconnus | 88,3, 88,2 | 88,3, 88,2 | 88,3, 88,2 |
+
+Sur Yue Tan, en tête par place et par ton (graine 0, actuel → libre → CC BY-SA) : première
+syllabe ton 2 83,1 → 87,8 → 87,6 %, ton 3 (ou 2 de sandhi) 85,2 → 92,9 → 91,9 % ; seconde
+syllabe ton 3 43,0 → 43,2 → 44,9 %, neutre 33,2 → 28,8 → 32,2 %.
+
+**Lecture.** Juger le mot sur son profil gagne dix points sur Yue Tan tenue à part (67,5 →
+77,6 % sans aucune source CC BY-SA, 79,0 % avec), sans affirmer plus souvent un autre ton : le
+plus gros du gain vient du jugement « conforme » (la probabilité du profil attendu, au lieu de
+deux syllabes sûres chacune) et des syllabes brèves qu'on ne redemande plus (moitié dev : 65,1 →
+72,2 %) ; le modèle des mots en ajoute quatre à six. Mais **la règle n'est remplie par aucune variante** : 77,6 % et 79,0 %
+contre 80 % ; sur les voix de Lingua Libre, plus de mots reconnus partout, mais les reconnus à
+tort montent (1,4–3,7 → 5,2–7,9 %), et sur CanonNi l'autre ton affirmé à tort aussi (3,7 →
+8,7–10,5 %). Le ton 3 et le neutre en fin de mot restent la faiblesse (43–45 % et 29–32 % en
+tête) : aucune source d'entraînement libre ne les dit comme une voix humaine du continent
+(Kokoro les réalise mal, les pseudo-mots de Taïwan les déforment). Selon la décision : **rien ne
+change dans le produit, `MOTS_DIRE` reste éteint, aucun fichier `tons-mots.json` n'est écrit,
+sous aucune licence.** Ce qui manque : des mots de deux syllabes dits par des voix humaines du
+continent sous une licence sans partage à l'identique (ou l'avis juridique sur la CC BY-SA, qui
+ne suffirait d'ailleurs pas ici : 79,0 %).
+
+### La recette du profil des mots
+
+```bash
+# les branches donnees/tons-cc et donnees/tons-voix (recettes ci-dessus), et les trames de mesure
+# du 30 septembre dans data/work/tons/donnees/mesure/ (car.json, trames-car.json, mots-yt.json,
+# trames-ytm.json, tw.json, trames-tw.json, zf_001-mesure.json)
+mkdir -p data/work/tons/voix-cc data/work/tons/voix-kokoro
+git archive origin/donnees/tons-cc data/sources/tons/voix-cc | tar -x -C data/work/tons/voix-cc --strip-components=4
+git archive origin/donnees/tons-voix data/sources/tons/voix-kokoro | tar -x -C data/work/tons/voix-kokoro --strip-components=4
+cd app && npx vite-node scripts/tons/mots.ts ../data/work/tons 8000 1 && cd ..
+uv run --project data --with numpy --with scikit-learn python data/sources/tons/entrainer_mots.py \
+  --variante libre --graine 0 --sortie mots-libre-g0.json            # pli CanonNi : --sans-voix cc-ll-Q1431140
+uv run --project data --with numpy --with scikit-learn python data/sources/tons/entrainer_mots.py \
+  --variante cc --sans-voix cc-yue-tan --graine 0 --sortie mots-cc-g0.json   # ou --sans-voix cc-ll-…
+cd app && SANS_TEST=1 npx vite-node scripts/tons/mesurer.ts ../data/work/tons - dev ../mots-libre-g0.json   # réglages
+npx vite-node scripts/tons/mesurer.ts ../data/work/tons - test ../mots-libre-g0.json                         # mesure
+```
+
+`mesurer.ts` mesure aussi les mots des voix de Lingua Libre (`ll-<voix>`), rebâtis de `voix-cc/`
+et jugés par `jugerContours`, avec ou sans modèle des mots.
