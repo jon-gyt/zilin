@@ -96,7 +96,7 @@ Décisions du propriétaire du 26 septembre 2026 : « aux paliers de caractères
 
 ## Épic 9 · Oral par IA
 Décisions du propriétaire du 29 septembre 2026 (brief §10, « L'oral par IA ») : sur le téléphone en gratuit, dans le nuage avec l'abonnement, « 5 € c'est une conversation par jour ». Analyse : `Wenlu face au marché` (29 septembre).
-- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante ; les voix du continent (FLEURS, puis les voix synthétiques de Kokoro) essayées le 3 octobre, sans gain sur les caractères isolés, poids inchangés ; les voix humaines sous CC BY-SA (Yue Tan, quatre voix de Lingua Libre) les 3 et 4 octobre, le ton 3 de Yue Tan tenue à part régressant, poids inchangés (voir « Épic 9, en partie »).
+- 9.1 Les tons sur l'appareil : suivi de hauteur (YIN), petit classifieur embarqué (moins de 1 Mo, moins de 100 ms), données d'entraînement sous licence ouverte vérifiée ; une question « Dis-le » : on prononce le caractère, l'app montre sa courbe sur celle du modèle et le ton reconnu. Sans réseau, notation automatique, jamais de reproche. **Livrée en partie le 29 septembre** ; les mots de deux syllabes prêts le 30, éteints faute de mesure suffisante ; les voix du continent (FLEURS, puis les voix synthétiques de Kokoro) essayées le 3 octobre, sans gain sur les caractères isolés, poids inchangés ; les voix humaines sous CC BY-SA (Yue Tan, quatre voix de Lingua Libre) les 3 et 4 octobre, le ton 3 de Yue Tan tenue à part régressant, poids inchangés ; le profil de tons du mot entier du 4 au 7 octobre, 67,5 → 77,6 % des mots sans source CC BY-SA, 79,0 % avec, sous les 80 % : non branché, `MOTS_DIRE` éteint (voir « Épic 9, en partie »).
 - 9.2 La conversation sur l'appareil, là où il le permet (modèle de langue, reconnaissance et synthèse vocales de l'appareil), limitée aux caractères acquis.
 - 9.3 Le relais : un seul serveur, sans compte, authentifié par la transaction App Store, qui ne garde rien ; quota d'une conversation par jour, sans accumulation.
 - 9.4 L'agent vocal par niveau dans le nuage : en cascade (reconnaissance, modèle de langue, contrôle de chaque réplique contre l'acquis, synthèse), des scènes par niveau rédigées par le pipeline.
@@ -942,6 +942,26 @@ intégration, pour que le propriétaire l'essaie sur son téléphone.
     demander au dépositaire d'audio-cmn ; d'autres locuteurs de Lingua Libre dont les fiches
     soient lisibles), une troisième voix tenue à part pour entraîner Yue Tan, et la question du
     DRM de l'App Store pour des poids sous CC BY-SA (`docs/sources-licences.md` §9) ;
+  - le profil de tons du mot entier (décision « Revoir la méthode des mots » du 4 octobre) :
+    **essayé du 4 au 7 octobre, non branché**. Un mot est jugé sur son profil (19 profils :
+    4 × 4 tons pleins et le neutre en seconde syllabe, 3-3 lu 2-3, 不 et 一 par le ton dit) :
+    un petit modèle des mots (38 entrées, 3 × 32 neurones, 50 Ko, `profil.ts`,
+    `entrainer_mots.py`) mêlé au modèle des caractères inchangé, le profil attendu reconnu à
+    0,4 (« conforme »), une syllabe brève plus redemandée. Deux variantes, posées avant le
+    test et réglées sur la moitié dev de Yue Tan : libre (Kokoro, CanonNi en CC0 ; aucune
+    source CC BY-SA, le script la refuse), et CC BY-SA (plus Yue Tan et trois voix de Lingua
+    Libre). Validation croisée par locuteur, trois graines, code de l'app (`mesurer.ts`, qui
+    mesure aussi les voix de Lingua Libre) : Yue Tan tenue à part 67,5 → **77,6 %** (libre) et
+    **79,0 %** (CC BY-SA) des mots reconnus, 1,9 % d'autre ton à tort, 2,4–2,5 % de reconnus
+    à tort ; les voix de Lingua Libre reconnues bien plus souvent (14–40 → 34–55 %) mais plus
+    de reconnus à tort (jusqu'à 7,9 %) ; caractères inchangés (88,3 et 88,2 %). Règle (80 %,
+    3 %) non remplie : produit inchangé, `MOTS_DIRE` éteint, aucun fichier `tons-mots.json`,
+    ni libre ni sous CC BY-SA ; l'avis juridique sur la CC BY-SA et le DRM de l'App Store
+    reste attendu, mais ne suffirait pas ici (`PROVENANCE.md`, « Le profil de tons du mot
+    entier »). Prêt : `analyser(…, modeleMots)` et les tests (`profil.test.ts`,
+    `test_tons_mots.py`). Reste le ton 3 et le neutre en fin de mot (43–45 %, 29–32 % en tête) :
+    il faudrait des mots de deux syllabes dits par des voix humaines du continent, sous une
+    licence sans partage à l'identique ;
   - les mots de deux syllabes, la question prête et **éteinte** (30 septembre) : un mot de
     la fiche dont les deux caractères sont acquis, une séance sur deux, la carte notée restant
     celle du caractère ; la voix coupée en deux syllabes au creux d'énergie, le ton de
