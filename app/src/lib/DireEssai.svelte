@@ -16,9 +16,10 @@
   import type { Progress } from './session';
   import { humeur, stade } from './tao';
   import type { Modele } from './tons/classifieur';
-  import { cibleDEssai, MOTS_DIRE, motsLisibles, type CibleDire } from './tons/dire';
+  import { cibleDEssai, motsPossibles, type CibleDire } from './tons/dire';
   import { etatMicro, microPossible, type EtatMicro } from './tons/micro';
-  import { modeleOnce } from './tons/modele';
+  import { modeleMotsOnce, modeleOnce } from './tons/modele';
+  import type { ModeleMots } from './tons/profil';
 
   let {
     p,
@@ -34,8 +35,12 @@
 
   let t = $state<TextesDire>(SANS_ECRANS.dire);
   let tm = $state<TextesDireMots>(SANS_ECRANS.direMots);
+  /** Les textes sont lus (ou leur lecture a échoué) : le tirage sait si les mots ont les leurs. */
+  let textesLus = $state(false);
   let fiches = $state.raw<FicheLue[] | null>(null);
   let modele = $state.raw<Modele | null | undefined>(undefined);
+  /** Le modèle des mots : sans lui, l'essai ne tire que des caractères. */
+  let modeleMots = $state.raw<ModeleMots | null | undefined>(undefined);
   let micro = $state<EtatMicro | null>(null);
   let cible = $state<CibleDire | null>(null);
   let tour = $state(0);
@@ -47,9 +52,12 @@
         if (vivant) {
           t = e.dire;
           tm = e.direMots;
+          textesLus = true;
         }
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (vivant) textesLus = true;
+      });
     void toutesLesFiches()
       .then((f) => {
         if (vivant) fiches = f;
@@ -59,6 +67,9 @@
       });
     void modeleOnce().then((m) => {
       if (vivant) modele = m;
+    });
+    void modeleMotsOnce().then((m) => {
+      if (vivant) modeleMots = m;
     });
     void etatMicro()
       .then((e) => {
@@ -76,15 +87,15 @@
   function tirer(): void {
     if (fiches === null) return;
     const corpus = corpusRevision({ fiches, voisins: null, cartes: p.cartes });
-    cible = cibleDEssai(corpus, p.cartes.map((c) => c.id), Math.random(), MOTS_DIRE && motsLisibles(tm));
+    cible = cibleDEssai(corpus, p.cartes.map((c) => c.id), Math.random(), motsPossibles(modeleMots, tm));
     tour += 1;
   }
 
   $effect(() => {
-    if (fiches !== null && cible === null) tirer();
+    if (fiches !== null && modeleMots !== undefined && textesLus && cible === null) tirer();
   });
 
-  const pret = $derived(fiches !== null && modele !== undefined && micro !== null);
+  const pret = $derived(fiches !== null && modele !== undefined && modeleMots !== undefined && textesLus && micro !== null);
   const taoStade = $derived(stade(p.tao.croissance));
   const taoHumeur = $derived(humeur(p.tao.activites, p.day));
 </script>
@@ -110,6 +121,7 @@
       textes={t}
       textesMots={tm}
       {modele}
+      {modeleMots}
       voix={p.voix}
       {micro}
       essai

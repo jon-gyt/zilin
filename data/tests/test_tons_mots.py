@@ -1,16 +1,21 @@
 """Le modèle des mots de « Dis-le » (`data/sources/tons/entrainer_mots.py`, décision du
 propriétaire du 4 octobre 2026, « Revoir la méthode des mots ») : l'étiquetage des profils, la
 variante libre qui refuse toute source CC BY-SA, l'attribution de chaque voix quand les poids en
-dérivent. Une règle par test, sans réseau ni scikit-learn."""
+dérivent ; puis le modèle adopté le 7 octobre 2026 (« Brancher à 77,6 % ») : versionné, contrôlé,
+exporté à part, sans aucune source CC BY-SA. Une règle par test, sans réseau ni scikit-learn."""
 from __future__ import annotations
 
+import copy
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
 import pytest
 
 from wenlu_data import tons
+from wenlu_data.outils import empreinte_fichier
+from wenlu_data.paths import EXPORT
 
 _ICI = Path(__file__).resolve().parents[1] / "sources" / "tons"
 sys.path.insert(0, str(_ICI))
@@ -109,3 +114,74 @@ def test_le_modele_cc_passe_sous_cc_by_sa_4_et_attribue_chaque_voix():
 def test_une_voix_cc_sans_attribution_exportee_est_refusee_par_le_controle():
     m = _modele([mot("cc-ll-Q999", "cc", "CC BY-SA 4.0")], "cc")
     assert any("sans attribution exportée" in f for f in tons.fautes_licence(m))
+
+
+# ------------------------------------------------- le modèle adopté (décision du 7 octobre 2026)
+
+
+def test_le_modele_des_mots_versionne_a_la_forme_que_l_app_lit():
+    m = tons.charger_mots()
+    assert tons.fautes_modele_mots(m) == []
+    assert tons.parametres(m) == 5625
+    assert tons.MODELE_MOTS.stat().st_size < tons.TAILLE_MAX
+    assert any("profils" in f for f in tons.fautes_modele_mots({**m, "profils": m["profils"][::-1]}))
+
+
+def test_le_modele_des_mots_versionne_est_la_variante_libre_sans_cc_by_sa():
+    m = tons.charger_mots()
+    assert tons.fautes_licence_mots(m) == []
+    assert m["licence"]["variante"] == "libre" and m["entrainement"]["variante"] == "libre"
+    assert not tons.sous_cc_by_sa(m)
+    assert tons.voix_du_modele(m) == ["cc-ll-Q1431140"]
+    assert "zf_001" not in m["entrainement"]["voix"]
+
+
+def test_le_controle_refuse_un_modele_des_mots_qui_derive_d_une_voix_cc_by_sa():
+    m = copy.deepcopy(tons.charger_mots())
+    m["licence"]["donnees"].append({"cle": "cc-yue-tan", "licence": "CC BY-SA 3.0 US", "usage": "entraînement"})
+    assert any("CC BY-SA" in f for f in tons.fautes_licence_mots(m))
+    cc = copy.deepcopy(tons.charger_mots())
+    cc["licence"]["variante"] = "cc"
+    assert any("variante" in f for f in tons.fautes_licence_mots(cc))
+    cachee = copy.deepcopy(tons.charger_mots())
+    cachee["entrainement"]["voix"].append("cc-ll-Q812770")
+    assert any("sans être déclarée" in f for f in tons.fautes_licence_mots(cachee))
+
+
+def test_la_provenance_porte_l_empreinte_du_modele_des_mots():
+    texte = tons.PROVENANCE.read_text(encoding="utf-8")
+    empreinte = empreinte_fichier(tons.MODELE_MOTS).removeprefix("sha256:")
+    assert empreinte in texte
+    assert any("modele-mots.json" in f for f in tons.fautes_provenance(texte.replace(empreinte, "")))
+
+
+def test_l_attribution_des_mots_nomme_kokoro_et_canonni_et_aucune_voix_cc_by_sa():
+    a = tons.attributions_mots(tons.charger_mots())
+    assert a[0] == tons.ATTRIBUTION_KOKORO and "Apache 2.0" in a[0]
+    assert len(a) == 2 and "CanonNi" in a[1] and "CC0 1.0" in a[1]
+    assert not any("BY-SA" in x for x in a)
+
+
+def test_l_export_porte_le_modele_des_mots_a_part_avec_sa_licence():
+    d = EXPORT / "0.1.0"
+    sortie = json.loads((d / tons.FICHIER_MOTS).read_text(encoding="utf-8"))
+    index = json.loads((d / "index.json").read_text(encoding="utf-8"))
+    licences = (d / "LICENCES.md").read_text(encoding="utf-8")
+    assert tons.fautes_export_mots(sortie, index, licences, d) == []
+    assert index[tons.CLE_INDEX_MOTS] == tons.FICHIER_MOTS
+    assert sortie["membres"] == tons.charger_mots()["membres"]
+    assert sortie["license"].startswith("propriétaire") and "license_url" not in sortie
+    faux = {**sortie, "license": "CC BY-SA 4.0", "attributions": []}
+    fautes = tons.fautes_export_mots(faux, {**index, tons.CLE_INDEX_MOTS: ""}, "", d)
+    assert any("CC BY-SA" in f for f in fautes)
+    assert any("n'attribue pas" in f for f in fautes)
+    assert any("index.json" in f for f in fautes)
+
+
+def test_le_modele_des_caracteres_ne_change_pas():
+    empreinte = empreinte_fichier(tons.MODELE).removeprefix("sha256:")
+    assert empreinte == "eda572fdffacd3540c356b683e6a20167dc7e6c26fcc233c58697187181cf157"
+
+
+def test_les_controles_des_mots_passent_sur_le_depot():
+    assert all(c.ok for c in tons.controles_mots())

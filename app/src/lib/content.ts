@@ -552,6 +552,8 @@ export type Index = {
   ouvertures?: string;
   /** Les poids du classifieur des tons, `tons.json` (`tons/modele.ts`) ; vide pour un export qui n'en porte pas. */
   tons?: string;
+  /** Les poids du modèle des mots de « Dis-le », `tons-mots.json` (`tons/modele.ts`) ; vide pour un export qui n'en porte pas. */
+  tonsMots?: string;
   /** L'index du dictionnaire de Chercher, `dico/index.json` (`dictionnaire.ts`) ; vide pour un export qui n'en porte pas. */
   dictionnaire?: string;
   /** Les gabarits de l'écriture au doigt, `ecriture/gabarits.json` (`ecriture/`) ; vide pour un export qui n'en porte pas. */
@@ -607,6 +609,7 @@ export async function loadIndex(
     rappels: typeof brut.rappels === 'string' ? brut.rappels : '',
     ouvertures: typeof brut.ouvertures === 'string' ? brut.ouvertures : '',
     tons: typeof brut.tons === 'string' ? brut.tons : '',
+    tonsMots: typeof brut.tonsMots === 'string' ? brut.tonsMots : '',
     dictionnaire: typeof brut.dictionnaire === 'string' ? brut.dictionnaire : '',
     ecriture: typeof brut.ecriture === 'string' ? brut.ecriture : ''
   };

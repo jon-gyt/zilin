@@ -57,6 +57,7 @@ app/public/data/0.1.0/
   trois-lignes.json          les trois lignes du pas Utiliser, un texte par jour du chemin
   examens.json               les examens 科举 et les 月课 : la liste, les séries relues
   tons.json                  les poids du classifieur des tons de « Dis-le », avec leur attribution
+  tons-mots.json             les poids du modèle des mots de « Dis-le » (profil de tons d'un mot), avec leur attribution
   OGDL-Taiwan-1.0.txt        le texte de la licence des données dont ces poids dérivent
   CC-BY-SA-4.0.txt           le texte de la CC BY-SA 4.0 (mots de CC-CEDICT ; poids des tons dérivés de voix CC BY-SA)
   familles/<racine>.json     une famille : `Famille` de models.py
@@ -112,8 +113,9 @@ Trois régimes de licence, trois familles de fichiers, jamais mêlés
  "ecrans": "ecrans.json",
  "ouvertures": "ouvertures.json",
  "tons": "tons.json",
- "dictionnaire": "dico/index.json",
- "ecriture": "ecriture/gabarits.json"
+ "ecriture": "ecriture/gabarits.json",
+ "tonsMots": "tons-mots.json",
+ "dictionnaire": "dico/index.json"
 }
 ```
 
@@ -890,6 +892,35 @@ porte l'attribution de chaque source, l'OGDL en tête (`attribution` les met bou
   (`app/src/lib/tons/classifieur.ts`). Les 34 entrées : 30 points de contour en demi-tons,
   le registre face à la voix de l'apprenant et son indicateur, la durée, le voisement.
 - Sans `tons.json` (un export plus ancien), ou des poids mal formés, « Dis-le » ne se pose pas.
+
+## `tons-mots.json`
+
+Tiré de `data/sources/tons/modele-mots.json` (décision du propriétaire du 7 octobre 2026,
+« Brancher à 77,6 % » ; provenance dans `data/sources/tons/PROVENANCE.md`, « L'adoption du
+modèle des mots ») : les poids du modèle des mots de « Dis-le », la variante libre, tels que
+`entrainer_mots.py` les a écrits, compacts ; nommé par l'index (clé `tonsMots`). En tête, la
+licence (propriétaire ; aucune source sous CC BY-SA) et l'attribution de chaque source
+(`attributions` : les mots dits par Kokoro, puis la voix de CanonNi, CC0 1.0) ; puis les poids.
+
+```json
+{"version": "0.1.0-2026-10-07", "license": "propriétaire (poids Wenlu) ; appris sur des mots dits par Kokoro …",
+ "source": "…", "source_url": "…", "modified": "…",
+ "attribution": "Mots dits par Kokoro-82M-v1.1-zh … CanonNi, « … », … CC0 1.0 …",
+ "attributions": ["Mots dits par Kokoro-82M-v1.1-zh …", "CanonNi, « … » …"],
+ "format": "wenlu-tons-mots", "entrees": 38, "profils": [[1, 1], [1, 2], …, [4, 5]],
+ "membres": [{"normalisation": {…}, "couches": [{"poids": [[…]], "biais": […]}, …]}, …],
+ "temperature": 1.0, "melange": 0.5,
+ "seuils": {"juste": 0.4, "autre": 0.98, "attenduMax": 0.01, "voisementMin": 0.5},
+ "licence": {…}, "entrainement": {…}}
+```
+
+- `profils` : les 19 profils de tons qu'une voix fait sur un mot de deux syllabes (4 × 4 tons
+  pleins, et le neutre en seconde syllabe ; jamais 3-3), dans l'ordre de la sortie.
+- `membres` : trois perceptrons 38-32-19 (ReLU, softmax), dont l'app moyenne les probabilités ;
+  `melange` : l'exposant de ce modèle quand l'app le mêle au modèle des caractères ; `seuils` :
+  le jugement du mot (`app/src/lib/tons/profil.ts`).
+- Sans `tons-mots.json` (un export plus ancien), ou des poids mal formés, « Dis-le » ne demande
+  pas de mot ; les caractères isolés sont toujours jugés par le seul `tons.json`.
 
 ## `ecriture/gabarits.json`
 

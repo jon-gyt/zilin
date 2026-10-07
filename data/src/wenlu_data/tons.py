@@ -24,6 +24,15 @@ Les poids dérivent de données dont chacune exige une attribution :
 licences à côté. `wenlu check` vérifie la taille, la forme, la licence et l'attribution, à la
 source et dans l'export, et refuse un modèle qui dérive d'une source dont l'attribution n'est
 pas exportée.
+
+Le modèle des mots (`modele-mots.json`, `entrainer_mots.py`) : le profil de tons d'un mot de
+deux syllabes, reconnu d'un bloc et mêlé au modèle des caractères (`app/src/lib/tons/profil.ts`).
+Décision du propriétaire du 7 octobre 2026 (« Brancher à 77,6 % ») : la **variante libre**,
+apprise sur les mots dits par Kokoro (sorties produites chez nous ; Apache 2.0 sur le modèle) et
+sur la voix de CanonNi (Lingua Libre, CC0 1.0), **sans aucune source CC BY-SA**. `wenlu export`
+l'écrit à part, dans `tons-mots.json` (clé `tonsMots` de l'index), avec sa licence et
+l'attribution de chaque source ; `wenlu check` vérifie sa forme, son empreinte dans
+`PROVENANCE.md`, sa licence, et refuse toute source sous CC BY-SA.
 """
 from __future__ import annotations
 
@@ -50,6 +59,32 @@ SOURCES_LICENCES = DATA.parent / "docs" / "sources-licences.md"
 
 #: Le fichier exporté, que l'index nomme par sa clé `tons`.
 FICHIER = "tons.json"
+
+#: Le modèle des mots (décision du propriétaire du 7 octobre 2026), versionné et exporté à part.
+MODELE_MOTS = DOSSIER / "modele-mots.json"
+FICHIER_MOTS = "tons-mots.json"
+#: La clé de l'index qui nomme `tons-mots.json`.
+CLE_INDEX_MOTS = "tonsMots"
+#: Ce que le modèle des mots doit être pour que l'app le lise (`profil.verifierModeleMots`).
+FORMAT_MOTS = "wenlu-tons-mots"
+ENTREES_MOTS = 38
+PROFILS_MOTS = [[a, b] for a in (1, 2, 3, 4) for b in (1, 2, 3, 4, 5) if not (a == 3 and b == 3)]
+#: La seule variante adoptée : sans aucune source sous CC BY-SA.
+VARIANTE_MOTS = "libre"
+#: Les mots dits par Kokoro : une synthèse faite par nous, que l'Apache 2.0 du modèle ne régit pas ;
+#: ni le code ni les poids de Kokoro ne sont redistribués. L'attribution est donnée par courtoisie.
+KOKORO = {
+    "auteur": "hexgrad",
+    "titre": "Kokoro-82M-v1.1-zh",
+    "lien": "https://huggingface.co/hexgrad/Kokoro-82M-v1.1-zh",
+    "licence": "Apache 2.0",
+}
+ATTRIBUTION_KOKORO = (
+    f"Mots dits par le modèle de synthèse vocale {KOKORO['titre']}, {KOKORO['auteur']}, {KOKORO['lien']},"
+    f" sous {KOKORO['licence']}"
+    " (https://www.apache.org/licenses/LICENSE-2.0) : sorties produites par Wenlu dans son workflow de"
+    " données ; ni le code ni les poids de Kokoro ne sont redistribués."
+)
 
 #: Plafond de taille des poids (backlog 9.1 : « moins de 1 Mo »).
 TAILLE_MAX = 1024 * 1024
@@ -232,8 +267,13 @@ def _modele_ou_vide() -> dict[str, object]:
 
 
 def sources() -> list[tuple[str, Path]]:
-    """Les fichiers dont `tons.json` est tiré, pour l'empreinte de l'export."""
-    return [("tons-modele", MODELE), ("tons-licence", LICENCE_TEXTE), ("tons-licence-cc", CC_BY_SA_TEXTE)]
+    """Les fichiers dont `tons.json` et `tons-mots.json` sont tirés, pour l'empreinte de l'export."""
+    return [
+        ("tons-modele", MODELE),
+        ("tons-licence", LICENCE_TEXTE),
+        ("tons-licence-cc", CC_BY_SA_TEXTE),
+        *([("tons-mots-modele", MODELE_MOTS)] if MODELE_MOTS.exists() else []),
+    ]
 
 
 def charger(chemin: Path | None = None) -> dict[str, object]:
@@ -384,11 +424,18 @@ def fautes_licence(m: dict[str, object], voix: dict[str, dict[str, str]] | None 
 
 
 def fautes_provenance(texte: str) -> list[str]:
-    """La provenance dit la source, la licence, l'attribution et l'empreinte des poids."""
+    """La provenance dit la source, la licence, l'attribution et l'empreinte des poids (ceux des
+    caractères, et ceux des mots s'ils sont versionnés)."""
     fautes: list[str] = []
     empreinte = empreinte_fichier(MODELE) if MODELE.exists() else ""
     if empreinte and empreinte.removeprefix("sha256:") not in texte:
         fautes.append("PROVENANCE.md ne porte pas l'empreinte de modele.json")
+    if MODELE_MOTS.exists():
+        if empreinte_fichier(MODELE_MOTS).removeprefix("sha256:") not in texte:
+            fautes.append("PROVENANCE.md ne porte pas l'empreinte de modele-mots.json")
+        for exige in ("entrainer_mots.py", "CanonNi", "Kokoro", "7 octobre 2026"):
+            if exige not in texte:
+                fautes.append(f"PROVENANCE.md ne dit pas {exige!r} (modèle des mots)")
     if LICENCE_TEXTE.exists() and empreinte_fichier(LICENCE_TEXTE).removeprefix("sha256:") not in texte:
         fautes.append(f"PROVENANCE.md ne porte pas l'empreinte de {OGDL}")
     for exige in (*ATTRIBUTION_EXIGEE, "OGDL", "entrainer.py"):
@@ -446,6 +493,251 @@ def fautes_export(sortie: object, index: dict[str, object], texte_licences: str,
     if taille >= TAILLE_MAX:
         fautes.append(f"{taille} octets, plafond {TAILLE_MAX}")
     return fautes
+
+
+# ------------------------------------------------------------------------ modèle des mots
+
+
+def charger_mots(chemin: Path | None = None) -> dict[str, object]:
+    """Les poids du modèle des mots, relus tels quels."""
+    return json.loads((chemin or MODELE_MOTS).read_text(encoding="utf-8"))
+
+
+def fautes_modele_mots(m: object) -> list[str]:
+    """La forme que l'app exige (`profil.verifierModeleMots`) : format, 38 entrées, les 19
+    profils dans l'ordre, des couches cohérentes, une température, le mélange et les seuils."""
+    if not isinstance(m, dict):
+        return ["poids hors format"]
+    fautes: list[str] = []
+    if m.get("format") != FORMAT_MOTS:
+        fautes.append(f"format {m.get('format')!r}, attendu {FORMAT_MOTS}")
+    if m.get("entrees") != ENTREES_MOTS:
+        fautes.append(f"{m.get('entrees')} entrées, attendu {ENTREES_MOTS}")
+    if m.get("profils") != PROFILS_MOTS:
+        fautes.append("profils inattendus (19, dans l'ordre de profil.ts)")
+    t = m.get("temperature")
+    if not isinstance(t, (int, float)) or t <= 0:
+        fautes.append("température absente")
+    melange = m.get("melange")
+    if not isinstance(melange, (int, float)) or not 0 < melange <= 1:
+        fautes.append("mélange absent ou hors de ]0, 1]")
+    seuils = m.get("seuils")
+    if not isinstance(seuils, dict) or not {"juste", "autre", "attenduMax", "voisementMin"} <= set(seuils):
+        fautes.append("seuils du jugement absents")
+    membres = m.get("membres")
+    if not isinstance(membres, list) or not membres:
+        return fautes + ["aucun membre"]
+    for k, mb in enumerate(membres):
+        norm = mb.get("normalisation", {}) if isinstance(mb, dict) else {}
+        if len(norm.get("moyenne") or ()) != ENTREES_MOTS or len(norm.get("ecart") or ()) != ENTREES_MOTS:
+            fautes.append(f"membre {k} : normalisation mal formée")
+        n = ENTREES_MOTS
+        for c in (mb.get("couches") or ()) if isinstance(mb, dict) else ():
+            poids, biais = c.get("poids") or [], c.get("biais") or []
+            if len(poids) != len(biais) or any(len(ligne) != n for ligne in poids):
+                fautes.append(f"membre {k} : couche mal formée")
+                break
+            n = len(biais)
+        if n != len(PROFILS_MOTS):
+            fautes.append(f"membre {k} : sortie de {n}, attendu {len(PROFILS_MOTS)}")
+    return fautes
+
+
+def _voix_kokoro(v: str) -> bool:
+    return re.fullmatch(r"z[fm]_\d{3}", v) is not None
+
+
+def fautes_licence_mots(m: dict[str, object], voix: dict[str, dict[str, str]] | None = None) -> list[str]:
+    """Le modèle des mots adopté est la variante libre (décision du 7 octobre 2026) : chaque voix
+    humaine est une voix de `VOIX_CC` (attribution exportée), jamais sous CC BY-SA ; les autres
+    voix sont celles de Kokoro, déclarées comme synthèse ; jamais la voix de l'app (`zf_001`) ; les
+    poids restent propriétaires."""
+    voix = VOIX_CC if voix is None else voix
+    licence = m.get("licence")
+    if not isinstance(licence, dict):
+        return ["bloc licence absent"]
+    fautes = fautes_licence(m, voix)
+    if licence.get("variante") != VARIANTE_MOTS:
+        fautes.append(f"variante {licence.get('variante')!r}, seule la variante {VARIANTE_MOTS} est adoptée")
+    if "BY-SA" in str(licence.get("poids", "")).upper():
+        fautes.append("poids déclarés sous CC BY-SA : refusé (variante libre)")
+    for d in licence.get("donnees") or ():
+        if not isinstance(d, dict):
+            continue
+        cle = str(d.get("cle") or d.get("nom"))
+        if "BY-SA" in str(d.get("licence", "")).upper() or "BY-SA" in voix.get(cle, {}).get("licence", "").upper():
+            fautes.append(f"{cle} : source sous CC BY-SA, refusée dans le modèle des mots")
+    entr = m.get("entrainement") if isinstance(m.get("entrainement"), dict) else {}
+    if entr.get("variante") != VARIANTE_MOTS:  # type: ignore[union-attr]
+        fautes.append("entraînement hors de la variante libre")
+    appris = [str(v) for v in entr.get("voix") or ()]  # type: ignore[union-attr]
+    declarees = {str(d.get("cle")) for d in donnees_entrainement(m) if d.get("cle")}
+    for v in appris:
+        if v == "zf_001":
+            fautes.append("zf_001, la voix de l'app, est à l'entraînement")
+        elif not _voix_kokoro(v) and v not in declarees:
+            fautes.append(f"{v} : voix apprise sans être déclarée dans le bloc de licence")
+    if any(_voix_kokoro(v) for v in appris) and "Kokoro" not in str(licence.get("synthese_voix") or ""):
+        fautes.append("voix Kokoro apprises sans être déclarées (synthese_voix)")
+    return fautes
+
+
+def attributions_mots(m: dict[str, object]) -> list[str]:
+    """L'attribution de chaque source du modèle des mots : Kokoro s'il a dit des mots appris
+    (courtoisie), puis chaque voix (CanonNi : CC0, courtoisie aussi), l'OGDL si des pseudo-mots de
+    Taïwan en étaient."""
+    licence = m.get("licence") if isinstance(m.get("licence"), dict) else {}
+    kokoro = [ATTRIBUTION_KOKORO] if "Kokoro" in str(licence.get("synthese_voix") or "") else []  # type: ignore[union-attr]
+    return kokoro + attributions(m)
+
+
+def licence_export_mots(m: dict[str, object]) -> str:
+    voix = [VOIX_CC[k]["auteur"] + f" ({VOIX_CC[k]['licence']})" for k in voix_du_modele(m) if k in VOIX_CC]
+    de = f"sur la voix de {voix[0]}" if len(voix) == 1 else f"sur les voix de {', '.join(voix)}"
+    return (
+        "propriétaire (poids Wenlu) ; appris sur des mots dits par Kokoro (sorties produites par Wenlu ;"
+        f" Apache 2.0 sur le modèle de synthèse) et {de} ; aucune source sous CC BY-SA"
+    )
+
+
+def document_mots(en_tete: dict[str, object], chemin: Path | None = None) -> dict[str, object]:
+    """Le JSON écrit dans `tons-mots.json` : l'en-tête, la licence, l'attribution de chaque source,
+    puis les poids tels quels."""
+    m = charger_mots(chemin)
+    doc: dict[str, object] = {
+        **en_tete,
+        "license": licence_export_mots(m),
+        "source": (
+            "data/sources/tons/modele-mots.json : poids du modèle des mots de « Dis-le » (profil de tons"
+            " d'un mot de deux syllabes), variante libre adoptée le 7 octobre 2026 ; provenance dans"
+            " PROVENANCE.md"
+        ),
+        "attribution": " ".join(attributions_mots(m)),
+        "attributions": attributions_mots(m),
+    }
+    return {**doc, **m}
+
+
+def lignes_licences_mots() -> list[tuple[str, str, str, str, str]]:
+    """Les lignes de `LICENCES.md` des sources du modèle des mots, s'il est versionné."""
+    if not MODELE_MOTS.exists():
+        return []
+    m = charger_mots()
+    usage = f"entraînement des poids du modèle des mots de « Dis-le » (`{FICHIER_MOTS}`) ; aucun son n'est embarqué"
+    out = []
+    if "Kokoro" in str((m.get("licence") or {}).get("synthese_voix") or ""):  # type: ignore[union-attr]
+        out.append((
+            f"Mots dits par Kokoro ({KOKORO['auteur']}/{KOKORO['titre']})",
+            usage + " ; sorties produites par Wenlu, ni le code ni les poids de Kokoro ne sont redistribués",
+            f"{KOKORO['licence']} (le modèle) ; sorties sans licence imposée",
+            ATTRIBUTION_KOKORO,
+            "https://www.apache.org/licenses/LICENSE-2.0",
+        ))
+    for k in voix_du_modele(m):
+        v = VOIX_CC.get(k)
+        if v:
+            out.append((
+                f"Voix de {v['auteur']} : {v['titre']}",
+                usage,
+                v["licence"],
+                texte_attribution(v),
+                ", ".join(URL_LICENCES_CC[p.strip()] for p in v["licence"].split(";")),
+            ))
+    return out
+
+
+def ligne_separation_mots() -> list[str]:
+    """La puce de `LICENCES.md` qui dit sous quel régime `tons-mots.json` est publié."""
+    if not MODELE_MOTS.exists():
+        return []
+    return [
+        f"- `{FICHIER_MOTS}` : les poids du modèle des mots de « Dis-le », propriétaires, appris sur des"
+        " mots dits par Kokoro (sorties produites par Wenlu) et sur une voix sous CC0 1.0 ; aucune source"
+        " sous CC BY-SA. Le fichier porte l'attribution de chaque source (`attributions`).",
+    ]
+
+
+def fautes_export_mots(sortie: object, index: dict[str, object], texte_licences: str, dossier: Path) -> list[str]:
+    """`tons-mots.json` porte les poids de la source, sa licence (jamais CC BY-SA) et l'attribution
+    de chaque source ; l'index le nomme ; `LICENCES.md` l'attribue ; il reste sous le plafond."""
+    fautes: list[str] = []
+    if not isinstance(sortie, dict):
+        return [f"{FICHIER_MOTS} hors format"]
+    source = charger_mots()
+    for cle, valeur in source.items():
+        if sortie.get(cle) != valeur:
+            fautes.append(f"{FICHIER_MOTS} : {cle} n'est pas celui de la source")
+    if not str(sortie.get("license", "")).startswith("propriétaire") or sortie.get("license_url") == URL_CC_BY_SA_4:
+        fautes.append(f"{FICHIER_MOTS} ne se dit pas propriétaire : une licence CC BY-SA y est refusée")
+    exportees = [str(a) for a in sortie.get("attributions") or ()]
+    for a in attributions_mots(source):
+        if a not in exportees:
+            fautes.append(f"{FICHIER_MOTS} n'attribue pas « {a[:40]}… »")
+    for k in voix_du_modele(source):
+        v = VOIX_CC.get(k)
+        if v and v["auteur"] not in texte_licences:
+            fautes.append(f"LICENCES.md n'attribue pas {v['auteur']} ({FICHIER_MOTS})")
+    if FICHIER_MOTS not in texte_licences or "Kokoro" not in texte_licences:
+        fautes.append(f"LICENCES.md ne dit pas la licence de {FICHIER_MOTS}")
+    if index.get(CLE_INDEX_MOTS) != FICHIER_MOTS:
+        fautes.append(f"index.json ne nomme pas {FICHIER_MOTS} ({CLE_INDEX_MOTS})")
+    taille = (dossier / FICHIER_MOTS).stat().st_size if (dossier / FICHIER_MOTS).exists() else 0
+    if taille >= TAILLE_MAX:
+        fautes.append(f"{FICHIER_MOTS} : {taille} octets, plafond {TAILLE_MAX}")
+    return fautes
+
+
+def controles_mots(destination: Path | None = None) -> list[Controle]:
+    """Contrôles du modèle des mots, pour `wenlu check`. Bloquants.
+
+    « source » : `modele-mots.json` a la forme que l'app lit, pèse moins de 1 Mo, est la variante
+    libre (aucune source sous CC BY-SA, chaque voix humaine attribuée, Kokoro déclaré), et
+    `PROVENANCE.md` porte son empreinte. « export » : `tons-mots.json` porte les mêmes poids, la
+    licence et l'attribution de chaque source, l'index le nomme, `LICENCES.md` l'attribue.
+    """
+    from .export import versions_exportees
+
+    if not MODELE_MOTS.exists():
+        return [Controle("tons : poids des mots", True, "aucun modèle des mots versionné", bloquant=True)]
+    f_src: list[str] = []
+    taille = MODELE_MOTS.stat().st_size
+    if taille >= TAILLE_MAX:
+        f_src.append(f"modele-mots.json : {taille} octets, plafond {TAILLE_MAX}")
+    m = charger_mots()
+    f_src += [f"modele-mots.json : {f}" for f in fautes_modele_mots(m)]
+    f_src += [f"modele-mots.json : {f}" for f in fautes_licence_mots(m)]
+    n = 0 if f_src else parametres(m)
+    dossiers = versions_exportees(destination or EXPORT)
+    f_exp: list[str] = []
+    for d in dossiers:
+        fichier = d / FICHIER_MOTS
+        if not fichier.exists():
+            f_exp.append(f"{d.name} : {FICHIER_MOTS} absent, lancer `wenlu export`")
+            continue
+        index = json.loads((d / "index.json").read_text(encoding="utf-8"))
+        licences = (d / "LICENCES.md").read_text(encoding="utf-8") if (d / "LICENCES.md").exists() else ""
+        sortie = json.loads(fichier.read_text(encoding="utf-8"))
+        f_exp += [f"{d.name} : {f}" for f in fautes_export_mots(sortie, index, licences, d)]
+
+    def detail(fautes: list[str], ok: str) -> str:
+        return ok if not fautes else f"{len(fautes)} écarts — " + " ; ".join(fautes[:5])
+
+    return [
+        Controle(
+            "tons : poids des mots",
+            not f_src,
+            detail(f_src, f"{taille / 1024:.0f} Ko, {n} paramètres, variante libre, aucune source CC BY-SA, empreinte"),
+            bloquant=True,
+        ),
+        Controle(
+            "tons : export des mots",
+            not f_exp,
+            detail(f_exp, f"{FICHIER_MOTS} porte les poids, la licence et l'attribution de Kokoro et de chaque voix")
+            if dossiers
+            else "aucun export écrit : lancer `wenlu export`",
+            bloquant=True,
+        ),
+    ]
 
 
 def controles(destination: Path | None = None) -> list[Controle]:
@@ -518,4 +810,4 @@ def controles(destination: Path | None = None) -> list[Controle]:
             else "aucun export écrit : lancer `wenlu export`",
             bloquant=True,
         ),
-    ]
+    ] + controles_mots(destination)

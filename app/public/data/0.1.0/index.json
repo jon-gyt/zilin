@@ -1,11 +1,11 @@
 {
  "version": "0.1.0",
- "date": "2026-10-04T01:38:36Z",
- "empreinte": "sha256:3613fadf36d8dda17a4fccb83e02b7889fc1749d75d84fec16f442248271b8da",
+ "date": "2026-10-07T07:30:34Z",
+ "empreinte": "sha256:af01eb1fe211d6fd2d996008efb1ca0d7e1773b58ed2d5b1c46b8e6af1ee47ba",
  "license": "propriétaire",
  "source": "décomposition GF 0014-2009 réconciliée par le pipeline wenlu ; pinyin d'Unihan (kMandarin) ; textes rédigés pour l'app",
  "source_url": "https://github.com/jon-gyt/zilin",
- "modified": "2026-10-04 : assemblé par `wenlu export`",
+ "modified": "2026-10-07 : assemblé par `wenlu export`",
  "norme": "GF 0014-2009",
  "perimetre": "les caractères que posent les deux chemins, du seuil 255 et du HSK 1 (le chemin gratuit) au HSK 7-9 (Wenlu complet), et leurs briques ; les caractères dessinés des fêtes, des termes solaires, des rangs du personnage et des mots expliqués des contes, et leurs briques. Les traits des familles ne portent que le chemin gratuit et ces caractères dessinés : le reste se dessine depuis les lots du dictionnaire (`traits/dico-*.json`), chargés à la demande",
  "licences": "LICENCES.md",
@@ -30215,5 +30215,6 @@
  "ouvertures": "ouvertures.json",
  "tons": "tons.json",
  "ecriture": "ecriture/gabarits.json",
+ "tonsMots": "tons-mots.json",
  "dictionnaire": "dico/index.json"
 }

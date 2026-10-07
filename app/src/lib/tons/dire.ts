@@ -14,11 +14,12 @@
  *   fois au plus, puis on passe sans rien noter. La carte reste due ;
  * - l'essai des Réglages ne note jamais rien ;
  * - un mot de deux caractères acquis (un mot de la fiche de la carte), seulement si la mesure
- *   le justifie (`MOTS_DIRE`, éteint aujourd'hui) : la voix est coupée en deux syllabes, le
- *   ton de chacune reconnu ; l'app attend les tons que la voix fait, sandhi appliqué (deux
- *   tons 3 de suite : le premier au ton 2 ; 不 devant un ton 4 : au ton 2), et le dit sans
- *   reproche ; la seconde syllabe peut être au ton neutre. Reconnu : la carte est notée
- *   « Bien », comme pour un caractère.
+ *   le justifie (`MOTS_DIRE`, allumé par la décision du propriétaire du 7 octobre 2026) et que
+ *   le modèle des mots est là (`motsPossibles`) : la voix est coupée en deux syllabes, et le
+ *   profil de tons du mot entier est reconnu d'un bloc (`profil.ts`) ; l'app attend les tons
+ *   que la voix fait, sandhi appliqué (deux tons 3 de suite : le premier au ton 2 ; 不 devant
+ *   un ton 4 : au ton 2), et le dit sans reproche ; la seconde syllabe peut être au ton
+ *   neutre. Reconnu : la carte est notée « Bien », comme pour un caractère.
  *
  * Les phrases viennent du pipeline (`ecrans.json`, écran `dire`) : rien n'est rédigé ici,
  * `messageDire` les assemble. La courbe du modèle est la forme canonique du ton attendu
@@ -32,26 +33,34 @@ import { syllabes as syllabesPinyin } from '../lecture';
 import { estAcquis, fiche, hachage, premierSens, syllabesDuTon, tonDe, type Corpus, type Question } from '../questions';
 import type { Revision } from '../session';
 import type { Contour, Etat, Probleme, Ton, Verdict } from './classifieur';
+import type { ModeleMots } from './profil';
 
 /** Trois essais au plus, puis on passe, sans rien noter. */
 export const ESSAIS_DIRE = 3;
 
 /**
- * Les mots de deux syllabes (30 septembre 2026). La question de mot ne se pose que si la
- * reconnaissance, mesurée sur des mots natifs d'une voix jamais vue à l'entraînement, passe
- * ces seuils : un mot dit juste est reconnu au moins 8 fois sur 10 (les caractères : 88,6 %),
- * l'app n'affirme un autre ton à tort qu'au plus 3 fois sur 100, et elle ne reconnaît un
- * mot que l'on n'a pas dit qu'au plus 3 fois sur 100 (`data/sources/tons/PROVENANCE.md`).
+ * Les mots de deux syllabes. La question de mot ne se pose que si la reconnaissance, mesurée
+ * sur des mots natifs d'une voix jamais vue à l'entraînement, passe ces seuils : un mot dit
+ * juste est reconnu au moins 77 fois sur 100 (les caractères : 88 %), l'app n'affirme un autre
+ * ton à tort qu'au plus 3 fois sur 100, et elle ne reconnaît un mot que l'on n'a pas dit qu'au
+ * plus 3 fois sur 100 (`data/sources/tons/PROVENANCE.md`).
+ *
+ * 77 % : décision du propriétaire du 7 octobre 2026 (« Brancher à 77,6 % »), qui abaisse le
+ * seuil des mots reconnus de 80 % (30 septembre) à 77 %, l'autre ton affirmé à tort restant à
+ * 3 % au plus, en connaissant le risque : sur les voix de Lingua Libre, un mot dit à un autre ton
+ * est reconnu à tort 5 à 8 fois sur 100.
  */
-export const SEUILS_MOTS_DIRE = { reconnu: 0.8, autreATort: 0.03, reconnuATort: 0.03 } as const;
+export const SEUILS_MOTS_DIRE = { reconnu: 0.77, autreATort: 0.03, reconnuATort: 0.03 } as const;
 
 /**
- * La mesure du 30 septembre 2026 : 3 061 mots de deux syllabes de Yue Tan (hugolpz/audio-cmn,
- * test, la moitié jamais vue pendant les réglages), voix calibrée sur ses caractères isolés,
- * code de l'app. 67,5 % reconnus, 2,1 % d'autres tons affirmés à tort, 1,7 % reconnus à tort
- * quand un autre ton est attendu ; le ton de chaque syllabe en tête : 85,4 %.
+ * La mesure du modèle final, 7 octobre 2026 : le profil de tons du mot entier (`profil.ts`),
+ * modèle des mots en variante libre (Kokoro et CanonNi, aucune source CC BY-SA, graine 0), sur
+ * les 3 061 mots de deux syllabes de la moitié test de Yue Tan (hugolpz/audio-cmn), voix tenue à
+ * part, calibrée sur ses caractères isolés, code de l'app : 77,6 % reconnus, 1,9 % d'autres tons
+ * affirmés à tort, 2,5 % reconnus à tort quand un autre ton est attendu. (Syllabe par syllabe,
+ * méthode du 30 septembre : 67,5 %, 2,1 %, 1,7 %.)
  */
-export const MESURE_MOTS_DIRE = { reconnu: 0.675, autreATort: 0.021, reconnuATort: 0.017 } as const;
+export const MESURE_MOTS_DIRE = { reconnu: 0.776, autreATort: 0.019, reconnuATort: 0.025 } as const;
 
 /** La mesure passe-t-elle les seuils ? */
 export function motsJustifies(
@@ -62,10 +71,20 @@ export function motsJustifies(
 }
 
 /**
- * La question de mot, allumée seulement si la mesure le justifie : éteinte aujourd'hui
- * (67,5 % reconnus, sous les 80 %). Le code est prêt ; une meilleure mesure l'allume.
+ * La question de mot, allumée seulement si la mesure le justifie : allumée depuis le
+ * 7 octobre 2026 (77,6 % reconnus, au-dessus des 77 %). La mesure est celle du modèle des
+ * mots : sans lui, la séance ne demande pas de mot (`motsPossibles`).
  */
 export const MOTS_DIRE: boolean = motsJustifies();
+
+/**
+ * La séance peut-elle demander un mot ? La mesure le justifie (`allume`, `MOTS_DIRE`), le
+ * modèle des mots que la mesure a jugé est là (un export plus ancien n'en porte pas : sans lui,
+ * les mots seraient jugés syllabe par syllabe, sous le seuil), et les textes des mots aussi.
+ */
+export function motsPossibles(modeleMots: ModeleMots | null | undefined, t: TextesDireMots, allume = MOTS_DIRE): boolean {
+  return allume && modeleMots !== null && modeleMots !== undefined && motsLisibles(t);
+}
 
 /** Ce qui change le ton d'une syllabe dans un mot : deux tons 3 de suite, 不 devant un ton 4. */
 export type Sandhi = 'trois-trois' | 'bu' | null;
