@@ -15,8 +15,22 @@ jobs:
         with: { node-version: 22, cache: npm, cache-dependency-path: app/package-lock.json }
       - run: npm ci
       - run: npm test
-      - run: BASE_PATH=/zilin/ npm run build
-      - run: BASE_PATH=/zilin/ SITE_ORIGIN=https://${{ github.repository_owner }}.github.io npm run site
+      # Avec la variable de dépôt SITE_ORIGIN (https://wenlu.app, posée une fois le domaine
+      # personnalisé réglé dans Settings, Pages), le site est servi à la racine du domaine ;
+      # sans elle, sous l'adresse GitHub Pages du dépôt, comme avant.
+      - name: Base et origine du site
+        env:
+          SITE_ORIGIN_VAR: ${{ vars.SITE_ORIGIN }}
+        run: |
+          if [ -n "$SITE_ORIGIN_VAR" ]; then
+            echo "BASE_PATH=/" >> "$GITHUB_ENV"
+            echo "SITE_ORIGIN=$SITE_ORIGIN_VAR" >> "$GITHUB_ENV"
+          else
+            echo "BASE_PATH=/${{ github.event.repository.name }}/" >> "$GITHUB_ENV"
+            echo "SITE_ORIGIN=https://${{ github.repository_owner }}.github.io" >> "$GITHUB_ENV"
+          fi
+      - run: npm run build
+      - run: npm run site
       - uses: actions/upload-pages-artifact@v3
         with: { path: app/dist }
   deploy:
