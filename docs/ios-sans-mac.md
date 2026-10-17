@@ -5,10 +5,11 @@ Le binaire iOS est compilé et signé sur un runner macOS de GitHub Actions, à 
 ## Une fois
 
 1. Inscription au Developer Program depuis l'app Apple Developer sur l'iPhone.
-2. App Store Connect : créer l'app (bundle id `com.zilin.app` : l'identifiant d'avant Wenlu, gardé parce qu'un bundle id ne se renomme pas ; le nom affiché vient d'`appName`), une clé API (rôle App Manager). Noter Issuer ID, Key ID, et télécharger le `.p8`.
-3. Certificat de distribution, sous Linux : `scripts/ios-cert.sh` génère la clé privée et la CSR. Déposer la CSR sur developer.apple.com (Certificates, Apple Distribution), télécharger le `.cer`, puis relancer le script pour produire le `.p12`. La clé privée reste chez toi : ne jamais la laisser générer par le runner, elle disparaîtrait avec lui.
-4. Profil de provisioning App Store pour le bundle id, nommé « Zilin AppStore » (le nom que `ios-testflight.yml` attend), téléchargé en `.mobileprovision`.
-5. Secrets GitHub : `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8` (base64), `IOS_CERT_P12` (base64), `IOS_CERT_PASSWORD`, `IOS_PROFILE` (base64).
+2. developer.apple.com, Identifiers : enregistrer l'App ID `com.zilin.app` (l'identifiant d'avant Wenlu, gardé parce qu'un bundle id ne se renomme pas ; le nom affiché vient d'`appName`), sans capacité. Noter le Team ID (Account, Membership details).
+3. App Store Connect : créer l'app sur ce bundle id, puis une clé API d'équipe de rôle **Admin** (Utilisateurs et accès, Intégrations). Admin est le seul rôle qui a accès aux certificats de distribution gérés par Apple, dont la signature automatique a besoin ; App Manager ne suffit pas. Noter Issuer ID, Key ID, et télécharger le `.p8` (une seule fois possible).
+4. Secrets GitHub (Settings, Secrets and variables, Actions) : `ASC_KEY_ID`, `ASC_ISSUER_ID`, `APPLE_TEAM_ID`, `ASC_KEY_P8` (le texte du `.p8` collé tel quel, lignes BEGIN et END comprises ; le base64 du fichier est aussi accepté). Tout se fait depuis l'iPhone.
+
+Aucun certificat ni profil à créer : le workflow archive sans signer, puis l'export signe avec le certificat de distribution géré par Apple et crée lui-même le profil App Store (`-allowProvisioningUpdates` et la clé API). Ils apparaissent ensuite sur developer.apple.com.
 
 ## À chaque livraison
 
@@ -16,7 +17,7 @@ Le binaire iOS est compilé et signé sur un runner macOS de GitHub Actions, à 
 git tag ios-0.1.0 && git push --tags
 ```
 
-Le workflow génère `app/ios/` (jamais commité), le retouche, ajoute le scheme partagé, archive, signe, envoie sur TestFlight. Le build apparaît dans TestFlight sur l'iPhone.
+Le workflow génère `app/ios/` (jamais commité), le retouche, ajoute le scheme partagé, archive sans signer, signe à l'export (signature automatique), envoie sur TestFlight. Le build apparaît dans TestFlight sur l'iPhone.
 
 Le tag donne la version affichée (`ios-0.1.0` → 0.1.0, un à trois entiers) ; le numéro du run donne le numéro de build. Relancer un run garde son numéro : si l'envoi a déjà réussi, TestFlight refusera le même build, pousser un nouveau tag.
 
@@ -59,4 +60,4 @@ Aucune de ces valeurs n'est un secret ; rien de tout cela n'est dans le dépôt.
 
 ## Repli
 
-Si le pipeline résiste plus de deux soirées : Capawesome Cloud ou Capgo Builder (service géré). Mac loué à l'heure (Scaleway) uniquement pour un bug natif non reproductible.
+Si le pipeline résiste plus de deux soirées : Capawesome Cloud ou Capgo Builder (service géré). Mac loué à l'heure (Scaleway) uniquement pour un bug natif non reproductible. Si la signature automatique échoue, l'ancienne voie manuelle reste possible avec un ordinateur : `scripts/ios-cert.sh` (clé privée et CSR sous Linux, puis `.p12`), un profil App Store téléchargé, et la signature manuelle dans `ios-testflight.yml` (historique Git, avant le 17 octobre 2026).

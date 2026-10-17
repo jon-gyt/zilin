@@ -11,7 +11,7 @@ Wenlu (wénlù : 文 l'écrit, 路 le chemin) s'appelait Zilin 字林. Gardent l
 - `app/` : PWA TypeScript, Vite, Svelte. Consomme le JSON exporté par `data/`.
 - `maquettes/` : maquettes HTML validées (`zilin-maquette.html` pour Wenlu, sous son ancien nom, et `cilin-maquette.html`). Référence visuelle et fonctionnelle, pas du code de production.
 - `.github/workflows/` : publication sur GitHub Pages, pipeline de données (`donnees.yml`), build iOS sur runner macOS et envoi TestFlight.
-- `scripts/` : outillage (certificat de signature sous Linux).
+- `scripts/` : outillage (certificat de signature sous Linux, repli de la signature automatique).
 
 ## Démarrer
 
