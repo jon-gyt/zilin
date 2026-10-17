@@ -38,8 +38,8 @@ describe('site public', () => {
     expect(dessinables.size).toBeGreaterThan(400);
     const caracteres = pages.filter((f) => /^(en\/)?c\//.test(f.chemin));
     expect(caracteres).toHaveLength(2 * dessinables.size);
-    // deux index des familles, deux pages de licences, deux de confidentialité
-    expect(pages).toHaveLength(2 * dessinables.size + 6);
+    // deux index des familles, deux pages de licences, deux de confidentialité, deux d'assistance
+    expect(pages).toHaveLength(2 * dessinables.size + 8);
     for (const c of dessinables) {
       expect(parChemin.has(`c/${c}/index.html`)).toBe(true);
       expect(parChemin.has(`en/c/${c}/index.html`)).toBe(true);
@@ -64,7 +64,7 @@ describe('site public', () => {
     let vus = 0;
     for (const f of fichiers.filter((x) => x.chemin.endsWith('.html'))) {
       for (const [, href] of f.contenu.matchAll(/(?:href|src)="([^"]+)"/g)) {
-        if (/^https?:/.test(href) || href.startsWith('#')) continue;
+        if (/^(?:https?|mailto):/.test(href) || href.startsWith('#')) continue;
         expect(href.startsWith(BASE), `${f.chemin} : ${href}`).toBe(true);
         const chemin = decodeURIComponent(href.slice(BASE.length).split(/[?#]/)[0]);
         vus++;
@@ -119,6 +119,23 @@ describe('site public', () => {
     expect(parChemin.get('sitemap.xml')).toContain(`<loc>${ORIGINE}${BASE}en/privacy/</loc>`);
     expect(motifPagesDuSite(BASE).test('/zilin/confidentialite/')).toBe(true);
     expect(motifPagesDuSite(BASE).test('/zilin/en/privacy/')).toBe(true);
+  });
+
+  it('publie la page d’assistance avec l’adresse de contact, liée depuis chaque page', () => {
+    // L'URL d'assistance que l'on déclare dans App Store Connect.
+    expect(cheminPage('fr', 'assistance')).toBe('assistance/');
+    expect(cheminPage('en', 'assistance')).toBe('en/support/');
+    const fr = page('assistance/');
+    const en = page('en/support/');
+    expect(fr).toContain('<h1>Assistance</h1>');
+    expect(en).toContain('<h1>Support</h1>');
+    for (const p of [fr, en]) expect(p).toContain('<a href="mailto:support@wenlu.app">support@wenlu.app</a>');
+    for (const f of pages) {
+      const cible = f.chemin.startsWith('en/') ? 'en/support/' : 'assistance/';
+      expect(f.contenu, f.chemin).toContain(`href="${BASE}${cible}"`);
+    }
+    expect(parChemin.get('sitemap.xml')).toContain(`<loc>${ORIGINE}${BASE}en/support/</loc>`);
+    expect(motifPagesDuSite(BASE).test(`${BASE}assistance/`)).toBe(true);
   });
 
   it('dit que la voix de « Dis-le » est analysée sur l’appareil et que rien n’est envoyé', () => {
@@ -206,7 +223,7 @@ describe('site public', () => {
     expect(ld['@type']).toBe('DefinedTerm');
     expect(ld.name).toBe('休');
     const plan = parChemin.get('sitemap.xml')!;
-    expect(plan.match(/<loc>/g)).toHaveLength(2 * dessinables.size + 6 + 1);
+    expect(plan.match(/<loc>/g)).toHaveLength(2 * dessinables.size + 8 + 1);
     expect(plan).toContain(`<loc>${abs('en')}</loc>`);
     expect(parChemin.get('robots.txt')).toContain(`Sitemap: ${ORIGINE}${BASE}sitemap.xml`);
     // aucune page ne demande de JavaScript

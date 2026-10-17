@@ -3,8 +3,8 @@
  * configuration du service worker de l'app (`vite.config.ts`).
  *
  * Le site vit dans le même artefact GitHub Pages que l'app, sous la même base
- * (`/zilin/`, liée au nom du dépôt, jamais écrite en dur ici : elle vient de
- * `BASE_PATH`). L'app garde la racine ; le site prend des sous-dossiers qu'elle
+ * (`/` sur le domaine wenlu.app, `/zilin/` sous l'adresse GitHub Pages du dépôt ;
+ * jamais écrite en dur ici : elle vient de `BASE_PATH`). L'app garde la racine ; le site prend des sous-dossiers qu'elle
  * n'utilise pas. Le service worker de l'app, dont la portée est la base entière, doit
  * les laisser au réseau : sans cela, sa route de navigation servirait `index.html`
  * de l'app à la place de la page d'un caractère.
@@ -15,8 +15,8 @@ export const LANGUES: readonly Langue[] = ['fr', 'en'];
 
 /** Les sections du site, par langue. L'anglais vit sous `en/`. */
 export const SECTIONS = {
-  fr: { caractere: 'c', familles: 'familles', licences: 'licences', confidentialite: 'confidentialite' },
-  en: { caractere: 'c', familles: 'families', licences: 'licenses', confidentialite: 'privacy' }
+  fr: { caractere: 'c', familles: 'familles', licences: 'licences', confidentialite: 'confidentialite', assistance: 'assistance' },
+  en: { caractere: 'c', familles: 'families', licences: 'licenses', confidentialite: 'privacy', assistance: 'support' }
 } as const satisfies Record<Langue, Record<string, string>>;
 
 /** Le dossier des fichiers communs du site (la feuille de styles). */
@@ -28,6 +28,7 @@ export const DOSSIERS_DU_SITE: readonly string[] = [
   SECTIONS.fr.familles,
   SECTIONS.fr.licences,
   SECTIONS.fr.confidentialite,
+  SECTIONS.fr.assistance,
   'en',
   DOSSIER_COMMUN
 ];

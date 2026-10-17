@@ -118,7 +118,17 @@ type Textes = {
     sections: { h2: string; p: string[] }[];
     maj: string;
   };
-  pied: { traces: string; separateur: string; derives: string; pinyin: string; licenceUnicode: string; decomposition: string; mots: string; licences: string; confidentialite: string; version: (v: string) => string };
+  assistance: {
+    titre: string;
+    h1: string;
+    intro: string;
+    description: string;
+    /** La phrase qui précède l'adresse de contact. */
+    contact: string;
+    /** Les questions fréquentes : un intertitre, des paragraphes. */
+    sections: { h2: string; p: string[] }[];
+  };
+  pied: { traces: string; separateur: string; derives: string; pinyin: string; licenceUnicode: string; decomposition: string; mots: string; licences: string; confidentialite: string; assistance: string; version: (v: string) => string };
   nav: string;
 };
 
@@ -225,6 +235,39 @@ const FR: Textes = {
     ],
     maj: 'Mise à jour le 29 septembre 2026.'
   },
+  assistance: {
+    titre: 'Assistance · Wenlu',
+    h1: 'Assistance',
+    intro: 'Une question, un bug, une idée ? On lit tout et on répond.',
+    description: "L'assistance de Wenlu : contact par e-mail et réponses aux questions fréquentes.",
+    contact: 'Écris-nous à',
+    sections: [
+      {
+        h2: 'Où est ma progression ?',
+        p: [
+          "Sur ton appareil, et nulle part ailleurs : Wenlu n'a ni compte ni serveur. Pour la garder en changeant de téléphone, exporte-la en fichier JSON depuis les Réglages, puis réimporte-la sur le nouvel appareil."
+        ]
+      },
+      {
+        h2: "J'ai supprimé l'app",
+        p: [
+          "Supprimer l'app efface ta progression. Si tu l'avais exportée, réinstalle Wenlu et réimporte le fichier depuis les Réglages. Sans export, nous ne pouvons rien récupérer : nous n'avons rien."
+        ]
+      },
+      {
+        h2: 'Le micro ne marche pas',
+        p: [
+          "La question « Dis-le » a besoin de l'accès au micro. Vérifie-le dans les réglages du téléphone, à la ligne Wenlu. Tu peux aussi couper la question dans les Réglages de l'app (« Dire les tons »)."
+        ]
+      },
+      {
+        h2: 'Signaler une erreur dans une fiche',
+        p: [
+          "Écris-nous en citant le caractère et ce qui te semble faux. Chaque correction est vérifiée contre ses sources avant d'entrer dans l'app."
+        ]
+      }
+    ]
+  },
   pied: {
     traces: "Tracés des caractères : Make Me a Hanzi (graphics.txt), d'après les polices d'Arphic Technology, © 1999 Arphic Technology Co., Ltd., sous",
     separateur: ' ; ',
@@ -236,6 +279,7 @@ const FR: Textes = {
     mots: 'Mots : CC-CEDICT, publié par MDBG, fichier modifié, sous',
     licences: 'Licences et sources',
     confidentialite: 'Confidentialité',
+    assistance: 'Assistance',
     version: (v) => `données version ${v}`
   },
   nav: 'Navigation'
@@ -342,6 +386,39 @@ const EN: Textes = {
     ],
     maj: 'Last updated 29 September 2026.'
   },
+  assistance: {
+    titre: 'Support · Wenlu',
+    h1: 'Support',
+    intro: 'A question, a bug, an idea? We read everything and we reply.',
+    description: 'Wenlu support: contact by email and answers to common questions.',
+    contact: 'Write to us at',
+    sections: [
+      {
+        h2: 'Where is my progress?',
+        p: [
+          'On your device, and nowhere else: Wenlu has no account and no server. To keep it when you change phones, export it as a JSON file from Settings, then import it on the new device.'
+        ]
+      },
+      {
+        h2: 'I deleted the app',
+        p: [
+          'Deleting the app erases your progress. If you had exported it, reinstall Wenlu and import the file from Settings. Without an export, we cannot recover anything: we hold nothing.'
+        ]
+      },
+      {
+        h2: 'The microphone does not work',
+        p: [
+          'The “Say it” question needs microphone access. Check it in your phone’s settings, on the Wenlu line. You can also turn the question off in the app’s Settings (“Dire les tons”).'
+        ]
+      },
+      {
+        h2: 'Reporting a mistake in a character',
+        p: [
+          'Write to us with the character and what looks wrong. Every correction is checked against its sources before it goes into the app.'
+        ]
+      }
+    ]
+  },
   pied: {
     traces: 'Character strokes: Make Me a Hanzi (graphics.txt), after the Arphic Technology fonts, © 1999 Arphic Technology Co., Ltd., under the',
     separateur: '; ',
@@ -353,6 +430,7 @@ const EN: Textes = {
     mots: 'Words: CC-CEDICT, published by MDBG, modified, under',
     licences: 'Licenses and sources',
     confidentialite: 'Privacy',
+    assistance: 'Support',
     version: (v) => `data version ${v}`
   },
   nav: 'Navigation'
@@ -527,7 +605,7 @@ ${options.mots ? `<p>${t.pied.mots} <a href="https://creativecommons.org/license
     cheminPage(langue, 'licences')
   )}">${t.pied.licences}</a> · <a href="${lien(ctx, cheminPage(langue, 'confidentialite'))}">${
     t.pied.confidentialite
-  }</a> · ${t.pied.version(ctx.m.version)}</p>
+  }</a> · <a href="${lien(ctx, cheminPage(langue, 'assistance'))}">${t.pied.assistance}</a> · ${t.pied.version(ctx.m.version)}</p>
 </footer>`;
   return `<!DOCTYPE html>
 <html lang="${langue}">
@@ -756,7 +834,7 @@ function pageLicences(ctx: Contexte, ex: Export, langue: Langue): string {
 }
 
 /**
- * La politique de confidentialité : l'adresse stable que demande App Store Connect
+ * La politique de confidentialité : l'adresse que demande App Store Connect
  * (`confidentialite/`, `en/privacy/`, docs/ios-sans-mac.md). Wenlu ne collecte rien.
  */
 function pageConfidentialite(ctx: Contexte, langue: Langue): string {
@@ -778,13 +856,40 @@ ${sections}
   }, corps);
 }
 
+/** L'adresse de contact de l'assistance, sur le domaine de Wenlu. */
+export const CONTACT = 'support@wenlu.app';
+
+/**
+ * L'assistance : l'URL d'assistance que demande App Store Connect (`assistance/`,
+ * `en/support/`, docs/ios-sans-mac.md), avec l'adresse de contact.
+ */
+function pageAssistance(ctx: Contexte, langue: Langue): string {
+  const t = TEXTES[langue].assistance;
+  const sections = t.sections
+    .map((s) => `<section class="carte"><h2>${echapper(s.h2)}</h2>${s.p.map((p) => `<p>${echapper(p)}</p>`).join('')}</section>`)
+    .join('\n');
+  const corps = `<div class="licences">
+<h1>${t.h1}</h1>
+<p class="intro">${echapper(t.intro)}</p>
+<section class="carte"><p>${echapper(t.contact)} <a href="mailto:${CONTACT}">${CONTACT}</a>.</p></section>
+${sections}
+</div>`;
+  return document(ctx, {
+    langue,
+    titre: t.titre,
+    description: t.description,
+    chemins: { fr: cheminPage('fr', 'assistance'), en: cheminPage('en', 'assistance') }
+  }, corps);
+}
+
 function planDuSite(ctx: Contexte): string {
   const lastmod = ctx.m.date.slice(0, 10);
   const groupes: Record<Langue, string>[] = [
     { fr: cheminPage('fr', 'familles'), en: cheminPage('en', 'familles') },
     ...[...ctx.m.pages].sort().map((c) => ({ fr: cheminPage('fr', 'caractere', c), en: cheminPage('en', 'caractere', c) })),
     { fr: cheminPage('fr', 'licences'), en: cheminPage('en', 'licences') },
-    { fr: cheminPage('fr', 'confidentialite'), en: cheminPage('en', 'confidentialite') }
+    { fr: cheminPage('fr', 'confidentialite'), en: cheminPage('en', 'confidentialite') },
+    { fr: cheminPage('fr', 'assistance'), en: cheminPage('en', 'assistance') }
   ];
   const urls = groupes.flatMap((g) =>
     LANGUES.map(
@@ -815,6 +920,7 @@ export function genererSite(ex: Export, o: Options): Fichier[] {
     fichiers.push({ chemin: fichierPage(cheminPage(langue, 'familles')), contenu: pageFamilles(ctx, langue) });
     fichiers.push({ chemin: fichierPage(cheminPage(langue, 'licences')), contenu: pageLicences(ctx, ex, langue) });
     fichiers.push({ chemin: fichierPage(cheminPage(langue, 'confidentialite')), contenu: pageConfidentialite(ctx, langue) });
+    fichiers.push({ chemin: fichierPage(cheminPage(langue, 'assistance')), contenu: pageAssistance(ctx, langue) });
   }
   fichiers.push({ chemin: `${DOSSIER_COMMUN}/site.css`, contenu: `${tokensDuSite(o.tokensCss, '../fonts/')}\n${MISE_EN_PAGE}` });
   fichiers.push({ chemin: 'sitemap.xml', contenu: planDuSite(ctx) });
