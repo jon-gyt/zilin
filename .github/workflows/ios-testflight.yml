@@ -66,40 +66,45 @@ jobs:
             <LaunchAction buildConfiguration="Debug"/><ProfileAction buildConfiguration="Release"/><AnalyzeAction buildConfiguration="Debug"/>
           </Scheme>
           XML
-      - name: Signature
+      # Signature automatique, sans certificat ni profil dans le dépôt ou les secrets :
+      # l'archive est faite sans signer, puis l'export signe avec le certificat de
+      # distribution géré par Apple (cloud-managed) et crée lui-même le profil App Store,
+      # par la clé API App Store Connect. Il faut une clé de rôle Admin (le seul rôle qui
+      # a accès aux certificats gérés par Apple) et le bundle id `com.zilin.app` déjà
+      # enregistré sur developer.apple.com. Le bundle id garde le nom d'avant Wenlu : un
+      # bundle id ne se renomme pas. Le nom affiché vient d'appName (capacitor.config.ts).
+      - name: Clé API App Store Connect
         env:
-          IOS_CERT_P12: ${{ secrets.IOS_CERT_P12 }}
-          IOS_CERT_PASSWORD: ${{ secrets.IOS_CERT_PASSWORD }}
-          IOS_PROFILE: ${{ secrets.IOS_PROFILE }}
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
         run: |
-          echo "$IOS_CERT_P12" | base64 -d > cert.p12
-          echo "$IOS_PROFILE" | base64 -d > profile.mobileprovision
-          security create-keychain -p ci build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p ci build.keychain
-          security import cert.p12 -k build.keychain -P "$IOS_CERT_PASSWORD" -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple: -s -k ci build.keychain
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-      # Le bundle id `com.zilin.app` et le profil « Zilin AppStore » gardent le nom d'avant
-      # Wenlu : ils sont enregistrés chez Apple (App Store Connect, developer.apple.com) et
-      # un bundle id ne se renomme pas. Le nom affiché vient d'appName (capacitor.config.ts).
+          mkdir -p ~/.appstoreconnect/private_keys
+          KEY=~/.appstoreconnect/private_keys/AuthKey_$ASC_KEY_ID.p8
+          # Le secret est le texte du .p8 collé tel quel, ou ce même fichier en base64.
+          if printf '%s' "$ASC_KEY_P8" | grep -q 'BEGIN PRIVATE KEY'; then
+            printf '%s\n' "$ASC_KEY_P8" > "$KEY"
+          else
+            printf '%s' "$ASC_KEY_P8" | base64 -d > "$KEY"
+          fi
+          grep -q 'BEGIN PRIVATE KEY' "$KEY" || { echo "ASC_KEY_P8 ne contient pas de clé .p8 lisible"; exit 1; }
+          echo "ASC_KEY_PATH=$KEY" >> "$GITHUB_ENV"
       - name: Archive et export
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           cd ios/App && pod install
-          xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -archivePath build/App.xcarchive archive CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}" PROVISIONING_PROFILE_SPECIFIER="Zilin AppStore" CODE_SIGN_IDENTITY="Apple Distribution"
-          cat > ExportOptions.plist <<'PL'
+          xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -archivePath build/App.xcarchive archive DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=""
+          cat > ExportOptions.plist <<PL
           <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0"><dict><key>method</key><string>app-store-connect</string><key>signingStyle</key><string>manual</string>
-          <key>provisioningProfiles</key><dict><key>com.zilin.app</key><string>Zilin AppStore</string></dict></dict></plist>
+          <plist version="1.0"><dict><key>method</key><string>app-store-connect</string><key>signingStyle</key><string>automatic</string>
+          <key>teamID</key><string>$APPLE_TEAM_ID</string></dict></plist>
           PL
-          xcodebuild -exportArchive -archivePath build/App.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build/out
+          xcodebuild -exportArchive -archivePath build/App.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build/out -allowProvisioningUpdates -authenticationKeyPath "$ASC_KEY_PATH" -authenticationKeyID "$ASC_KEY_ID" -authenticationKeyIssuerID "$ASC_ISSUER_ID"
       - name: TestFlight
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
-          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
         run: |
-          mkdir -p ~/.appstoreconnect/private_keys
-          echo "$ASC_KEY_P8" | base64 -d > ~/.appstoreconnect/private_keys/AuthKey_$ASC_KEY_ID.p8
           xcrun altool --upload-app -f ios/App/build/out/App.ipa -t ios --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
